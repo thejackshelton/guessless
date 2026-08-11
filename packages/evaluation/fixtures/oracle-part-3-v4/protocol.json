@@ -227,7 +227,7 @@
 	},
 	"canonicalSiteId": "<fixture-relative-posix-path>:<1-based-line>:<1-based-column> at the exact queried symbol occurrence start",
 	"responseSchemaSha256": "0f17b96d34ac989198ced68ef9ebe9ba6c70cafa5cf488e2755ccb4a5a3b66f3",
-	"groundTruthSha256": "dbf5a361045bb9707115898c7b5005b8067d533c79d7a1af17460b1e916d4655",
+	"groundTruthSha256": "a29b993ba82f72f658d6e37c981fbcc65e6da19b5260e085b1016bd160e8ce2d",
 	"taskAggregateSha256": {
 		"delete": "7f347f023d615d6398184b498d290c67d79e1686319584f6982f9a96c2e63f2d",
 		"reach": "42f829712441794707c97086cde20b64f1175f5ab2cb5aa981da15144ab20a6d",
