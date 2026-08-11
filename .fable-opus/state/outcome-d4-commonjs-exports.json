@@ -1,0 +1,11 @@
+{
+  "unitId": "d4-commonjs-exports",
+  "runId": "must-have-fixes-20260811",
+  "attempt": 1,
+  "outcome": "completed",
+  "reason": "Added fail-closed naming of export forms outside the ES module system. New packages/engine/src/export-forms.ts detects free module/exports references, module.exports, member chains, transitive aliases, and TS 'export =', anchoring each construct as an unresolved site under the new UNRESOLVED_REASONS member 'unrecognized-export-form' (computed keys on 'module' use existing 'dynamic-member-access'). exportedNames reports these over the seed plus its re-export closure, so ES answers are unchanged. No CommonJS analysis: no name is ever claimed. New export-forms.test.ts covers the q11 shape, mixed ES+CJS, aliased/computed adversarials, export =, barrel-over-CJS, a module.hot negative control, and pre-change integrity hashes for pure ES. Gate: 231 passed / 8 skipped / 0 failed; typecheck and lint clean.",
+  "agentId": "a62db542b56d19727",
+  "background": false,
+  "verdictDelivered": true,
+  "ts": "2026-08-11T23:21:16.440Z"
+}

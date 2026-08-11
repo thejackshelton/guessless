@@ -68,7 +68,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/guessless-must-have-fixes/"
     command: "node /Users/jacksm5pro/.claude/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/guessless-must-have-fixes"
 
-active_task: T004
+active_task: T005
 
 tasks:
   - id: T001
@@ -187,7 +187,7 @@ tasks:
   - id: T004
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     objective: "Fix D4 fail-closed: unrecognized export forms (module.exports assignment, exports.x, and any other unclassifiable export construct) must be named as unresolved sites in exportedNames receipts rather than silently absent; reproduce the versionless i18n.js CommonJS case as a regression test. Dispatch via a fable-opus cockpit packet."
     allowed_files:
@@ -203,11 +203,30 @@ tasks:
     stop_if:
       - "Need files outside allowed_files."
       - "Verification fails twice."
-    receipt: null
+    receipt:
+      result: done
+      harness: claude-code
+      changed_files:
+        - packages/engine/src/export-forms.ts
+        - packages/engine/src/contracts.ts
+        - packages/engine/src/queries.ts
+        - packages/engine/src/index.ts
+        - packages/engine/test/export-forms.test.ts
+        - packages/engine/test/contracts.test.ts
+      commands:
+        - cmd: "git merge --no-ff worktree-agent-a62db542b56d19727"
+          status: pass
+        - cmd: "pnpm build && pnpm test (231 passed, 8 skipped, 0 failed)"
+          status: pass
+        - cmd: "pnpm typecheck"
+          status: pass
+        - cmd: "pnpm lint"
+          status: pass
+      summary: "D4 closed fail-closed and merged after PM diff review. New export-forms.ts names free module/exports references, member chains, transitive aliases, and TS export= as unresolved sites under new closed reason 'unrecognized-export-form' (18th member); computed module keys use existing dynamic-member-access. exportedNames reports over seed + re-export closure so pure-ES receipts are byte-identical (integrity hashes pinned from pre-change HEAD reproduce exactly). No CommonJS name ever claimed. 7 new class-level tests incl. barrel-over-CJS and module.hot negative control."
   - id: T005
     type: worker
     assignee: Worker
-    status: queued
+    status: active
     reasoning_hint: medium
     objective: "Re-validation: re-run the adoption-eval-fable-v1 honesty trials against the fixed engine over the same ground-truth corpora (markless serializer set, versionless react-boilerplate fixture, same symbols and query set), writing a fresh docs/evidence/adoption-eval-fable-v2/ bundle. Score: every v1 ground-truth site must now be either returned or named in unresolved; any remaining missed-and-unnamed site leads the report and blocks the oracle. Sealed v1 evidence stays byte-identical. Dispatch via a fable-opus cockpit packet."
     allowed_files:

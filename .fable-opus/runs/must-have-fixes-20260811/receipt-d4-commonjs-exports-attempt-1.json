@@ -1,0 +1,13 @@
+{
+  "status": "completed",
+  "summary": "Added fail-closed naming of export forms outside the ES module system. New packages/engine/src/export-forms.ts detects free module/exports references, module.exports, member chains, transitive aliases, and TS 'export =', anchoring each construct as an unresolved site under the new UNRESOLVED_REASONS member 'unrecognized-export-form' (computed keys on 'module' use existing 'dynamic-member-access'). exportedNames reports these over the seed plus its re-export closure, so ES answers are unchanged. No CommonJS analysis: no name is ever claimed. New export-forms.test.ts covers the q11 shape, mixed ES+CJS, aliased/computed adversarials, export =, barrel-over-CJS, a module.hot negative control, and pre-change integrity hashes for pure ES. Gate: 231 passed / 8 skipped / 0 failed; typecheck and lint clean.",
+  "files_changed": [
+    "packages/engine/src/export-forms.ts",
+    "packages/engine/src/contracts.ts",
+    "packages/engine/src/queries.ts",
+    "packages/engine/src/index.ts",
+    "packages/engine/test/export-forms.test.ts",
+    "packages/engine/test/contracts.test.ts"
+  ],
+  "open_questions": []
+}
