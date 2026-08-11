@@ -27,6 +27,12 @@ export const UNRESOLVED_REASONS = [
 	// Distinct from 'property-alias-write-uncertain', which names an *observed*
 	// mutation that cannot be attributed to the queried symbol through an alias.
 	'method-call-mutation-uncertain',
+	// An export-like construct outside the ES module system: a CommonJS
+	// 'module.exports' / 'exports' assignment, an alias of either object, or a
+	// TS 'export ='. The ES export analysis cannot classify it, so the names it
+	// exports are unknown; the construct is named instead of being omitted, so
+	// "exports nothing" is never confused with "exports invisibly".
+	'unrecognized-export-form',
 ] as const;
 
 export type UnresolvedReason = (typeof UNRESOLVED_REASONS)[number];
