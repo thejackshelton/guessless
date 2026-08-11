@@ -68,7 +68,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/guessless-must-have-fixes/"
     command: "node /Users/jacksm5pro/.claude/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/guessless-must-have-fixes"
 
-active_task: T011
+active_task: T004
 
 tasks:
   - id: T001
@@ -187,7 +187,7 @@ tasks:
   - id: T004
     type: worker
     assignee: Worker
-    status: queued
+    status: active
     reasoning_hint: medium
     objective: "Fix D4 fail-closed: unrecognized export forms (module.exports assignment, exports.x, and any other unclassifiable export construct) must be named as unresolved sites in exportedNames receipts rather than silently absent; reproduce the versionless i18n.js CommonJS case as a regression test. Dispatch via a fable-opus cockpit packet."
     allowed_files:
@@ -359,7 +359,7 @@ tasks:
   - id: T011
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: high
     objective: "PM ruling on T003 open question: option (a). The evaluation package's rename ground-truth derivation is harness code with the D2 blind spot baked in — packages/evaluation/src/fixtures.ts:373 asserts every referencesOf result is a call site and line 572 requires equality with the packaged ground-truth.json, both now factually wrong because a rename must also touch import/re-export specifier sites. Update the derivation to accept role-labelled specifier sites as legitimate rename-affected sites, regenerate the packaged v1-v5 fixture ground-truth.json files through the corrected derivation, and make the 6 failing evaluation tests green again without weakening what they assert. docs/evidence/** stays byte-identical: the sealed bundles carry their own copies and remain the record of what the old era measured. Dispatch via a fable-opus cockpit packet."
     allowed_files:
@@ -380,7 +380,32 @@ tasks:
       - "Green requires weakening an assertion rather than correcting the stale ground truth."
       - "Verification fails twice."
       - "PM rulings after first blocked attempt: v1-v4 protocol.json groundTruthSha256 re-pins are in scope; v5 fixture stays byte-identical (independent hand-locked authority, engine may never grade itself); evaluation.test.ts sitesMissed count 3->7 is a factual update; docs/evidence desync is accepted era semantics and must be restated in the T005 v2 report."
-    receipt: null
+    receipt:
+      result: done
+      harness: claude-code
+      changed_files:
+        - packages/evaluation/src/fixtures.ts
+        - packages/evaluation/test/evaluation.test.ts
+        - packages/evaluation/fixtures/oracle-part-3-v1/ground-truth.json
+        - packages/evaluation/fixtures/oracle-part-3-v1/protocol.json
+        - packages/evaluation/fixtures/oracle-part-3-v2/ground-truth.json
+        - packages/evaluation/fixtures/oracle-part-3-v2/protocol.json
+        - packages/evaluation/fixtures/oracle-part-3-v3/ground-truth.json
+        - packages/evaluation/fixtures/oracle-part-3-v3/protocol.json
+        - packages/evaluation/fixtures/oracle-part-3-v4/ground-truth.json
+        - packages/evaluation/fixtures/oracle-part-3-v4/protocol.json
+      commands:
+        - cmd: "git merge --no-ff worktree-agent-a4451d0a32f708ad9"
+          status: pass
+        - cmd: "pnpm build"
+          status: pass
+        - cmd: "pnpm test (224 passed, 8 skipped, 0 failed)"
+          status: pass
+        - cmd: "pnpm typecheck"
+          status: pass
+        - cmd: "pnpm lint (after removing merged worktrees)"
+          status: pass
+      summary: "Evaluation harness ground truth corrected per PM rulings, two attempts: attempt 1 fixed the derivation (renameRole classifier replacing the 'reference is not a call' assumption) and blocked on protocol-pin scope; attempt 2 regenerated v1-v4 ground-truth.json through the derivation (all four independently converging on a29b993b...ce2d), re-pinned protocol.json and the load-bearing validateProtocol literal, updated sitesMissed 3->7 with derivation comment. v5 byte-identical (hand-locked independent authority - engine never grades itself), v6+ and docs/evidence untouched (verified). Corrected truth: rename planted 4->8 sites, delete 4->6. Full default gate green on merged main. T003's D2+D3 oracle is hereby verified on the integrated tree. Era note for T005: sealed docs/evidence bundles remain records of the pre-D2 4-site rename truth by explicit ruling."
   - id: T999
     type: judge
     assignee: Judge
