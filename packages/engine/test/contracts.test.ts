@@ -11,9 +11,13 @@ const snapshot = '0'.repeat(64);
 
 describe('receipt contract', () => {
 	test('has exactly the ruled closed reason set', () => {
-		expect(UNRESOLVED_REASONS).toHaveLength(15);
+		// 15 original reasons plus 'unlinked-input', ruled in for D1: a supplied
+		// input whose own specifier failed to link to another supplied input.
+		// No existing member was removed, renamed, or widened.
+		expect(UNRESOLVED_REASONS).toHaveLength(16);
 		expect(UNRESOLVED_REASONS).toContain('higher-order-call-boundary');
 		expect(UNRESOLVED_REASONS).toContain('stale-snapshot');
+		expect(UNRESOLVED_REASONS).toContain('unlinked-input');
 		expect(UNRESOLVED_REASONS).not.toContain('other');
 	});
 

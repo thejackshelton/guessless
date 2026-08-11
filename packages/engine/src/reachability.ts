@@ -1,4 +1,3 @@
-import { builtinModules } from 'node:module';
 import type { Analyzer, Module, Symbol } from 'yuku-analyzer';
 import { anchorSite, anchorSymbol, resolveSymbolAnchor } from './anchors.ts';
 import {
@@ -9,6 +8,12 @@ import {
 	type UnresolvedReason,
 	type UnresolvedSite,
 } from './contracts.ts';
+import {
+	boundaryDetail,
+	boundaryReason,
+	suppliedInputIndex,
+	unlinkedInputSites,
+} from './linking.ts';
 import { analyzerSnapshot } from './snapshot.ts';
 
 export interface ReachabilityResult {
@@ -104,7 +109,6 @@ type PropertyAccess = {
 
 type StaticPropertyKey = { kind: 'public' | 'private'; name: string };
 
-const nodeBuiltins = new Set([...builtinModules, ...builtinModules.map((name) => `node:${name}`)]);
 const functionTypes = new Set([
 	'FunctionDeclaration',
 	'FunctionExpression',
@@ -520,16 +524,9 @@ function uniqueGaps(gaps: UnresolvedSite[]): UnresolvedSite[] {
 		.sort((a, b) => JSON.stringify(a).localeCompare(JSON.stringify(b)));
 }
 
-function boundaryReason(specifier: string): UnresolvedReason {
-	return nodeBuiltins.has(specifier)
-		? 'builtin-module-boundary'
-		: specifier.startsWith('.')
-			? 'unresolved-specifier'
-			: 'external-module-boundary';
-}
-
 function moduleGaps(analyzer: Analyzer, modules: ReadonlySet<Module>): UnresolvedSite[] {
 	const gaps: UnresolvedSite[] = [];
+	const keys = suppliedInputIndex(analyzer);
 	for (const module of modules) {
 		for (const [index, diagnostic] of module.diagnostics.entries())
 			gaps.push({
@@ -538,19 +535,23 @@ function moduleGaps(analyzer: Analyzer, modules: ReadonlySet<Module>): Unresolve
 				detail: diagnostic.message,
 			});
 		for (const record of module.imports)
-			if (record.resolvedModule === null)
+			if (record.resolvedModule === null) {
+				const reason = boundaryReason(record.specifier, keys);
 				gaps.push({
 					site: anchorSite(module, record.node, 'reachability-import-boundary'),
-					reason: boundaryReason(record.specifier),
-					detail: `Import '${record.specifier}' leaves the linked file set.`,
+					reason,
+					detail: boundaryDetail('import', record.specifier, reason),
 				});
+			}
 		for (const record of module.exports)
-			if (record.specifier !== null && record.resolvedModule === null)
+			if (record.specifier !== null && record.resolvedModule === null) {
+				const reason = boundaryReason(record.specifier, keys);
 				gaps.push({
 					site: anchorSite(module, record.node, 'reachability-export-boundary'),
-					reason: boundaryReason(record.specifier),
-					detail: `Export from '${record.specifier}' leaves the linked file set.`,
+					reason,
+					detail: boundaryDetail('export', record.specifier, reason),
 				});
+			}
 	}
 	for (const [index, diagnostic] of analyzer.diagnostics.entries()) {
 		const module = analyzer.module(diagnostic.module);
@@ -707,6 +708,9 @@ export function reachableFrom(
 			queue.push({ symbol: edge.symbol, witness: [...current.witness, edge.site] });
 	}
 	gaps.push(...moduleGaps(analyzer, modules));
+	// Supplied inputs whose own specifiers failed to link never enter the walk
+	// above; name them so an unwalked file is never silently missing.
+	gaps.push(...unlinkedInputSites(analyzer, modules, 'reachability-'));
 	return finish(analyzer, request, [...results.values()], gaps);
 }
 
@@ -1765,7 +1769,7 @@ function invocationBoundary(module: Module, invocation: Invocation): UnresolvedS
 		if (imported !== undefined && imported.resolvedModule === null)
 			return {
 				site: anchorSite(module, target, 'external-call-boundary'),
-				reason: boundaryReason(imported.specifier),
+				reason: boundaryReason(imported.specifier, suppliedInputIndex(module.analyzer)),
 				detail: `Invocation implementation from '${imported.specifier}' is outside the linked set.`,
 			};
 	}
@@ -2416,5 +2420,8 @@ export function reaches(analyzer: Analyzer, anchor: SymbolAnchor): Receipt<Reach
 				});
 	}
 	gaps.push(...moduleGaps(analyzer, modules));
+	// Supplied inputs whose own specifiers failed to link never enter the walk
+	// above; name them so an unwalked file is never silently missing.
+	gaps.push(...unlinkedInputSites(analyzer, modules, 'reachability-'));
 	return finish(analyzer, request, [...results.values()], gaps);
 }

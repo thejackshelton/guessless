@@ -16,6 +16,10 @@ export const UNRESOLVED_REASONS = [
 	'property-alias-write-uncertain',
 	'higher-order-call-boundary',
 	'stale-snapshot',
+	// A supplied input whose own import/re-export specifier failed to link to
+	// another supplied input: the file could not be established as part of the
+	// traversed graph, so no traversal answer may claim to have covered it.
+	'unlinked-input',
 ] as const;
 
 export type UnresolvedReason = (typeof UNRESOLVED_REASONS)[number];
