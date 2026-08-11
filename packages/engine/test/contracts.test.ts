@@ -12,12 +12,18 @@ const snapshot = '0'.repeat(64);
 describe('receipt contract', () => {
 	test('has exactly the ruled closed reason set', () => {
 		// 15 original reasons plus 'unlinked-input', ruled in for D1: a supplied
-		// input whose own specifier failed to link to another supplied input.
+		// input whose own specifier failed to link to another supplied input;
+		// plus 'method-call-mutation-uncertain', ruled in for D3: a call on a
+		// member of the queried binding, which may or may not mutate it.
 		// No existing member was removed, renamed, or widened.
-		expect(UNRESOLVED_REASONS).toHaveLength(16);
+		expect(UNRESOLVED_REASONS).toHaveLength(17);
 		expect(UNRESOLVED_REASONS).toContain('higher-order-call-boundary');
 		expect(UNRESOLVED_REASONS).toContain('stale-snapshot');
 		expect(UNRESOLVED_REASONS).toContain('unlinked-input');
+		expect(UNRESOLVED_REASONS).toContain('method-call-mutation-uncertain');
+		// The uncertainty reason is additional to, not a replacement for, the
+		// reason that names an observed mutation behind an alias.
+		expect(UNRESOLVED_REASONS).toContain('property-alias-write-uncertain');
 		expect(UNRESOLVED_REASONS).not.toContain('other');
 	});
 

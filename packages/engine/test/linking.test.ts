@@ -176,7 +176,9 @@ describe('negative control: linked inputs gain no noise', () => {
 		const engine = engineWith(files);
 		const receipt = engine.referencesOf(engine.anchor('app/core.js', 'core')!);
 		expect(receipt.state).toBe('complete');
-		expect(siteFiles(receipt)).toEqual(['app/mid.js']);
+		// Both sites live in the one importing file: its import specifier (D2)
+		// and the use of the imported binding. No other file gains noise.
+		expect(siteFiles(receipt)).toEqual(['app/mid.js', 'app/mid.js']);
 		expect(engine.reachableFrom(engine.anchor('app/leaf.js', 'leaf')!).state).toBe('complete');
 	});
 

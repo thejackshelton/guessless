@@ -27,13 +27,16 @@ test('all assigned queries return current, query-valid receipts', () => {
 		expect(receipt.state).toBe('complete');
 		expect(engine.verify(receipt)).toBe(true);
 	}
+	// Four uses as before, plus the `import { value as alias }` specifier that
+	// binds the symbol into consumer.ts (D2): a rename must touch it, so it is
+	// a normal read result rather than a silent omission.
 	expect(
 		engine
 			.referencesOf(value)
 			.results.map((result) => result.access)
 			.sort(),
-	).toEqual(['read', 'read', 'read-write', 'read-write']);
-	expect(engine.readsOf(value).results).toHaveLength(4);
+	).toEqual(['read', 'read', 'read', 'read-write', 'read-write']);
+	expect(engine.readsOf(value).results).toHaveLength(5);
 	expect(engine.writesOf(value).results).toHaveLength(2);
 	expect(engine.capturesOf(fn).results[0].symbol).toEqual(value);
 	expect(engine.resolveBinding('source.ts', 'value').results).toEqual([value]);
@@ -67,7 +70,10 @@ test('destructuring and for-in/of targets are writes for direct and namespace fo
 	);
 	engine.link();
 	const receipt = engine.referencesOf(engine.anchor('source.ts', 'value')!);
+	// One extra read over the pre-D2 answer: the `import { value }` specifier.
+	// The namespace import binds a module, not this symbol, so it adds nothing.
 	expect(receipt.results.map((result) => result.access).sort()).toEqual([
+		'read',
 		'read',
 		'read',
 		'read',
