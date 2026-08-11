@@ -256,7 +256,7 @@ export function validateProtocol(
 		value.groundTruthSha256 !==
 			(v5
 				? '137d8170a850410fee154b1be17b05d6761bcb282d0a279c4f58689111478f22'
-				: 'dbf5a361045bb9707115898c7b5005b8067d533c79d7a1af17460b1e916d4655') ||
+				: 'a29b993ba82f72f658d6e37c981fbcc65e6da19b5260e085b1016bd160e8ce2d') ||
 		value.groundTruthSha256 !== sha256File(join(fixtureRoot, 'ground-truth.json')) ||
 		stableJson(value.inputFiles) !== stableJson(fileLedger(inputRoot)) ||
 		stableJson(value.taskAggregateSha256) !==

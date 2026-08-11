@@ -370,7 +370,8 @@ describe('sealed evaluation protocol', () => {
 			reasoning: 'fixture',
 		});
 		const score = scoreCell('rename', 'control', response, loadGroundTruth());
-		expect(score.sitesMissed.length).toBe(3);
+		// 8 planted rename sites in the corrected truth minus the 1 reported above.
+		expect(score.sitesMissed.length).toBe(7);
 		expect(score.falseCompleteness).toBe(1);
 		expect(aggregate([score])).toHaveProperty('control');
 		expect(() => validateResponse({ status: 'complete' })).toThrow(/schema/);
