@@ -34,6 +34,20 @@ function assertResolvable(
 		).not.toBeNull();
 }
 
+/**
+ * Ground-truth pin update for D2 (specifier sites).
+ *
+ * `referencesOf` and `readsOf` over `definitions.ts#target` gained exactly ten
+ * result identities and lost none: the eight `import { target }` specifiers in
+ * alias-consumer, cross-module-alias-export, duplicate-sites, higher-order,
+ * parse-failure, property-alias-write, shadowing and write-forms, plus the two
+ * `export { target } from './definitions.ts'` specifiers in barrel and reexport.
+ * Every one is an occurrence of the name in the fixture sources that a rename
+ * must rewrite, and each new anchor resolves (asserted below, as for every other
+ * citation). No request hash, state, unresolved citation, or `writesOf` result
+ * changed, so the suite still pins the same claim: every citation names a
+ * unique, resolvable, planted site and nothing else.
+ */
 test('every query request, result citation, and unresolved citation matches exact planted identity', () => {
 	const engine = new GuesslessEngine();
 	for (const name of readdirSync(fixtureDir).filter((file) => /\.(?:js|jsx|ts|tsx)$/.test(file)))

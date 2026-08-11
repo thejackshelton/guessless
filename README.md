@@ -16,17 +16,37 @@ Receipts bind the request, analyzer snapshot, results, semantic symbol anchors, 
 
 Guessless exposes nine structural queries:
 
-| Query            | Answer                                                           |
-| ---------------- | ---------------------------------------------------------------- |
-| `definitionOf`   | The definition of a symbol anchor.                               |
-| `referencesOf`   | All known references to a symbol.                                |
-| `readsOf`        | References that read a symbol.                                   |
-| `writesOf`       | References that write or may mutate a symbol.                    |
-| `exportedNames`  | The exported names of a module.                                  |
-| `capturesOf`     | Values captured by a function or executable scope.               |
-| `resolveBinding` | A binding resolved by file, name, namespace, and optional scope. |
-| `reachableFrom`  | Named functions and values transitively reachable from a target. |
-| `reaches`        | Callers and values that can transitively reach a target.         |
+| Query            | Answer                                                                                                 |
+| ---------------- | ------------------------------------------------------------------------------------------------------ |
+| `definitionOf`   | The definition of a symbol anchor.                                                                     |
+| `referencesOf`   | All known references to a symbol, import and re-export specifiers included.                            |
+| `readsOf`        | References that read a symbol.                                                                         |
+| `writesOf`       | References that write the symbol itself; a call that may mutate it is named, never claimed as a write. |
+| `exportedNames`  | The exported names of a module.                                                                        |
+| `capturesOf`     | Values captured by a function or executable scope.                                                     |
+| `resolveBinding` | A binding resolved by file, name, namespace, and optional scope.                                       |
+| `reachableFrom`  | Named functions and values transitively reachable from a target.                                       |
+| `reaches`        | Callers and values that can transitively reach a target.                                               |
+
+**What a reference is.** Every site that names the symbol structurally: uses,
+and the specifiers that carry it across a module boundary — `import { x }`,
+`import { x as y }`, `export { x } from '...'`, and the local `export { x }`.
+A name inside a string or a comment is not structural evidence and is never
+reported. `export * from '...'` names no symbol, so it carries no specifier
+site of its own; the specifiers that import a name through it are reported as
+usual, so nothing hides behind the star.
+
+**What `writesOf` claims.** A result means the symbol itself is assigned,
+updated, or destructured into. It never means a call mutated the value: the
+engine can prove the receiver of `records.push(...)` is the queried binding but
+cannot see the callee's body, so such a call is reported as an unresolved
+`method-call-mutation-uncertain` site rather than a write — `.map()` must never
+appear as a mutation. A mutation reached through an alias is named
+`property-alias-write-uncertain` on the same principle. So `complete` means no
+assignment and no possible-mutation call site went unnamed; it never means the
+value was proven unmutated. One limit is deliberately not claimed either way:
+passing the binding to another function (`mutate(records)`) is not reported as
+a possible mutation, because every argument of every call would qualify.
 
 ## Architecture
 

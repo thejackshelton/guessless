@@ -52,6 +52,7 @@ type RichNode = YukuNode & {
 	properties?: YukuNode[];
 	elements?: Array<YukuNode | null>;
 	quasi?: YukuNode;
+	callee?: YukuNode;
 };
 
 const transparentExpressions = new Set([
@@ -371,6 +372,68 @@ function transportedImportEvidence(analyzer: Analyzer, origin: Symbol): Referenc
 	return results;
 }
 
+/**
+ * Specifier sites: the import and re-export specifiers that carry a symbol
+ * across a module boundary.
+ *
+ * Yuku records a *local* export specifier ('export { x }') as an ordinary
+ * reference to the local binding, so those sites already reach the results. It
+ * records no reference for the import specifier that binds a symbol into
+ * another module ('import { x } from ...'), nor for the cross-module re-export
+ * specifier that forwards it ('export { x } from ...'): both are link records,
+ * not references. Returning the local form while omitting the other two made
+ * the answer an undocumented asymmetry — a rename driven by 'referencesOf'
+ * silently missed every import site.
+ *
+ * Each specifier is one normal read result, anchored at the specifier node
+ * (`import { x as y }`, `export { x as y } from '...'`), because that node is
+ * the whole of what binds the symbol here and the part of it a rename must
+ * rewrite depends on the specifier's shape.
+ *
+ * Two boundaries carry no specifier site and are deliberately not invented:
+ * `export * from '...'` names no symbol at all (the sites *through* it — the
+ * importing specifiers downstream — are found by the import rule above), and a
+ * namespace import binds a module, not this symbol; its member uses are
+ * reported by `namespaceEvidence`.
+ */
+function specifierEvidence(analyzer: Analyzer, origin: Symbol): ReferenceResult[] {
+	const results: ReferenceResult[] = [];
+	for (const module of analyzer.modules.values()) {
+		for (const record of module.imports) {
+			if (record.local === null) continue;
+			if ((analyzer.definitionOf(record.local)?.symbol ?? record.local) !== origin) continue;
+			results.push({
+				site: anchorSite(module, record.node, 'import-specifier'),
+				access: 'read',
+			});
+		}
+		for (const record of module.exports) {
+			if (
+				record.local !== null ||
+				record.specifier === null ||
+				record.fromName === null ||
+				record.resolvedModule === null
+			)
+				continue;
+			// A route of length zero is the symbol itself; a longer route means the
+			// re-export forwards an aggregate that merely contains it, and the
+			// specifier then names the aggregate rather than this symbol.
+			const direct = resolvedSymbolPaths(
+				analyzer,
+				record.resolvedModule,
+				record.fromName,
+				origin,
+			).some((path) => path.length === 0);
+			if (!direct) continue;
+			results.push({
+				site: anchorSite(module, record.node, 'reexport-specifier'),
+				access: 'read',
+			});
+		}
+	}
+	return results;
+}
+
 function resolvedAnonymousPaths(
 	module: Module,
 	name: string,
@@ -550,6 +613,8 @@ function propertyAliasGaps(analyzer: Analyzer, origin: Symbol): UnresolvedSite[]
 					if (direct) {
 						if (memberIsMutated(module, parent))
 							unresolved.push(aliasMutationGap(module, parent, item.symbol, origin));
+						else if (memberIsCalled(module, parent))
+							unresolved.push(methodCallGap(module, parent, origin));
 						break;
 					}
 					const memberKey = staticMemberKey(parent);
@@ -696,6 +761,40 @@ function aliasMutationGap(module: Module, node: YukuNode, alias: Symbol, origin:
 		reason: 'property-alias-write-uncertain' as const,
 		detail: `Mutation through alias '${alias.name}' cannot be attributed soundly to '${origin.name}'.`,
 	};
+}
+
+/**
+ * A call on a member of the queried binding ('records.push(item)').
+ *
+ * Write classification is evidence about the binding itself — assignments,
+ * updates, destructuring targets — and a method call rebinds nothing, so such a
+ * call can never be *claimed* as a write: '.map()' is not a mutation and naming
+ * it one would trade a missed site for a false one. But the callee's body is
+ * outside structural evidence, so the call cannot be shown to leave the value
+ * alone either. The honest report is neither result nor silence: the site is
+ * named as an unresolved possible mutation, which is what stops 'writesOf' from
+ * answering 'complete' with the mutation invisible.
+ */
+function methodCallGap(module: Module, member: YukuNode, origin: Symbol) {
+	return {
+		site: anchorSite(module, member, 'method-call-receiver'),
+		reason: 'method-call-mutation-uncertain' as const,
+		detail: `Call on a member of '${origin.name}' may mutate it; structural evidence cannot prove whether it does.`,
+	};
+}
+
+/** True when `member` is the callee of a call: 'x.push(1)', 'x?.sort()'. */
+function memberIsCalled(module: Module, member: YukuNode): boolean {
+	let current = member;
+	let parent = module.parentOf(current) as RichNode | null;
+	while (parent?.type === 'ChainExpression' && parent.expression === current) {
+		current = parent;
+		parent = module.parentOf(current) as RichNode | null;
+	}
+	return (
+		(parent?.type === 'CallExpression' || parent?.type === 'NewExpression') &&
+		parent.callee === current
+	);
 }
 
 function memberIsMutated(module: Module, member: YukuNode): boolean {
@@ -968,6 +1067,7 @@ export function referencesOf(
 	const namespace = namespaceEvidence(analyzer, origin);
 	results.push(...namespace.results);
 	results.push(...transportedImportEvidence(analyzer, origin));
+	results.push(...specifierEvidence(analyzer, origin));
 	const filtered = results.filter(
 		(result) =>
 			mode === 'all' ||

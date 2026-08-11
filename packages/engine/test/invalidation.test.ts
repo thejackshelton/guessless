@@ -14,7 +14,9 @@ test('addFile and removeFile invalidate previously current receipts', () => {
 	engine.link();
 	expect(engine.verify(beforeAdd)).toBe(false);
 	const afterAdd = engine.referencesOf(anchor);
-	expect(afterAdd.results).toHaveLength(2);
+	// Two use sites plus the two import specifiers that bind them (D2): each
+	// consumer contributes `import { value } from './source.ts'` and `value;`.
+	expect(afterAdd.results).toHaveLength(4);
 	expect(engine.verify(afterAdd)).toBe(true);
 	engine.removeFile('second.ts');
 	engine.link();

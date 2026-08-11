@@ -20,6 +20,13 @@ export const UNRESOLVED_REASONS = [
 	// another supplied input: the file could not be established as part of the
 	// traversed graph, so no traversal answer may claim to have covered it.
 	'unlinked-input',
+	// A call whose callee is a member of the queried binding ('x.push(...)').
+	// Structural analysis proves the receiver is the binding and proves nothing
+	// about the callee's body, so whether the call mutates the referenced value
+	// is unknown: neither a write may be claimed nor completeness of writes.
+	// Distinct from 'property-alias-write-uncertain', which names an *observed*
+	// mutation that cannot be attributed to the queried symbol through an alias.
+	'method-call-mutation-uncertain',
 ] as const;
 
 export type UnresolvedReason = (typeof UNRESOLVED_REASONS)[number];
