@@ -1,0 +1,17 @@
+Implemented the React async emitter fix in [index.ts](/private/tmp/guessless-real-agent-benchmark-v3/task-04-frameless-react-async/control/packages/frameworks/react/src/emitter/index.ts):
+
+- Retains the final state synchronization per cell in each `await`-delimited segment.
+- Uses functional React setters for eligible post-`await` self-reading updates.
+- Folds consecutive self-updates into one live updater.
+- Avoids functional lowering when another state cell is read.
+- Leaves synchronous/no-`await` generated output unchanged.
+
+Added focused regressions in [emitter.test.ts](/private/tmp/guessless-real-agent-benchmark-v3/task-04-frameless-react-async/control/packages/frameworks/react/test/emitter.test.ts).
+
+Verification:
+
+- Emitter tests: **104 passed**
+- Checked-in synchronous generation: **unchanged**
+- `git diff --check`: **passed**
+- Full node suite: **196 passed, 1 blocked** because Vite attempted to write into the read-only linked `node_modules/.vite-temp`.
+- Direct package TypeScript check: **failed on pre-existing generated artifact typing errors**, unrelated to these changes.

@@ -1,0 +1,510 @@
+{
+	"schema": "guessless.safe-change-summary/v1",
+	"state": "partial",
+	"request": {
+		"kind": "safeChangeImpact",
+		"snapshot": "30b81ee5778c917ff35c89777e41eb23c6d6b792b310e7655060642dbe770fdc",
+		"intent": "entry-point",
+		"target": {
+			"schema": "guessless.symbol-anchor/v1",
+			"file": "src/assert.js",
+			"semanticPath": [
+				"global:scope:Program",
+				"module:scope:Program",
+				"symbol:equal",
+				"declaration:FunctionDeclaration"
+			],
+			"fingerprint": "1b13e3b040894dbfed409600c2bd9aea58c786e1f195e66e8cb1dd3ff1ed81d6"
+		}
+	},
+	"snapshot": "30b81ee5778c917ff35c89777e41eb23c6d6b792b310e7655060642dbe770fdc",
+	"sites": [
+		{
+			"id": "139175f9c9d100bcded0920977b6a9d383fe413dc79f9ad7ddc63eb84ac21649",
+			"file": "src/assert.js",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "bc957a8256af63c3036a44b9be1a4e31af0aab466a0ac675b8119b6e7605b21f",
+			"file": "src/assert.js",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "32056e83d8d601082d86287af86cb03fd3c6f9dc329cf01c16943a645232a56c",
+			"file": "src/assert.js",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "3373397d8caa8f62b651b7485c1af1a1ad3a1fe282487be76b54659894d8b848",
+			"file": "src/assert.js",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "d52195f254fa0ac58effe945485e7018b97c82407794b58ff14e87056bc9d7b7",
+			"file": "src/assert.js",
+			"label": "symbol:exp"
+		},
+		{
+			"id": "cd2d3d9cd822f4faf07fd00f83825fe2b29f7c2575a09b964d7f57b87e72f5de",
+			"file": "src/assert.js",
+			"label": "symbol:msg"
+		},
+		{
+			"id": "75e5801243f631b5fcaf10494c76a05a5af21531a61ce4e32d92465edd8d755f",
+			"file": "src/assert.js",
+			"label": "symbol:val"
+		},
+		{
+			"id": "85b12512e03cbc73a699de7534fc70b9dc27fd9575213e3ee91901decac90f15",
+			"file": "src/assert.js",
+			"label": "symbol:equal"
+		},
+		{
+			"id": "db9916cad2e4585c960c6f381d57eeb4c1ba566e816199be26aafa1d90a6efdd",
+			"file": "src/assert.js",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "ef6f0812cfa2aaeeb65c6bb38f14d759498f3be7038b32a52695d452d4cbee94",
+			"file": "src/assert.js",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "d2f535c096f59b9476ece92338f77f559247425d911bb84eb75e10f2281b884c",
+			"file": "src/assert.js",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "b93a4c5dd568bc2750fe87c6fd01146a245245ad6014fe9d58802f6d2552374b",
+			"file": "src/assert.js",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "c3b2cd956a51f79145234872d4bdfe17f82cc17ee27b00344176422ccf24262d",
+			"file": "src/assert.js",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "740156b62b06fcfe69ecca77f320b7054070682f5a14681500889d6cf677b662",
+			"file": "src/assert.js",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "9dd108b60847e238b571ab661f31405477e7ed8294601e8dd2625647394c287e",
+			"file": "src/assert.js",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "3537e817d1c09dd5d5cd726a6a2a229938748216d9f8d94be3ae26fd9a29bda2",
+			"file": "src/assert.js",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "1c44c88c5033db1995154a8b73ea5a85c064b8a25f4d33bf6419adc48e6c3df3",
+			"file": "src/assert.js",
+			"label": "symbol:actual"
+		},
+		{
+			"id": "eb9249bab2fd8bbff50284cea45e66bed593b6374c07ce3e4f10bb37dba62d1b",
+			"file": "src/assert.js",
+			"label": "symbol:backup"
+		},
+		{
+			"id": "8c70eff1ebb977519c7b6695f73209ee19ce22c06b0d8e4e368231898341cae8",
+			"file": "src/assert.js",
+			"label": "symbol:bool"
+		},
+		{
+			"id": "5cb949096f0026bda0e17264a9c86a6336540e95a800d26de7967ef84555b19b",
+			"file": "src/assert.js",
+			"label": "symbol:detailer"
+		},
+		{
+			"id": "018dc9c5205a5f1acd22688146fd107194afade20567de38a5ce5b2642acead1",
+			"file": "src/assert.js",
+			"label": "symbol:expects"
+		},
+		{
+			"id": "38feed7289af905f4e723c5797c59896b131007f587d913d856db233e3d4cf6a",
+			"file": "src/assert.js",
+			"label": "symbol:msg"
+		},
+		{
+			"id": "76c68ac54e35f284a3933daa0dce963dcf08d30be61fcbbbe091aeb07a8f497d",
+			"file": "src/assert.js",
+			"label": "symbol:operator"
+		},
+		{
+			"id": "dee6763398024ac400ac17d6ea36c4d7c22da94ac74e94aff2e31da64ce603e3",
+			"file": "src/assert.js",
+			"label": "symbol:assert"
+		},
+		{
+			"id": "f0ee2aa47411412c4de72056812f754709cafba34b7823668dd59425b695479d",
+			"file": "src/assert.js",
+			"label": "symbol:message"
+		},
+		{
+			"id": "3711bbba23489bfa2cb4ceeee8b6e923e9974e64d6f0cc2f787ccac347106ea2",
+			"file": "src/assert.js",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "066a137c99e88a47f6347f1ac87de4de071d0739d4f84701200494ea6e93e4e0",
+			"file": "src/assert.js",
+			"label": "symbol:details"
+		},
+		{
+			"id": "6b06720f3cf67c671a5ca364f4cd85dc072fa0cb3c7f4ab2b57a6d7af6a97bcd",
+			"file": "src/assert.js",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "e07e2105fed4cc84c47432a179d70ef05aa2387e9aeb339d1042be9eae247343",
+			"file": "src/assert.js",
+			"label": "symbol:opts"
+		},
+		{
+			"id": "60ac1161ca6103f5c6bb3a1f1d86b9fec505de600610c63ddf32c0f0979e35b8",
+			"file": "src/assert.js",
+			"label": "symbol:Assertion"
+		},
+		{
+			"id": "41bf88852a7e5b748ad2d5c7a11c59f6bca366a63b93628a830228100320c0d2",
+			"file": "src/assert.js",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "761f995a603dd7298c55eaa0b5a35b639136b0d38fe6d963fa221fa648cbc8c2",
+			"file": "src/assert.js",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "42c29c1dd09c74282eac6bd81b0d38b2f6553c97d737eb0240e8819fa2bca4a6",
+			"file": "src/assert.js",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "48fba9b5a13159dde50066493e97777b3a0e971e71cd1d47a5ae8345446a645f",
+			"file": "src/assert.js",
+			"label": "symbol:compare"
+		},
+		{
+			"id": "42e6eaff340e4d143bb7a22315bb38443e51c7e2ccb231c36283c132049f7405",
+			"file": "src/assert.js",
+			"label": "symbol:dequal"
+		},
+		{
+			"id": "dab8c9245c6f4e1bbe8685d444f133945130e321bdd333a4c847e44a22786807",
+			"file": "src/assert.js",
+			"label": "site:import-boundary"
+		},
+		{
+			"id": "76b8702cba6e1994bcd1e8034fbe183f2da82cff88a5fb670102b90074c2929c",
+			"file": "src/assert.js",
+			"label": "site:reachability-import-boundary"
+		},
+		{
+			"id": "f95858a062fc9861e918e34d4acfda602dcb6c3e4f42687cd1d1fea4e4f28576",
+			"file": "src/assert.js",
+			"label": "site:reachable-unresolved-reference"
+		},
+		{
+			"id": "bcd200a24b3fd7475a727b6b6d278a01e851f24f16290f7afd6a5dc9cd76d97d",
+			"file": "src/assert.js",
+			"label": "site:reachable-unresolved-reference"
+		},
+		{
+			"id": "a5dd00a245b33c54d5f5351d4123ddb71f52dba9d55b6feee0c4a99d5793b660",
+			"file": "src/assert.js",
+			"label": "site:reachable-unresolved-reference"
+		},
+		{
+			"id": "2bdb64c6e3a4c309b83112794c6526e1f81b669741835687210366a89dfd90de",
+			"file": "src/assert.js",
+			"label": "site:reachable-unresolved-reference"
+		},
+		{
+			"id": "3edcb2fa2980043e0efafb45461503eac0173015db0a63893187d53a7fdd20c7",
+			"file": "src/assert.js",
+			"label": "site:import-boundary"
+		},
+		{
+			"id": "4bafa8e0fce6f872e82feb054ad25fa80855af6356f394790e54596b3a441b50",
+			"file": "src/assert.js",
+			"label": "site:reachability-import-boundary"
+		},
+		{
+			"id": "3d970a4ee53d2b9f5fb45e0f42c46db4205519b7b94086ec6ca799b1fe7ed357",
+			"file": "src/assert.js",
+			"label": "site:import-boundary"
+		},
+		{
+			"id": "d2f7782b5d62dbec32178efc3c4e2c158143ad4b1b9d71a4591fcbf4fa0f3e34",
+			"file": "src/assert.js",
+			"label": "site:reachability-import-boundary"
+		}
+	],
+	"results": [
+		{
+			"site": 0,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 1,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 2,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 3,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 4,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 5,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 6,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 7,
+			"roles": [
+				"declaration",
+				"export"
+			]
+		},
+		{
+			"site": 8,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 9,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 10,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 11,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 12,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 13,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 14,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 15,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 16,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 17,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 18,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 19,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 20,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 21,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 22,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 23,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 24,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 25,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 26,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 27,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 28,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 29,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 30,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 31,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 32,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 33,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 34,
+			"roles": [
+				"witness"
+			]
+		}
+	],
+	"unresolved": [
+		{
+			"site": 35,
+			"reason": "external-module-boundary"
+		},
+		{
+			"site": 36,
+			"reason": "external-module-boundary"
+		},
+		{
+			"site": 37,
+			"reason": "unresolved-symbol"
+		},
+		{
+			"site": 38,
+			"reason": "unresolved-symbol"
+		},
+		{
+			"site": 39,
+			"reason": "unresolved-symbol"
+		},
+		{
+			"site": 40,
+			"reason": "unresolved-symbol"
+		},
+		{
+			"site": 41,
+			"reason": "external-module-boundary"
+		},
+		{
+			"site": 42,
+			"reason": "external-module-boundary"
+		},
+		{
+			"site": 43,
+			"reason": "external-module-boundary"
+		},
+		{
+			"site": 44,
+			"reason": "external-module-boundary"
+		}
+	],
+	"proofHandle": "192324fbfd84df3134212c0e6fead874d53afa20a53676ae975c17192f871ebe",
+	"counts": {
+		"sites": 45,
+		"results": 35,
+		"unresolved": 10
+	},
+	"integrity": "2435a817b490aff3ed1f17c6c6a198e43ee80fb7bb810546257b3ab089b80aa0"
+}

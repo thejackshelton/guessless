@@ -1,0 +1,214 @@
+diff --git a/packages/frameworks/react/src/emitter/index.ts b/packages/frameworks/react/src/emitter/index.ts
+index d099992..cb95194 100644
+--- a/packages/frameworks/react/src/emitter/index.ts
++++ b/packages/frameworks/react/src/emitter/index.ts
+@@ -2201,16 +2201,25 @@ function toConstSsa(
+ 	}
+ 
+ 	// Each mutable lowering write was followed by a sync. Retain only the final
+-	// sync per cell, at its authored final-write position (T002 rulings 4 and 5).
++	// sync per cell in each suspension segment, at its authored final-write
++	// position. An await permits React to render, so a sync before it is observable
++	// and must not be collapsed with a later sync (T002 rulings 4 and 5).
++	const segments: number[] = [];
++	let segment = 0;
++	for (const statement of output) {
++		segments.push(segment);
++		if (containsAwait(statement)) segment += 1;
++	}
+ 	const finalSync = new Map<string, number>();
+ 	for (let index = 0; index < output.length; index += 1) {
+ 		const variable = syncVariableName(output[index]!, writable, context);
+-		if (variable) finalSync.set(variable, index);
++		if (variable) finalSync.set(`${segments[index]}:${variable}`, index);
+ 	}
+ 	fn.body.body = output.filter((statement, index) => {
+ 		const variable = syncVariableName(statement, writable, context);
+-		return !variable || finalSync.get(variable) === index;
++		return !variable || finalSync.get(`${segments[index]}:${variable}`) === index;
+ 	});
++	lowerPostAwaitSelfReads(fn, writable, context);
+ 	collapseRefSyncVersions(fn, writable);
+ 	removeDeadPureVersions(fn);
+ 	normalizeSoleVersionNames(fn, writable, context);
+@@ -2228,6 +2237,87 @@ function toConstSsa(
+ 	return fn;
+ }
+ 
++/** Whether this statement suspends the handler itself (nested functions do not). */
++function containsAwait(node: t.Node): boolean {
++	let found = false;
++	const visit = (current: any, root = false): void => {
++		if (found || !current || typeof current !== 'object') return;
++		if (current.type === 'AwaitExpression') {
++			found = true;
++			return;
++		}
++		if (!root && NESTED_FUNCTION_TYPES.has(current.type)) return;
++		for (const [key, value] of Object.entries(current)) {
++			if (['loc', 'range', 'start', 'end', 'comments'].includes(key)) continue;
++			if (Array.isArray(value)) value.forEach((item) => visit(item));
++			else visit(value);
++		}
++	};
++	visit(node, true);
++	return found;
++}
++
++/**
++ * A render-captured state binding is stale after an await. For the narrow case
++ * where a final setter consumes a version computed from that same cell, move
++ * the computation into React's functional updater. Only the updated cell is
++ * rebound: reads of other cells deliberately retain their existing boundary.
++ */
++function lowerPostAwaitSelfReads(
++	fn: t.ArrowFunctionExpression,
++	writable: readonly StateBinding[],
++	context: EmitContext,
++): void {
++	if (!t.isBlockStatement(fn.body)) return;
++	let afterAwait = false;
++	for (let index = 0; index < fn.body.body.length; index += 1) {
++		const statement = fn.body.body[index]!;
++		if (afterAwait && t.isExpressionStatement(statement)) {
++			const call = statement.expression;
++			if (t.isCallExpression(call) && t.isIdentifier(call.callee)) {
++				const state = writable.find(
++					(candidate) =>
++						candidate.storage === 'state' &&
++						setterFor(context, candidate) === call.callee.name,
++				);
++				const argument = call.arguments[0];
++				if (state && t.isIdentifier(argument)) {
++					const declaration = fn.body.body.slice(0, index).findLast(
++						(candidate: any): candidate is t.VariableDeclaration =>
++							t.isVariableDeclaration(candidate, { kind: 'const' }) &&
++							candidate.declarations.length === 1 &&
++							t.isIdentifier(candidate.declarations[0]!.id, {
++								name: argument.name,
++							}),
++					);
++					const initializer = declaration?.declarations[0]!.init;
++					if (initializer && t.isExpression(initializer)) {
++						const probe = t.arrowFunctionExpression([], t.cloneNode(initializer, true));
++						let readsSelf = false;
++						reanalyzeFunction(probe, (module) => {
++							readsSelf = module.unresolvedReferences.some(
++								(reference) => reference.name === state.name,
++							);
++						});
++						if (readsSelf) {
++							const current = context.names.claim(
++								`current${state.name[0]!.toUpperCase()}${state.name.slice(1)}`,
++							);
++							const value = t.cloneNode(initializer, true);
++							replaceFreeNames(value, new Map([[state.name, current]]));
++							call.arguments[0] = t.arrowFunctionExpression(
++								[t.identifier(current)],
++								value,
++							);
++						}
++					}
++				}
++			}
++		}
++		if (containsAwait(statement)) afterAwait = true;
++	}
++}
++
+ function collapseRefSyncVersions(
+ 	fn: t.ArrowFunctionExpression,
+ 	writable: readonly StateBinding[],
+diff --git a/packages/frameworks/react/test/emitter.test.ts b/packages/frameworks/react/test/emitter.test.ts
+index 92f0ee1..7acc819 100644
+--- a/packages/frameworks/react/test/emitter.test.ts
++++ b/packages/frameworks/react/test/emitter.test.ts
+@@ -978,52 +978,24 @@ export function AsyncProbe({ ready, onTrace }) @{
+ 		test('accepts an async handler and keeps `async` and `await` in the output', async () => {
+ 			const emitted = await emitProbe(plain);
+ 			expect(emitted).toContain('onClick={async (event) => {');
++			expect(emitted).toMatch(/setPhase\(nextPhase\);\s*await ready;/);
+ 			expect(emitted).toContain('await ready;');
+-			expect(emitted).toContain('setTicks(nextTicks);');
++			expect(emitted).toContain('setTicks((currentTicks) => currentTicks + 1);');
+ 			expect(emitted).toContain('setPhase(nextPhase);');
+ 		});
+ 
+ 		/**
+-		 * THE MEASUREMENT T043 COULD NOT TAKE, AND IT COMES BACK DIRTY.
+-		 *
+-		 * T043 predicted from the shape of `toConstSsa` that React reads the RENDER
+-		 * CLOSURE where Solid reads the live signal, so the two lanes would diverge
+-		 * on a second dispatch across an `await`. Measured here against real
+-		 * `react-dom` 19.2.3, with the identical three-dispatch sequence the Solid
+-		 * lane uses, the prediction HOLDS - and the divergence is larger than
+-		 * predicted, because a second, independent defect rides with it:
+-		 *
+-		 *            react (emitted)   solid (T046, measured)
+-		 *   suspended    0|idle             0|pending
+-		 *   overlap 2    1|done             2|done
+-		 *   sequential   2|done             3|done
+-		 *
+-		 * TWO defects, both recorded OPEN in docs/DEFECTS.md entry 12:
+-		 *
+-		 *   (a) STALE CLOSURE. `const nextTicks = ticks + 1` reads the `useState`
+-		 *       binding of the render that created the handler. Two dispatches that
+-		 *       overlap at the `await` both compute 0 + 1, so two clicks produce ONE
+-		 *       increment.
+-		 *   (b) DROPPED PRE-AWAIT WRITE. The authored `phase = 'pending'` never
+-		 *       reaches the output at all: `toConstSsa` keeps only the final write per
+-		 *       cell, which is sound when nothing can render in between and is NOT
+-		 *       sound across an `await`. React renders 3 times where the live shape
+-		 *       renders 4, and `pending` is never observable.
+-		 *
+-		 * THIS TEST PINS THE DEFECT, NOT THE DESIRED BEHAVIOUR. When entry 12 is
+-		 * closed it must go red and be rewritten to the calibration's numbers.
++		 * The runtime witness covers both parts of the repair: `pending` must commit
++		 * before suspension, and overlapping continuations must increment from the
++		 * live React cell through a functional updater.
+ 		 */
+-		test('MEASURED, OPEN DEFECT: a second dispatch across the await reads a STALE closure', async () => {
++		test('retains the final write in each suspension segment and reads the updated cell live', async () => {
+ 			const outcome = await dispatchAcrossAwait(emittedHandler(await emitProbe(plain)));
+-			// (b) the pre-await write was dropped, so `pending` is never rendered.
+-			expect(outcome.duringSuspension).toBe('0|idle');
+-			expect(outcome.rendered).not.toContain('0|pending');
+-			// (a) two overlapping dispatches produced ONE increment. Solid gives 2.
+-			expect(outcome.afterOverlap).toBe('1|done');
+-			// A third dispatch from the newest closure adds one more. Solid gives 3.
+-			expect(outcome.afterSequential).toBe('2|done');
+-			// The handler itself ran three times end to end - the loss is in the
+-			// lowering, not in a dispatch that never happened.
++			expect(outcome.duringSuspension).toBe('0|pending');
++			expect(outcome.rendered).toContain('0|pending');
++			expect(outcome.afterOverlap).toBe('2|done');
++			expect(outcome.afterSequential).toBe('3|done');
++			// All three handlers still run end to end.
+ 			expect(outcome.trace).toEqual([
+ 				'run:{"phase":"done"}',
+ 				'run:{"phase":"done"}',
+@@ -1031,6 +1003,24 @@ export function AsyncProbe({ ready, onTrace }) @{
+ 			]);
+ 		});
+ 
++		test('the functional updater rebinds only its own cell read', async () => {
++			const emitted = await emitProbe(`import { state } from '@markless/core';
++
++export function BoundaryProbe({ ready }) @{
++	let ticks = state(0);
++	let offset = state(2);
++
++	<button onClick={async () => {
++		await ready;
++		ticks = ticks + offset;
++	}}>{ticks}</button>
++}
++`);
++			const handler = emittedHandler(emitted);
++			expect(handler).toContain('setTicks((currentTicks) => currentTicks + offset)');
++			expect(handler).not.toContain('currentOffset');
++		});
++
+ 		/**
+ 		 * CALIBRATION: the harness CAN report the clean numbers.
+ 		 *

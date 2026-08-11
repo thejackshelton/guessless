@@ -1,0 +1,1555 @@
+$ /bin/zsh -lc "rg -n \"injectReducer|injectSaga|source.?drift|drift|receipt\" packages/frameworks/react packages/core packages/cli/test packages/frameworks/react/test --glob '*.ts' --glob '*.tsx'"
+exit=0
+packages/cli/test/react-avataaars-run.test.ts:5:	test('contains only target lanes and custom receipt boundaries', async () => {
+packages/frameworks/react/test/react-data-flow-connect-to-hooks.test.ts:42:	it('refuses hash, import, reference, and ambiguous-span drift', async () => {
+packages/cli/test/framework-classify.test.ts:7:import { canonicalize } from '../../core/src/receipts/canonicalize.ts';
+packages/cli/test/framework-classify.test.ts:19:	it('emits byte-identical canonical Next.js receipts with zero network attempts', async () => {
+packages/cli/test/framework-classify.test.ts:64:		const receipt = JSON.parse(result.stdout) as Record<string, unknown>;
+packages/cli/test/framework-classify.test.ts:65:		expect(receipt).toMatchObject({
+packages/cli/test/framework-classify.test.ts:72:		const receipt = classifyFrameworkDescriptor({
+packages/cli/test/framework-classify.test.ts:82:		expect(receipt.classification).toEqual({
+packages/core/src/index.ts:6:export * from './receipts/canonicalize.ts';
+packages/core/src/index.ts:7:export * from './receipts/render.ts';
+packages/core/src/index.ts:8:export * from './receipts/schema.ts';
+packages/core/src/index.ts:9:export * from './receipts/verify.ts';
+packages/core/src/index.ts:10:export * from './receipts/framework-classification.ts';
+packages/core/src/index.ts:11:export * from './receipts/provenance-framework-classification.ts';
+packages/core/src/index.ts:12:export * from './receipts/next13-provenance-classification.ts';
+packages/core/src/index.ts:13:export * from './receipts/dependency-closure.ts';
+packages/core/src/index.ts:14:export * from './receipts/npm-lock-acquisition-preflight.ts';
+packages/core/src/index.ts:15:export * from './receipts/angular-realworld-v15-to-v16.ts';
+packages/core/src/index.ts:16:export * from './receipts/next-killedbygoogle.ts';
+packages/core/src/index.ts:17:export * from './receipts/witness-real-app.ts';
+packages/cli/test/angular-fuxa-standalone-run.test.ts:37:	it('publishes canonical graph, four-span patch, receipt, and no worktree residue', async () => {
+packages/cli/test/angular-fuxa-standalone-run.test.ts:49:		const receipt = JSON.parse(evidence.receipt) as {
+packages/cli/test/angular-fuxa-standalone-run.test.ts:56:		expect(receipt.migration).toMatchObject({
+packages/cli/test/angular-fuxa-standalone-run.test.ts:62:		expect(receipt.template).toEqual({ byteIdentical: true, sandboxPreserved: true });
+packages/cli/test/angular-fuxa-standalone-run.test.ts:63:		expect(receipt.selectorUses.total).toBe(5);
+packages/cli/test/angular-fuxa-standalone-run.test.ts:64:		expect(receipt.selectorUses.templates).toHaveLength(4);
+packages/cli/test/angular-fuxa-standalone-run.test.ts:65:		expect(receipt.verification).toMatchObject({
+packages/cli/test/angular-fuxa-standalone-run.test.ts:72:		expect(receipt.verification.mutations).toHaveLength(4);
+packages/cli/test/angular-fuxa-standalone-run.test.ts:73:		expect(receipt.nonclaims[0]).toContain(
+packages/frameworks/react/test/react-data-flow-connect-to-hooks.test.ts:42:	it('refuses hash, import, reference, and ambiguous-span drift', async () => {
+packages/core/src/corpus/conformance.ts:5:import { canonicalize, sha256 } from '../receipts/canonicalize.ts';
+packages/core/src/corpus/conformance.ts:13:} from '../receipts/schema.ts';
+packages/core/src/corpus/conformance.ts:14:import { verifyReceipt } from '../receipts/verify.ts';
+packages/core/src/corpus/conformance.ts:18:} from '../receipts/angular-realworld-v15-to-v16.ts';
+packages/core/src/corpus/conformance.ts:23:} from '../receipts/next-killedbygoogle.ts';
+packages/core/src/corpus/conformance.ts:166:			receipts: 10;
+packages/core/src/corpus/conformance.ts:174:			receipts: 11;
+packages/core/src/corpus/conformance.ts:195:function sourceIdentity(receipt: MigrationReceipt): Record<string, string> {
+packages/core/src/corpus/conformance.ts:196:	const parsed = parseURL(receipt.source.repository);
+packages/core/src/corpus/conformance.ts:199:			`Corpus source repository is not a canonical HTTPS URL: ${receipt.fixture}`,
+packages/core/src/corpus/conformance.ts:202:		repository: normalizeURL(receipt.source.repository),
+packages/core/src/corpus/conformance.ts:203:		revision: receipt.source.revision,
+packages/core/src/corpus/conformance.ts:204:		archiveSha256: receipt.source.archiveSha256,
+packages/core/src/corpus/conformance.ts:205:		license: receipt.source.license,
+packages/core/src/corpus/conformance.ts:206:		licenseSha256: receipt.source.licenseSha256,
+packages/core/src/corpus/conformance.ts:221:function journeyArtifact(receipt: MigrationReceipt): { path: string; sha256: string } {
+packages/core/src/corpus/conformance.ts:222:	const artifact = receipt.artifacts.find((item) => path.basename(item.path) === 'journey.json');
+packages/core/src/corpus/conformance.ts:223:	if (!artifact) throw new Error(`Corpus receipt omits journey artifact: ${receipt.fixture}`);
+packages/core/src/corpus/conformance.ts:242:function receiptShape(receipt: MigrationReceipt, journey: unknown[]): Record<string, unknown> {
+packages/core/src/corpus/conformance.ts:243:	const migration = receipt.migration as unknown as Record<string, unknown>;
+packages/core/src/corpus/conformance.ts:245:		schemaVersion: receipt.schemaVersion,
+packages/core/src/corpus/conformance.ts:246:		toolingFields: keys(receipt.tooling),
+packages/core/src/corpus/conformance.ts:249:			journey.map((value) => keys(record(value, `${receipt.fixture} journey row`))),
+packages/core/src/corpus/conformance.ts:261:		fixture.receipt !== expected.path ||
+packages/core/src/corpus/conformance.ts:279:		const receiptPath = string(fixture.receipt, 'aggregate receipt path');
+packages/core/src/corpus/conformance.ts:280:		if (byPath.has(receiptPath))
+packages/core/src/corpus/conformance.ts:281:			throw new Error('Aggregate membership contains duplicate receipts');
+packages/core/src/corpus/conformance.ts:282:		byPath.set(receiptPath, value);
+packages/core/src/corpus/conformance.ts:286:		if (!value) throw new Error(`Aggregate is missing receipt: ${expected.path}`);
+packages/core/src/corpus/conformance.ts:303:				receipt: ANGULAR_REALWORLD_V15_TO_V16_RECEIPT.path,
+packages/core/src/corpus/conformance.ts:319:				'Postintegration aggregate must contain exactly eleven canonical receipts',
+packages/core/src/corpus/conformance.ts:326:			receipts: 11,
+packages/core/src/corpus/conformance.ts:331:		throw new Error('Prepublication aggregate must contain exactly ten canonical receipts');
+packages/core/src/corpus/conformance.ts:337:		receipts: 10,
+packages/core/src/corpus/conformance.ts:354:			return [string(fixture.receipt, 'aggregate receipt path'), value];
+packages/core/src/corpus/conformance.ts:370:		if (!aggregateFixture) throw new Error(`Aggregate is missing receipt: ${expected.path}`);
+packages/core/src/corpus/conformance.ts:384:			throw new Error(`Canonical receipt digest mismatch: ${expected.path}`);
+packages/core/src/corpus/conformance.ts:385:		const receipt = parseMigrationReceipt(await readJson(file));
+packages/core/src/corpus/conformance.ts:386:		if (receipt.fixture !== expected.id)
+packages/core/src/corpus/conformance.ts:388:		const journeyRef = journeyArtifact(receipt);
+packages/core/src/corpus/conformance.ts:399:			const receiptWorker = receipt.verification.serviceWorker;
+packages/core/src/corpus/conformance.ts:401:				!receiptWorker ||
+packages/core/src/corpus/conformance.ts:402:				receiptWorker.cacheName !==
+packages/core/src/corpus/conformance.ts:403:					`versionless-react-vite8-${receiptWorker.manifestSha256}` ||
+packages/core/src/corpus/conformance.ts:404:				receiptWorker.currentCacheOnly !== true ||
+packages/core/src/corpus/conformance.ts:405:				receiptWorker.inventoryMatchesManifest !== true ||
+packages/core/src/corpus/conformance.ts:406:				receiptWorker.exactCurrentCacheFetch !== true
+packages/core/src/corpus/conformance.ts:409:			const buildReference = receipt.artifacts.find((item) =>
+packages/core/src/corpus/conformance.ts:435:			if (!targetWorker || targetWorker.manifestSha256 !== receiptWorker.manifestSha256)
+packages/core/src/corpus/conformance.ts:436:				throw new Error(`Corpus service-worker receipt/build mismatch: ${expected.id}`);
+packages/core/src/corpus/conformance.ts:473:				const upgradeReference = receipt.artifacts.find(
+packages/core/src/corpus/conformance.ts:527:			const mutationRef = receipt.artifacts.find(
+packages/core/src/corpus/conformance.ts:556:			const compositionRef = receipt.artifacts.find(
+packages/core/src/corpus/conformance.ts:560:				throw new Error('Composed PhoneCat receipt omits composition artifact');
+packages/core/src/corpus/conformance.ts:566:				receipt.migration.transform !==
+packages/core/src/corpus/conformance.ts:574:				const reference = receipt.artifacts.find(
+packages/core/src/corpus/conformance.ts:577:				if (!reference) throw new Error(`PhoneCat Vite receipt omits ${name}`);
+packages/core/src/corpus/conformance.ts:595:				receipt.migration.transform !==
+packages/core/src/corpus/conformance.ts:660:				const reference = receipt.artifacts.find(
+packages/core/src/corpus/conformance.ts:663:				if (!reference) throw new Error(`Composed React receipt omits ${name}`);
+packages/core/src/corpus/conformance.ts:690:				receipt.migration.transform !== 'react-composed-connect-to-hooks' ||
+packages/core/src/corpus/conformance.ts:790:			receipt,
+packages/core/src/corpus/conformance.ts:793:			source: sourceIdentity(receipt),
+packages/core/src/corpus/conformance.ts:801:		throw new Error('Aggregate contains an unknown or extra receipt');
+packages/core/src/corpus/conformance.ts:836:		const reference = item?.receipt.artifacts.find(
+packages/core/src/corpus/conformance.ts:861:			throw new Error(`React behavior drift within vertical: ${item.expected.id}`);
+packages/core/src/corpus/conformance.ts:865:		throw new Error('React common user-observable projection drift');
+packages/core/src/corpus/conformance.ts:871:	if (phonecatJourneyDigests.size !== 1) throw new Error('PhoneCat journey digest drift');
+packages/core/src/corpus/conformance.ts:880:		receiptPath: item.expected.path,
+packages/core/src/corpus/conformance.ts:881:		receiptDigest: item.receipt.integrity.canonicalDigest,
+packages/core/src/corpus/conformance.ts:882:		receiptSchema: receiptShape(item.receipt, item.journey),
+packages/core/src/corpus/conformance.ts:887:			scope: item.receipt.verification.locality.scope,
+packages/core/src/corpus/conformance.ts:890:			browserBlockedRequests: item.receipt.verification.locality.browserBlockedRequests,
+packages/core/src/corpus/conformance.ts:939:		receiptPath: ANGULAR_REALWORLD_V15_TO_V16_RECEIPT.path,
+packages/core/src/corpus/conformance.ts:940:		receiptDigest: ANGULAR_REALWORLD_V15_TO_V16_RECEIPT.canonicalDigest,
+packages/core/src/corpus/conformance.ts:941:		receiptSchema: {
+packages/core/src/corpus/conformance.ts:942:			schemaVersion: angularRealworld.receipt.schemaVersion,
+packages/core/src/corpus/conformance.ts:946:				angularRealworld.receipt.journeys.map((value) =>
+packages/core/src/corpus/conformance.ts:970:			receiptPath: NEXT_KILLED_BY_GOOGLE_RECEIPT_PATH,
+packages/core/src/corpus/conformance.ts:971:			receiptDigest: nextKilledByGoogle.digest,
+packages/core/src/corpus/conformance.ts:972:			receiptSchema: {
+packages/core/src/corpus/conformance.ts:973:				schemaVersion: nextKilledByGoogle.receipt.schemaVersion,
+packages/core/src/corpus/conformance.ts:975:					record(nextKilledByGoogle.receipt.tooling, 'Killed by Google tooling'),
+packages/core/src/corpus/conformance.ts:978:					record(nextKilledByGoogle.receipt.migration, 'Killed by Google migration'),
+packages/core/src/corpus/conformance.ts:1015:							item.receipt.verification.locality.browserBlockedRequests,
+packages/cli/test/angular-phonecat-vite8.test.ts:4:import { canonicalize, sha256 } from '../../core/src/receipts/canonicalize.ts';
+packages/cli/test/angular-phonecat-vite8.test.ts:5:import { parseMigrationReceipt, type MigrationReceipt } from '../../core/src/receipts/schema.ts';
+packages/cli/test/angular-phonecat-vite8.test.ts:15:	test('keeps canonical receipt identity and closes internal identities to two unaggregated orders', () => {
+packages/cli/test/angular-phonecat-vite8.test.ts:47:			).toThrow('Unknown Angular PhoneCat internal receipt identity');
+packages/cli/test/angular-phonecat-vite8.test.ts:50:	test('parses canonical and truthful internal receipt identities without weakening T069 paths', async () => {
+packages/cli/test/angular-phonecat-vite8.test.ts:83:	test('retains the complete unmodified receipt and original cause in diagnostics', async () => {
+packages/cli/test/angular-phonecat-vite8.test.ts:84:		const receipt = JSON.parse(
+packages/cli/test/angular-phonecat-vite8.test.ts:90:		Object.assign(receipt, resolveAngularPhonecatReceiptIdentity('react-first', false));
+packages/cli/test/angular-phonecat-vite8.test.ts:91:		receipt.artifacts.forEach((artifact) => {
+packages/cli/test/angular-phonecat-vite8.test.ts:94:		(receipt as unknown as Record<string, unknown>).schemaVersion = 'invalid';
+packages/cli/test/angular-phonecat-vite8.test.ts:95:		const before = canonicalize(receipt);
+packages/cli/test/angular-phonecat-vite8.test.ts:98:			parseAngularPhonecatReceiptWithDiagnostic(receipt);
+packages/cli/test/angular-phonecat-vite8.test.ts:104:			'versionless.angular-phonecat-receipt-validation-diagnostic.v1',
+packages/cli/test/angular-phonecat-vite8.test.ts:106:		expect(failure?.message).toContain('Unsupported receipt schema');
+packages/cli/test/angular-phonecat-vite8.test.ts:107:		expect(failure?.message).toContain(receipt.runId);
+packages/cli/test/angular-phonecat-vite8.test.ts:108:		expect(failure?.message).toContain(receipt.fixture);
+packages/cli/test/angular-phonecat-vite8.test.ts:109:		for (const artifact of receipt.artifacts) expect(failure?.message).toContain(artifact.path);
+packages/cli/test/angular-phonecat-vite8.test.ts:111:		expect(canonicalize(receipt)).toBe(before);
+packages/cli/test/react-boilerplate-v4-data-flow.test.ts:20:			receiptDigest: '1caf9dfa24b14b83ac63ceab9ca90829346045aac690c7b95a952ae4d9e72849',
+packages/cli/test/direct-dom-inventory.test.ts:6:import { canonicalize } from '../../core/src/receipts/canonicalize.ts';
+packages/cli/test/angular-realworld-v15-to-v16-ingest.test.ts:25:	it('seals and rejects tampered acquisition receipts', () => {
+packages/cli/test/angular-realworld-v15-to-v16-ingest.test.ts:26:		const receipt = finalizeV16Acquisition({
+packages/cli/test/angular-realworld-v15-to-v16-ingest.test.ts:35:		expect(verifyV16Acquisition(receipt)).toEqual(receipt);
+packages/cli/test/angular-realworld-v15-to-v16-ingest.test.ts:36:		expect(() => verifyV16Acquisition({ ...receipt, requests: 942 })).toThrow('differs');
+packages/core/src/enterprise/script-surface.ts:5:import { canonicalize, sha256 } from '../receipts/canonicalize.ts';
+packages/core/src/enterprise/script-surface.ts:6:import { verifyReceipt } from '../receipts/verify.ts';
+packages/core/src/enterprise/script-surface.ts:20:				receiptPath: 'evidence/runs/react-boilerplate-v4/t008-run.json',
+packages/core/src/enterprise/script-surface.ts:21:				receiptDigest: '4d32ae0a46041e5ec2ac68aa31a9b8f86bd9d294d312ce41968ddd99dc5ee758',
+packages/core/src/enterprise/script-surface.ts:29:				receiptPath: 'evidence/runs/react-boilerplate-v4/t008-run.json',
+packages/core/src/enterprise/script-surface.ts:30:				receiptDigest: '4d32ae0a46041e5ec2ac68aa31a9b8f86bd9d294d312ce41968ddd99dc5ee758',
+packages/core/src/enterprise/script-surface.ts:44:				receiptPath: 'evidence/runs/angular-phonecat/t014-run.json',
+packages/core/src/enterprise/script-surface.ts:45:				receiptDigest: 'a6798081c0b005c76534b5acd4dc647d77d497b0b649748c685b779451035f51',
+packages/core/src/enterprise/script-surface.ts:53:				receiptPath: 'evidence/runs/angular-phonecat/t014-run.json',
+packages/core/src/enterprise/script-surface.ts:54:				receiptDigest: 'a6798081c0b005c76534b5acd4dc647d77d497b0b649748c685b779451035f51',
+packages/core/src/enterprise/script-surface.ts:68:				receiptPath: 'evidence/runs/react-boilerplate-v4/t008-run.json',
+packages/core/src/enterprise/script-surface.ts:69:				receiptDigest: '4d32ae0a46041e5ec2ac68aa31a9b8f86bd9d294d312ce41968ddd99dc5ee758',
+packages/core/src/enterprise/script-surface.ts:78:				receiptPath: 'evidence/runs/react-boilerplate-v4-node24/t022-run.json',
+packages/core/src/enterprise/script-surface.ts:79:				receiptDigest: '815a5416b90c0a0c0a2f0adb779308c0ba0447d67c965003f15d343940d9b593',
+packages/core/src/enterprise/script-surface.ts:94:				receiptPath: 'evidence/runs/react-boilerplate-v4-node24/t022-run.json',
+packages/core/src/enterprise/script-surface.ts:95:				receiptDigest: '815a5416b90c0a0c0a2f0adb779308c0ba0447d67c965003f15d343940d9b593',
+packages/core/src/enterprise/script-surface.ts:104:				receiptPath: 'evidence/runs/react-boilerplate-v4-vite8/t028-run.json',
+packages/core/src/enterprise/script-surface.ts:105:				receiptDigest: '1caf9dfa24b14b83ac63ceab9ca90829346045aac690c7b95a952ae4d9e72849',
+packages/core/src/enterprise/script-surface.ts:120:				receiptPath: 'evidence/runs/angular-phonecat-route-resolve/t032-run.json',
+packages/core/src/enterprise/script-surface.ts:121:				receiptDigest: 'aa8b2923a38aa5f1adc870b48cdd938b739e107c927aac71b8c2890705f6beef',
+packages/core/src/enterprise/script-surface.ts:130:				receiptPath: 'evidence/runs/angular-phonecat-route-resolve/t032-run.json',
+packages/core/src/enterprise/script-surface.ts:131:				receiptDigest: 'aa8b2923a38aa5f1adc870b48cdd938b739e107c927aac71b8c2890705f6beef',
+packages/core/src/enterprise/script-surface.ts:145:				receiptPath: 'evidence/runs/angular-phonecat-composed/t048-run.json',
+packages/core/src/enterprise/script-surface.ts:146:				receiptDigest: 'a7e8a9dc864085d77338f1615e3434a8a842fa5f4156a13bd2f5560bd2f8dc12',
+packages/core/src/enterprise/script-surface.ts:154:				receiptPath: 'evidence/runs/angular-phonecat-composed/t048-run.json',
+packages/core/src/enterprise/script-surface.ts:155:				receiptDigest: 'a7e8a9dc864085d77338f1615e3434a8a842fa5f4156a13bd2f5560bd2f8dc12',
+packages/core/src/enterprise/script-surface.ts:170:				receiptPath: 'evidence/runs/react-boilerplate-v4-data-flow/t054-run.json',
+packages/core/src/enterprise/script-surface.ts:171:				receiptDigest: 'a6c25918ed9650d3315c42501932e8e6fe26552e48bcbdf74d4987f7b384452b',
+packages/core/src/enterprise/script-surface.ts:180:				receiptPath: 'evidence/runs/react-boilerplate-v4-data-flow/t054-run.json',
+packages/core/src/enterprise/script-surface.ts:181:				receiptDigest: 'a6c25918ed9650d3315c42501932e8e6fe26552e48bcbdf74d4987f7b384452b',
+packages/core/src/enterprise/script-surface.ts:196:				receiptPath: 'evidence/runs/react-boilerplate-v4-composed/t060-run.json',
+packages/core/src/enterprise/script-surface.ts:197:				receiptDigest: '9341f5e70c00ebbde65a919db5b5d31fde0fa39983e985deb01afb71ed00d1ad',
+packages/core/src/enterprise/script-surface.ts:206:				receiptPath: 'evidence/runs/react-boilerplate-v4-composed/t060-run.json',
+packages/core/src/enterprise/script-surface.ts:207:				receiptDigest: '9341f5e70c00ebbde65a919db5b5d31fde0fa39983e985deb01afb71ed00d1ad',
+packages/core/src/enterprise/script-surface.ts:221:				receiptPath: 'evidence/runs/angular-phonecat-vite8/t069-run.json',
+packages/core/src/enterprise/script-surface.ts:222:				receiptDigest: '033fc40237975e28df36117cc309625632610a399b5c0f88735079ed21fcad0d',
+packages/core/src/enterprise/script-surface.ts:231:				receiptPath: 'evidence/runs/angular-phonecat-vite8/t069-run.json',
+packages/core/src/enterprise/script-surface.ts:232:				receiptDigest: '033fc40237975e28df36117cc309625632610a399b5c0f88735079ed21fcad0d',
+packages/core/src/enterprise/script-surface.ts:254:	receiptPath: string;
+packages/core/src/enterprise/script-surface.ts:255:	receiptDigest: string;
+packages/core/src/enterprise/script-surface.ts:320:			receipt: { path: string; digest: string };
+packages/core/src/enterprise/script-surface.ts:405:				receiptPath: portablePath(lane.receiptPath, `${id} receiptPath`),
+packages/core/src/enterprise/script-surface.ts:406:				receiptDigest: digest(lane.receiptDigest, `${id} receiptDigest`),
+packages/core/src/enterprise/script-surface.ts:435:			receiptPath: lane.receiptPath,
+packages/core/src/enterprise/script-surface.ts:436:			receiptDigest: lane.receiptDigest,
+packages/core/src/enterprise/script-surface.ts:639:	const receiptFile = path.join(root, lane.receiptPath);
+packages/core/src/enterprise/script-surface.ts:640:	const verified = await verifyReceipt(receiptFile);
+packages/core/src/enterprise/script-surface.ts:641:	if (verified.digest !== lane.receiptDigest)
+packages/core/src/enterprise/script-surface.ts:642:		throw new Error(`Receipt digest mismatch: ${lane.receiptPath}`);
+packages/core/src/enterprise/script-surface.ts:643:	const receipt = record(JSON.parse(await readFile(receiptFile, 'utf8')), 'migration receipt');
+packages/core/src/enterprise/script-surface.ts:644:	if (!Array.isArray(receipt.artifacts)) throw new Error('Receipt artifact list is missing');
+packages/core/src/enterprise/script-surface.ts:645:	const journey = receipt.artifacts.find((raw) => {
+packages/core/src/enterprise/script-surface.ts:646:		const artifact = record(raw, 'receipt artifact');
+packages/core/src/enterprise/script-surface.ts:738:				receipt: { path: lane.receiptPath, digest: lane.receiptDigest },
+packages/cli/test/angular-realworld-v15-to-v16-run.test.ts:13:describe('Angular RealWorld v15 to v16 receipt', () => {
+packages/cli/test/angular-realworld-v15-to-v16-run.test.ts:50:		const receipt = finalizeMigration({
+packages/cli/test/angular-realworld-v15-to-v16-run.test.ts:131:		expect(verifyMigration(receipt)).toEqual(receipt);
+packages/cli/test/angular-realworld-v15-to-v16-run.test.ts:133:			...structuredClone(receipt),
+packages/cli/test/dashboard-contacts-dependency-preflight.test.ts:20:		const receipt = await createDashboardContactsPreflightReceipt();
+packages/cli/test/dashboard-contacts-dependency-preflight.test.ts:21:		expect(receipt.result).toBe('not-ready');
+packages/cli/test/dashboard-contacts-dependency-preflight.test.ts:22:		expect(receipt.closure).toEqual({
+packages/cli/test/dashboard-contacts-dependency-preflight.test.ts:33:		expect(receipt.cacheAudit.cached).toHaveLength(667);
+packages/cli/test/dashboard-contacts-dependency-preflight.test.ts:34:		expect(receipt.cacheAudit.missing).toHaveLength(1_498);
+packages/cli/test/dashboard-contacts-dependency-preflight.test.ts:35:		expect(receipt.metadataSummary.licenseEmptyIdentities).toEqual([
+packages/cli/test/dashboard-contacts-dependency-preflight.test.ts:44:		expect(receipt.metadataSummary.policyUnreviewedDeclarations).toEqual([
+packages/cli/test/dashboard-contacts-dependency-preflight.test.ts:56:		expect(receipt.metadataSummary.uncachedMetadata).toBe('unknown');
+packages/cli/test/dashboard-contacts-dependency-preflight.test.ts:58:			receipt.cacheAudit.missing.every((item) => item.metadata === 'unknown-uncached'),
+packages/cli/test/dashboard-contacts-dependency-preflight.test.ts:60:		expect(receipt.proposedAcquisition).toMatchObject({
+packages/cli/test/dashboard-contacts-dependency-preflight.test.ts:71:		expect(receipt.replay).toMatchObject({
+packages/cli/test/dashboard-contacts-dependency-preflight.test.ts:77:		expect(receipt.replay.firstDigest).toBe(receipt.replay.secondDigest);
+packages/cli/test/dashboard-contacts-dependency-preflight.test.ts:78:		expect(receipt.integrity.canonicalDigest).toHaveLength(64);
+packages/cli/test/dashboard-contacts-dependency-preflight.test.ts:82:		const directory = await mkdtemp(path.join(os.tmpdir(), 'versionless-t192-receipt-'));
+packages/cli/test/angular-fuxa-standalone-cohort-run.test.ts:47:			await readFile(path.join(root, 'evidence/runs/angular-fuxa-standalone/receipt.json')),
+packages/cli/test/angular-fuxa-standalone-cohort-run.test.ts:60:			'receipt.json',
+packages/cli/test/angular-fuxa-standalone-cohort-run.test.ts:62:		const receipt = JSON.parse(artifacts['receipt.json']!) as {
+packages/cli/test/angular-fuxa-standalone-cohort-run.test.ts:68:		expect(receipt.migration).toMatchObject({
+packages/cli/test/angular-fuxa-standalone-cohort-run.test.ts:74:		expect(receipt.preservation).toMatchObject({
+packages/cli/test/angular-fuxa-standalone-cohort-run.test.ts:85:		expect(receipt.verification).toMatchObject({ networkAttempts: 0, residue: 'none' });
+packages/cli/test/angular-fuxa-standalone-cohort-run.test.ts:86:		expect(receipt.verification.mutations).toHaveLength(10);
+packages/cli/test/angular-fuxa-standalone-cohort-run.test.ts:89:		expect(receipt.nonclaims[0]).toContain(
+packages/cli/test/angular-fuxa-standalone-cohort-run.test.ts:96:					path.join(root, 'evidence/runs/angular-fuxa-standalone/receipt.json'),
+packages/core/src/enterprise/runtime-script-observation.ts:5:import { canonicalize, sha256 } from '../receipts/canonicalize.ts';
+packages/core/src/enterprise/runtime-script-observation.ts:72:			receipt: { path: string; digest: string };
+packages/core/src/enterprise/runtime-script-observation.ts:329:				['lane', 'entrypoint', 'receipt', 'deterministic', 'runs'],
+packages/core/src/enterprise/runtime-script-observation.ts:338:				canonicalize(lane.receipt) !== canonicalize(staticLane.receipt) ||
+packages/core/src/enterprise/runtime-script-observation.ts:341:				throw new Error('Runtime lane/entrypoint/receipt rebinding refused');
+packages/core/src/enterprise/runtime-script-observation.ts:392:					throw new Error('Runtime blocked-resource classification drift');
+packages/core/src/enterprise/runtime-script-observation.ts:402:					throw new Error('Runtime synthetic classification drift');
+packages/core/src/enterprise/runtime-script-observation.ts:407:					throw new Error('Runtime journey projection drift');
+packages/core/src/enterprise/runtime-script-observation.ts:508:				receipt: lane.receipt,
+packages/cli/test/tier-f-ingest.test.ts:639:	it('rolls fixture/provenance, receipt, archive, and manifest roots back at every boundary', async () => {
+packages/cli/test/tier-f-ingest.test.ts:2077:	it('enforces Content-Length after complete receipt but emits no accepted digest on mismatch', async () => {
+packages/cli/test/angular-phonecat.test.ts:3:import { sha256 } from '../../core/src/receipts/canonicalize.ts';
+packages/cli/test/angular-realworld-v15-ingest.test.ts:65:	it('seals canonical published receipts and rejects tampering', () => {
+packages/cli/test/angular-realworld-v15-ingest.test.ts:74:		const receipt = finalizeAcquisitionReceipt({
+packages/cli/test/angular-realworld-v15-ingest.test.ts:85:		expect(verifyAcquisitionReceipt(receipt)).toEqual(receipt);
+packages/cli/test/angular-realworld-v15-ingest.test.ts:86:		const tampered = { ...structuredClone(receipt), requests: 869 };
+packages/core/src/analysis/direct-dom-access.ts:10:import { canonicalize } from '../receipts/canonicalize.ts';
+packages/cli/test/next-killedbygoogle-run.test.ts:261:			receiptRetained: false,
+packages/cli/test/next-killedbygoogle-run.test.ts:751:			'receipt.json',
+packages/cli/test/next-killedbygoogle-run.test.ts:1063:			'receipt.json',
+packages/cli/test/next-killedbygoogle-run.test.ts:1157:					return 'receipt';
+packages/cli/test/next-killedbygoogle-run.test.ts:1169:		).resolves.toBe('receipt');
+packages/cli/test/next-killedbygoogle-run.test.ts:1170:		expect(events).toEqual(['lanes', 'remove-work', 'absent', 'promote:receipt']);
+packages/cli/test/next-killedbygoogle-run.test.ts:2868:		expect(capture).not.toContain('receipt.json');
+packages/cli/test/next-killedbygoogle-run.test.ts:2890:	test('binds the exact production, browser, mutation, and receipt gates', async () => {
+packages/cli/test/next-killedbygoogle-run.test.ts:2907:			'versionless.receipt.v1',
+packages/cli/test/angular-fuxa-template-compiler-run.test.ts:45:				path.join(root, 'evidence/runs/angular-fuxa-standalone-cohort/receipt.json'),
+packages/cli/test/angular-fuxa-template-compiler-run.test.ts:53:		const receipt = JSON.parse(artifacts['receipt.json']!) as {
+packages/cli/test/angular-fuxa-template-compiler-run.test.ts:58:		expect(receipt.analysis).toMatchObject({
+packages/cli/test/angular-fuxa-template-compiler-run.test.ts:76:		expect(receipt.verification.mutations).toHaveLength(6);
+packages/cli/test/angular-fuxa-template-compiler-run.test.ts:77:		expect(receipt.verification.mutations.every((item) => item.restored === true)).toBe(true);
+packages/cli/test/angular-fuxa-template-compiler-run.test.ts:78:		expect(receipt.nonclaims.join(' ')).toContain('compiler-cli/AOT');
+packages/cli/test/angular-fuxa-template-compiler-run.test.ts:83:					path.join(root, 'evidence/runs/angular-fuxa-standalone-cohort/receipt.json'),
+packages/cli/test/next-killedbygoogle-integrate.test.ts:29:	test('parses receipt verification arguments strictly and preserves ordinary linkage', () => {
+packages/cli/test/next-killedbygoogle-integrate.test.ts:30:		const receipt = 'evidence/runs/react-boilerplate-v4/t008-run.json';
+packages/cli/test/next-killedbygoogle-integrate.test.ts:37:					'receipt:verify',
+packages/cli/test/next-killedbygoogle-integrate.test.ts:43:			[['--unknown', receipt], 'unknown flag'],
+packages/cli/test/next-killedbygoogle-integrate.test.ts:44:			[['--pre-integration', '--pre-integration', receipt], 'duplicate --pre-integration'],
+packages/cli/test/next-killedbygoogle-integrate.test.ts:45:			[['--pre-integration'], 'exactly one receipt path'],
+packages/cli/test/next-killedbygoogle-integrate.test.ts:46:			[[receipt, receipt], 'exactly one receipt path'],
+packages/cli/test/next-killedbygoogle-integrate.test.ts:52:		const missingControls = invoke(['--pre-integration', receipt], {
+packages/cli/test/next-killedbygoogle-integrate.test.ts:58:		expect(invoke([receipt]).status).toBe(0);
+packages/cli/test/next-killedbygoogle-integrate.test.ts:60:			invoke(['--pre-integration', receipt], {
+packages/cli/test/nextjs-provenance-classify.test.ts:5:import { sha256 } from '../../core/src/receipts/canonicalize.ts';
+packages/cli/test/nextjs-provenance-classify.test.ts:53:		const receipt = await runNextjsProvenanceClassification({
+packages/cli/test/nextjs-provenance-classify.test.ts:61:		expect(receipt.closure).toMatchObject({
+packages/cli/test/nextjs-provenance-classify.test.ts:73:		expect(receipt.classification.sourceFacts).toMatchObject({
+packages/cli/test/nextjs-provenance-classify.test.ts:79:		expect(receipt.locality).toEqual({
+packages/cli/test/nextjs-provenance-classify.test.ts:84:		expect(JSON.parse(await readFile(path.join(root, outputPath), 'utf8'))).toEqual(receipt);
+packages/cli/test/nextjs-provenance-classify.test.ts:97:	it('rejects fixture/provenance/evidence/archive/cache hash drift', async () => {
+packages/cli/test/nextjs-provenance-classify.test.ts:115:	it('rejects nonoffline mode, wrong fixture, path escape, candidate execution, and verifier drift before classification', async () => {
+packages/cli/test/next13-provenance-classify.test.ts:5:import { sha256 } from '../../core/src/receipts/canonicalize.ts';
+packages/cli/test/next13-provenance-classify.test.ts:39:	it('re-indexes the exact T142 closure and publishes only a static receipt', async () => {
+packages/cli/test/next13-provenance-classify.test.ts:44:		const receipt = await runNext13ProvenanceClassification({
+packages/cli/test/next13-provenance-classify.test.ts:52:		expect(receipt.closure).toMatchObject({
+packages/cli/test/next13-provenance-classify.test.ts:63:		expect(receipt.classification.sourceFacts).toMatchObject({
+packages/cli/test/next13-provenance-classify.test.ts:70:		expect(JSON.parse(await readFile(path.join(root, outputPath), 'utf8'))).toEqual(receipt);
+packages/core/src/bundlers/vite8-adapter.ts:5:import { canonicalize } from '../receipts/canonicalize.ts';
+packages/cli/test/angular-realworld-v15-baseline-run.test.ts:16:describe('Angular RealWorld v15 baseline receipt', () => {
+packages/cli/test/angular-realworld-v15-baseline-run.test.ts:19:			receipt: '3a947238d952e6e8879fb2aafb62e1f2e6e72c79648d4f342822543726060400',
+packages/cli/test/angular-realworld-v15-baseline-run.test.ts:26:		const receipt = finalizeBaseline({
+packages/cli/test/angular-realworld-v15-baseline-run.test.ts:68:		expect(verifyBaselineReceipt(receipt)).toEqual(receipt);
+packages/cli/test/angular-realworld-v15-baseline-run.test.ts:69:		const overclaimed = { ...structuredClone(receipt), result: 'pass' as const };
+packages/cli/test/angular-realworld-v15-baseline-run.test.ts:73:	it('requires passing build and smoke proof for a passing receipt', () => {
+packages/cli/test/angular-realworld-v15-baseline-run.test.ts:74:		const receipt = finalizeBaseline({
+packages/cli/test/angular-realworld-v15-baseline-run.test.ts:126:		expect(verifyBaselineReceipt(receipt).result).toBe('pass');
+packages/cli/test/angular-realworld-v15-baseline-run.test.ts:127:		const { integrity: _integrity, ...receiptWithoutIntegrity } = receipt;
+packages/cli/test/angular-realworld-v15-baseline-run.test.ts:129:			...receiptWithoutIntegrity,
+packages/cli/test/angular-realworld-v15-baseline-run.test.ts:131:				...receipt.build,
+packages/cli/test/angular-realworld-v15-baseline-run.test.ts:140:			...receiptWithoutIntegrity,
+packages/cli/test/angular-realworld-v15-baseline-run.test.ts:142:				...receipt.smoke,
+packages/cli/test/vite8-shared-adapter-cohort-run.test.ts:221:		const receipt = JSON.parse(
+packages/cli/test/vite8-shared-adapter-cohort-run.test.ts:230:		const historical = [...receipt.first.entries].sort((left, right) =>
+packages/cli/test/vite8-shared-adapter-cohort-run.test.ts:319:			expect(source).toContain("receiptPathBase: 'repository'");
+packages/cli/test/vite8-shared-adapter-cohort-run.test.ts:356:		const receipt = JSON.parse(artifacts['receipt.json']!) as Record<string, unknown>;
+packages/cli/test/vite8-shared-adapter-cohort-run.test.ts:357:		expect(receipt).toMatchObject({
+packages/core/src/receipts/next-killedbygoogle.ts:8:	'evidence/runs/next-killedbygoogle-derived-state-to-memo/receipt.json';
+packages/core/src/receipts/next-killedbygoogle.ts:218:	const receiptPath = path.join(root, NEXT_KILLED_BY_GOOGLE_RECEIPT_PATH);
+packages/core/src/receipts/next-killedbygoogle.ts:219:	const verified = await verifyReceipt(receiptPath, {
+packages/core/src/receipts/next-killedbygoogle.ts:223:	const receipt = record(JSON.parse(await readFile(receiptPath, 'utf8')), 'receipt');
+packages/core/src/receipts/next-killedbygoogle.ts:224:	const verification = record(receipt.verification, 'verification');
+packages/core/src/receipts/next-killedbygoogle.ts:226:	const limitations = receipt.limitations;
+packages/core/src/receipts/next-killedbygoogle.ts:227:	const consent = receipt.consent;
+packages/core/src/receipts/next-killedbygoogle.ts:228:	const source = record(receipt.source, 'source');
+packages/core/src/receipts/next-killedbygoogle.ts:229:	const tooling = record(receipt.tooling, 'tooling');
+packages/core/src/receipts/next-killedbygoogle.ts:230:	const migration = record(receipt.migration, 'migration');
+packages/core/src/receipts/next-killedbygoogle.ts:238:		receipt.schemaVersion !== 'versionless.receipt.v1' ||
+packages/core/src/receipts/next-killedbygoogle.ts:239:		receipt.runId !== 'T236-next-killedbygoogle-derived-state-to-memo' ||
+packages/core/src/receipts/next-killedbygoogle.ts:240:		receipt.fixture !== 'next-killedbygoogle-derived-state-to-memo' ||
+packages/core/src/receipts/next-killedbygoogle.ts:241:		receipt.result !== 'pass' ||
+packages/core/src/receipts/next-killedbygoogle.ts:294:		throw new Error('Killed by Google receipt verification fields differ');
+packages/core/src/receipts/next-killedbygoogle.ts:295:	const artifacts = receipt.artifacts;
+packages/core/src/receipts/next-killedbygoogle.ts:304:		'evidence/dependencies/next-killedbygoogle/dependency-receipt.json',
+packages/core/src/receipts/next-killedbygoogle.ts:317:			'receipt.md',
+packages/core/src/receipts/next-killedbygoogle.ts:437:	const receiptDeterministic = record(
+packages/core/src/receipts/next-killedbygoogle.ts:439:		'receipt deterministic core',
+packages/core/src/receipts/next-killedbygoogle.ts:492:		receiptDeterministic.first !== combinedFirst ||
+packages/core/src/receipts/next-killedbygoogle.ts:493:		receiptDeterministic.second !== combinedSecond ||
+packages/core/src/receipts/next-killedbygoogle.ts:527:	return { receipt, digest: verified.digest, artifacts: artifacts.length };
+packages/core/src/receipts/next-killedbygoogle.ts:538:		receipt: NEXT_KILLED_BY_GOOGLE_RECEIPT_PATH,
+packages/core/src/receipts/next13-provenance-classification.ts:189:	receipt: Next13ProvenanceClassificationReceipt,
+packages/core/src/receipts/next13-provenance-classification.ts:191:	const copy = structuredClone(receipt);
+packages/core/src/receipts/next13-provenance-classification.ts:203:	const receipt: Next13ProvenanceClassificationReceipt = {
+packages/core/src/receipts/next13-provenance-classification.ts:230:	receipt.integrity.canonicalDigest = next13ProvenanceClassificationDigest(receipt);
+packages/core/src/receipts/next13-provenance-classification.ts:231:	return parseNext13ProvenanceClassificationReceipt(receipt);
+packages/core/src/receipts/next13-provenance-classification.ts:404:	const receipt = root as unknown as Next13ProvenanceClassificationReceipt;
+packages/core/src/receipts/next13-provenance-classification.ts:409:		next13ProvenanceClassificationDigest(receipt) !== integrity.canonicalDigest
+packages/core/src/receipts/next13-provenance-classification.ts:412:	return receipt;
+packages/cli/test/react-boilerplate-v4.test.ts:3:import { sha256 } from '../../core/src/receipts/canonicalize.ts';
+packages/core/src/receipts/provenance-framework-classification.ts:279:	receipt: ProvenanceFrameworkClassificationReceipt,
+packages/core/src/receipts/provenance-framework-classification.ts:281:	const copy = structuredClone(receipt);
+packages/core/src/receipts/provenance-framework-classification.ts:293:	const receipt: ProvenanceFrameworkClassificationReceipt = {
+packages/core/src/receipts/provenance-framework-classification.ts:320:	receipt.integrity.canonicalDigest = provenanceFrameworkClassificationDigest(receipt);
+packages/core/src/receipts/provenance-framework-classification.ts:321:	return parseProvenanceFrameworkClassificationReceipt(receipt);
+packages/core/src/receipts/provenance-framework-classification.ts:472:	const receipt = root as unknown as ProvenanceFrameworkClassificationReceipt;
+packages/core/src/receipts/provenance-framework-classification.ts:477:		provenanceFrameworkClassificationDigest(receipt) !== integrity.canonicalDigest
+packages/core/src/receipts/provenance-framework-classification.ts:480:	return receipt;
+packages/core/src/receipts/render.ts:3:export function renderReceipt(receipt: MigrationReceipt): string {
+packages/core/src/receipts/render.ts:4:	const rows = receipt.artifacts
+packages/core/src/receipts/render.ts:7:	const serviceWorker = receipt.verification.serviceWorker
+packages/core/src/receipts/render.ts:8:		? `\n- Same-origin service worker: ${receipt.verification.serviceWorker.registration}, scope \`${receipt.verification.serviceWorker.scope}\`, controller ${receipt.verification.serviceWorker.controller}\n- Content-addressed cache: \`${receipt.verification.serviceWorker.cacheName}\` (exact manifest and current-cache-only inventory)${receipt.verification.serviceWorker.upgradeOrders ? `\n- Same-origin upgrade orders: ${receipt.verification.serviceWorker.upgradeOrders.join(', ')}` : ''}\n- Offline reload and exact qualified journey: ${receipt.verification.serviceWorker.offlineJourney}\n- Coverage: exact qualified journey only; global offline/PWA correctness is not claimed`
+packages/core/src/receipts/render.ts:11:		receipt.migration.transform === 'react-composed-connect-to-hooks'
+packages/core/src/receipts/render.ts:12:			? `The exact five-file cumulative React target executed distinct locale-first and data-flow-first transform traces with identical bytes. A staged-write failure left the published target untouched and cleaned its stage; the validated complete target was then published by one same-filesystem directory rename. The harness-only Vite adapter is excluded from migrated source. ${receipt.migration.edits} Yuku-gated and maintained-package edits were composed.`
+packages/core/src/receipts/render.ts:13:			: 'dependency' in receipt.migration
+packages/core/src/receipts/render.ts:14:				? `\`${receipt.migration.file}\` was migrated from React-Redux \`${receipt.migration.dependency.from}\` to \`${receipt.migration.dependency.to}\` using Yuku semantic refusal and ${receipt.migration.edits} minimal span edits.`
+packages/core/src/receipts/render.ts:15:				: receipt.migration.transform === 'react-data-flow-connect-to-hooks'
+packages/core/src/receipts/render.ts:16:					? `\`${receipt.migration.file}\` received ${receipt.migration.edits} deterministic Yuku-gated edits that preserve named prop-driven components and replace only their default React-Redux wiring with hooks wrappers.`
+packages/core/src/receipts/render.ts:17:					: `\`${receipt.migration.file}\` received ${receipt.migration.edits} minimal span edits under Yuku semantic refusal. The constructable outer controller and dependency-injection annotation are preserved. This is AngularJS special-track evidence only.`;
+packages/core/src/receipts/render.ts:18:	return `# Versionless migration receipt\n\n- Run: \`${receipt.runId}\`\n- Fixture: \`${receipt.fixture}\`\n- Result: **${receipt.verification.result}**\n- Source revision: \`${receipt.source.revision}\`\n- Canonical SHA-256: \`${receipt.integrity.canonicalDigest}\`\n- Authenticity: **not established** (hash integrity only)\n\n## Migration\n\n${migration}\n\n## Verification\n\n- Independent legacy and target preparation: ${receipt.verification.builds}\n- Identical Playwright journey, two qualification runs per lane: ${receipt.verification.journeys}\n- Mutation-red and byte-identical restoration: ${receipt.verification.mutation}\n- Successful non-loopback traffic: ${receipt.verification.locality.successfulNonLoopback}\n- Deterministic-core digest reproduced: ${receipt.verification.deterministicCore.equal}${serviceWorker}\n\nLocality enforcement is scoped to ${receipt.verification.locality.scope}. It is not OS-wide isolation.\n\n## Artifacts\n\n| Path | SHA-256 |\n|---|---|\n${rows}\n\n## Limitations\n\n${receipt.limitations.map((item) => `- ${item}`).join('\n')}\n`;
+packages/core/src/receipts/angular-realworld-v15-to-v16.ts:6:	path: 'evidence/runs/angular-realworld-v15-to-v16/receipt.json',
+packages/core/src/receipts/angular-realworld-v15-to-v16.ts:17:		'evidence/ingests/angular-realworld-v16/receipt.json',
+packages/core/src/receipts/angular-realworld-v15-to-v16.ts:117:	const receipt = record(value, 'receipt');
+packages/core/src/receipts/angular-realworld-v15-to-v16.ts:119:		receipt,
+packages/core/src/receipts/angular-realworld-v15-to-v16.ts:134:		'receipt',
+packages/core/src/receipts/angular-realworld-v15-to-v16.ts:136:	const integrity = record(receipt.integrity, 'integrity');
+packages/core/src/receipts/angular-realworld-v15-to-v16.ts:137:	const source = record(receipt.source, 'source');
+packages/core/src/receipts/angular-realworld-v15-to-v16.ts:138:	const migration = record(receipt.migration, 'migration');
+packages/core/src/receipts/angular-realworld-v15-to-v16.ts:139:	const legacy = record(receipt.legacy, 'legacy');
+packages/core/src/receipts/angular-realworld-v15-to-v16.ts:140:	const target = record(receipt.target, 'target');
+packages/core/src/receipts/angular-realworld-v15-to-v16.ts:142:	const mutation = record(receipt.mutation, 'mutation');
+packages/core/src/receipts/angular-realworld-v15-to-v16.ts:144:	if (!Array.isArray(receipt.journeys) || receipt.journeys.length !== 4)
+packages/core/src/receipts/angular-realworld-v15-to-v16.ts:146:	const lanes = receipt.journeys.map((value, index) => {
+packages/core/src/receipts/angular-realworld-v15-to-v16.ts:162:	const copy = structuredClone(receipt);
+packages/core/src/receipts/angular-realworld-v15-to-v16.ts:165:		receipt.schemaVersion !== 'versionless.angular-realworld-v15-to-v16.v1' ||
+packages/core/src/receipts/angular-realworld-v15-to-v16.ts:166:		receipt.result !== 'pass' ||
+packages/core/src/receipts/angular-realworld-v15-to-v16.ts:167:		receipt.status !== 'pass' ||
+packages/core/src/receipts/angular-realworld-v15-to-v16.ts:202:		throw new Error('Angular RealWorld v15-to-v16 receipt differs');
+packages/core/src/receipts/angular-realworld-v15-to-v16.ts:203:	return receipt as AngularRealworldV15ToV16Receipt;
+packages/core/src/receipts/angular-realworld-v15-to-v16.ts:209:	receipt: AngularRealworldV15ToV16Receipt;
+packages/core/src/receipts/angular-realworld-v15-to-v16.ts:212:	const receiptBytes = await readFile(path.join(root, ANGULAR_REALWORLD_V15_TO_V16_RECEIPT.path));
+packages/core/src/receipts/angular-realworld-v15-to-v16.ts:213:	if (sha256(receiptBytes) !== ANGULAR_REALWORLD_V15_TO_V16_RECEIPT.fileSha256)
+packages/core/src/receipts/angular-realworld-v15-to-v16.ts:214:		throw new Error('Angular RealWorld v15-to-v16 receipt file digest differs');
+packages/core/src/receipts/angular-realworld-v15-to-v16.ts:215:	const receipt = parseAngularRealworldV15ToV16Receipt(JSON.parse(receiptBytes.toString('utf8')));
+packages/core/src/receipts/angular-realworld-v15-to-v16.ts:222:		receipt,
+packages/core/src/receipts/verify.ts:4:import { receiptDigest, sha256 } from './canonicalize.ts';
+packages/core/src/receipts/verify.ts:17:	receiptPathBase?: ReceiptPathBase;
+packages/core/src/receipts/verify.ts:43:		? resolveReceiptPath(file, explicitRoot, options.receiptPathBase ?? 'repository')
+packages/core/src/receipts/verify.ts:45:	const receipt = parseMigrationReceipt(JSON.parse(await readFile(absolute, 'utf8')));
+packages/core/src/receipts/verify.ts:46:	assertSyntheticEvidence(receipt);
+packages/core/src/receipts/verify.ts:47:	const calculated = receiptDigest(receipt);
+packages/core/src/receipts/verify.ts:48:	if (calculated !== receipt.integrity.canonicalDigest)
+packages/core/src/receipts/verify.ts:51:	for (const artifact of receipt.artifacts) {
+packages/core/src/receipts/verify.ts:64:	if (!report.includes(receipt.integrity.canonicalDigest))
+packages/core/src/receipts/verify.ts:70:			fixtures?: Array<{ receipt?: string; digest?: string }>;
+packages/core/src/receipts/verify.ts:72:		const receiptRelative = path.relative(root, absolute);
+packages/core/src/receipts/verify.ts:76:					item.receipt === receiptRelative &&
+packages/core/src/receipts/verify.ts:77:					item.digest === receipt.integrity.canonicalDigest,
+packages/core/src/receipts/verify.ts:80:			throw new Error('Aggregate is not linked to the canonical receipt');
+packages/core/src/receipts/verify.ts:82:	return { valid: true, digest: calculated, artifacts: receipt.artifacts.length };
+packages/core/src/receipts/schema.ts:100:	schemaVersion: 'versionless.receipt.v1';
+packages/core/src/receipts/schema.ts:176:	if (root.schemaVersion !== 'versionless.receipt.v1')
+packages/core/src/receipts/schema.ts:177:		throw new Error('Unsupported receipt schema');
+packages/core/src/receipts/witness-real-app.ts:48:				receiptPath: 'evidence/runs/react-boilerplate-v4-composed/t060-run.json';
+packages/core/src/receipts/witness-real-app.ts:190:export function witnessRealAppDigest(receipt: WitnessRealAppReceipt): string {
+packages/core/src/receipts/witness-real-app.ts:191:	const copy = structuredClone(receipt);
+packages/core/src/receipts/witness-real-app.ts:197:	const receipt = record(value, 'receipt') as WitnessRealAppReceipt;
+packages/core/src/receipts/witness-real-app.ts:199:		receipt.schemaVersion !== WITNESS_REAL_APP_SCHEMA ||
+packages/core/src/receipts/witness-real-app.ts:200:		receipt.result !== 'pass' ||
+packages/core/src/receipts/witness-real-app.ts:201:		!Array.isArray(receipt.runs) ||
+packages/core/src/receipts/witness-real-app.ts:202:		receipt.runs.length !== 16 ||
+packages/core/src/receipts/witness-real-app.ts:203:		!Array.isArray(receipt.canonicalReceipts) ||
+packages/core/src/receipts/witness-real-app.ts:204:		receipt.canonicalReceipts.length !== 4
+packages/core/src/receipts/witness-real-app.ts:206:		throw new Error('Witness real-app receipt cardinality differs');
+packages/core/src/receipts/witness-real-app.ts:213:	for (const run of receipt.runs) {
+packages/core/src/receipts/witness-real-app.ts:334:					run.offlineEvidence.serviceWorkerEvidence.receiptPath !==
+packages/core/src/receipts/witness-real-app.ts:372:		receipt.mutations?.length !== 2 ||
+packages/core/src/receipts/witness-real-app.ts:373:		receipt.mutations.some(
+packages/core/src/receipts/witness-real-app.ts:379:		!receipt.mutations.some((mutation) => mutation.app === 'react-boilerplate') ||
+packages/core/src/receipts/witness-real-app.ts:380:		!receipt.mutations.some((mutation) => mutation.app === 'angular-realworld') ||
+packages/core/src/receipts/witness-real-app.ts:381:		receipt.killedByGoogleInventory?.transformEdits !== 3 ||
+packages/core/src/receipts/witness-real-app.ts:382:		receipt.locality?.mode !== 'offline' ||
+packages/core/src/receipts/witness-real-app.ts:383:		receipt.locality?.successfulNonLoopback !== 0 ||
+packages/core/src/receipts/witness-real-app.ts:384:		receipt.locality?.osWideIsolation !== false ||
+packages/core/src/receipts/witness-real-app.ts:385:		!receipt.nonclaims?.some((claim) => claim.includes('Drag is not-tested')) ||
+packages/core/src/receipts/witness-real-app.ts:386:		receipt.integrity?.algorithm !== 'sha256' ||
+packages/core/src/receipts/witness-real-app.ts:387:		receipt.integrity.canonicalDigest !== witnessRealAppDigest(receipt)
+packages/core/src/receipts/witness-real-app.ts:389:		throw new Error('Witness real-app receipt integrity or nonclaims differ');
+packages/core/src/receipts/witness-real-app.ts:390:	return receipt;
+packages/core/src/receipts/dependency-closure.ts:359:export function dependencyClosureDigest(receipt: DependencyClosureReceipt): string {
+packages/core/src/receipts/dependency-closure.ts:360:	const copy = structuredClone(receipt);
+packages/core/src/receipts/dependency-closure.ts:366:	receipt: Omit<DependencyClosureReceipt, 'schemaVersion' | 'integrity'>,
+packages/core/src/receipts/dependency-closure.ts:370:		...receipt,
+packages/core/src/receipts/dependency-closure.ts:378:	const receipt = object(value, 'receipt') as unknown as DependencyClosureReceipt;
+packages/core/src/receipts/dependency-closure.ts:380:		receipt.schemaVersion !== DEPENDENCY_CLOSURE_SCHEMA ||
+packages/core/src/receipts/dependency-closure.ts:381:		receipt.fixture !== 'angular-fuxa' ||
+packages/core/src/receipts/dependency-closure.ts:382:		receipt.repository !== 'frangoteam/FUXA' ||
+packages/core/src/receipts/dependency-closure.ts:383:		receipt.commit !== '8b323c177615c0d152a54e5ef0a6f98dae7b8ff0' ||
+packages/core/src/receipts/dependency-closure.ts:384:		receipt.lock?.sha256 !== FUXA_LOCK_SHA256 ||
+packages/core/src/receipts/dependency-closure.ts:385:		receipt.lock?.entries !== 1468 ||
+packages/core/src/receipts/dependency-closure.ts:386:		receipt.lock?.uniqueTarballs !== 1222 ||
+packages/core/src/receipts/dependency-closure.ts:387:		receipt.lock?.missingResolvedOrIntegrity !== 0 ||
+packages/core/src/receipts/dependency-closure.ts:388:		JSON.stringify(receipt.lock?.hosts) !== JSON.stringify(['registry.npmjs.org']) ||
+packages/core/src/receipts/dependency-closure.ts:389:		receipt.runtime?.node !== '16.20.2' ||
+packages/core/src/receipts/dependency-closure.ts:390:		receipt.runtime?.npm !== '8.19.4' ||
+packages/core/src/receipts/dependency-closure.ts:391:		receipt.runtime?.archiveSha256 !== FUXA_RUNTIME_SHA256 ||
+packages/core/src/receipts/dependency-closure.ts:392:		receipt.runtime?.state !== 'eol-compatibility-sandbox-only' ||
+packages/core/src/receipts/dependency-closure.ts:393:		receipt.consent?.status !== 'closed' ||
+packages/core/src/receipts/dependency-closure.ts:394:		JSON.stringify(receipt.consent?.methods) !== JSON.stringify(['GET']) ||
+packages/core/src/receipts/dependency-closure.ts:395:		receipt.consent?.requests !== 1222 ||
+packages/core/src/receipts/dependency-closure.ts:396:		!Number.isSafeInteger(receipt.consent?.responseBytes) ||
+packages/core/src/receipts/dependency-closure.ts:397:		receipt.consent.responseBytes < 0 ||
+packages/core/src/receipts/dependency-closure.ts:398:		receipt.consent.responseBytes > 1_024 * 1_024 * 1_024 ||
+packages/core/src/receipts/dependency-closure.ts:399:		receipt.consent?.aggregateBytes !== 1_024 * 1_024 * 1_024 ||
+packages/core/src/receipts/dependency-closure.ts:400:		receipt.artifacts?.length !== 1222 ||
+packages/core/src/receipts/dependency-closure.ts:401:		receipt.installVerification?.runs !== 2 ||
+packages/core/src/receipts/dependency-closure.ts:402:		receipt.installVerification?.networkAttempts !== 0 ||
+packages/core/src/receipts/dependency-closure.ts:403:		receipt.installVerification?.ignoreScripts !== true ||
+packages/core/src/receipts/dependency-closure.ts:404:		receipt.installVerification?.firstDigest !== receipt.installVerification?.secondDigest ||
+packages/core/src/receipts/dependency-closure.ts:405:		receipt.installVerification?.lockUnchanged !== true ||
+packages/core/src/receipts/dependency-closure.ts:406:		receipt.installVerification?.residue !== 'none' ||
+packages/core/src/receipts/dependency-closure.ts:407:		receipt.integrity?.algorithm !== 'sha256' ||
+packages/core/src/receipts/dependency-closure.ts:408:		dependencyClosureDigest(receipt) !== receipt.integrity?.canonicalDigest
+packages/core/src/receipts/dependency-closure.ts:410:		throw new Error('Dependency closure receipt is invalid');
+packages/core/src/receipts/dependency-closure.ts:412:	for (const [index, artifact] of receipt.artifacts.entries()) {
+packages/core/src/receipts/dependency-closure.ts:431:			throw new Error('Dependency closure receipt artifact is invalid');
+packages/core/src/receipts/dependency-closure.ts:435:		throw new Error('Dependency closure receipt artifact pairs are not unique');
+packages/core/src/receipts/dependency-closure.ts:436:	return receipt;
+packages/core/src/receipts/canonicalize.ts:17:export function receiptDigest(receipt: MigrationReceipt): string {
+packages/core/src/receipts/canonicalize.ts:18:	const copy = structuredClone(receipt);
+packages/core/src/receipts/framework-classification.ts:70:export function frameworkClassificationDigest(receipt: FrameworkClassificationReceipt): string {
+packages/core/src/receipts/framework-classification.ts:71:	const copy = structuredClone(receipt);
+packages/core/src/receipts/framework-classification.ts:83:	const receipt: FrameworkClassificationReceipt = {
+packages/core/src/receipts/framework-classification.ts:113:	receipt.integrity.canonicalDigest = frameworkClassificationDigest(receipt);
+packages/core/src/receipts/framework-classification.ts:114:	return receipt;
+packages/core/src/receipts/framework-classification.ts:186:	const receipt = root as unknown as FrameworkClassificationReceipt;
+packages/core/src/receipts/framework-classification.ts:191:		frameworkClassificationDigest(receipt) !== integrity.canonicalDigest
+packages/core/src/receipts/framework-classification.ts:194:	return receipt;
+packages/core/test/npm-lock-acquisition-preflight.test.ts:232:	it('rejects unsafe paths, links, checksum changes, identity drift, mixed roots, and trailing data', () => {
+packages/core/test/dependency-closure.test.ts:16:} from '../src/receipts/dependency-closure.ts';
+packages/core/test/dependency-closure.test.ts:17:import { sha256 } from '../src/receipts/canonicalize.ts';
+packages/core/test/dependency-closure.test.ts:128:	it('seals and rejects mutations to a complete 1,222-artifact receipt', () => {
+packages/core/test/dependency-closure.test.ts:140:		const receipt = finalizeDependencyClosureReceipt({
+packages/core/test/dependency-closure.test.ts:179:		expect(verifyDependencyClosureReceipt(receipt)).toEqual(receipt);
+packages/core/test/dependency-closure.test.ts:180:		const mutated = structuredClone(receipt);
+packages/core/test/next-killedbygoogle-receipt.test.ts:98:describe('Killed by Google receipt', () => {
+packages/core/test/next-killedbygoogle-receipt.test.ts:105:			receipt: NEXT_KILLED_BY_GOOGLE_RECEIPT_PATH,
+packages/core/test/next13-provenance-classification.test.ts:12:} from '../src/receipts/next13-provenance-classification.ts';
+packages/core/test/next13-provenance-classification.test.ts:13:import { PROVENANCE_FRAMEWORK_CLASSIFICATION_SCHEMA } from '../src/receipts/provenance-framework-classification.ts';
+packages/core/test/next13-provenance-classification.test.ts:63:function receipt() {
+packages/core/test/next13-provenance-classification.test.ts:94:describe('Next13 provenance classification receipt', () => {
+packages/core/test/next13-provenance-classification.test.ts:96:		const value = receipt();
+packages/core/test/next13-provenance-classification.test.ts:105:	it('rejects closure, source-fact, execution, claim, and digest drift', () => {
+packages/core/test/next13-provenance-classification.test.ts:134:			const value: any = structuredClone(receipt());
+packages/core/test/runtime-script-observation.test.ts:115:				'receipt',
+packages/core/test/runtime-script-observation.test.ts:117:					((firstLane(value).receipt as Record<string, unknown>).digest = '0'.repeat(64)),
+packages/core/test/runtime-script-observation.test.ts:120:				'composed receipt rebinding',
+packages/core/test/runtime-script-observation.test.ts:122:					((composedLane(value).receipt as Record<string, unknown>).path =
+packages/core/test/runtime-script-observation.test.ts:126:				'PhoneCat Vite receipt rebinding',
+packages/core/test/runtime-script-observation.test.ts:128:					((phonecatViteLane(value).receipt as Record<string, unknown>).path =
+packages/core/test/runtime-script-observation.test.ts:153:				'synthetic drift',
+packages/core/test/runtime-script-observation.test.ts:156:						'https://synthetic.invalid/drift',
+packages/core/test/runtime-script-observation.test.ts:161:				'projection drift',
+packages/core/test/corpus-conformance.test.ts:10:import { nextKilledByGoogleAggregateMember } from '../src/receipts/next-killedbygoogle.ts';
+packages/core/test/corpus-conformance.test.ts:11:import { receiptDigest, sha256 } from '../src/receipts/canonicalize.ts';
+packages/core/test/corpus-conformance.test.ts:12:import { renderReceipt } from '../src/receipts/render.ts';
+packages/core/test/corpus-conformance.test.ts:13:import type { MigrationReceipt } from '../src/receipts/schema.ts';
+packages/core/test/corpus-conformance.test.ts:65:	const receiptRelative = 'evidence/runs/react-boilerplate-v4-composed/t060-run.json';
+packages/core/test/corpus-conformance.test.ts:66:	const receiptFile = path.join(rootDir, receiptRelative);
+packages/core/test/corpus-conformance.test.ts:67:	const receipt = JSON.parse(await readFile(receiptFile, 'utf8')) as Record<string, any>;
+packages/core/test/corpus-conformance.test.ts:68:	const reference = receipt.artifacts.find(
+packages/core/test/corpus-conformance.test.ts:73:	receipt.integrity.canonicalDigest = receiptDigest(receipt as MigrationReceipt);
+packages/core/test/corpus-conformance.test.ts:74:	await writeFile(receiptFile, `${JSON.stringify(receipt, null, 2)}\n`);
+packages/core/test/corpus-conformance.test.ts:77:		renderReceipt(receipt as MigrationReceipt),
+packages/core/test/corpus-conformance.test.ts:82:		(value: Record<string, unknown>) => value.receipt === receiptRelative,
+packages/core/test/corpus-conformance.test.ts:85:	fixture.digest = receipt.integrity.canonicalDigest;
+packages/core/test/corpus-conformance.test.ts:100:	const receiptRelative = 'evidence/runs/angular-phonecat-vite8/t069-run.json';
+packages/core/test/corpus-conformance.test.ts:101:	const receiptFile = path.join(rootDir, receiptRelative);
+packages/core/test/corpus-conformance.test.ts:102:	const receipt = JSON.parse(await readFile(receiptFile, 'utf8')) as Record<string, any>;
+packages/core/test/corpus-conformance.test.ts:103:	const reference = receipt.artifacts.find(
+packages/core/test/corpus-conformance.test.ts:108:	receipt.integrity.canonicalDigest = receiptDigest(receipt as MigrationReceipt);
+packages/core/test/corpus-conformance.test.ts:109:	await writeFile(receiptFile, `${JSON.stringify(receipt, null, 2)}\n`);
+packages/core/test/corpus-conformance.test.ts:112:		renderReceipt(receipt as MigrationReceipt),
+packages/core/test/corpus-conformance.test.ts:117:		(value: Record<string, unknown>) => value.receipt === receiptRelative,
+packages/core/test/corpus-conformance.test.ts:120:	fixture.digest = receipt.integrity.canonicalDigest;
+packages/core/test/corpus-conformance.test.ts:243:			receipts: 10,
+packages/core/test/corpus-conformance.test.ts:252:			receipts: 11,
+packages/core/test/corpus-conformance.test.ts:258:			[...before, { ...nextMember, receipt: 'evidence/runs/misplaced.json' }],
+packages/core/test/corpus-conformance.test.ts:259:			[...before, { id: 'unknown', receipt: 'unknown', digest: 'a'.repeat(64) }],
+packages/core/test/corpus-conformance.test.ts:264:	it('does not read a stray Killed by Google receipt before aggregate integration', async () => {
+packages/core/test/corpus-conformance.test.ts:275:					'evidence/runs/next-killedbygoogle-derived-state-to-memo/receipt.json',
+packages/core/test/corpus-conformance.test.ts:293:	it('rejects missing, extra, and aggregate-digest-tampered receipts', async () => {
+packages/core/test/corpus-conformance.test.ts:308:						receipt: 'evidence/runs/unknown.json',
+packages/core/test/corpus-conformance.test.ts:337:	it('rejects linked-artifact tampering and user-observable behavior drift', async () => {
+packages/core/test/corpus-conformance.test.ts:338:		for (const label of ['artifact-tamper', 'behavior-drift']) {
+packages/core/test/corpus-conformance.test.ts:345:						rows[0][label === 'behavior-drift' ? 'selectedLocale' : 'result'] =
+packages/core/test/corpus-conformance.test.ts:346:							label === 'behavior-drift' ? 'fr' : 'fail';
+packages/core/test/corpus-conformance.test.ts:427:	it('rejects composed receipt-path rebinding even with copied bytes', async () => {
+packages/core/test/corpus-conformance.test.ts:428:		const directory = await corpusCopy('receipt-path-rebind');
+packages/core/test/corpus-conformance.test.ts:438:			fixture.receipt = 'evidence/runs/react-boilerplate-v4-composed/rebound.json';
+packages/core/test/corpus-conformance.test.ts:441:				'Aggregate is missing receipt',
+packages/core/test/framework-classification-receipt.test.ts:7:} from '../src/receipts/framework-classification.ts';
+packages/core/test/framework-classification-receipt.test.ts:9:function receipt() {
+packages/core/test/framework-classification-receipt.test.ts:19:describe('framework classification receipt', () => {
+packages/core/test/framework-classification-receipt.test.ts:21:		const first = receipt();
+packages/core/test/framework-classification-receipt.test.ts:22:		const second = receipt();
+packages/core/test/framework-classification-receipt.test.ts:36:			const value = structuredClone(receipt()) as unknown as Record<string, any>;
+packages/core/test/framework-classification-receipt.test.ts:43:		const react = structuredClone(receipt()) as unknown as Record<string, any>;
+packages/core/test/framework-classification-receipt.test.ts:58:			const value = structuredClone(receipt()) as unknown as Record<string, any>;
+packages/core/test/framework-classification-receipt.test.ts:63:		const digest = receipt();
+packages/core/test/angular-realworld-v15-to-v16-receipt.test.ts:9:} from '../src/receipts/angular-realworld-v15-to-v16.ts';
+packages/core/test/angular-realworld-v15-to-v16-receipt.test.ts:14:describe('Angular RealWorld v15-to-v16 heterogeneous receipt', () => {
+packages/core/test/angular-realworld-v15-to-v16-receipt.test.ts:26:	it('rejects receipt semantic tampering even when the object remains valid JSON', async () => {
+packages/core/test/script-surface.test.ts:5:import { sha256 } from '../src/receipts/canonicalize.ts';
+packages/core/test/script-surface.test.ts:134:	it('rejects canonical identity, source, lane, entrypoint, receipt, and observation rebinding', async () => {
+packages/core/test/script-surface.test.ts:163:					lanes[1].receiptPath = 'evidence/runs/react-boilerplate-v4/t008-run.json';
+packages/core/test/script-surface.test.ts:167:				if (lanes[1]) lanes[1].receiptDigest = '0'.repeat(64);
+packages/core/test/script-surface.test.ts:176:					lanes[0].receiptPath =
+packages/core/test/script-surface.test.ts:181:				if (lanes[1]) lanes[1].receiptDigest = '0'.repeat(64);
+packages/core/test/script-surface.test.ts:190:					lanes[1].receiptPath = 'evidence/runs/angular-phonecat-composed/t048-run.json';
+packages/core/test/receipt.test.ts:5:import { canonicalize, receiptDigest } from '../src/receipts/canonicalize.ts';
+packages/core/test/receipt.test.ts:6:import { renderReceipt } from '../src/receipts/render.ts';
+packages/core/test/receipt.test.ts:7:import { parseMigrationReceipt, type MigrationReceipt } from '../src/receipts/schema.ts';
+packages/core/test/receipt.test.ts:8:import { resolveReceiptPath, verifyReceipt, type ReceiptPathBase } from '../src/receipts/verify.ts';
+packages/core/test/receipt.test.ts:12:	receipt: MigrationReceipt;
+packages/core/test/receipt.test.ts:21:	const temporary = await mkdtemp(path.join(os.tmpdir(), 'versionless-receipt-paths-'));
+packages/core/test/receipt.test.ts:23:	const versionlessRelativeReceipt = 'work/deep/receipt.json';
+packages/core/test/receipt.test.ts:30:	const receipt = JSON.parse(
+packages/core/test/receipt.test.ts:34:	for (const [index, artifact] of receipt.artifacts.entries()) {
+packages/core/test/receipt.test.ts:49:	receipt.integrity.canonicalDigest = receiptDigest(receipt);
+packages/core/test/receipt.test.ts:51:	await writeFile(absoluteReceipt, `${JSON.stringify(receipt, null, 2)}\n`);
+packages/core/test/receipt.test.ts:52:	await writeFile(path.join(path.dirname(absoluteReceipt), 'receipt.md'), renderReceipt(receipt));
+packages/core/test/receipt.test.ts:60:		receipt,
+packages/core/test/receipt.test.ts:69:describe('receipts', () => {
+packages/core/test/receipt.test.ts:72:		const absolute = path.join(repositoryRoot, '.versionless/work/deep/receipt.json');
+packages/core/test/receipt.test.ts:76:			resolveReceiptPath('.versionless/work/deep/receipt.json', repositoryRoot, 'repository'),
+packages/core/test/receipt.test.ts:78:		expect(resolveReceiptPath('work/deep/receipt.json', repositoryRoot, 'versionless')).toBe(
+packages/core/test/receipt.test.ts:83:	test('verifies explicit receipt and artifact path categories independent of depth', async () => {
+packages/core/test/receipt.test.ts:100:						receiptPathBase: 'repository',
+packages/core/test/receipt.test.ts:106:						receiptPathBase: 'versionless',
+packages/core/test/receipt.test.ts:119:			receiptPathBase: 'repository' as const,
+packages/core/test/receipt.test.ts:123:		const writeReceipt = async (receipt: MigrationReceipt) => {
+packages/core/test/receipt.test.ts:124:			await writeFile(fixture.absoluteReceipt, `${JSON.stringify(receipt, null, 2)}\n`);
+packages/core/test/receipt.test.ts:126:				path.join(path.dirname(fixture.absoluteReceipt), 'receipt.md'),
+packages/core/test/receipt.test.ts:127:				renderReceipt(receipt),
+packages/core/test/receipt.test.ts:138:			const invalidSchema = structuredClone(fixture.receipt) as Record<string, any>;
+packages/core/test/receipt.test.ts:143:			const invalidDigest = structuredClone(fixture.receipt);
+packages/core/test/receipt.test.ts:150:			const invalidArtifact = structuredClone(fixture.receipt);
+packages/core/test/receipt.test.ts:152:			invalidArtifact.integrity.canonicalDigest = receiptDigest(invalidArtifact);
+packages/core/test/receipt.test.ts:158:			await writeReceipt(fixture.receipt);
+packages/core/test/receipt.test.ts:160:				path.join(path.dirname(fixture.absoluteReceipt), 'receipt.md'),
+packages/core/test/receipt.test.ts:167:			await writeReceipt(fixture.receipt);
+packages/core/test/receipt.test.ts:179:	test('generated receipt verifies and tampering fails', async () => {
+packages/core/test/receipt.test.ts:187:		const receipt = JSON.parse(raw);
+packages/core/test/receipt.test.ts:188:		expect(receiptDigest(receipt)).toBe(receipt.integrity.canonicalDigest);
+packages/core/test/receipt.test.ts:190:		const tampered = structuredClone(receipt);
+packages/core/test/receipt.test.ts:193:		const target = '.versionless/work/react-boilerplate-v4/tampered-receipt.json';
+packages/core/test/receipt.test.ts:197:	test('AngularJS special-track receipt verifies when generated', async () => {
+packages/core/test/receipt.test.ts:206:	test('accepts an exact multi-file AngularJS composition receipt shape', async () => {
+packages/core/test/receipt.test.ts:220:	test('accepts the exact React data-flow receipt shape', async () => {
+packages/core/test/receipt.test.ts:235:		const receipt = JSON.parse(
+packages/core/test/receipt.test.ts:257:			const rebound = structuredClone(receipt);
+packages/core/test/receipt.test.ts:259:			rebound.integrity.canonicalDigest = receiptDigest(rebound as MigrationReceipt);
+packages/core/test/receipt.test.ts:271:			const receipt = JSON.parse(await readFile(file, 'utf8')) as Record<string, any>;
+packages/core/test/receipt.test.ts:299:				const rebound = structuredClone(receipt);
+packages/core/test/receipt.test.ts:301:				rebound.integrity.canonicalDigest = receiptDigest(rebound as MigrationReceipt);
+packages/core/test/receipt.test.ts:309:		const receipt = JSON.parse(
+packages/core/test/receipt.test.ts:324:			const rebound = structuredClone(receipt);
+packages/core/test/receipt.test.ts:326:			rebound.integrity.canonicalDigest = receiptDigest(rebound as MigrationReceipt);
+packages/core/test/angular-standalone-component.test.ts:22:import { sha256 } from '../src/receipts/canonicalize.ts';
+packages/core/test/provenance-framework-classification.test.ts:10:} from '../src/receipts/provenance-framework-classification.ts';
+packages/core/test/provenance-framework-classification.test.ts:14:} from '../src/receipts/framework-classification.ts';
+packages/core/test/provenance-framework-classification.test.ts:54:function receipt() {
+packages/core/test/provenance-framework-classification.test.ts:93:describe('provenance-bound framework classification receipt', () => {
+packages/core/test/provenance-framework-classification.test.ts:95:		const value = receipt();
+packages/core/test/provenance-framework-classification.test.ts:105:		const value = receipt();
+packages/core/test/provenance-framework-classification.test.ts:125:	it('rejects extra keys, identity/hash/count/path drift, source strengthening, and tampering', () => {
+packages/core/test/provenance-framework-classification.test.ts:159:			const value: any = structuredClone(receipt());
+packages/core/test/witness-real-app-receipt.test.ts:2:import { canonicalize, sha256 } from '../src/receipts/canonicalize.ts';
+packages/core/test/witness-real-app-receipt.test.ts:10:} from '../src/receipts/witness-real-app.ts';
+packages/core/test/witness-real-app-receipt.test.ts:53:									receiptPath:
+packages/core/test/witness-real-app-receipt.test.ts:207:	const receipt: WitnessRealAppReceipt = {
+packages/core/test/witness-real-app-receipt.test.ts:243:	receipt.integrity.canonicalDigest = witnessRealAppDigest(receipt);
+packages/core/test/witness-real-app-receipt.test.ts:244:	return receipt;
+packages/core/test/witness-real-app-receipt.test.ts:247:describe('linked Witness real-app receipt', () => {
+packages/core/test/witness-real-app-receipt.test.ts:253:		const receipt = fixture();
+packages/core/test/witness-real-app-receipt.test.ts:254:		receipt.runs[0]!.interactions[0]!.kind = 'drag' as 'click';
+packages/core/test/witness-real-app-receipt.test.ts:255:		expect(() => parseWitnessRealAppReceipt(receipt)).toThrow('drag');
+packages/core/test/witness-real-app-receipt.test.ts:259:		const receipt = fixture();
+packages/core/test/witness-real-app-receipt.test.ts:260:		const run = receipt.runs.find((candidate) => candidate.app === 'react-boilerplate')!;
+packages/core/test/witness-real-app-receipt.test.ts:263:		receipt.integrity.canonicalDigest = witnessRealAppDigest(receipt);
+packages/core/test/witness-real-app-receipt.test.ts:264:		expect(() => parseWitnessRealAppReceipt(receipt)).toThrow('run differs');
+packages/core/test/witness-real-app-receipt.test.ts:268:		const receipt = fixture();
+packages/core/test/witness-real-app-receipt.test.ts:269:		receipt.runs[0]!.observerFinalization.detach = 'failed' as 'owned-detach-complete';
+packages/core/test/witness-real-app-receipt.test.ts:270:		receipt.integrity.canonicalDigest = witnessRealAppDigest(receipt);
+packages/core/test/witness-real-app-receipt.test.ts:271:		expect(() => parseWitnessRealAppReceipt(receipt)).toThrow('run differs');
+packages/core/test/witness-real-app-receipt.test.ts:275:		const receipt = fixture();
+packages/core/test/witness-real-app-receipt.test.ts:276:		const run = receipt.runs.find(
+packages/core/test/witness-real-app-receipt.test.ts:281:		receipt.integrity.canonicalDigest = witnessRealAppDigest(receipt);
+packages/core/test/witness-real-app-receipt.test.ts:282:		expect(() => parseWitnessRealAppReceipt(receipt)).toThrow('run differs');
+
+
+$ /bin/zsh -lc "sed -n '1,260p' packages/frameworks/react/src/react-data-flow-connect-to-hooks.ts && sed -n '1,260p' packages/frameworks/react/test/react-data-flow-connect-to-hooks.test.ts && sed -n '200,360p' packages/core/test/receipt.test.ts && sed -n '1,240p' packages/core/src/receipts/schema.ts"
+exit=0
+import { createHash } from 'node:crypto';
+import { analyze, SymbolFlags } from 'yuku-analyzer';
+
+export const HOME_PAGE_SOURCE_SHA256 =
+	'db0413d948d68980dd24db7660e1bd854cabcc4642ec15fff710f5c95131f232';
+export const REPO_LIST_ITEM_SOURCE_SHA256 =
+	'21a570ed27af053040ce6b503f1af0c22bbdfea52284dccb47b2dc382844d867';
+
+const sha256 = (value: string): string => createHash('sha256').update(value).digest('hex');
+
+type SemanticModule = ReturnType<typeof analyze>;
+
+function assertSymbol(
+	module: SemanticModule,
+	name: string,
+	options: { imported?: boolean; references: number },
+): void {
+	const symbol = module.rootScope.find(name);
+	if (!symbol) throw new Error(`Refused: missing semantic symbol ${name}`);
+	if (options.imported && !symbol.has(SymbolFlags.Import))
+		throw new Error(`Refused: ${name} is not the imported binding`);
+	if (symbol.references.length !== options.references)
+		throw new Error(
+			`Refused: ${name} reference count ${symbol.references.length} != ${options.references}`,
+		);
+}
+
+function transform(
+	source: string,
+	options: {
+		path: string;
+		expectedSha256: string;
+		symbols: Array<[string, { imported?: boolean; references: number }]>;
+		replacements: ReadonlyArray<readonly [string, string]>;
+		targetSymbols: Array<[string, { imported?: boolean; references: number }]>;
+	},
+) {
+	if (sha256(source) !== options.expectedSha256)
+		throw new Error(`Refused: ${options.path} source SHA-256 mismatch`);
+	const module = analyze(source, { lang: 'jsx', path: options.path });
+	if (module.diagnostics.length)
+		throw new Error(`Refused: Yuku diagnostics: ${JSON.stringify(module.diagnostics)}`);
+	for (const [name, expectation] of options.symbols) assertSymbol(module, name, expectation);
+	let code = source;
+	const edits: Array<{ start: number; end: number; beforeSha256: string; afterSha256: string }> =
+		[];
+	for (const [before, after] of options.replacements) {
+		const start = code.indexOf(before);
+		if (start < 0 || code.indexOf(before, start + 1) >= 0)
+			throw new Error('Refused: exact transform span missing or ambiguous');
+		edits.push({
+			start,
+			end: start + before.length,
+			beforeSha256: sha256(before),
+			afterSha256: sha256(after),
+		});
+		code = `${code.slice(0, start)}${after}${code.slice(start + before.length)}`;
+	}
+	const target = analyze(code, { lang: 'jsx', path: options.path });
+	if (target.diagnostics.length)
+		throw new Error(
+			`Refused: transformed Yuku diagnostics: ${JSON.stringify(target.diagnostics)}`,
+		);
+	for (const [name, expectation] of options.targetSymbols)
+		assertSymbol(target, name, expectation);
+	for (const legacy of [
+		'connect',
+		'createStructuredSelector',
+		'mapStateToProps',
+		'mapDispatchToProps',
+	])
+		if (target.rootScope.find(legacy))
+			throw new Error(`Refused: legacy wiring remains: ${legacy}`);
+	return {
+		code,
+		sourceSha256: sha256(source),
+		targetSha256: sha256(code),
+		semanticEngine: {
+			parser: 'yuku-parser@0.7.0',
+			analyzer: 'yuku-analyzer@0.7.0',
+			diagnostics: 0,
+		},
+		edits,
+	};
+}
+
+const homeReplacements = [
+	[
+		"import { connect } from 'react-redux';\nimport { compose } from 'redux';\nimport { createStructuredSelector } from 'reselect';",
+		"import { useDispatch, useSelector } from 'react-redux';",
+	],
+	[
+		`const mapStateToProps = createStructuredSelector({
+  repos: makeSelectRepos(),
+  username: makeSelectUsername(),
+  loading: makeSelectLoading(),
+  error: makeSelectError(),
+});
+
+export function mapDispatchToProps(dispatch) {
+  return {
+    onChangeUsername: evt => dispatch(changeUsername(evt.target.value)),
+    onSubmitForm: evt => {
+      if (evt !== undefined && evt.preventDefault) evt.preventDefault();
+      dispatch(loadRepos());
+    },
+  };
+}
+
+const withConnect = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+);
+
+export default compose(
+  withConnect,
+  memo,
+)(HomePage);`,
+		`const selectRepos = makeSelectRepos();
+const selectUsername = makeSelectUsername();
+const selectLoading = makeSelectLoading();
+const selectError = makeSelectError();
+
+export function HomePageHooks() {
+  const repos = useSelector(selectRepos);
+  const username = useSelector(selectUsername);
+  const loading = useSelector(selectLoading);
+  const error = useSelector(selectError);
+  const dispatch = useDispatch();
+  const onChangeUsername = evt => dispatch(changeUsername(evt.target.value));
+  const onSubmitForm = evt => {
+    if (evt !== undefined && evt.preventDefault) evt.preventDefault();
+    dispatch(loadRepos());
+  };
+
+  return (
+    <HomePage
+      username={username}
+      loading={loading}
+      error={error}
+      repos={repos}
+      onSubmitForm={onSubmitForm}
+      onChangeUsername={onChangeUsername}
+    />
+  );
+}
+
+export default memo(HomePageHooks);`,
+	],
+] as const;
+
+const repoReplacements = [
+	[
+		"import { connect } from 'react-redux';\nimport { createStructuredSelector } from 'reselect';",
+		"import { useSelector } from 'react-redux';",
+	],
+	[
+		`export default connect(
+  createStructuredSelector({
+    currentUser: makeSelectCurrentUser(),
+  }),
+)(RepoListItem);`,
+		`const selectCurrentUser = makeSelectCurrentUser();
+
+export function RepoListItemHooks({ item }) {
+  const currentUser = useSelector(selectCurrentUser);
+  return <RepoListItem item={item} currentUser={currentUser} />;
+}
+
+RepoListItemHooks.propTypes = {
+  item: PropTypes.object,
+};
+
+export default RepoListItemHooks;`,
+	],
+] as const;
+
+export function transformHomePageConnectToHooks(
+	source: string,
+	options: { expectedSha256?: string } = {},
+) {
+	return transform(source, {
+		path: 'app/containers/HomePage/index.js',
+		expectedSha256: options.expectedSha256 ?? HOME_PAGE_SOURCE_SHA256,
+		replacements: homeReplacements,
+		symbols: [
+			['HomePage', { references: 2 }],
+			['connect', { imported: true, references: 1 }],
+			['compose', { imported: true, references: 1 }],
+			['createStructuredSelector', { imported: true, references: 1 }],
+			['makeSelectRepos', { imported: true, references: 1 }],
+			['makeSelectUsername', { imported: true, references: 1 }],
+			['makeSelectLoading', { imported: true, references: 1 }],
+			['makeSelectError', { imported: true, references: 1 }],
+			['loadRepos', { imported: true, references: 1 }],
+			['changeUsername', { imported: true, references: 1 }],
+			['mapStateToProps', { references: 1 }],
+			['mapDispatchToProps', { references: 1 }],
+		],
+		targetSymbols: [
+			['HomePage', { references: 2 }],
+			['HomePageHooks', { references: 1 }],
+			['useSelector', { imported: true, references: 4 }],
+			['useDispatch', { imported: true, references: 1 }],
+			['loadRepos', { imported: true, references: 1 }],
+			['changeUsername', { imported: true, references: 1 }],
+		],
+	});
+}
+
+export function transformRepoListItemConnectToHooks(
+	source: string,
+	options: { expectedSha256?: string } = {},
+) {
+	return transform(source, {
+		path: 'app/containers/RepoListItem/index.js',
+		expectedSha256: options.expectedSha256 ?? REPO_LIST_ITEM_SOURCE_SHA256,
+		replacements: repoReplacements,
+		symbols: [
+			['RepoListItem', { references: 2 }],
+			['connect', { imported: true, references: 1 }],
+			['createStructuredSelector', { imported: true, references: 1 }],
+			['makeSelectCurrentUser', { imported: true, references: 1 }],
+		],
+		targetSymbols: [
+			['RepoListItem', { references: 2 }],
+			['RepoListItemHooks', { references: 2 }],
+			['useSelector', { imported: true, references: 1 }],
+			['makeSelectCurrentUser', { imported: true, references: 1 }],
+		],
+	});
+}
+import { createHash } from 'node:crypto';
+import { readFile } from 'node:fs/promises';
+import * as path from 'pathe';
+import { describe, expect, it } from 'vitest';
+import {
+	transformHomePageConnectToHooks,
+	transformRepoListItemConnectToHooks,
+} from '../src/react-data-flow-connect-to-hooks.ts';
+
+const root = path.resolve(import.meta.dirname, '../../../..');
+const sourceRoot = path.join(root, '.versionless/work/react-boilerplate-v4-vite8/target');
+const hash = (value: string): string => createHash('sha256').update(value).digest('hex');
+
+describe('React data-flow connect-to-hooks transforms', () => {
+	it('preserves named prop-driven components and emits deterministic wrappers', async () => {
+		const home = await readFile(
+			path.join(sourceRoot, 'app/containers/HomePage/index.js'),
+			'utf8',
+		);
+		const repo = await readFile(
+			path.join(sourceRoot, 'app/containers/RepoListItem/index.js'),
+			'utf8',
+		);
+		const homeResult = transformHomePageConnectToHooks(home);
+		const repoResult = transformRepoListItemConnectToHooks(repo);
+		expect(homeResult.edits).toHaveLength(2);
+		expect(repoResult.edits).toHaveLength(2);
+		expect(homeResult.code).toContain('export function HomePage({');
+		expect(homeResult.code).toContain('dispatch(loadRepos())');
+		expect(repoResult.code).toContain('export function RepoListItem(props)');
+		expect(repoResult.code).toContain('useSelector(selectCurrentUser)');
+		for (const code of [homeResult.code, repoResult.code]) {
+			expect(code).not.toContain('connect(');
+			expect(code).not.toContain('createStructuredSelector');
+		}
+		expect(transformHomePageConnectToHooks(home).targetSha256).toBe(homeResult.targetSha256);
+		expect(transformRepoListItemConnectToHooks(repo).targetSha256).toBe(
+			repoResult.targetSha256,
+		);
+	});
+
+	it('refuses hash, import, reference, and ambiguous-span drift', async () => {
+		const home = await readFile(
+			path.join(sourceRoot, 'app/containers/HomePage/index.js'),
+			'utf8',
+		);
+		const repo = await readFile(
+			path.join(sourceRoot, 'app/containers/RepoListItem/index.js'),
+			'utf8',
+		);
+		expect(() => transformHomePageConnectToHooks(`${home}\n`)).toThrow('SHA-256');
+		const shadowed = repo.replace(
+			"import { connect } from 'react-redux';",
+			'const connect = value => value;',
+		);
+		expect(() =>
+			transformRepoListItemConnectToHooks(shadowed, { expectedSha256: hash(shadowed) }),
+		).toThrow('imported binding');
+		const changedReference = home.replace(
+			'dispatch(loadRepos());',
+			'dispatch(loadRepos()); loadRepos();',
+		);
+		expect(() =>
+			transformHomePageConnectToHooks(changedReference, {
+				expectedSha256: hash(changedReference),
+			}),
+		).toThrow('reference count');
+		const ambiguous = `${home}\n${home.slice(home.indexOf('const mapStateToProps'))}`;
+		expect(() =>
+			transformHomePageConnectToHooks(ambiguous, { expectedSha256: hash(ambiguous) }),
+		).toThrow();
+	});
+});
+			await readFile(file, 'utf8');
+		} catch {
+			return;
+		}
+		await expect(verifyReceipt(file)).resolves.toMatchObject({ valid: true });
+	});
+	test('accepts an exact multi-file AngularJS composition receipt shape', async () => {
+		const raw = JSON.parse(
+			await readFile('evidence/runs/angular-phonecat-route-resolve/t032-run.json', 'utf8'),
+		);
+		raw.migration.file =
+			'app/app.config.js + app/phone-list/phone-list.component.js + app/phone-detail/phone-detail.component.js';
+		raw.migration.changedFiles = [
+			'app/app.config.js',
+			'app/phone-list/phone-list.component.js',
+			'app/phone-detail/phone-detail.component.js',
+		];
+		const parsed = parseMigrationReceipt(raw);
+		expect('changedFiles' in parsed.migration && parsed.migration.changedFiles).toHaveLength(3);
+	});
+	test('accepts the exact React data-flow receipt shape', async () => {
+		const raw = JSON.parse(
+			await readFile('evidence/runs/react-boilerplate-v4-data-flow/t054-run.json', 'utf8'),
+		);
+		const parsed = parseMigrationReceipt(raw);
+		expect(parsed.migration).toMatchObject({
+			transform: 'react-data-flow-connect-to-hooks',
+			edits: 4,
+			changedFiles: [
+				'app/containers/HomePage/index.js',
+				'app/containers/RepoListItem/index.js',
+			],
+		});
+	});
+	test('refuses recomputed React-composed semantic rebinding', async () => {
+		const receipt = JSON.parse(
+			await readFile('evidence/runs/react-boilerplate-v4-composed/t060-run.json', 'utf8'),
+		) as Record<string, any>;
+		const mutations: Array<(value: Record<string, any>) => void> = [
+			(value) => (value.fixture = 'react-boilerplate-v4-data-flow'),
+			(value) => (value.runId = 'T062-react-boilerplate-v4-composed'),
+			(value) => (value.migration.changedFiles[0] = 'app/containers/Wrong/index.js'),
+			(value) =>
+				(value.migration.sourceHashes['app/containers/LocaleToggle/index.js'] = '0'.repeat(
+					64,
+				)),
+			(value) =>
+				(value.migration.targetHashes['app/containers/HomePage/index.js'] = '0'.repeat(64)),
+			(value) => value.migration.executionTraces.reverse(),
+			(value) => (value.migration.actualOrdersExecuted = false),
+			(value) => (value.migration.publication = 'five-sequential-writes'),
+			(value) => (value.migration.lateFailureRollback = 'partial-target'),
+			(value) => (value.migration.failedStageCleanup = false),
+			(value) => (value.migration.harnessOnlyAdapterExcluded = false),
+			(value) => (value.artifacts[1].path = value.artifacts[0].path),
+		];
+		for (const mutate of mutations) {
+			const rebound = structuredClone(receipt);
+			mutate(rebound);
+			rebound.integrity.canonicalDigest = receiptDigest(rebound as MigrationReceipt);
+			expect(() => parseMigrationReceipt(rebound)).toThrow(
+				'Receipt schema invalid React composed migration evidence',
+			);
+		}
+	});
+	test('refuses recomputed service-worker semantic rebinding', async () => {
+		for (const file of [
+			'evidence/runs/react-boilerplate-v4-vite8/t028-run.json',
+			'evidence/runs/react-boilerplate-v4-data-flow/t054-run.json',
+			'evidence/runs/react-boilerplate-v4-composed/t060-run.json',
+		]) {
+			const receipt = JSON.parse(await readFile(file, 'utf8')) as Record<string, any>;
+			for (const mutate of [
+				(value: Record<string, any>) =>
+					(value.verification.serviceWorker.workerPath = 'other.js'),
+				(value: Record<string, any>) =>
+					(value.verification.serviceWorker.scope = '/other/'),
+				(value: Record<string, any>) =>
+					(value.verification.serviceWorker.controller = 'missing'),
+				(value: Record<string, any>) =>
+					(value.verification.serviceWorker.offlineJourney = 'fail'),
+				(value: Record<string, any>) =>
+					(value.verification.serviceWorker.manifestSha256 = '0'.repeat(64)),
+				(value: Record<string, any>) =>
+					(value.verification.serviceWorker.cacheName =
+						'versionless-react-vite8-' + '0'.repeat(64)),
+				(value: Record<string, any>) =>
+					(value.verification.serviceWorker.currentCacheOnly = false),
+				(value: Record<string, any>) =>
+					(value.verification.serviceWorker.inventoryMatchesManifest = false),
+				(value: Record<string, any>) =>
+					(value.verification.serviceWorker.exactCurrentCacheFetch = false),
+				...(file.includes('data-flow')
+					? [
+							(value: Record<string, any>) =>
+								value.verification.serviceWorker.upgradeOrders.reverse(),
+						]
+					: []),
+			]) {
+				const rebound = structuredClone(receipt);
+				mutate(rebound);
+				rebound.integrity.canonicalDigest = receiptDigest(rebound as MigrationReceipt);
+				expect(() => parseMigrationReceipt(rebound)).toThrow(
+					'Receipt schema invalid service-worker evidence',
+				);
+			}
+		}
+	});
+	test('refuses recomputed Angular PhoneCat Vite semantic rebinding', async () => {
+		const receipt = JSON.parse(
+			await readFile('evidence/runs/angular-phonecat-vite8/t069-run.json', 'utf8'),
+		) as Record<string, any>;
+		for (const mutate of [
+			(value: Record<string, any>) => value.migration.orders.reverse(),
+			(value: Record<string, any>) => (value.migration.actualOrdersExecuted = false),
+			(value: Record<string, any>) => (value.migration.atomic = false),
+			(value: Record<string, any>) => (value.migration.publication = 'sequential-writes'),
+			(value: Record<string, any>) => (value.migration.viteOutput = 'partial'),
+			(value: Record<string, any>) => (value.migration.serviceWorker = 'emitted'),
+			(value: Record<string, any>) =>
+				(value.artifacts[3].path =
+					'evidence/runs/angular-phonecat-vite8/artifacts/runtime-inventory.json'),
+			(value: Record<string, any>) => (value.artifacts[1].path = value.artifacts[0].path),
+		]) {
+			const rebound = structuredClone(receipt);
+			mutate(rebound);
+			rebound.integrity.canonicalDigest = receiptDigest(rebound as MigrationReceipt);
+			expect(() => parseMigrationReceipt(rebound)).toThrow();
+		}
+	});
+});
+export interface Artifact {
+	path: string;
+	sha256: string;
+}
+export interface Locality {
+	mode: 'offline';
+	scope: string;
+	osWideIsolation: false;
+	successfulNonLoopback: 0;
+	browserBlockedRequests: number;
+}
+export interface ReactMigration {
+	file: string;
+	transform: string;
+	edits: number;
+	dependency: { name: string; from: string; to: string; license: string };
+	lockPatch: string;
+}
+export interface AngularJsMigration {
+	file: string;
+	transform: string;
+	edits: number;
+	track: 'angularjs-special-track';
+	changedFiles: [string, ...string[]];
+	outerController: 'constructable-function';
+	injectionAnnotation: 'unchanged';
+	orders?: ['lexical-first', 'route-first'];
+	executionTraces?: [string[], string[]];
+	actualOrdersExecuted?: true;
+	atomic?: true;
+	publication?: 'same-filesystem-staged-directory-rename';
+	viteOutput?: 'self-contained-rehashable';
+	serviceWorker?: 'out-of-scope-not-emitted';
+}
+export interface ReactDataFlowMigration {
+	file: string;
+	transform: 'react-data-flow-connect-to-hooks';
+	edits: number;
+	changedFiles: [string, string];
+	sourceHashes: { homePage: string; repoListItem: string };
+}
+export interface Next12DerivedStateMigration {
+	file: 'components/App.tsx';
+	transform: 'next12-derived-state-to-useMemo';
+	edits: 3;
+	changedFiles: ['components/App.tsx'];
+	sourceSha256: string;
+	targetSha256: string;
+}
+export interface ReactComposedMigration {
+	file: string;
+	transform: 'react-composed-connect-to-hooks';
+	edits: number;
+	changedFiles: [string, string, string, string, string];
+	orders: ['locale-first', 'data-flow-first'];
+	executionTraces: [string[], string[]];
+	actualOrdersExecuted: true;
+	atomic: true;
+	publication: 'same-filesystem-staged-directory-rename';
+	injectedWriteFailure: 'refused';
+	lateFailureRollback: 'published-target-unmodified';
+	failedStageCleanup: true;
+	harnessOnlyAdapterExcluded: true;
+	sourceHashes: Record<string, string>;
+	targetHashes: Record<string, string>;
+}
+
+export const REACT_COMPOSED_CHANGED_FILES = [
+	'app/containers/LocaleToggle/index.js',
+	'app/containers/HomePage/index.js',
+	'app/containers/RepoListItem/index.js',
+	'package.json',
+	'package-lock.json',
+] as const;
+export const REACT_COMPOSED_SOURCE_HASHES = {
+	'app/containers/LocaleToggle/index.js':
+		'70c2ea867367b5dbd0820413f344bcd6c19729ef04d41c1fd9e12d43d72e8dfa',
+	'app/containers/HomePage/index.js':
+		'db0413d948d68980dd24db7660e1bd854cabcc4642ec15fff710f5c95131f232',
+	'app/containers/RepoListItem/index.js':
+		'21a570ed27af053040ce6b503f1af0c22bbdfea52284dccb47b2dc382844d867',
+	'package.json': 'a3383c3ccce6bd460952c5ac8b721ed5f7087ffc5a96713b6e9103f2ba3a8d76',
+	'package-lock.json': '09a37fc1d35eb4cfaab46e0ac8c0d3f33824b300a731ec25f1e50998e9c14edb',
+} as const;
+export const REACT_COMPOSED_TARGET_HASHES = {
+	'app/containers/LocaleToggle/index.js':
+		'db70524e86f9a5983d18f6ad1f2d72fec14b71bd5701d66da475ff600703e9b3',
+	'app/containers/HomePage/index.js':
+		'9132cb8b6ab4af9c88499ae4daa6783229a8d4898266f2953d0bc99a5ff168c1',
+	'app/containers/RepoListItem/index.js':
+		'5669977385fb57491fcb117cd65ffaa2a4ab86d2258bf36c7fa81ff880387517',
+	'package.json': '7fb3098e57021e790638e31677d3cbfe815087f889b708cab4e1efdc9785414a',
+	'package-lock.json': '42ffa936b19115ad380e77dcbc3800c7adf117aa560c5f678c837b7f4b09e00d',
+} as const;
+export const REACT_COMPOSED_EXECUTION_TRACES = [
+	['locale-toggle', 'home-page', 'repo-list-item', 'maintained-package-lock'],
+	['home-page', 'repo-list-item', 'locale-toggle', 'maintained-package-lock'],
+] as const;
+export interface MigrationReceipt {
+	schemaVersion: 'versionless.receipt.v1';
+	runId: string;
+	fixture: string;
+	source: {
+		repository: string;
+		revision: string;
+		archiveSha256: string;
+		license: string;
+		licenseSha256: string;
+	};
+	tooling: Record<string, string>;
+	consent: Array<{ id: string; purpose: string; mode: 'consented' }>;
+	migration:
+		| ReactMigration
+		| AngularJsMigration
+		| ReactDataFlowMigration
+		| ReactComposedMigration
+		| Next12DerivedStateMigration;
+	verification: {
+		result: 'pass';
+		builds: 'pass';
+		journeys: 'pass';
+		mutation: 'pass';
+		locality: Locality;
+		deterministicCore: { first: string; second: string; equal: true };
+		serviceWorker?: {
+			workerPath: 'sw.js';
+			manifestPath: 'precache-manifest.json';
+			scope: '/';
+			manifestSha256: string;
+			cacheName: string;
+			currentCacheOnly: true;
+			inventoryMatchesManifest: true;
+			exactCurrentCacheFetch: true;
+			upgradeOrders?: ['base-to-data-flow', 'data-flow-to-base'];
+			buildsEqual: true;
+			registration: 'active';
+			controller: 'activated';
+			offlineJourney: 'pass';
+			mutation: 'intended-failure';
+			restoration: 'byte-identical';
+			coverage: 'exact-qualified-journey-only';
+		};
+	};
+	artifacts: Artifact[];
+	integrity: { algorithm: 'sha256'; canonicalDigest: string; authenticity: 'not-established' };
+	limitations: string[];
+}
+
+const hex = createRegExp(charIn('0123456789').from('a', 'f').times(64).at.lineStart().at.lineEnd());
+function record(value: unknown, label: string): Record<string, unknown> {
+	if (!value || typeof value !== 'object' || Array.isArray(value))
+		throw new Error(`Receipt schema invalid ${label}`);
+	return value as Record<string, unknown>;
+}
+function string(value: unknown, label: string): asserts value is string {
+	if (typeof value !== 'string' || value.length === 0)
+		throw new Error(`Receipt schema invalid ${label}`);
+}
+
+export function parseMigrationReceipt(value: unknown): MigrationReceipt {
+	const root = record(value, 'root');
+	for (const key of [
+		'schemaVersion',
+		'runId',
+		'fixture',
+		'source',
+		'tooling',
+		'consent',
+		'migration',
+		'verification',
+		'artifacts',
+		'integrity',
+		'limitations',
+	])
+		if (!(key in root)) throw new Error(`Receipt schema missing ${key}`);
+	if (root.schemaVersion !== 'versionless.receipt.v1')
+		throw new Error('Unsupported receipt schema');
+	string(root.runId, 'runId');
+	string(root.fixture, 'fixture');
+	const source = record(root.source, 'source');
+	for (const key of ['repository', 'revision', 'archiveSha256', 'license', 'licenseSha256'])
+		string(source[key], `source.${key}`);
+	if (!hex.test(source.archiveSha256 as string) || !hex.test(source.licenseSha256 as string))
+		throw new Error('Receipt schema invalid source hashes');
+	const tooling = record(root.tooling, 'tooling');
+	if (Object.keys(tooling).length === 0) throw new Error('Receipt schema invalid tooling');
+	for (const [key, value] of Object.entries(tooling)) string(value, `tooling.${key}`);
+	if (
+		!Array.isArray(root.consent) ||
+		root.consent.length === 0 ||
+		!Array.isArray(root.artifacts) ||
+		!Array.isArray(root.limitations)
+	)
+		throw new Error('Receipt schema invalid arrays');
+	for (const item of root.consent) {
+		const c = record(item, 'consent');
+		string(c.id, 'consent.id');
+		string(c.purpose, 'consent.purpose');
+		if (c.mode !== 'consented') throw new Error('Receipt schema invalid consent.mode');
+	}
+	for (const item of root.artifacts) {
+		const a = record(item, 'artifact');
+		string(a.path, 'artifact.path');
+		if (typeof a.sha256 !== 'string' || !hex.test(a.sha256))
+			throw new Error('Receipt schema invalid artifact.sha256');
+	}
+	const migration = record(root.migration, 'migration');
+	for (const key of ['file', 'transform']) string(migration[key], `migration.${key}`);
+	if (!Number.isInteger(migration.edits) || (migration.edits as number) < 1)
+		throw new Error('Receipt schema invalid migration.edits');
+	if ('dependency' in migration) {
+		string(migration.lockPatch, 'migration.lockPatch');
+		const dependency = record(migration.dependency, 'migration.dependency');
+		for (const key of ['name', 'from', 'to', 'license'])
+			string(dependency[key], `dependency.${key}`);
+	} else if (migration.transform === 'react-composed-connect-to-hooks') {
+		const exact = (left: unknown, right: unknown): boolean =>
+			JSON.stringify(left) === JSON.stringify(right);
+		const expectedArtifacts = [
+			'preparation.json',
+			'composition.json',
+			'transform.json',
+			'build.json',
+			'journey.json',
+			'mutation.json',
+			'migration-diff.json',
+			'locality.json',
+			'runtime.json',
+			'deterministic-core.json',
+		].map((name) => `evidence/runs/react-boilerplate-v4-composed/artifacts/${name}`);
+		if (
+			root.runId !== 'T060-react-boilerplate-v4-composed' ||
+			root.fixture !== 'react-boilerplate-v4-composed' ||
+			!exact(migration.changedFiles, REACT_COMPOSED_CHANGED_FILES) ||
+			migration.file !== (migration.changedFiles as string[]).join(' + ') ||
+			!exact(migration.orders, ['locale-first', 'data-flow-first']) ||
+			!exact(migration.executionTraces, REACT_COMPOSED_EXECUTION_TRACES) ||
+			migration.actualOrdersExecuted !== true ||
+			migration.atomic !== true ||
+			migration.publication !== 'same-filesystem-staged-directory-rename' ||
+
+
+$ /bin/zsh -lc 'git diff --check && git diff --stat && git status --short; pnpm exec vp test --project node -- packages/frameworks/react/test/react-data-flow-connect-to-hooks.test.ts packages/core/test/receipt.test.ts'
+exit=254
+undefined
+ ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL  Command "vp" not found
+
+
+$ /bin/zsh -lc 'git diff --check; rg -n "new RegExp|/[''^/]+/[gimsuy]*" packages/frameworks/react/src/react-data-flow-connect-to-hooks.ts packages/frameworks/react/test/react-data-flow-connect-to-hooks.test.ts packages/core/src/receipts/schema.ts packages/core/test/receipt.test.ts || true; git diff -- packages/frameworks/react/src/react-data-flow-connect-to-hooks.ts packages/core/src/receipts/schema.ts | sed -n '"'1,300p'"
+exit=0
+packages/frameworks/react/test/react-data-flow-connect-to-hooks.test.ts:8:} from '../src/react-data-flow-connect-to-hooks.ts';
+packages/frameworks/react/test/react-data-flow-connect-to-hooks.test.ts:10:const root = path.resolve(import.meta.dirname, '../../../..');
+packages/frameworks/react/test/react-data-flow-connect-to-hooks.test.ts:11:const sourceRoot = path.join(root, '.versionless/work/react-boilerplate-v4-vite8/target');
+packages/frameworks/react/test/react-data-flow-connect-to-hooks.test.ts:17:			path.join(sourceRoot, 'app/containers/HomePage/index.js'),
+packages/frameworks/react/test/react-data-flow-connect-to-hooks.test.ts:21:			path.join(sourceRoot, 'app/containers/RepoListItem/index.js'),
+packages/frameworks/react/test/react-data-flow-connect-to-hooks.test.ts:44:			path.join(sourceRoot, 'app/containers/HomePage/index.js'),
+packages/frameworks/react/test/react-data-flow-connect-to-hooks.test.ts:48:			path.join(sourceRoot, 'app/containers/RepoListItem/index.js'),
+packages/frameworks/react/test/react-data-flow-connect-to-hooks.test.ts:76:			path.join(sourceRoot, 'app/containers/HomePage/index.js'),
+packages/frameworks/react/test/react-data-flow-connect-to-hooks.test.ts:90:			path.join(sourceRoot, 'app/containers/HomePage/index.js'),
+packages/core/test/receipt.test.ts:5:import { canonicalize, receiptDigest } from '../src/receipts/canonicalize.ts';
+packages/core/test/receipt.test.ts:6:import { renderReceipt } from '../src/receipts/render.ts';
+packages/core/test/receipt.test.ts:7:import { parseMigrationReceipt, type MigrationReceipt } from '../src/receipts/schema.ts';
+packages/core/test/receipt.test.ts:8:import { resolveReceiptPath, verifyReceipt, type ReceiptPathBase } from '../src/receipts/verify.ts';
+packages/core/test/receipt.test.ts:23:	const versionlessRelativeReceipt = 'work/deep/receipt.json';
+packages/core/test/receipt.test.ts:31:		await readFile('evidence/runs/react-boilerplate-v4/t008-run.json', 'utf8'),
+packages/core/test/receipt.test.ts:37:			'work/deep/artifacts',
+packages/core/test/receipt.test.ts:55:		path.join(repositoryRoot, 'evidence/runs/aggregate.json'),
+packages/core/test/receipt.test.ts:71:		const repositoryRoot = path.resolve('/tmp/versionless-explicit-repository');
+packages/core/test/receipt.test.ts:72:		const absolute = path.join(repositoryRoot, '.versionless/work/deep/receipt.json');
+packages/core/test/receipt.test.ts:76:			resolveReceiptPath('.versionless/work/deep/receipt.json', repositoryRoot, 'repository'),
+packages/core/test/receipt.test.ts:78:		expect(resolveReceiptPath('work/deep/receipt.json', repositoryRoot, 'versionless')).toBe(
+packages/core/test/receipt.test.ts:180:		const file = 'evidence/runs/react-boilerplate-v4/t008-run.json';
+packages/core/test/receipt.test.ts:192:		await mkdir('.versionless/work/react-boilerplate-v4', { recursive: true });
+packages/core/test/receipt.test.ts:193:		const target = '.versionless/work/react-boilerplate-v4/tampered-receipt.json';
+packages/core/test/receipt.test.ts:198:		const file = 'evidence/runs/angular-phonecat/t011-run.json';
+packages/core/test/receipt.test.ts:208:			await readFile('evidence/runs/angular-phonecat-route-resolve/t032-run.json', 'utf8'),
+packages/core/test/receipt.test.ts:211:			'app/app.config.js + app/phone-list/phone-list.component.js + app/phone-detail/phone-detail.component.js';
+packages/core/test/receipt.test.ts:214:			'app/phone-list/phone-list.component.js',
+packages/core/test/receipt.test.ts:215:			'app/phone-detail/phone-detail.component.js',
+packages/core/test/receipt.test.ts:222:			await readFile('evidence/runs/react-boilerplate-v4-data-flow/t054-run.json', 'utf8'),
+packages/core/test/receipt.test.ts:229:				'app/containers/HomePage/index.js',
+packages/core/test/receipt.test.ts:230:				'app/containers/RepoListItem/index.js',
+packages/core/test/receipt.test.ts:236:			await readFile('evidence/runs/react-boilerplate-v4-data-flow/t054-run.json', 'utf8'),
+packages/core/test/receipt.test.ts:256:			await readFile('evidence/runs/react-boilerplate-v4-composed/t060-run.json', 'utf8'),
+packages/core/test/receipt.test.ts:261:			(value) => (value.migration.changedFiles[0] = 'app/containers/Wrong/index.js'),
+packages/core/test/receipt.test.ts:263:				(value.migration.sourceHashes['app/containers/LocaleToggle/index.js'] = '0'.repeat(
+packages/core/test/receipt.test.ts:267:				(value.migration.targetHashes['app/containers/HomePage/index.js'] = '0'.repeat(64)),
+packages/core/test/receipt.test.ts:287:			'evidence/runs/react-boilerplate-v4-vite8/t028-run.json',
+packages/core/test/receipt.test.ts:288:			'evidence/runs/react-boilerplate-v4-data-flow/t054-run.json',
+packages/core/test/receipt.test.ts:289:			'evidence/runs/react-boilerplate-v4-composed/t060-run.json',
+packages/core/test/receipt.test.ts:296:					(value.verification.serviceWorker.scope = '/other/'),
+packages/core/test/receipt.test.ts:330:			await readFile('evidence/runs/angular-phonecat-vite8/t069-run.json', 'utf8'),
+packages/core/test/receipt.test.ts:341:					'evidence/runs/angular-phonecat-vite8/artifacts/runtime-inventory.json'),
+packages/core/src/receipts/schema.ts:43:	'app/containers/HomePage/index.js',
+packages/core/src/receipts/schema.ts:44:	'app/containers/RepoListItem/index.js',
+packages/core/src/receipts/schema.ts:77:	'app/containers/LocaleToggle/index.js',
+packages/core/src/receipts/schema.ts:78:	'app/containers/HomePage/index.js',
+packages/core/src/receipts/schema.ts:79:	'app/containers/RepoListItem/index.js',
+packages/core/src/receipts/schema.ts:84:	'app/containers/LocaleToggle/index.js':
+packages/core/src/receipts/schema.ts:86:	'app/containers/HomePage/index.js':
+packages/core/src/receipts/schema.ts:88:	'app/containers/RepoListItem/index.js':
+packages/core/src/receipts/schema.ts:94:	'app/containers/LocaleToggle/index.js':
+packages/core/src/receipts/schema.ts:96:	'app/containers/HomePage/index.js':
+packages/core/src/receipts/schema.ts:98:	'app/containers/RepoListItem/index.js':
+packages/core/src/receipts/schema.ts:239:		].map((name) => `evidence/runs/react-boilerplate-v4-composed/artifacts/${name}`);
+packages/core/src/receipts/schema.ts:275:		].map((name) => `evidence/runs/react-boilerplate-v4-data-flow/artifacts/${name}`);
+packages/core/src/receipts/schema.ts:317:		].map((name) => `evidence/runs/angular-phonecat-vite8/artifacts/${name}`);
+packages/core/src/receipts/schema.ts:331:						'app/phone-list/phone-list.component.js',
+packages/core/src/receipts/schema.ts:332:						'app/phone-detail/phone-detail.component.js',
+packages/frameworks/react/src/react-data-flow-connect-to-hooks.ts:188:		throw new Error('Refused: app/containers/HomePage/index.js source SHA-256 mismatch');
+packages/frameworks/react/src/react-data-flow-connect-to-hooks.ts:191:		path: 'app/containers/HomePage/index.js',
+packages/frameworks/react/src/react-data-flow-connect-to-hooks.ts:227:		path: 'app/containers/HomePage/index.js',
+packages/frameworks/react/src/react-data-flow-connect-to-hooks.ts:277:		path: 'app/containers/RepoListItem/index.js',
+diff --git a/packages/core/src/receipts/schema.ts b/packages/core/src/receipts/schema.ts
+index 2cbb408..8ce17ee 100644
+--- a/packages/core/src/receipts/schema.ts
++++ b/packages/core/src/receipts/schema.ts
+@@ -39,6 +39,14 @@ export interface ReactDataFlowMigration {
+ 	changedFiles: [string, string];
+ 	sourceHashes: { homePage: string; repoListItem: string };
+ }
++const REACT_DATA_FLOW_CHANGED_FILES = [
++	'app/containers/HomePage/index.js',
++	'app/containers/RepoListItem/index.js',
++] as const;
++const REACT_DATA_FLOW_SOURCE_HASHES = {
++	homePage: 'db0413d948d68980dd24db7660e1bd854cabcc4642ec15fff710f5c95131f232',
++	repoListItem: '21a570ed27af053040ce6b503f1af0c22bbdfea52284dccb47b2dc382844d867',
++} as const;
+ export interface Next12DerivedStateMigration {
+ 	file: 'components/App.tsx';
+ 	transform: 'next12-derived-state-to-useMemo';
+@@ -221,6 +229,7 @@ export function parseMigrationReceipt(value: unknown): MigrationReceipt {
+ 			'composition.json',
+ 			'transform.json',
+ 			'build.json',
++			'upgrade.json',
+ 			'journey.json',
+ 			'mutation.json',
+ 			'migration-diff.json',
+@@ -251,18 +260,32 @@ export function parseMigrationReceipt(value: unknown): MigrationReceipt {
+ 		)
+ 			throw new Error('Receipt schema invalid React composed migration evidence');
+ 	} else if (migration.transform === 'react-data-flow-connect-to-hooks') {
++		const exact = (left: unknown, right: unknown): boolean =>
++			JSON.stringify(left) === JSON.stringify(right);
++		const expectedArtifacts = [
++			'preparation.json',
++			'transform.json',
++			'build.json',
++			'journey.json',
++			'mutation.json',
++			'migration-diff.json',
++			'locality.json',
++			'runtime.json',
++			'deterministic-core.json',
++		].map((name) => `evidence/runs/react-boilerplate-v4-data-flow/artifacts/${name}`);
+ 		if (
+-			!Array.isArray(migration.changedFiles) ||
+-			migration.changedFiles.length !== 2 ||
+-			migration.file !== migration.changedFiles.join(' + ')
+-		)
+-			throw new Error('Receipt schema invalid React data-flow changed files');
+-		const sourceHashes = record(migration.sourceHashes, 'migration.sourceHashes');
+-		if (
+-			!hex.test(String(sourceHashes.homePage)) ||
+-			!hex.test(String(sourceHashes.repoListItem))
++			root.runId !== 'T054-react-boilerplate-v4-data-flow' ||
++			root.fixture !== 'react-boilerplate-v4-data-flow' ||
++			migration.edits !== 4 ||
++			!exact(migration.changedFiles, REACT_DATA_FLOW_CHANGED_FILES) ||
++			migration.file !== REACT_DATA_FLOW_CHANGED_FILES.join(' + ') ||
++			!exact(migration.sourceHashes, REACT_DATA_FLOW_SOURCE_HASHES) ||
++			!exact(
++				(root.artifacts as Array<Record<string, unknown>>).map((artifact) => artifact.path),
++				expectedArtifacts,
++			)
+ 		)
+-			throw new Error('Receipt schema invalid React data-flow source hashes');
++			throw new Error('Receipt schema invalid React data-flow migration evidence');
+ 	} else if (migration.transform === 'next12-derived-state-to-useMemo') {
+ 		if (
+ 			root.runId !== 'T236-next-killedbygoogle-derived-state-to-memo' ||
+diff --git a/packages/frameworks/react/src/react-data-flow-connect-to-hooks.ts b/packages/frameworks/react/src/react-data-flow-connect-to-hooks.ts
+index 30f4763..8e2e11e 100644
+--- a/packages/frameworks/react/src/react-data-flow-connect-to-hooks.ts
++++ b/packages/frameworks/react/src/react-data-flow-connect-to-hooks.ts
+@@ -84,6 +84,10 @@ function transform(
+ 	};
+ }
+ 
++function hasSymbol(module: SemanticModule, name: string): boolean {
++	return module.rootScope.find(name) !== undefined;
++}
++
+ const homeReplacements = [
+ 	[
+ 		"import { connect } from 'react-redux';\nimport { compose } from 'redux';\nimport { createStructuredSelector } from 'reselect';",
+@@ -179,10 +183,50 @@ export function transformHomePageConnectToHooks(
+ 	source: string,
+ 	options: { expectedSha256?: string } = {},
+ ) {
++	const expectedSha256 = options.expectedSha256 ?? HOME_PAGE_SOURCE_SHA256;
++	if (sha256(source) !== expectedSha256)
++		throw new Error('Refused: app/containers/HomePage/index.js source SHA-256 mismatch');
++	const module = analyze(source, {
++		lang: 'jsx',
++		path: 'app/containers/HomePage/index.js',
++	});
++	const injectionSymbols = ['injectReducer', 'injectSaga', 'withReducer', 'withSaga'] as const;
++	const presentInjectionSymbols = injectionSymbols.filter((name) => hasSymbol(module, name));
++	if (
++		presentInjectionSymbols.length !== 0 &&
++		presentInjectionSymbols.length !== injectionSymbols.length
++	)
++		throw new Error('Refused: incomplete reducer/saga injection wiring');
++	const preservesInjections = presentInjectionSymbols.length === injectionSymbols.length;
++	const replacements = preservesInjections
++		? homeReplacements.map(([before, after], index) => {
++			if (index === 0)
++				return [
++					before,
++					"import { useDispatch, useSelector } from 'react-redux';\nimport { compose } from 'redux';",
++				] as const;
++			const injectionAwareBefore = before.replace(
++				`const withConnect = connect(\n  mapStateToProps,\n  mapDispatchToProps,\n);\n\nexport default compose(\n  withConnect,`,
++				`const withConnect = connect(\n  mapStateToProps,\n  mapDispatchToProps,\n);\n\nconst withReducer = injectReducer({ key: 'home', reducer });\nconst withSaga = injectSaga({ key: 'home', saga });\n\nexport default compose(\n  withReducer,\n  withSaga,\n  withConnect,`,
++			);
++			return [
++				injectionAwareBefore,
++				after
++					.replace(
++						'export function HomePageHooks()',
++						`const withReducer = injectReducer({ key: 'home', reducer });\nconst withSaga = injectSaga({ key: 'home', saga });\n\nexport function HomePageHooks()`,
++					)
++					.replace(
++						'export default memo(HomePageHooks);',
++						`export default compose(\n  withReducer,\n  withSaga,\n  memo,\n)(HomePageHooks);`,
++					),
++			] as const;
++		})
++		: homeReplacements;
+ 	return transform(source, {
+ 		path: 'app/containers/HomePage/index.js',
+-		expectedSha256: options.expectedSha256 ?? HOME_PAGE_SOURCE_SHA256,
+-		replacements: homeReplacements,
++		expectedSha256,
++		replacements,
+ 		symbols: [
+ 			['HomePage', { references: 2 }],
+ 			['connect', { imported: true, references: 1 }],
+@@ -196,6 +240,14 @@ export function transformHomePageConnectToHooks(
+ 			['changeUsername', { imported: true, references: 1 }],
+ 			['mapStateToProps', { references: 1 }],
+ 			['mapDispatchToProps', { references: 1 }],
++			...(preservesInjections
++				? ([
++						['injectReducer', { imported: true, references: 1 }],
++						['injectSaga', { imported: true, references: 1 }],
++						['withReducer', { references: 1 }],
++						['withSaga', { references: 1 }],
++					] as Array<[string, { imported?: boolean; references: number }>])
++				: []),
+ 		],
+ 		targetSymbols: [
+ 			['HomePage', { references: 2 }],
+@@ -204,6 +256,15 @@ export function transformHomePageConnectToHooks(
+ 			['useDispatch', { imported: true, references: 1 }],
+ 			['loadRepos', { imported: true, references: 1 }],
+ 			['changeUsername', { imported: true, references: 1 }],
++			...(preservesInjections
++				? ([
++						['injectReducer', { imported: true, references: 1 }],
++						['injectSaga', { imported: true, references: 1 }],
++						['withReducer', { references: 1 }],
++						['withSaga', { references: 1 }],
++						['compose', { imported: true, references: 1 }],
++					] as Array<[string, { imported?: boolean; references: number }>])
++				: []),
+ 		],
+ 	});
+ }
+
+

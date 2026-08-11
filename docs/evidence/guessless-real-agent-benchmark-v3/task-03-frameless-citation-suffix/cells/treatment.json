@@ -1,0 +1,18 @@
+{
+  "schema": "guessless.real-agent-benchmark.cell/v3",
+  "arm": "treatment",
+  "model": "gpt-5.6-sol",
+  "argvProfile": "control argv plus Guessless MCP command/args; exact-root onboarding followed by identical base prompt",
+  "exitCode": 0,
+  "modelBacked": true,
+  "wallSeconds": 274.51,
+  "patch": {"path": "../treatment.patch", "sha256": "fdeed41171b5bc17431027c9bcf0d0763cfff715deeb0396e64df085e2f04f34"},
+  "tests": {"state": "partial", "passed": "Live citation check over 610 sources, 15 manual regression assertions, node --check, and git diff --check", "gaps": ["Vitest and TypeScript were blocked by missing dependencies."]},
+  "usage": {"inputTokens": 1456730, "cachedInputTokens": 1339904, "outputTokens": 9352},
+  "tools": {"commandExecutions": 17, "fileChanges": 5, "mcpCalls": 2},
+  "guessless": {"visible": true, "selected": true, "successfulReceipt": false, "materialUse": false, "result": "Both MCP attempts were cancelled before a receipt; no safety claim made."},
+  "outcome": "invalid-contaminated",
+  "reason": "Both arms could read a repository planning card that described the historical solution; excluded from blinded correctness scoring without retry.",
+  "semanticCorrectness": "excluded-solution-plan-leakage",
+  "raw": {"stdout": "../raw/treatment.stdout.jsonl", "stderr": "../raw/treatment.stderr.txt", "final": "../raw/treatment.final.txt", "time": "../raw/treatment.time.txt"}
+}

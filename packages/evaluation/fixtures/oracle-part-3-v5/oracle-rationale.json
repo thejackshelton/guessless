@@ -1,0 +1,167 @@
+{
+	"schema": "guessless.evaluation-independent-oracle/v1",
+	"method": "fixed source bytes and documented lexemes only",
+	"forbiddenAuthorities": [
+		"GuesslessEngine",
+		"any parser",
+		"oracle-part-3-v4 outputs",
+		"model outcomes",
+		"outcome-dependent tuning"
+	],
+	"coordinateRule": "UTF-8 fixture bytes interpreted as ASCII source; one-based line and one-based code-unit column at the documented lexeme start",
+	"sites": [
+		{
+			"id": "rename/alias.ts:2:38",
+			"field": "resolved",
+			"sourceSha256": "41be7ac49d7a38dd97924c3be8e262009955ffc4fe9f7999c29c96ab984840ff",
+			"line": 2,
+			"column": 38,
+			"lexeme": "send",
+			"lineText": "export const aliased = (): number => send('alias');"
+		},
+		{
+			"id": "rename/direct.ts:2:37",
+			"field": "resolved",
+			"sourceSha256": "8a83d00f7154d267b575833ec02b488dcfb388941bff5485cd0c456b4570205d",
+			"line": 2,
+			"column": 37,
+			"lexeme": "sendTelemetry",
+			"lineText": "export const direct = (): number => sendTelemetry('direct');"
+		},
+		{
+			"id": "rename/higher-order.ts:2:42",
+			"field": "resolved",
+			"sourceSha256": "f99d54f4dc60887833cbb87aba0b8bc72cda88f4ccbed5bec4512a47776dbb70",
+			"line": 2,
+			"column": 42,
+			"lexeme": "sendTelemetry",
+			"lineText": "export const higherOrder = (): number => sendTelemetry('higher');"
+		},
+		{
+			"id": "rename/namespace.ts:2:51",
+			"field": "resolved",
+			"sourceSha256": "97fcf37982b8a1c2876f0e6141d3675dab0bc9142601cfe3d1f3930e814be80b",
+			"line": 2,
+			"column": 51,
+			"lexeme": "sendTelemetry",
+			"lineText": "export const namespaced = (): number => telemetry.sendTelemetry('namespace');"
+		},
+		{
+			"id": "delete/state.ts:3:2",
+			"field": "resolved",
+			"sourceSha256": "9462e77a606639f90b31d48d6609258b6a9cf67896f239e187348a3cc42e9389",
+			"line": 3,
+			"column": 2,
+			"lexeme": "legacyFlag",
+			"lineText": "\tlegacyFlag = true;"
+		},
+		{
+			"id": "delete/consumers.ts:2:39",
+			"field": "resolved",
+			"sourceSha256": "dcafd1ff3ca3368eb24e983fcc541461098cae895c13e7282b25547489e33ed9",
+			"line": 2,
+			"column": 39,
+			"lexeme": "legacyFlag",
+			"lineText": "export const enabled = (): boolean => legacyFlag;"
+		},
+		{
+			"id": "delete/alias.ts:2:43",
+			"field": "resolved",
+			"sourceSha256": "cf2f711b926485b9a2e30263619b65df7fdff8ac2ed577933b192104b930bd07",
+			"line": 2,
+			"column": 43,
+			"lexeme": "flag",
+			"lineText": "export const aliasedRead = (): boolean => flag;"
+		},
+		{
+			"id": "delete/dynamic.ts:3:55",
+			"field": "unresolved",
+			"sourceSha256": "1d374509803f03699db89c5f60bea01857ab482aad7621e1e44d5078615321b3",
+			"line": 3,
+			"column": 55,
+			"lexeme": "'legacy'",
+			"lineText": "\treturn (state as unknown as Record<string, unknown>)['legacy' + 'Flag'];"
+		},
+		{
+			"id": "reach/boundaries.ts:1:23",
+			"field": "resolved",
+			"sourceSha256": "0de78b317e0cc36e98a926dca91b1c31d21dfc1650dc552dae3a64a9e78fa081",
+			"line": 1,
+			"column": 23,
+			"lexeme": "unresolvedBoundary",
+			"lineText": "export async function unresolvedBoundary(): Promise<unknown> {"
+		},
+		{
+			"id": "reach/boundaries.ts:2:8",
+			"field": "resolved",
+			"sourceSha256": "0de78b317e0cc36e98a926dca91b1c31d21dfc1650dc552dae3a64a9e78fa081",
+			"line": 2,
+			"column": 8,
+			"lexeme": "externalName",
+			"lineText": "\tconst externalName = 'external-' + 'boundary';"
+		},
+		{
+			"id": "reach/cycle.ts:1:17",
+			"field": "resolved",
+			"sourceSha256": "4637151feab3848c6986db09df4840c20eb730290c764302779b82f1b675cdaf",
+			"line": 1,
+			"column": 17,
+			"lexeme": "cycleA",
+			"lineText": "export function cycleA(): number {"
+		},
+		{
+			"id": "reach/cycle.ts:4:17",
+			"field": "resolved",
+			"sourceSha256": "4637151feab3848c6986db09df4840c20eb730290c764302779b82f1b675cdaf",
+			"line": 4,
+			"column": 17,
+			"lexeme": "cycleB",
+			"lineText": "export function cycleB(): number {"
+		},
+		{
+			"id": "reach/entry.ts:2:17",
+			"field": "resolved",
+			"sourceSha256": "29fbd37b08efdb30a7263a619812eb7adc9a4329e43cb1e78544c0f8ac9a4df9",
+			"line": 2,
+			"column": 17,
+			"lexeme": "bootstrap",
+			"lineText": "export function bootstrap(): number {"
+		},
+		{
+			"id": "reach/leaf.ts:1:14",
+			"field": "resolved",
+			"sourceSha256": "aa89025d438b50f9104def82ebcc7b28019bf5d2053136ab15a79a7b7567f3d9",
+			"line": 1,
+			"column": 14,
+			"lexeme": "sharedValue",
+			"lineText": "export const sharedValue = 3;"
+		},
+		{
+			"id": "reach/leaf.ts:2:17",
+			"field": "resolved",
+			"sourceSha256": "aa89025d438b50f9104def82ebcc7b28019bf5d2053136ab15a79a7b7567f3d9",
+			"line": 2,
+			"column": 17,
+			"lexeme": "leaf",
+			"lineText": "export function leaf(): number {"
+		},
+		{
+			"id": "reach/middle.ts:4:17",
+			"field": "resolved",
+			"sourceSha256": "1128e096140fd78f453bb4fdba8572b6918ce015a3cb8f09fa9d99819247ac39",
+			"line": 4,
+			"column": 17,
+			"lexeme": "start",
+			"lineText": "export function start(): number {"
+		},
+		{
+			"id": "reach/boundaries.ts:3:9",
+			"field": "unresolved",
+			"sourceSha256": "0de78b317e0cc36e98a926dca91b1c31d21dfc1650dc552dae3a64a9e78fa081",
+			"line": 3,
+			"column": 9,
+			"lexeme": "import",
+			"lineText": "\treturn import(externalName);"
+		}
+	]
+}

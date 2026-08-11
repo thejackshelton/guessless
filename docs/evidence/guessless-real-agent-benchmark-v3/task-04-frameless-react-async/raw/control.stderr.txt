@@ -1,0 +1,2 @@
+2026-08-11T03:29:09.976105Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when Client(HttpRequest(HttpRequest("http/request failed: error sending request for url (https://chatgpt.com/backend-api/ps/mcp)")))
+2026-08-11T03:34:34.942503Z ERROR codex_core::tools::router: error=patch rejected: writing outside of the project; rejected by user approval settings

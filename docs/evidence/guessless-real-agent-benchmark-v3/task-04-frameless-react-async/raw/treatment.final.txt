@@ -1,0 +1,20 @@
+Implemented the React async state-update fix.
+
+- Setter coalescing now retains the final write in each suspension segment.
+- Eligible post-`await` self-reads use React functional updaters.
+- Reads of unrelated cells remain captured normally.
+- Synchronous/no-await generated output remains unchanged.
+- Added runtime overlap and cell-boundary regression coverage.
+
+Changed:
+
+- [emitter/index.ts](/private/tmp/guessless-real-agent-benchmark-v3/task-04-frameless-react-async/treatment/packages/frameworks/react/src/emitter/index.ts:2201)
+- [emitter.test.ts](/private/tmp/guessless-real-agent-benchmark-v3/task-04-frameless-react-async/treatment/packages/frameworks/react/test/emitter.test.ts:979)
+
+Verification:
+
+- React node suite: **197/197 passed**
+- `git diff --check`: **passed**
+- Guessless snapshot: **refused** because `node_modules` is a descendant symlink; no safety claim derived from it.
+
+The existing untracked `node_modules` symlink was left untouched.

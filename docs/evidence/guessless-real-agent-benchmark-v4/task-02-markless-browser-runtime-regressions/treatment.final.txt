@@ -1,0 +1,19 @@
+Implemented the browser-runtime regression repair.
+
+Key changes:
+
+- Added a shared compiled authored-expression reader used by SSR and client render-data—no `eval` or interpreter.
+- Preserved relative module imports against the authored `.tsrx` file.
+- Lowered bare async-computed reads through their settled `.value` in symbol emission and prerender evaluation.
+- Updated stream-arm fixtures to the current protocol and structure-anchor format.
+- Corrected the contradictory CSR element-order expectation.
+- Added focused async branch regression coverage.
+- Kept fail-closed residue/protocol errors and adjusted two gzip ceilings by the measured four-byte reader cost.
+
+Verification:
+
+- Compiler-focused tests: 76/76 passed.
+- `git diff --check`: passed.
+- Browser tests reached startup, but Chromium could not run because the sandbox forbids localhost listeners (`listen EPERM`).
+- Guessless returned a partial impact receipt: 123 resolved sites and 18 explicitly unresolved external/unresolved-symbol boundaries; none were treated as safe.
+- Full type-checking was not usable because this checkout’s dependency symlink targets a newer, incompatible serializer and reports broad cross-version errors.

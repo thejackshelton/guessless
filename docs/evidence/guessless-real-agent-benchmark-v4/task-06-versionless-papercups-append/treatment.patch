@@ -1,0 +1,344 @@
+diff --git a/packages/cli/src/cli.ts b/packages/cli/src/cli.ts
+index b1ab7e6..dba9c32 100644
+--- a/packages/cli/src/cli.ts
++++ b/packages/cli/src/cli.ts
+@@ -40,6 +40,7 @@ import {
+ 	verifyWitnessAngularRealworld,
+ } from './witness/angular-realworld-run.ts';
+ import { verifyLinkedWitnessProvenance } from './witness/provenance.ts';
++import { updatePapercupsAggregate } from './fixture/react-papercups-aggregate.ts';
+ 
+ const [command, ...rawArgs] = process.argv.slice(2);
+ const args = rawArgs.filter((arg) => arg !== '--');
+@@ -238,6 +239,16 @@ try {
+ 				sourceApplications: result.summary.sourceApplications,
+ 			}),
+ 		);
++	} else if (command === 'papercups:aggregate') {
++		if (args.length !== 1 || (args[0] !== '--append' && args[0] !== '--verify-only'))
++			throw new Error('papercups:aggregate requires exactly --append or --verify-only');
++		console.log(
++			JSON.stringify(
++				await updatePapercupsAggregate({
++					mode: args[0] === '--append' ? 'append' : 'verify-only',
++				}),
++			),
++		);
+ 	} else if (command === 'script-surface:verify') {
+ 		const result = await verifyScriptSurface();
+ 		console.log(
+diff --git a/packages/cli/src/fixture/react-papercups-aggregate.ts b/packages/cli/src/fixture/react-papercups-aggregate.ts
+new file mode 100644
+index 0000000..b588b84
+--- /dev/null
++++ b/packages/cli/src/fixture/react-papercups-aggregate.ts
+@@ -0,0 +1,159 @@
++import { readFile, rename, unlink, writeFile } from 'node:fs/promises';
++import * as path from 'pathe';
++import {
++	canonicalize,
++	deriveCorpusTransactionState,
++	reactPapercupsAggregateMember,
++	verifyWitnessReactPapercupsEvidence,
++	witnessReactPapercupsAggregateMember,
++} from '../../../core/src/index.ts';
++
++const aggregateRelativePath = 'evidence/runs/aggregate.json';
++const stageSuffix = '.papercups-append.tmp';
++
++type Aggregate = {
++	schemaVersion: 'versionless.aggregate.v1';
++	fixtures: Array<Record<string, unknown>>;
++	unsupported: unknown[];
++};
++
++export type PapercupsAggregateMode = 'append' | 'verify-only';
++export type PapercupsAggregateResult = Readonly<{
++	result: 'pass';
++	mode: PapercupsAggregateMode;
++	state: 'appended' | 'already-appended' | 'verified';
++	members: readonly [string, string];
++}>;
++
++export type PapercupsAggregateFileOperations = Readonly<{
++	rename(oldPath: string, newPath: string): Promise<void>;
++}>;
++
++function parseAggregate(value: unknown): Aggregate {
++	if (value === null || typeof value !== 'object' || Array.isArray(value))
++		throw new Error('Papercups aggregate must be an object');
++	const aggregate = value as Partial<Aggregate>;
++	if (
++		aggregate.schemaVersion !== 'versionless.aggregate.v1' ||
++		!Array.isArray(aggregate.fixtures) ||
++		!Array.isArray(aggregate.unsupported) ||
++		aggregate.unsupported.length !== 0 ||
++		Object.keys(aggregate).sort().join(',') !== 'fixtures,schemaVersion,unsupported'
++	)
++		throw new Error('Papercups aggregate envelope differs');
++	return aggregate as Aggregate;
++}
++
++async function readAggregate(file: string): Promise<Aggregate> {
++	return parseAggregate(JSON.parse(await readFile(file, 'utf8')) as unknown);
++}
++
++export async function derivePapercupsAggregateMembers(rootDir = '.') {
++	const verified = await verifyWitnessReactPapercupsEvidence(rootDir);
++	return [
++		reactPapercupsAggregateMember(verified.receipt.canonicalReceipt.canonicalDigest),
++		witnessReactPapercupsAggregateMember(verified.digest),
++	] as const;
++}
++
++function classify(
++	aggregate: Aggregate,
++	members: Awaited<ReturnType<typeof derivePapercupsAggregateMembers>>,
++): 'predecessor' | 'appended' {
++	const transaction = deriveCorpusTransactionState(aggregate.fixtures);
++	if (transaction.kind === 'react-zero-sw-reconciliation') return 'predecessor';
++	if (transaction.kind !== 'react-papercups-browser-proof')
++		throw new Error('Papercups aggregate is not an accepted transaction state');
++	const expected = {
++		...aggregate,
++		fixtures: [...aggregate.fixtures.slice(0, -2), ...members],
++	};
++	if (canonicalize(expected) !== canonicalize(aggregate))
++		throw new Error('Papercups aggregate members differ from published evidence');
++	return 'appended';
++}
++
++export async function updatePapercupsAggregate(options: {
++	rootDir?: string;
++	mode: PapercupsAggregateMode;
++	operations?: PapercupsAggregateFileOperations;
++}): Promise<PapercupsAggregateResult> {
++	const root = path.resolve(options.rootDir ?? '.');
++	const target = path.join(root, aggregateRelativePath);
++	const staged = `${target}${stageSuffix}`;
++	const operations = options.operations ?? { rename };
++	const members = await derivePapercupsAggregateMembers(root);
++	const initial = await readAggregate(target);
++	const initialState = classify(initial, members);
++	const memberIds = [members[0].id, members[1].id] as const;
++
++	if (options.mode === 'verify-only') {
++		if (initialState !== 'appended')
++			throw new Error('Papercups aggregate has not been appended');
++		return {
++			result: 'pass',
++			mode: options.mode,
++			state: 'verified',
++			members: memberIds,
++		};
++	}
++	if (initialState === 'appended')
++		return {
++			result: 'pass',
++			mode: options.mode,
++			state: 'already-appended',
++			members: memberIds,
++		};
++
++	let ownsStage = false;
++	try {
++		const appended: Aggregate = { ...initial, fixtures: [...initial.fixtures, ...members] };
++		await writeFile(staged, `${JSON.stringify(appended, null, 2)}\n`, { flag: 'wx' });
++		ownsStage = true;
++
++		// Re-read both evidence and aggregate after staging. A concurrent edit or
++		// evidence drift must be detected before the atomic replacement.
++		const freshMembers = await derivePapercupsAggregateMembers(root);
++		const freshTarget = await readAggregate(target);
++		if (classify(freshTarget, freshMembers) !== 'predecessor')
++			throw new Error('Papercups aggregate changed while append was staged');
++		const freshStage = await readAggregate(staged);
++		const expectedStage: Aggregate = {
++			...freshTarget,
++			fixtures: [...freshTarget.fixtures, ...freshMembers],
++		};
++		if (canonicalize(freshStage) !== canonicalize(expectedStage))
++			throw new Error('Papercups staged aggregate differs after re-derivation');
++		if (classify(freshStage, freshMembers) !== 'appended')
++			throw new Error('Papercups staged aggregate is inconsistent');
++
++		await operations.rename(staged, target);
++		ownsStage = false;
++		const published = await readAggregate(target);
++		const publishedMembers = await derivePapercupsAggregateMembers(root);
++		if (classify(published, publishedMembers) !== 'appended')
++			throw new Error('Papercups aggregate publication differs');
++		return {
++			result: 'pass',
++			mode: options.mode,
++			state: 'appended',
++			members: memberIds,
++		};
++	} catch (error) {
++		if (ownsStage) await unlink(staged).catch(() => undefined);
++		throw error;
++	}
++}
++
++export async function main(args = process.argv.slice(2)): Promise<void> {
++	if (args.length !== 1 || (args[0] !== '--append' && args[0] !== '--verify-only'))
++		throw new Error('Papercups aggregate requires exactly --append or --verify-only');
++	const mode = args[0] === '--append' ? 'append' : 'verify-only';
++	process.stdout.write(`${JSON.stringify(await updatePapercupsAggregate({ mode }))}\n`);
++}
++
++if (process.argv[1]?.endsWith('react-papercups-aggregate.ts'))
++	main().catch((error: unknown) => {
++		process.stderr.write(`${error instanceof Error ? error.message : String(error)}\n`);
++		process.exitCode = 1;
++	});
+diff --git a/packages/cli/src/index.ts b/packages/cli/src/index.ts
+index 61167b1..9934bb9 100644
+--- a/packages/cli/src/index.ts
++++ b/packages/cli/src/index.ts
+@@ -26,5 +26,6 @@ export {
+ 	verifyWitnessNextKilledByGoogle,
+ } from './witness/next-killedbygoogle-run.ts';
+ export * from './witness/provenance.ts';
++export * from './fixture/react-papercups-aggregate.ts';
+ export * from './framework-classify.ts';
+ export * from '../../trust/src/index.ts';
+diff --git a/packages/cli/test/react-papercups-aggregate.test.ts b/packages/cli/test/react-papercups-aggregate.test.ts
+new file mode 100644
+index 0000000..dd1cd88
+--- /dev/null
++++ b/packages/cli/test/react-papercups-aggregate.test.ts
+@@ -0,0 +1,121 @@
++import { cp, mkdir, mkdtemp, readFile, writeFile } from 'node:fs/promises';
++import { tmpdir } from 'node:os';
++import * as path from 'pathe';
++import { describe, expect, it } from 'vitest';
++import {
++	derivePapercupsAggregateMembers,
++	updatePapercupsAggregate,
++} from '../src/fixture/react-papercups-aggregate.ts';
++
++const root = path.resolve(import.meta.dirname, '../../..');
++
++async function workspace(): Promise<string> {
++	const directory = await mkdtemp(path.join(tmpdir(), 'versionless-papercups-aggregate-'));
++	for (const relative of [
++		'evidence/runs/aggregate.json',
++		'evidence/runs/react-papercups-v1-0-0/t004-run.json',
++		'evidence/runs/witness-react-papercups/receipt.json',
++		'evidence/runs/witness-react-papercups/receipt.md',
++	]) {
++		const target = path.join(directory, relative);
++		await mkdir(path.dirname(target), { recursive: true });
++		await cp(path.join(root, relative), target, { recursive: true });
++	}
++	return directory;
++}
++
++async function aggregate(directory: string) {
++	return JSON.parse(
++		await readFile(path.join(directory, 'evidence/runs/aggregate.json'), 'utf8'),
++	) as { fixtures: Array<Record<string, unknown>> };
++}
++
++async function publishAggregate(directory: string, value: unknown): Promise<void> {
++	await writeFile(
++		path.join(directory, 'evidence/runs/aggregate.json'),
++		`${JSON.stringify(value, null, 2)}\n`,
++	);
++}
++
++describe('Papercups canonical aggregate append', () => {
++	it('derives both members from the published migration and browser evidence', async () => {
++		const members = await derivePapercupsAggregateMembers(root);
++		expect(members.map((member) => member.id)).toEqual([
++			'react-papercups-v1-0-0',
++			'witness-react-papercups',
++		]);
++		expect(members.map((member) => member.digest)).toEqual([
++			'b433f214727389676b308332f7689d773ad28dde0984b9bf245f3f780f87d35a',
++			'abd33d566ecef3ce4b24470c3105320520a712db19351f74b6c887b63227f267',
++		]);
++	});
++
++	it('atomically appends the exact pair and supports verify-only', async () => {
++		const directory = await workspace();
++		await expect(
++			updatePapercupsAggregate({ rootDir: directory, mode: 'append' }),
++		).resolves.toMatchObject({ result: 'pass', state: 'appended' });
++		const value = await aggregate(directory);
++		expect(value.fixtures).toHaveLength(18);
++		expect(value.fixtures.slice(-2).map((member) => member.id)).toEqual([
++			'react-papercups-v1-0-0',
++			'witness-react-papercups',
++		]);
++		await expect(
++			updatePapercupsAggregate({ rootDir: directory, mode: 'verify-only' }),
++		).resolves.toMatchObject({ result: 'pass', state: 'verified' });
++	});
++
++	it('is idempotent once the exact browser-proof state is complete', async () => {
++		const directory = await workspace();
++		await updatePapercupsAggregate({ rootDir: directory, mode: 'append' });
++		const before = await readFile(path.join(directory, 'evidence/runs/aggregate.json'));
++		await expect(
++			updatePapercupsAggregate({ rootDir: directory, mode: 'append' }),
++		).resolves.toMatchObject({ state: 'already-appended' });
++		expect(await readFile(path.join(directory, 'evidence/runs/aggregate.json'))).toEqual(before);
++	});
++
++	it('refuses partial, reordered, inconsistent, and not-yet-appended states', async () => {
++		const members = await derivePapercupsAggregateMembers(root);
++		for (const tail of [
++			[members[0]],
++			[members[1]],
++			[members[1], members[0]],
++			[members[0], { ...members[1], digest: '0'.repeat(64) }],
++		]) {
++			const directory = await workspace();
++			const value = await aggregate(directory);
++			value.fixtures.push(...tail);
++			await publishAggregate(directory, value);
++			await expect(
++				updatePapercupsAggregate({ rootDir: directory, mode: 'append' }),
++			).rejects.toThrow();
++		}
++		const predecessor = await workspace();
++		await expect(
++			updatePapercupsAggregate({ rootDir: predecessor, mode: 'verify-only' }),
++		).rejects.toThrow('has not been appended');
++	});
++
++	it('removes exclusive staging residue when atomic publication fails', async () => {
++		const directory = await workspace();
++		const target = path.join(directory, 'evidence/runs/aggregate.json');
++		const before = await readFile(target);
++		await expect(
++			updatePapercupsAggregate({
++				rootDir: directory,
++				mode: 'append',
++				operations: {
++					rename: async (_oldPath, _newPath) => {
++						throw new Error('injected rename failure');
++					},
++				},
++			}),
++		).rejects.toThrow('injected rename failure');
++		expect(await readFile(target)).toEqual(before);
++		await expect(readFile(`${target}.papercups-append.tmp`)).rejects.toMatchObject({
++			code: 'ENOENT',
++		});
++	});
++});
+diff --git a/packages/core/src/index.ts b/packages/core/src/index.ts
+index 03a2065..1e17076 100644
+--- a/packages/core/src/index.ts
++++ b/packages/core/src/index.ts
+@@ -19,6 +19,7 @@ export * from './receipts/next-killedbygoogle.ts';
+ export * from './receipts/witness-real-app.ts';
+ export * from './receipts/witness-angular-realworld.ts';
+ export * from './receipts/witness-react-boilerplate.ts';
++export * from './receipts/witness-react-papercups.ts';
+ export * from './receipts/witness-next-killedbygoogle.ts';
+ export * from './receipts/react-avataaars-compatibility.ts';
+ export * from './receipts/react-calculator.ts';

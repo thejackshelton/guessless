@@ -1,0 +1,19 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"type": "object",
+	"additionalProperties": false,
+	"required": ["status", "reportedSiteIds", "unresolvedSiteIds", "reasoning"],
+	"properties": {
+		"status": { "enum": ["complete", "partial", "refused"] },
+		"reportedSiteIds": {
+			"description": "Canonical IDs are <fixture-relative-posix-path>:<1-based-line>:<1-based-column> at the exact queried symbol occurrence start.",
+			"type": "array",
+			"items": { "type": "string", "pattern": "^[^:]+:[1-9][0-9]*:[1-9][0-9]*$" }
+		},
+		"unresolvedSiteIds": {
+			"type": "array",
+			"items": { "type": "string", "pattern": "^[^:]+:[1-9][0-9]*:[1-9][0-9]*$" }
+		},
+		"reasoning": { "type": "string" }
+	}
+}

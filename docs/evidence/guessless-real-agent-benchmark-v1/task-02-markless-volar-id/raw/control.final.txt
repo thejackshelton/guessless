@@ -1,0 +1,14 @@
+Implemented deterministic, document-scoped Volar CSS embedded IDs.
+
+Changes:
+
+- CSS IDs now incorporate the normalized TSRX filename and style-block index.
+- Multiple style blocks receive distinct, stable IDs.
+- Different TSRX documents cannot reuse the same CSS IDs.
+- Style-free files continue producing no embedded documents.
+- Added focused regression tests covering all cases.
+
+Validation:
+
+- `git diff --check` passed.
+- Tests could not run because dependencies are absent, and offline installation was blocked by sandbox permissions (`EPERM` accessing the pnpm store).

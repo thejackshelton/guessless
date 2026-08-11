@@ -1,0 +1,42 @@
+{
+	"candidates": [
+		{
+			"archive": "ufo.tar.gz",
+			"bytes": 156073,
+			"commit": "f06c800d0c59f2a4a1b9ba65eb6cb61a84419be6",
+			"id": "ufo",
+			"licenseSha256": "46231df5a7733c3f52f11b71f3df61813007745b62b09031acfb45fb42d75082",
+			"selected": true,
+			"sha256": "9a929027362efdf9065ff90b1ef08b7ecd635c8ef0b1614de8deacd435d9944e"
+		},
+		{
+			"archive": "execa.tar.gz",
+			"bytes": 347360,
+			"commit": "8017b279e19347efaf2587711c2d57dbd4330740",
+			"id": "execa",
+			"licenseSha256": "5c932d88256b4ab958f64a856fa48e8bd1f55bc1d96b8149c65689e0c61789d3",
+			"selected": true,
+			"sha256": "dc079e14ef2aa694efac6c350e400ac6ded3716e4ced14ed99424e95d986e9e6"
+		},
+		{
+			"archive": "uvu.tar.gz",
+			"bytes": 134438,
+			"commit": "9419247b8f93b61ce9a3aeca562f08491101a765",
+			"id": "uvu",
+			"licenseSha256": "306fa513e39b23a6e8747520de761809d206b99800ef41907b530226574c59ae",
+			"selected": true,
+			"sha256": "b698493e9a43172994c58ebd3bd2f2f4c35766eb8bcffe8b8d725f0bd01ba610"
+		},
+		{
+			"archive": null,
+			"bytes": 35033,
+			"id": "klona",
+			"reason": "Discarded transparently before preregistration; not copied into the selected corpus.",
+			"selected": false,
+			"sha256": "153b4a4d808516c2afb1d814858a97f792ee42c9c114be3505120a4f9e3e7612"
+		}
+	],
+	"schema": "guessless.v6-acquisition/v1",
+	"selectedBytes": 637871,
+	"transparentAcquiredBytes": 672904
+}

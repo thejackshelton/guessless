@@ -1,0 +1,19 @@
+{
+	"name": "@guessless/mcp",
+	"version": "0.0.1",
+	"bin": {
+		"guessless-mcp": "./dist/server.js"
+	},
+	"type": "module",
+	"exports": {
+		".": "./dist/index.js",
+		"./server": "./dist/server.js"
+	},
+	"dependencies": {
+		"@guessless/engine": "workspace:*",
+		"@modelcontextprotocol/sdk": "catalog:",
+		"pathe": "catalog:",
+		"ufo": "catalog:",
+		"zod": "catalog:"
+	}
+}

@@ -1,0 +1,712 @@
+$ /bin/zsh -lc "sed -n '1,210p' packages/typescript-plugin/src/volar.ts && sed -n '90,165p' packages/typescript-plugin/src/language.ts && sed -n '340,395p' packages/typescript-plugin/src/language.ts && sed -n '1,175p' packages/typescript-plugin/test/volar.test.ts && sed -n '60,135p' packages/typescript-plugin/test/language.test.ts && cat package.json"
+exit=0
+import {
+	compileTsrxForTypeService,
+	type MarklessTsrxTypeServiceResult,
+	type TsrxTypeServiceOptions,
+} from '@markless/compiler/type-service';
+
+/**
+ * Compile Markless TSRX into the TSX and mappings consumed by Volar language tools.
+ * Recoverable compiler errors stay on `result.errors`; an unusable file throws so
+ * the host can keep it on its fatal-error path instead of serving partial TSX.
+ */
+export function compileToVolarMappings(
+	source: string,
+	filename: string,
+	options: TsrxTypeServiceOptions = {},
+): MarklessTsrxTypeServiceResult {
+	try {
+		return compileTsrxForTypeService(source, filename, options);
+	} catch (error) {
+		if (error && typeof error === 'object') {
+			(error as { type?: 'fatal' }).type = 'fatal';
+		}
+		throw error;
+	}
+}
+export class MarklessTsrxVirtualCode {
+	id = 'root';
+	languageId = MARKLESS_TSRX_LANGUAGE_ID;
+	embeddedCodes: MarklessTsrxCssVirtualCode[] = [];
+	codegenStacks: unknown[] = [];
+	generatedCode = '';
+	mappings: TsrxCodeMapping[] = [];
+	fileName: string;
+	sourceSnapshot: ScriptSnapshot;
+	sourceAst: unknown;
+	usageErrors: unknown[] = [];
+	snapshot: VirtualCodeSnapshot;
+
+	constructor(fileName: string, snapshot: ScriptSnapshot) {
+		this.fileName = fileName;
+		this.sourceSnapshot = snapshot;
+		this.sourceAst = undefined;
+		this.snapshot = {
+			getText: () => '',
+			getLength: () => 0,
+			getChangeRange: () => undefined,
+		};
+		this.update(snapshot);
+	}
+
+	update(snapshot: ScriptSnapshot): void {
+		const source = snapshot.getText(0, snapshot.getLength());
+		this.sourceSnapshot = snapshot;
+		let compiled: MarklessTsrxTypeServiceResult | undefined;
+		try {
+			compiled = compileTsrxForTypeService(source, this.fileName, { loose: true });
+		} catch {
+			compiled = compileRecoverableSource(source, this.fileName);
+		}
+
+		// Keep the last successful virtual document when an edit cannot yet be
+		// parsed. Volar can continue serving the existing program until the next
+		// successful update instead of allowing a parser exception to escape.
+		if (!compiled) return;
+		addImportClauseInteriorMappings(compiled, source);
+		this.generatedCode = compiled.code;
+		this.sourceAst = compiled.sourceAst;
+		this.usageErrors = compiled.errors;
+		this.embeddedCodes = compiled.cssMappings.map(
+			(mapping, index) => new MarklessTsrxCssVirtualCode(this.fileName, mapping, index),
+		);
+		this.snapshot = {
+			getText: (start, end) => this.generatedCode.substring(start, end),
+			getLength: () => this.generatedCode.length,
+			getChangeRange: () => undefined,
+		};
+		this.mappings = compiled.mappings;
+	}
+}
+
+type AstNode = {
+	readonly type: string;
+	readonly start?: number;
+	readonly end?: number;
+	readonly specifiers?: readonly AstNode[];
+	readonly body?: readonly AstNode[];
+};
+
+function addImportClauseInteriorMappings(
+	compiled: MarklessTsrxTypeServiceResult,
+	source: string,
+): void {
+	const program = compiled.sourceAst as AstNode | undefined;
+	if (program?.type !== 'Program' || !Array.isArray(program.body)) return;
+
+	for (const declaration of program.body) {
+		if (declaration.type !== 'ImportDeclaration' || !Array.isArray(declaration.specifiers)) {
+			continue;
+		}
+		const namedSpecifiers = declaration.specifiers.filter(
+			(specifier) => specifier.type === 'ImportSpecifier',
+		return generated === recoveredToken;
+	});
+	if (!dotMapping) return;
+
+	const generatedPosition = dotMapping.generatedOffsets[0] + dotMapping.generatedLengths[0];
+	compiled.code = `${compiled.code.slice(0, generatedPosition)}.${compiled.code.slice(generatedPosition)}`;
+	const dotMappingIndex = compiled.mappings.indexOf(dotMapping);
+	const insertedMapping: TsrxCodeMapping = {
+		sourceOffsets: [dotPosition],
+		generatedOffsets: [generatedPosition],
+		lengths: [1],
+		generatedLengths: [1],
+		data: { ...dotMapping.data },
+	};
+	compiled.mappings.splice(dotMappingIndex + 1, 0, insertedMapping);
+
+	for (const mapping of compiled.mappings) {
+		if (mapping === dotMapping || mapping === insertedMapping) continue;
+		if (mapping.generatedOffsets[0] >= generatedPosition) mapping.generatedOffsets[0] += 1;
+		if (mapping.sourceOffsets[0] >= dotPosition) mapping.sourceOffsets[0] += 1;
+	}
+}
+
+class MarklessTsrxCssVirtualCode {
+	languageId = 'css';
+	embeddedCodes: [] = [];
+	codegenStacks: unknown[] = [];
+	id: string;
+	fileName: string;
+	snapshot: VirtualCodeSnapshot;
+	mappings: TsrxCodeMapping[];
+
+	constructor(fileName: string, mapping: TsrxCodeMapping, index: number) {
+		const content = mapping.data?.customData?.content ?? '';
+		this.id = `style_${index}`;
+		this.fileName = `${fileName}.${this.id}.css`;
+		this.snapshot = {
+			getText: (start, end) => content.substring(start, end),
+			getLength: () => content.length,
+			getChangeRange: () => undefined,
+		};
+		this.mappings = [
+			{
+				...mapping,
+				generatedOffsets: [0],
+				generatedLengths: [content.length],
+			},
+		];
+	}
+}
+
+export function transformTsrxForTypeScriptService(source) {
+	return compileTsrxForTypeService(source, 'module.tsrx', { loose: true }).code;
+}
+
+function normalizeFileName(fileNameOrUri: FileNameOrUri): string {
+import { dirname, join } from 'node:path';
+import { compileToVolarMappings } from '@markless/typescript-plugin/volar';
+import ts from 'typescript';
+import { expect, test } from 'vitest';
+
+type VolarResult = ReturnType<typeof compileToVolarMappings>;
+
+const expectedFeatureData = {
+	verification: true,
+	completion: true,
+	semantic: true,
+	navigation: true,
+};
+
+test('compileToVolarMappings emits typed TSX and fully featured source mappings', () => {
+	const source = `import { state } from '@markless/core';
+
+function StatusBadge({ label }: { label: string }) @{
+	<strong class="status">{label}</strong>
+}
+
+export default function Home() @{
+	let visits = state(0);
+	<main class="home">
+		<button onClick={() => visits++}>Visited {visits}</button>
+		<StatusBadge label={\`Visit ${'${visits}'}\`} />
+		<style>
+			.home { display: grid; }
+		</style>
+	</main>
+}`;
+
+	const result = compileToVolarMappings(source, 'Home.tsrx', { loose: true });
+
+	expect(result.errors).toEqual([]);
+	expect(result.sourceAst.type).toBe('Program');
+	expect(result.code).toContain("import { state } from '@markless/core';");
+	expect(result.code).toContain('export default function Home()');
+	expect(result.code).toContain('let visits = state(0);');
+	expect(result.code).toContain('<button onClick={() => visits++}>');
+	expect(result.code).toContain('<StatusBadge label={`Visit ${visits}`} />');
+	expect(result.code).not.toContain('<style>');
+	expect(result.cssMappings[0]?.data.customData.content).toContain('.home { display: grid; }');
+
+	for (const [text, from] of [
+		['main', source.indexOf('<main')],
+		['label', source.indexOf('label=', source.indexOf('<StatusBadge'))],
+		['visits', source.indexOf('let visits')],
+	] as const) {
+		const sourceOffset = source.indexOf(text, from);
+		const mapping = exactMappingAt(result, source, sourceOffset, text.length);
+		expect(mapping?.data, `Volar features for ${text}`).toMatchObject(expectedFeatureData);
+		expect(mapping?.generatedLengths).toEqual([text.length]);
+		expect(
+			result.code.slice(
+				mapping?.generatedOffsets[0],
+				(mapping?.generatedOffsets[0] ?? 0) + (mapping?.generatedLengths[0] ?? 0),
+			),
+			`generated round trip for ${text}`,
+		).toBe(source.slice(sourceOffset, sourceOffset + text.length));
+	}
+});
+
+test('alternate component shape preserves mapped TypeScript prop diagnostics', () => {
+	const source = `import { state } from '@markless/core';
+
+function Meter({ amount }: { amount: number }) @{
+	<output class="meter">{amount}</output>
+}
+
+export default function Dashboard() @{
+	let total = state(1);
+	<article class="dashboard">
+		<Meter amount="many" />
+		<a href="/next" onClick={() => total++}>Next {total}</a>
+		<style>.dashboard { gap: 1rem; }</style>
+	</article>
+}`;
+	const result = compileToVolarMappings(source, 'Dashboard.tsrx', { loose: true });
+	const diagnostics = typeCheckGeneratedSource('Dashboard.tsrx', result.code);
+	const propDiagnostic = diagnostics.find((diagnostic) =>
+		ts
+			.flattenDiagnosticMessageText(diagnostic.messageText, '\n')
+			.includes("Type 'string' is not assignable to type 'number'"),
+	);
+
+	expect(result.code).toContain('<output class="meter">');
+	expect(result.code).toContain('<Meter amount="many" />');
+	expect(propDiagnostic, formatDiagnostics(diagnostics).join('\n')).toBeDefined();
+	expect(mapGeneratedDiagnosticToSource(result, propDiagnostic)?.start).toBe(
+		source.indexOf('amount="many"'),
+	);
+	expect(
+		exactMappingAt(result, source, source.indexOf('article'), 'article'.length)?.data,
+	).toMatchObject(expectedFeatureData);
+});
+
+test('returns recoverable usage errors and throws unusable files as fatal errors', () => {
+	const recoverableSource = `export default function Duplicate() @{
+	let repeated = 1;
+	let repeated = 2;
+	<span>{repeated}</span>
+}`;
+	const recoverable = compileToVolarMappings(recoverableSource, 'Duplicate.tsrx', {
+		loose: true,
+	});
+
+	expect(recoverable.code).toContain('return <span>{repeated}</span>');
+	expect(recoverable.errors).toEqual([
+		expect.objectContaining({
+			message: expect.stringContaining("Identifier 'repeated' has already been declared"),
+			type: 'usage',
+			pos: recoverableSource.indexOf('repeated', recoverableSource.indexOf('repeated') + 1),
+		}),
+	]);
+
+	let fatal: unknown;
+	try {
+		compileToVolarMappings('export default function Broken() @{ <div>', 'Broken.tsrx', {
+			loose: true,
+		});
+	} catch (error) {
+		fatal = error;
+	}
+	expect(fatal).toMatchObject({ type: 'fatal', pos: expect.any(Number) });
+});
+
+function exactMappingAt(
+	result: VolarResult,
+	source: string,
+	sourceOffset: number,
+	length: number,
+): VolarResult['mappings'][number] | undefined {
+	return result.mappings.find(
+		(mapping) =>
+			mapping.sourceOffsets[0] === sourceOffset &&
+			mapping.lengths[0] === length &&
+			result.code.slice(
+				mapping.generatedOffsets[0],
+				mapping.generatedOffsets[0] + mapping.generatedLengths[0],
+			) === source.slice(sourceOffset, sourceOffset + length),
+	);
+}
+
+function mapGeneratedDiagnosticToSource(
+	result: VolarResult,
+	diagnostic: ts.Diagnostic,
+): { start: number; length: number } | undefined {
+	if (diagnostic.start === undefined) return undefined;
+	const generatedEnd = diagnostic.start + (diagnostic.length ?? 1);
+	const mapping = result.mappings.find((candidate) => {
+		const mappingStart = candidate.generatedOffsets[0];
+		const mappingEnd = mappingStart + candidate.generatedLengths[0];
+		return (
+			candidate.data.verification &&
+			mappingStart <= diagnostic.start! &&
+			generatedEnd <= mappingEnd
+		);
+	});
+	if (!mapping) return undefined;
+
+	const delta = diagnostic.start - mapping.generatedOffsets[0];
+	return {
+		start: mapping.sourceOffsets[0] + Math.min(delta, mapping.lengths[0]),
+		length: Math.min(diagnostic.length ?? 1, mapping.lengths[0]),
+	};
+}
+
+function typeCheckGeneratedSource(fileName: string, source: string): readonly ts.Diagnostic[] {
+	const configPath = ts.findConfigFile('.', ts.sys.fileExists, 'tsconfig.json');
+	if (!configPath) throw new Error('Expected root tsconfig.json.');
+	const configFile = ts.readConfigFile(configPath, ts.sys.readFile);
+	const parsedConfig = ts.parseJsonConfigFileContent(
+		configFile.config,
+		ts.sys,
+
+		export function Counter() @{
+			let count = state(0);
+			<button class="counter" onClick={() => count++}>{count}</button>
+		}
+	`;
+	const fileName = join(process.cwd(), 'packages/core/src/Counter.tsrx');
+	const virtualCode = plugin.createVirtualCode?.(
+		fileName,
+		MARKLESS_TSRX_LANGUAGE_ID,
+		ts.ScriptSnapshot.fromString(source),
+	);
+	const serviceScript = virtualCode && plugin.typescript?.getServiceScript?.(virtualCode);
+
+	expect(serviceScript).toMatchObject({ extension: '.tsx', scriptKind: ts.ScriptKind.TSX });
+	expect(virtualCode?.generatedCode).toContain("import { state } from '@markless/core';");
+	expect(virtualCode?.generatedCode).toContain('count++');
+	expect(virtualCode?.generatedCode).toContain('return <button');
+	expect(virtualCode?.generatedCode).not.toContain('react/jsx-runtime');
+	expect(
+		formatDiagnostics(
+			typeCheckVirtualSource(fileName, virtualCode?.generatedCode ?? '', {
+				noUnusedLocals: true,
+			}),
+		),
+	).toEqual([]);
+});
+
+test('populates virtual code from the Markless compiler type-service artifact', () => {
+	const plugin = getMarklessTsrxLanguagePlugin();
+	const source = `import { state } from '@markless/core';
+export function App() @{
+	let count = state(0);
+	<section>
+		<button onClick={() => count++}>{count}</button>
+		<style>.counter { color: red; }</style>
+	</section>
+}`;
+	const fileName = join(process.cwd(), 'packages/core/src/App.tsrx');
+	const virtualCode = plugin.createVirtualCode?.(
+		fileName,
+		MARKLESS_TSRX_LANGUAGE_ID,
+		ts.ScriptSnapshot.fromString(source),
+	) as any;
+
+	expect(virtualCode?.sourceAst?.type).toBe('Program');
+	expect(virtualCode?.usageErrors).toEqual([]);
+	expect(virtualCode?.generatedCode).toContain('count++');
+	expect(virtualCode?.generatedCode).toContain('<button');
+	expect(virtualCode?.embeddedCodes[0]?.languageId).toBe('css');
+	expect(virtualCode?.embeddedCodes[0]?.snapshot.getText(0, 100)).toContain('.counter');
+});
+
+test('package CommonJS entry is generated into dist instead of maintained in src', () => {
+	ensureGeneratedCjsBuild();
+	const packageJson = JSON.parse(
+		readFileSync('packages/typescript-plugin/package.json', 'utf8'),
+	) as any;
+
+	expect(packageJson.main).toBe('./dist/index.cjs');
+	expect(packageJson.exports['.'].require).toBe('./dist/index.cjs');
+	expect(packageJson.scripts?.['build:cjs']).toContain('vp pack src/index.ts');
+	expect(packageJson.publishConfig.exports['./jsx-runtime'].types).toBe(
+		'./dist/markless-jsx.d.ts',
+	);
+	expect(existsSync('packages/typescript-plugin/dist/markless-jsx.d.ts')).toBe(true);
+	expect(existsSync('packages/typescript-plugin/src/index.cjs')).toBe(false);
+});
+
+test('exports a generated CommonJS factory for tsserver plugin loading', () => {
+	ensureGeneratedCjsBuild();
+	const cjsPlugin = require('@markless/typescript-plugin') as any;
+	const languagePlugin = cjsPlugin.__getMarklessTsrxLanguagePlugin?.();
+	const virtualCode = languagePlugin?.createVirtualCode?.(
+		join(process.cwd(), 'packages/core/src/App.tsrx'),
+		MARKLESS_TSRX_LANGUAGE_ID,
+{
+	"name": "@markless/markless-workspace",
+	"version": "0.1.1",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"build": "vp pack",
+		"check": "vp check",
+		"fmt": "vp fmt",
+		"lint": "vp lint",
+		"test": "pnpm --dir packages/typescript-plugin test:completion-matrix && vp test && pnpm bench:jsfb:guard && pnpm --dir packages/bundler test:boxes && pnpm --dir packages/router test:boxes && pnpm --dir demos/music-player test:boxes && pnpm --dir demos/music-player-ssr test:boxes",
+		"bench:jsfb:compare": "node scripts/benchmarks/jsfb-baseline.mjs compare",
+		"bench:jsfb:guard": "node scripts/benchmarks/jsfb-baseline.mjs compare",
+		"bench:jsfb:prepare": "node scripts/benchmarks/prepare-jsfb-markless.mjs",
+		"receipts:check": "node packages/analyzer/test-support/check-receipts.ts packages/analyzer/expected-receipts.json .",
+		"receipts:generate": "vitest run --config packages/web/vitest.analyzer-debug-channel-contract.config.ts && vitest run packages/web/test/analyzer-debug-channel-contract.test.ts packages/analyzer/test/receipt-set.test.ts packages/web/test/debug-channel-registration.test.ts",
+		"test:compiler": "vp test packages/compiler/test/*.test.ts",
+		"publish": "pnpm --filter '@markless/*' --filter create-markless publish --access public --no-git-checks",
+		"release": "node scripts/release/run-release.mjs",
+		"state": "node scripts/state-ledger.mjs",
+		"rules": "npx -y @intellectronica/ruler apply",
+		"prepare": "git config core.hooksPath .githooks"
+	},
+	"devDependencies": {
+		"@async/witness": "0.7.0",
+		"@markless/typescript-plugin": "workspace:*",
+		"@types/node": "24.12.2",
+		"bumpp": "^10.4.1",
+		"create-markless": "workspace:*",
+		"rolldown": "1.0.3",
+		"typescript": "5.9.3",
+		"vite": "8.0.16",
+		"vite-plus": "0.1.20",
+		"vitest": "4.1.5"
+	},
+	"packageManager": "pnpm@10.33.2"
+}
+
+
+$ /bin/zsh -lc "sed -n '1,110p' packages/typescript-plugin/test/language.test.ts && rg -n \"test:|typescript-plugin/test\" vite.config.* package.json packages/*/package.json | head -80 && git log --oneline -12 -- packages/typescript-plugin/src/language.ts"
+exit=0
+import { spawnSync } from 'node:child_process';
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, writeFileSync } from 'node:fs';
+import { createRequire } from 'node:module';
+import { tmpdir } from 'node:os';
+import { dirname, join } from 'node:path';
+import ts from 'typescript';
+import { expect, test } from 'vitest';
+import {
+	MARKLESS_TSRX_LANGUAGE_ID,
+	getMarklessTsrxLanguagePlugin,
+	isMarklessTsrxFile,
+} from '../src/language.ts';
+import { TsserverHarness } from './tsserver-harness.ts';
+
+const require = createRequire(import.meta.url);
+
+test('registers .tsrx through the Markless language plugin without mixed TSX parsing', () => {
+	const plugin = getMarklessTsrxLanguagePlugin();
+
+	expect(isMarklessTsrxFile('/workspace/src/App.tsrx')).toBe(true);
+	expect(isMarklessTsrxFile('/workspace/src/App.tsx')).toBe(false);
+	expect(plugin.getLanguageId?.('/workspace/src/App.tsrx')).toBe(MARKLESS_TSRX_LANGUAGE_ID);
+	expect(
+		plugin.createVirtualCode?.(
+			'/workspace/src/App.tsrx',
+			'typescriptreact',
+			ts.ScriptSnapshot.fromString('export function App() @{}'),
+		)?.languageId,
+	).toBe(MARKLESS_TSRX_LANGUAGE_ID);
+	expect(plugin.typescript?.extraFileExtensions).toEqual([
+		{ extension: 'tsrx', isMixedContent: false, scriptKind: ts.ScriptKind.Deferred },
+	]);
+});
+
+test('configures Zed to highlight .tsrx as TSX and load the workspace plugin', () => {
+	const settings = JSON.parse(readFileSync('.zed/settings.json', 'utf8')) as any;
+	const tsconfig = JSON.parse(readFileSync('tsconfig.json', 'utf8')) as any;
+
+	expect(settings.file_types?.TSX).toEqual(['tsrx', '**/*.tsrx']);
+	expect(settings.file_types?.TSRX).toBeUndefined();
+	expect(tsconfig.include).toContain('packages/*/src/**/*.tsrx');
+	expect(settings.lsp?.vtsls?.settings).toMatchObject({
+		typescript: { tsdk: './node_modules/typescript/lib' },
+		vtsls: { autoUseWorkspaceTsdk: true },
+	});
+	expect(settings.lsp?.vtsls?.settings?.vtsls?.tsserver?.globalPlugins).toEqual([
+		{
+			name: '@markless/typescript-plugin',
+			location: './node_modules/@markless/typescript-plugin',
+			languages: ['typescriptreact'],
+			configNamespace: 'typescript',
+		},
+	]);
+});
+
+test('feeds TypeScript a virtual .tsx service script for TSRX source', () => {
+	const plugin = getMarklessTsrxLanguagePlugin();
+	const source = `
+		import { state } from '@markless/core';
+
+		export function Counter() @{
+			let count = state(0);
+			<button class="counter" onClick={() => count++}>{count}</button>
+		}
+	`;
+	const fileName = join(process.cwd(), 'packages/core/src/Counter.tsrx');
+	const virtualCode = plugin.createVirtualCode?.(
+		fileName,
+		MARKLESS_TSRX_LANGUAGE_ID,
+		ts.ScriptSnapshot.fromString(source),
+	);
+	const serviceScript = virtualCode && plugin.typescript?.getServiceScript?.(virtualCode);
+
+	expect(serviceScript).toMatchObject({ extension: '.tsx', scriptKind: ts.ScriptKind.TSX });
+	expect(virtualCode?.generatedCode).toContain("import { state } from '@markless/core';");
+	expect(virtualCode?.generatedCode).toContain('count++');
+	expect(virtualCode?.generatedCode).toContain('return <button');
+	expect(virtualCode?.generatedCode).not.toContain('react/jsx-runtime');
+	expect(
+		formatDiagnostics(
+			typeCheckVirtualSource(fileName, virtualCode?.generatedCode ?? '', {
+				noUnusedLocals: true,
+			}),
+		),
+	).toEqual([]);
+});
+
+test('populates virtual code from the Markless compiler type-service artifact', () => {
+	const plugin = getMarklessTsrxLanguagePlugin();
+	const source = `import { state } from '@markless/core';
+export function App() @{
+	let count = state(0);
+	<section>
+		<button onClick={() => count++}>{count}</button>
+		<style>.counter { color: red; }</style>
+	</section>
+}`;
+	const fileName = join(process.cwd(), 'packages/core/src/App.tsrx');
+	const virtualCode = plugin.createVirtualCode?.(
+		fileName,
+		MARKLESS_TSRX_LANGUAGE_ID,
+		ts.ScriptSnapshot.fromString(source),
+	) as any;
+
+	expect(virtualCode?.sourceAst?.type).toBe('Program');
+	expect(virtualCode?.usageErrors).toEqual([]);
+	expect(virtualCode?.generatedCode).toContain('count++');
+	expect(virtualCode?.generatedCode).toContain('<button');
+	expect(virtualCode?.embeddedCodes[0]?.languageId).toBe('css');
+	expect(virtualCode?.embeddedCodes[0]?.snapshot.getText(0, 100)).toContain('.counter');
+package.json:11:		"test": "pnpm --dir packages/typescript-plugin test:completion-matrix && vp test && pnpm bench:jsfb:guard && pnpm --dir packages/bundler test:boxes && pnpm --dir packages/router test:boxes && pnpm --dir demos/music-player test:boxes && pnpm --dir demos/music-player-ssr test:boxes",
+package.json:17:		"test:compiler": "vp test packages/compiler/test/*.test.ts",
+vite.config.ts:199:			vitest: './src/vitest.ts',
+vite.config.ts:209:	test: {
+vite.config.ts:214:				test: {
+vite.config.ts:218:					exclude: ['packages/typescript-plugin/test/completion-matrix.test.ts'],
+packages/typescript-plugin/package.json:54:		"test:completion-matrix": "MARKLESS_COMPLETION_MATRIX_STARTED_AT=$(node -p 'Date.now()') pnpm run test:completion-matrix:run",
+packages/typescript-plugin/package.json:55:		"test:completion-matrix:run": "pnpm run build:cjs && pnpm --dir ../router run build:cjs && pnpm --dir ../vscode-plugin package:vsix && pnpm -w exec vitest run --config packages/typescript-plugin/vitest.completion-matrix.config.ts"
+packages/router/package.json:70:		"test:boxes": "witness run",
+packages/bundler/package.json:39:		"test:boxes": "witness run",
+74c0e77 feat(typescript-plugin): Volar compiler entry for consumer-declared TSRX tooling
+
+
+$ /bin/zsh -lc 'pnpm exec vitest run packages/typescript-plugin/test/language.test.ts'
+exit=254
+undefined
+ ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL  Command "vitest" not found
+
+
+$ /bin/zsh -lc 'command -v vp || true
+ls -ld node_modules node_modules/.bin 2>/dev/null || true
+pnpm vp test packages/typescript-plugin/test/language.test.ts'
+exit=254
+undefined
+ ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL  Command "vp" not found
+
+
+$ /bin/zsh -lc 'pnpm install --offline --frozen-lockfile'
+exit=255
+ EPERM  EPERM: operation not permitted, symlink '../../../../../../../../private/tmp/guessless-real-agent-benchmark-v1/task-02-markless-volar-id/treatment' -> '/Users/jacksm5pro/Library/pnpm/store/v11/v10/projects/94029e9953501a477409daa28b4d921d'
+
+pnpm: EPERM: operation not permitted, symlink '../../../../../../../../private/tmp/guessless-real-agent-benchmark-v1/task-02-markless-volar-id/treatment' -> '/Users/jacksm5pro/Library/pnpm/store/v11/v10/projects/94029e9953501a477409daa28b4d921d'
+    at async Object.symlink (node:internal/fs/promises:1002:10)
+    at async forceSymlink (/Users/jacksm5pro/.local/share/fnm/node-versions/v24.15.0/installation/lib/node_modules/pnpm/dist/pnpm.cjs:92011:9)
+    at async registerProject (/Users/jacksm5pro/.local/share/fnm/node-versions/v24.15.0/installation/lib/node_modules/pnpm/dist/pnpm.cjs:105932:7)
+    at async getContext (/Users/jacksm5pro/.local/share/fnm/node-versions/v24.15.0/installation/lib/node_modules/pnpm/dist/pnpm.cjs:129932:7)
+    at async mutateModules (/Users/jacksm5pro/.local/share/fnm/node-versions/v24.15.0/installation/lib/node_modules/pnpm/dist/pnpm.cjs:163393:17)
+    at async recursive (/Users/jacksm5pro/.local/share/fnm/node-versions/v24.15.0/installation/lib/node_modules/pnpm/dist/pnpm.cjs:164840:100)
+    at async recursiveInstallThenUpdateWorkspaceState (/Users/jacksm5pro/.local/share/fnm/node-versions/v24.15.0/installation/lib/node_modules/pnpm/dist/pnpm.cjs:165351:31)
+    at async installDeps (/Users/jacksm5pro/.local/share/fnm/node-versions/v24.15.0/installation/lib/node_modules/pnpm/dist/pnpm.cjs:165158:11)
+    at async /Users/jacksm5pro/.local/share/fnm/node-versions/v24.15.0/installation/lib/node_modules/pnpm/dist/pnpm.cjs:202027:23
+    at async main (/Users/jacksm5pro/.local/share/fnm/node-versions/v24.15.0/installation/lib/node_modules/pnpm/dist/pnpm.cjs:201985:34)
+
+
+$ /bin/zsh -lc 'git diff --check && git diff -- packages/typescript-plugin/src/language.ts packages/typescript-plugin/test/language.test.ts && git status --short'
+exit=0
+diff --git a/packages/typescript-plugin/src/language.ts b/packages/typescript-plugin/src/language.ts
+index 5442395..cf7892a 100644
+--- a/packages/typescript-plugin/src/language.ts
++++ b/packages/typescript-plugin/src/language.ts
+@@ -371,8 +371,8 @@ class MarklessTsrxCssVirtualCode {
+ 
+ 	constructor(fileName: string, mapping: TsrxCodeMapping, index: number) {
+ 		const content = mapping.data?.customData?.content ?? '';
+-		this.id = `style_${index}`;
+-		this.fileName = `${fileName}.${this.id}.css`;
++		this.id = `style:${fileName}:${index}`;
++		this.fileName = `${fileName}.style_${index}.css`;
+ 		this.snapshot = {
+ 			getText: (start, end) => content.substring(start, end),
+ 			getLength: () => content.length,
+diff --git a/packages/typescript-plugin/test/language.test.ts b/packages/typescript-plugin/test/language.test.ts
+index ab8ce19..09a1ce0 100644
+--- a/packages/typescript-plugin/test/language.test.ts
++++ b/packages/typescript-plugin/test/language.test.ts
+@@ -110,6 +110,51 @@ export function App() @{
+ 	expect(virtualCode?.embeddedCodes[0]?.snapshot.getText(0, 100)).toContain('.counter');
+ });
+ 
++test('gives CSS virtual codes stable document-scoped IDs', () => {
++	const plugin = getMarklessTsrxLanguagePlugin();
++	const source = `export function App() @{
++	<main>
++		<style>.first { color: red; }</style>
++		<style>.second { color: blue; }</style>
++	</main>
++}`;
++	const firstFileName = '/workspace/src/First.tsrx';
++	const secondFileName = '/workspace/src/Second.tsrx';
++	const createVirtualCode = (fileName: string) =>
++		plugin.createVirtualCode?.(
++			fileName,
++			MARKLESS_TSRX_LANGUAGE_ID,
++			ts.ScriptSnapshot.fromString(source),
++		);
++
++	const firstDocument = createVirtualCode(firstFileName);
++	const repeatedFirstDocument = createVirtualCode(firstFileName);
++	const secondDocument = createVirtualCode(secondFileName);
++
++	expect(firstDocument?.embeddedCodes.map((code) => code.id)).toEqual([
++		`style:${firstFileName}:0`,
++		`style:${firstFileName}:1`,
++	]);
++	expect(repeatedFirstDocument?.embeddedCodes.map((code) => code.id)).toEqual(
++		firstDocument?.embeddedCodes.map((code) => code.id),
++	);
++	expect(secondDocument?.embeddedCodes.map((code) => code.id)).toEqual([
++		`style:${secondFileName}:0`,
++		`style:${secondFileName}:1`,
++	]);
++});
++
++test('does not add embedded virtual codes to documents without styles', () => {
++	const plugin = getMarklessTsrxLanguagePlugin();
++	const virtualCode = plugin.createVirtualCode?.(
++		'/workspace/src/Plain.tsrx',
++		MARKLESS_TSRX_LANGUAGE_ID,
++		ts.ScriptSnapshot.fromString('export function Plain() @{ <p>Plain</p> }'),
++	);
++
++	expect(virtualCode?.embeddedCodes).toEqual([]);
++});
++
+ test('package CommonJS entry is generated into dist instead of maintained in src', () => {
+ 	ensureGeneratedCjsBuild();
+ 	const packageJson = JSON.parse(
+ M packages/typescript-plugin/src/language.ts
+ M packages/typescript-plugin/test/language.test.ts
+
+
+$ /bin/zsh -lc "command -v tsc || true
+command -v biome || true
+git diff --check
+rg -n \"this\\.id =|style:\" packages/typescript-plugin/src/language.ts packages/typescript-plugin/test/language.test.ts"
+exit=0
+packages/typescript-plugin/test/language.test.ts:135:		`style:${firstFileName}:0`,
+packages/typescript-plugin/test/language.test.ts:136:		`style:${firstFileName}:1`,
+packages/typescript-plugin/test/language.test.ts:142:		`style:${secondFileName}:0`,
+packages/typescript-plugin/test/language.test.ts:143:		`style:${secondFileName}:1`,
+packages/typescript-plugin/src/language.ts:374:		this.id = `style:${fileName}:${index}`;
+
+
+$ /bin/zsh -lc 'pnpm install --offline --frozen-lockfile --config.enable-global-virtual-store=false'
+exit=255
+Scope: all 45 workspace projects
+ EPERM  EPERM: operation not permitted, symlink '../../../../../../../../private/tmp/guessless-real-agent-benchmark-v1/task-02-markless-volar-id/treatment' -> '/Users/jacksm5pro/Library/pnpm/store/v11/v10/projects/94029e9953501a477409daa28b4d921d'
+
+pnpm: EPERM: operation not permitted, symlink '../../../../../../../../private/tmp/guessless-real-agent-benchmark-v1/task-02-markless-volar-id/treatment' -> '/Users/jacksm5pro/Library/pnpm/store/v11/v10/projects/94029e9953501a477409daa28b4d921d'
+    at async Object.symlink (node:internal/fs/promises:1002:10)
+    at async forceSymlink (/Users/jacksm5pro/.local/share/fnm/node-versions/v24.15.0/installation/lib/node_modules/pnpm/dist/pnpm.cjs:92011:9)
+    at async registerProject (/Users/jacksm5pro/.local/share/fnm/node-versions/v24.15.0/installation/lib/node_modules/pnpm/dist/pnpm.cjs:105932:7)
+    at async getContext (/Users/jacksm5pro/.local/share/fnm/node-versions/v24.15.0/installation/lib/node_modules/pnpm/dist/pnpm.cjs:129932:7)
+    at async mutateModules (/Users/jacksm5pro/.local/share/fnm/node-versions/v24.15.0/installation/lib/node_modules/pnpm/dist/pnpm.cjs:163393:17)
+    at async recursive (/Users/jacksm5pro/.local/share/fnm/node-versions/v24.15.0/installation/lib/node_modules/pnpm/dist/pnpm.cjs:164840:100)
+    at async recursiveInstallThenUpdateWorkspaceState (/Users/jacksm5pro/.local/share/fnm/node-versions/v24.15.0/installation/lib/node_modules/pnpm/dist/pnpm.cjs:165351:31)
+    at async installDeps (/Users/jacksm5pro/.local/share/fnm/node-versions/v24.15.0/installation/lib/node_modules/pnpm/dist/pnpm.cjs:165158:11)
+    at async /Users/jacksm5pro/.local/share/fnm/node-versions/v24.15.0/installation/lib/node_modules/pnpm/dist/pnpm.cjs:202027:23
+    at async main (/Users/jacksm5pro/.local/share/fnm/node-versions/v24.15.0/installation/lib/node_modules/pnpm/dist/pnpm.cjs:201985:34)
+
+

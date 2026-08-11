@@ -1,0 +1,46 @@
+{
+	"schema": "guessless.safe-change-summary/v1",
+	"state": "complete",
+	"request": {
+		"kind": "safeChangeImpact",
+		"snapshot": "cf08f46e0c4a47183ec232b940eb41c6d80121943314ab38117bb3032091f457",
+		"intent": "delete",
+		"target": {
+			"schema": "guessless.symbol-anchor/v1",
+			"file": "lib/methods/command.js",
+			"semanticPath": [
+				"global:scope:Program",
+				"module:scope:Program",
+				"symbol:parseCommandString",
+				"declaration:VariableDeclarator"
+			],
+			"fingerprint": "b480de3cb78d2f6dab6dbb11c30fad4e85362d14414b4e6979454b3bfb55c1a8"
+		}
+	},
+	"snapshot": "cf08f46e0c4a47183ec232b940eb41c6d80121943314ab38117bb3032091f457",
+	"sites": [
+		{
+			"id": "a17821786d7303bad8d97649ff3cde9148b31cc6ab5696ffe3fc41ff0a2f5da7",
+			"file": "lib/methods/command.js",
+			"label": "symbol:parseCommandString"
+		}
+	],
+	"results": [
+		{
+			"site": 0,
+			"roles": [
+				"declaration",
+				"reference",
+				"export"
+			]
+		}
+	],
+	"unresolved": [],
+	"proofHandle": "7753a551c0b0e274962d799a234cccfdd84bf22fc4dd7bd86097afc44538b213",
+	"counts": {
+		"sites": 1,
+		"results": 1,
+		"unresolved": 0
+	},
+	"integrity": "2c9211e81edef7caa3cb435873202caa14880c4172e73892040c913f95f598b8"
+}

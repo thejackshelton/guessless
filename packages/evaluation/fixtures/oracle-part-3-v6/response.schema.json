@@ -1,0 +1,66 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"additionalProperties": false,
+	"properties": {
+		"reasoning": {
+			"type": "string"
+		},
+		"resolved": {
+			"items": {
+				"additionalProperties": false,
+				"properties": {
+					"roles": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"siteId": {
+						"pattern": "^[^:#]+(?:/[^:#]+)*:[1-9][0-9]*:[1-9][0-9]*#resolved$",
+						"type": "string"
+					}
+				},
+				"required": [
+					"siteId",
+					"roles"
+				],
+				"type": "object"
+			},
+			"type": "array"
+		},
+		"state": {
+			"enum": [
+				"complete",
+				"partial",
+				"refused"
+			]
+		},
+		"unresolved": {
+			"items": {
+				"additionalProperties": false,
+				"properties": {
+					"reason": {
+						"type": "string"
+					},
+					"siteId": {
+						"pattern": "^[^:#]+(?:/[^:#]+)*:[1-9][0-9]*:[1-9][0-9]*#unresolved:[a-z-]+$",
+						"type": "string"
+					}
+				},
+				"required": [
+					"siteId",
+					"reason"
+				],
+				"type": "object"
+			},
+			"type": "array"
+		}
+	},
+	"required": [
+		"state",
+		"resolved",
+		"unresolved",
+		"reasoning"
+	],
+	"type": "object"
+}

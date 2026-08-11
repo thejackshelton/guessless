@@ -1,0 +1,284 @@
+diff --git a/packages/cli/src/witness/playwright-host.ts b/packages/cli/src/witness/playwright-host.ts
+index 341c74a..5982714 100644
+--- a/packages/cli/src/witness/playwright-host.ts
++++ b/packages/cli/src/witness/playwright-host.ts
+@@ -49,6 +49,7 @@ export type WitnessTransportRequest = {
+ 	protocol: string;
+ 	host: string;
+ 	pathname: string;
++	query: string;
+ 	method: string;
+ 	resourceType: string;
+ };
+@@ -445,6 +446,7 @@ export function createPlaywrightWitnessHost(options: {
+ 				protocol: parsed.protocol ?? '',
+ 				host: parsed.host ?? '',
+ 				pathname: parsed.pathname,
++				query: parsed.search ?? '',
+ 				method: request.method(),
+ 				resourceType: request.resourceType(),
+ 			})) ?? {
+diff --git a/packages/cli/src/witness/real-app-run.ts b/packages/cli/src/witness/real-app-run.ts
+index 7b958e3..1cd5c06 100644
+--- a/packages/cli/src/witness/real-app-run.ts
++++ b/packages/cli/src/witness/real-app-run.ts
+@@ -10,8 +10,9 @@ import {
+ 	rm,
+ 	writeFile,
+ } from 'node:fs/promises';
+-import { createServer, type Server } from 'node:http';
++import { createServer, type IncomingMessage, type Server } from 'node:http';
+ import type { AddressInfo } from 'node:net';
++import type { Duplex } from 'node:stream';
+ import { dirname, extname, isAbsolute, join, normalize, relative, resolve } from 'pathe';
+ import { box, runBoxes, type BoxContext, type PageHandle, type PageRecord } from '@async/witness';
+ import { joinURL, parseURL, stringifyParsedURL } from 'ufo';
+@@ -227,6 +228,28 @@ type StaticResponseLedgerEntry = {
+ 	sha256: string;
+ };
+ 
++export type StaticApiRequest = {
++	method: string;
++	pathname: string;
++	query: string;
++};
++
++export type StaticApiResponse = {
++	status: number;
++	contentType: string;
++	body: Buffer | string;
++};
++
++export type StaticApiHandler = (
++	request: StaticApiRequest,
++) => StaticApiResponse | null | undefined | Promise<StaticApiResponse | null | undefined>;
++
++export type StaticUpgradeHandler = (
++	request: IncomingMessage,
++	socket: Duplex,
++	head: Buffer,
++) => void | Promise<void>;
++
+ type LegacyMainPrecacheResponse = {
+ 	method: 'GET';
+ 	pathname: string;
+@@ -326,6 +349,8 @@ export async function startStaticServer(
+ 	staticRoot: string,
+ 	options: {
+ 		profile?: 'current-witness' | 'canonical-t060';
++		apiHandler?: StaticApiHandler;
++		upgradeHandler?: StaticUpgradeHandler;
+ 		diagnosticEvent?: (
+ 			event: Omit<WitnessDifferentialEvent, 'sequence' | 'timestampMs'>,
+ 		) => void;
+@@ -400,6 +425,18 @@ export async function startStaticServer(
+ 				});
+ 				response.end(body);
+ 			};
++			const projection = await options.apiHandler?.({
++				method: request.method ?? 'GET',
++				pathname,
++				query: parsedRequest.search ?? '',
++			});
++			if (projection !== undefined && projection !== null) {
++				const body = Buffer.isBuffer(projection.body)
++					? projection.body
++					: Buffer.from(projection.body);
++				complete(projection.status, projection.contentType, body, null);
++				return;
++			}
+ 			const requestedFile = safeStaticPath(staticRoot, request.url ?? '/');
+ 			if (requestedFile === null) {
+ 				complete(400, 'text/plain', Buffer.from('invalid path'), null);
+@@ -420,10 +457,44 @@ export async function startStaticServer(
+ 			);
+ 		})().catch((error: unknown) => {
+ 			failures.push(error instanceof Error ? error.message : String(error));
+-			if (!response.headersSent) response.writeHead(500, { 'content-type': 'text/plain' });
+-			response.end('static server failure');
++			if (!response.headersSent) {
++				const body = Buffer.from('static server failure');
++				const parsedRequest = parseURL(request.url ?? '/');
++				response.once('finish', () =>
++					ledger.push({
++						method: request.method ?? 'GET',
++						pathname: parsedRequest.pathname || '/',
++						query: parsedRequest.search ?? '',
++						destination:
++							typeof request.headers['sec-fetch-dest'] === 'string'
++								? request.headers['sec-fetch-dest']
++								: '',
++						resolvedFile: null,
++						status: 500,
++						mime: 'text/plain',
++						bytes: body.length,
++						sha256: sha256(body),
++					}),
++				);
++				response.writeHead(500, { 'content-type': 'text/plain' });
++				response.end(body);
++				return;
++			}
++			response.end();
+ 		});
+ 	});
++	server.on('upgrade', (request, socket, head) => {
++		void (async () => {
++			if (options.upgradeHandler === undefined) {
++				socket.destroy();
++				return;
++			}
++			await options.upgradeHandler(request, socket, head);
++		})().catch((error: unknown) => {
++				failures.push(error instanceof Error ? error.message : String(error));
++				socket.destroy();
++			});
++	});
+ 	server.requestTimeout = 15_000;
+ 	server.headersTimeout = 10_000;
+ 	await new Promise<void>((resolveListen, rejectListen) => {
+diff --git a/packages/cli/test/witness-angular-realworld-run.test.ts b/packages/cli/test/witness-angular-realworld-run.test.ts
+index 05ffbef..6e7c7ab 100644
+--- a/packages/cli/test/witness-angular-realworld-run.test.ts
++++ b/packages/cli/test/witness-angular-realworld-run.test.ts
+@@ -26,6 +26,7 @@ const request = (pathname: string) => ({
+ 	protocol: 'https:',
+ 	host: 'api.realworld.io',
+ 	pathname,
++	query: '',
+ 	method: 'GET',
+ 	resourceType: 'xhr',
+ });
+diff --git a/packages/cli/test/witness-real-app-run.test.ts b/packages/cli/test/witness-real-app-run.test.ts
+index 9aedd52..b433010 100644
+--- a/packages/cli/test/witness-real-app-run.test.ts
++++ b/packages/cli/test/witness-real-app-run.test.ts
+@@ -1,11 +1,128 @@
+ import { describe, expect, it } from 'vitest';
++import { mkdtemp, rm, writeFile } from 'node:fs/promises';
++import { request } from 'node:http';
++import { connect } from 'node:net';
++import { tmpdir } from 'node:os';
++import { join } from 'pathe';
+ import {
+ 	validateWitnessQualificationTypingMode,
+ 	validateWitnessTransportDecision,
+ 	type WitnessTransportDecision,
+ } from '../src/witness/playwright-host.ts';
++import { startStaticServer } from '../src/witness/real-app-run.ts';
++
++async function get(origin: string, path: string): Promise<{
++	status: number;
++	contentType: string;
++	body: string;
++}> {
++	return await new Promise((resolve, reject) => {
++		const outgoing = request(`${origin}${path}`, (response) => {
++			const chunks: Buffer[] = [];
++			response.on('data', (chunk: Buffer) => chunks.push(chunk));
++			response.on('end', () =>
++				resolve({
++					status: response.statusCode ?? 0,
++					contentType: response.headers['content-type'] ?? '',
++					body: Buffer.concat(chunks).toString('utf8'),
++				}),
++			);
++		});
++		outgoing.on('error', reject);
++		outgoing.end();
++	});
++}
+ 
+ describe('Witness real-app host boundary', () => {
++	it('projects same-origin APIs, falls back to static files, and ledgers both with queries', async () => {
++		const root = await mkdtemp(join(tmpdir(), 'versionless-static-'));
++		await writeFile(join(root, 'index.html'), 'static witness');
++		const calls: Array<{ method: string; pathname: string; query: string }> = [];
++		const server = await startStaticServer(root, {
++			apiHandler: (incoming) => {
++				calls.push(incoming);
++				if (incoming.pathname !== '/api/status') return undefined;
++				return { status: 201, contentType: 'application/json', body: '{"ok":true}' };
++			},
++		});
++		try {
++			expect(await get(server.origin, '/api/status?x=1&x=2')).toEqual({
++				status: 201,
++				contentType: 'application/json',
++				body: '{"ok":true}',
++			});
++			expect((await get(server.origin, '/?cache=off')).body).toBe('static witness');
++			expect(calls).toEqual([
++				{ method: 'GET', pathname: '/api/status', query: '?x=1&x=2' },
++				{ method: 'GET', pathname: '/', query: '?cache=off' },
++			]);
++			expect(server.ledger()).toMatchObject([
++				{ pathname: '/api/status', query: '?x=1&x=2', status: 201, resolvedFile: null },
++				{ pathname: '/', query: '?cache=off', status: 200, resolvedFile: 'index.html' },
++			]);
++		} finally {
++			await server.close();
++			await rm(root, { recursive: true });
++		}
++	});
++
++	it('passes upgrade inputs through and records failures while closing the socket', async () => {
++		const root = await mkdtemp(join(tmpdir(), 'versionless-upgrade-'));
++		await writeFile(join(root, 'index.html'), 'static witness');
++		let receivedHead = '';
++		const server = await startStaticServer(root, {
++			upgradeHandler: (incoming, socket, head) => {
++				receivedHead = head.toString('utf8');
++				expect(incoming.url).toBe('/events?channel=one');
++				socket.end('HTTP/1.1 101 Switching Protocols\r\nConnection: Upgrade\r\nUpgrade: witness\r\n\r\n');
++			},
++		});
++		try {
++			const port = Number(new URL(server.origin).port);
++			const response = await new Promise<string>((resolve, reject) => {
++				const socket = connect(port, '127.0.0.1');
++				const chunks: Buffer[] = [];
++				socket.on('connect', () =>
++					socket.write(
++						'GET /events?channel=one HTTP/1.1\r\nHost: 127.0.0.1\r\nConnection: Upgrade\r\nUpgrade: witness\r\n\r\nhead',
++					),
++				);
++				socket.on('data', (chunk: Buffer) => chunks.push(chunk));
++				socket.on('end', () => resolve(Buffer.concat(chunks).toString('utf8')));
++				socket.on('error', reject);
++			});
++			expect(response).toContain('101 Switching Protocols');
++			expect(receivedHead).toBe('head');
++			server.assertClean();
++		} finally {
++			await server.close();
++			await rm(root, { recursive: true });
++		}
++
++		const failingRoot = await mkdtemp(join(tmpdir(), 'versionless-upgrade-failure-'));
++		await writeFile(join(failingRoot, 'index.html'), 'static witness');
++		const failing = await startStaticServer(failingRoot, {
++			upgradeHandler: () => {
++				throw new Error('upgrade refused');
++			},
++		});
++		try {
++			await new Promise<void>((resolve) => {
++				const socket = connect(Number(new URL(failing.origin).port), '127.0.0.1', () =>
++					socket.write(
++						'GET /fail HTTP/1.1\r\nHost: 127.0.0.1\r\nConnection: Upgrade\r\nUpgrade: witness\r\n\r\n',
++					),
++				);
++				socket.on('close', () => resolve());
++				socket.on('error', () => resolve());
++			});
++			expect(() => failing.assertClean()).toThrow('upgrade refused');
++		} finally {
++			await failing.close();
++			await rm(failingRoot, { recursive: true });
++		}
++	});
++
+ 	it('accepts only the bounded transport decision shape', () => {
+ 		const decision: WitnessTransportDecision = {
+ 			action: 'fulfill',

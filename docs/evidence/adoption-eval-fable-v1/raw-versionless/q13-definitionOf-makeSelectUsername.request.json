@@ -1,0 +1,14 @@
+{
+  "kind": "definitionOf",
+  "target": {
+    "schema": "guessless.symbol-anchor/v1",
+    "file": "containers/HomePage/selectors.js",
+    "semanticPath": [
+      "global:scope:Program",
+      "module:scope:Program",
+      "symbol:makeSelectUsername",
+      "declaration:VariableDeclarator"
+    ],
+    "fingerprint": "515e32e18f2eb0db567afb1095fc095aa60a7708c98d0483d6a9e1f1db2aefd7"
+  }
+}

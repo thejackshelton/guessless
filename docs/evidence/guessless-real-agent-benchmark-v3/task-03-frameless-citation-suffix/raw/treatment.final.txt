@@ -1,0 +1,19 @@
+Implemented the citation-validation fix in [check-citations.mjs](/private/tmp/guessless-real-agent-benchmark-v3/task-03-frameless-citation-suffix/treatment/scripts/check-citations.mjs) with regressions in [citations.test.ts](/private/tmp/guessless-real-agent-benchmark-v3/task-03-frameless-citation-suffix/treatment/packages/compiler/test/citations.test.ts).
+
+Key changes:
+
+- Repository paths resolve before third-party exemptions.
+- Third-party targets now match exact anchored paths, never basenames or suffixes.
+- Legitimate qualified third-party citations remain allowed.
+- Integrity validation rejects collisions, suffix-style entries, duplicate/inert entries, and malformed paths.
+- Added synthetic-checkout regression coverage.
+
+Verification:
+
+- `pnpm check:citations` — passed: 4 documents, 17 watched sources, 610 swept sources.
+- Manual regression assertions — passed for all 15 exact targets.
+- `node --check` and `git diff --check` — passed.
+- Vitest and TypeScript — blocked by the existing incomplete/read-only `node_modules` link and missing dependencies.
+- Guessless snapshot preparation was attempted twice but the MCP call was cancelled; no structural safety claim is based on it.
+
+The pre-existing untracked `node_modules` remains untouched.

@@ -1,0 +1,71 @@
+diff --git a/packages/typescript-plugin/src/language.ts b/packages/typescript-plugin/src/language.ts
+index 5442395..cf7892a 100644
+--- a/packages/typescript-plugin/src/language.ts
++++ b/packages/typescript-plugin/src/language.ts
+@@ -371,8 +371,8 @@ class MarklessTsrxCssVirtualCode {
+ 
+ 	constructor(fileName: string, mapping: TsrxCodeMapping, index: number) {
+ 		const content = mapping.data?.customData?.content ?? '';
+-		this.id = `style_${index}`;
+-		this.fileName = `${fileName}.${this.id}.css`;
++		this.id = `style:${fileName}:${index}`;
++		this.fileName = `${fileName}.style_${index}.css`;
+ 		this.snapshot = {
+ 			getText: (start, end) => content.substring(start, end),
+ 			getLength: () => content.length,
+diff --git a/packages/typescript-plugin/test/language.test.ts b/packages/typescript-plugin/test/language.test.ts
+index ab8ce19..09a1ce0 100644
+--- a/packages/typescript-plugin/test/language.test.ts
++++ b/packages/typescript-plugin/test/language.test.ts
+@@ -110,6 +110,51 @@ export function App() @{
+ 	expect(virtualCode?.embeddedCodes[0]?.snapshot.getText(0, 100)).toContain('.counter');
+ });
+ 
++test('gives CSS virtual codes stable document-scoped IDs', () => {
++	const plugin = getMarklessTsrxLanguagePlugin();
++	const source = `export function App() @{
++	<main>
++		<style>.first { color: red; }</style>
++		<style>.second { color: blue; }</style>
++	</main>
++}`;
++	const firstFileName = '/workspace/src/First.tsrx';
++	const secondFileName = '/workspace/src/Second.tsrx';
++	const createVirtualCode = (fileName: string) =>
++		plugin.createVirtualCode?.(
++			fileName,
++			MARKLESS_TSRX_LANGUAGE_ID,
++			ts.ScriptSnapshot.fromString(source),
++		);
++
++	const firstDocument = createVirtualCode(firstFileName);
++	const repeatedFirstDocument = createVirtualCode(firstFileName);
++	const secondDocument = createVirtualCode(secondFileName);
++
++	expect(firstDocument?.embeddedCodes.map((code) => code.id)).toEqual([
++		`style:${firstFileName}:0`,
++		`style:${firstFileName}:1`,
++	]);
++	expect(repeatedFirstDocument?.embeddedCodes.map((code) => code.id)).toEqual(
++		firstDocument?.embeddedCodes.map((code) => code.id),
++	);
++	expect(secondDocument?.embeddedCodes.map((code) => code.id)).toEqual([
++		`style:${secondFileName}:0`,
++		`style:${secondFileName}:1`,
++	]);
++});
++
++test('does not add embedded virtual codes to documents without styles', () => {
++	const plugin = getMarklessTsrxLanguagePlugin();
++	const virtualCode = plugin.createVirtualCode?.(
++		'/workspace/src/Plain.tsrx',
++		MARKLESS_TSRX_LANGUAGE_ID,
++		ts.ScriptSnapshot.fromString('export function Plain() @{ <p>Plain</p> }'),
++	);
++
++	expect(virtualCode?.embeddedCodes).toEqual([]);
++});
++
+ test('package CommonJS entry is generated into dist instead of maintained in src', () => {
+ 	ensureGeneratedCjsBuild();
+ 	const packageJson = JSON.parse(

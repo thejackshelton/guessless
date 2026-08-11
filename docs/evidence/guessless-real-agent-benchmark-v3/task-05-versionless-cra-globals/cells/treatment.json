@@ -1,0 +1,17 @@
+{
+  "schema": "guessless.real-agent-benchmark.cell/v3",
+  "arm": "treatment",
+  "model": "gpt-5.6-sol",
+  "argvProfile": "control argv plus Guessless MCP command/args and default_tools_approval_mode=approve; onboarding-v3c with exact package root followed by identical base prompt",
+  "exitCode": 0,
+  "modelBacked": true,
+  "wallSeconds": 517.66,
+  "patch": {"path": "../treatment.patch", "sha256": "ef8aa613aba4ff58417f1d36d3128a7c65b46af5aec111c2e7da7682a8484738"},
+  "tests": {"state": "partial", "passed": "Direct adapter semantic regressions and git diff --check", "gaps": ["The Vite+ test launcher targeted an unavailable cached binary, so the repository test file did not execute."]},
+  "usage": {"inputTokens": 908746, "cachedInputTokens": 838912, "outputTokens": 8935},
+  "tools": {"commandExecutions": 16, "fileChanges": 5, "mcpCalls": 2},
+  "guessless": {"visible": true, "selected": true, "successfulReceipt": true, "receiptState": "complete snapshot then partial impact", "materialUse": true, "result": "Snapshot covered all 11 JS/TS source and test files. Entry-point impact classified 141/192 sites and named 51 unresolved external/builtin boundaries; agent used it as bounded verification and explicitly denied a complete safety claim."},
+  "outcome": "partial",
+  "semanticCorrectness": "pending-independent-judge",
+  "raw": {"stdout": "../raw/treatment.stdout.jsonl", "stderr": "../raw/treatment.stderr.txt", "final": "../raw/treatment.final.txt", "time": "../raw/treatment.time.txt"}
+}

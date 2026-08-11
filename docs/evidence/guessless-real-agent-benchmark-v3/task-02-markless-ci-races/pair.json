@@ -1,0 +1,15 @@
+{
+  "schema": "guessless.real-agent-benchmark.pair/v3",
+  "id": "task-02-markless-ci-races",
+  "repository": "markless",
+  "historicalParent": "537e750abc824ae6b2c32f69fec07e2835b4dae5",
+  "historicalSolution": "b52de79ff8168aea052448be427900c3b007d7f2",
+  "startingTree": "1b29bf26278a11d7c17ac59df7d56a49d093658c",
+  "basePromptSha256": "edb0657d36fdbfce62f38c3182c53ab313c3391a7aba7b74edd07daaae076e15",
+  "treatmentPromptSha256": "7a68b08a225591a64c95384e96ec424d14af2c5ee9347f8e34b927187be70be5",
+  "order": "treatment-first",
+  "solutionAbsentBeforeLaunch": true,
+  "parity": "Identical starting tree, base prompt, model, workspace-write sandbox, inherited environment, no timeout, and on-request approval policy. Treatment deltas were onboarding context and Guessless MCP configuration.",
+  "score": "pending-independent-judge",
+  "cells": ["cells/control.json", "cells/treatment.json"]
+}

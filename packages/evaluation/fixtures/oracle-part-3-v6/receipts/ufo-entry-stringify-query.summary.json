@@ -1,0 +1,1017 @@
+{
+	"schema": "guessless.safe-change-summary/v1",
+	"state": "partial",
+	"request": {
+		"kind": "safeChangeImpact",
+		"snapshot": "1d3cc31cd81f3af5d301fbe3711b88c46453206c7f6983bde00b1deb3440b2e3",
+		"intent": "entry-point",
+		"target": {
+			"schema": "guessless.symbol-anchor/v1",
+			"file": "src/query.ts",
+			"semanticPath": [
+				"global:scope:Program",
+				"module:scope:Program",
+				"symbol:stringifyQuery",
+				"declaration:FunctionDeclaration"
+			],
+			"fingerprint": "4975e5de9c91836697c82c799d06e2fff5491b15fa58159834dffa73f8db5159"
+		}
+	},
+	"snapshot": "1d3cc31cd81f3af5d301fbe3711b88c46453206c7f6983bde00b1deb3440b2e3",
+	"sites": [
+		{
+			"id": "e05fd5aee77b56bef2f567cd5ddd8c6c143e2ee840f37f143436829d38b96e23",
+			"file": "src/encoding.ts",
+			"label": "symbol:text"
+		},
+		{
+			"id": "60045c2a4ee9c75b470509370c6933c52cf57ead5e287cb9c91113c1071fadb1",
+			"file": "src/encoding.ts",
+			"label": "symbol:encodeQueryKey"
+		},
+		{
+			"id": "4a8131aa6ffb61eba87a030ea260ce99e7a07e7b574cf9f504da9775b634251f",
+			"file": "src/encoding.ts",
+			"label": "symbol:input"
+		},
+		{
+			"id": "9913f0c95c9cade2ad18d505e3df915df4b7241a834f5ccf90aec523b081b2d3",
+			"file": "src/encoding.ts",
+			"label": "symbol:encodeQueryValue"
+		},
+		{
+			"id": "b3a0ac74b61aa623259aef12c1cd73f72173487573063b445ec239659e230d7a",
+			"file": "src/encoding.ts",
+			"label": "symbol:text"
+		},
+		{
+			"id": "e21fa8d750ca472fd0d329c50afb8947994d930d0be22587de04692aa6566afe",
+			"file": "src/encoding.ts",
+			"label": "symbol:decodeQueryValue"
+		},
+		{
+			"id": "b3d577e6d8804bb36f2a4f63b0edc91d6745998378f7dff6d84bcee1022561da",
+			"file": "src/encoding.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "c230debc7f440f09d672f8d2f22e402cc9eaee1b7cbd65c92634198c5d653611",
+			"file": "src/encoding.ts",
+			"label": "symbol:EQUAL_RE"
+		},
+		{
+			"id": "b745996b31e25b71082883d63ad1f56e5f7cc414f05a254d49f90b97a2b5a878",
+			"file": "src/encoding.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "6d7c0519932e9ed1f732c58534a1d5691eeb1109ae74db1c323f87af7257ca16",
+			"file": "src/encoding.ts",
+			"label": "symbol:text"
+		},
+		{
+			"id": "bb3f22d2f70043239ca1e196bf0617e25be2202875c28e44a5087248f1786d7c",
+			"file": "src/encoding.ts",
+			"label": "symbol:decodeQueryKey"
+		},
+		{
+			"id": "5b9446560540b9957e8d0ba3410179bbf88e945b53826bde970054fd711f640d",
+			"file": "src/encoding.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "7c845512aaa95708dd7ebf3cdf75b58ba65aba2b784c6c2666a64fe8df065539",
+			"file": "src/encoding.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "9fe7a80e5b187a5236d56405dd918785ef3ee4fe6e5e637ff9930c019508016d",
+			"file": "src/encoding.ts",
+			"label": "symbol:text"
+		},
+		{
+			"id": "a36b5c3772edbdd1aace07aaf248a493d88b0ef38595e8b10a6f37e516998820",
+			"file": "src/encoding.ts",
+			"label": "symbol:encode"
+		},
+		{
+			"id": "2d0ebd95c962332ebc56bc5ecf8e7b1f75307c0421d0966e308515abaa7aa913",
+			"file": "src/encoding.ts",
+			"label": "symbol:text"
+		},
+		{
+			"id": "74dc796b889d63fbf994417ec96a65634f3756602fb08d4ceb281806601c41f5",
+			"file": "src/encoding.ts",
+			"label": "symbol:decode"
+		},
+		{
+			"id": "caed7e615a56b41bd8d329cd8afb7f9db38c24c0f421d9e5d09d33811567e99e",
+			"file": "src/encoding.ts",
+			"label": "symbol:ENC_BACKTICK_RE"
+		},
+		{
+			"id": "7d5aae8b3f73ffad3c1fab5342654a364cda6a461fa6a8ecaf658704288d7b07",
+			"file": "src/encoding.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "a48a12c43abf9a662be48355173bb8d77fb5e59db5b2b1a8b5837cec72c03ef4",
+			"file": "src/encoding.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "ec1bfd4079fc4defdc8740604cfabf5f059bda6a55adad54d26db749176f302e",
+			"file": "src/encoding.ts",
+			"label": "symbol:ENC_CARET_RE"
+		},
+		{
+			"id": "cded1209e885fbfa78f57de039c5ac7a42a82fbd4d8a12d9e5d1158d01f1d3e9",
+			"file": "src/encoding.ts",
+			"label": "symbol:ENC_SPACE_RE"
+		},
+		{
+			"id": "4589b304c240d5cc3b002d3ad4afedaf46132fe7baca921142465a9e89231c3b",
+			"file": "src/encoding.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "3f35d428dbc601f5debfa625266416e87e9d1409cad15aa299c213850de5c5bd",
+			"file": "src/encoding.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "7a12736447379e5defcca8b9969abe6ebd670bd60765e8addd963e10f7ad720d",
+			"file": "src/encoding.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "b92a7bd3aaae305908003924e929e041078d1ac8c2c2a8041b1563335dafabf2",
+			"file": "src/encoding.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "d5bc0110845d1e8824000181c46aaba86d9c89fd13b501863543025d4b08f9db",
+			"file": "src/encoding.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "4e2c7a50561536957aa44580b8127a5e1562e18d98354d17952973eedae50a6f",
+			"file": "src/encoding.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "b2e3dccb2483d4fe39d63315894366ae386fd66d1f67f7a6f288b6ab50f4cbb2",
+			"file": "src/encoding.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "e34513d0ca82045ed26035669a059b4cf86e8f1ccd2915a90d88854ed28721f6",
+			"file": "src/encoding.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "880f6aa200df0dc5620129ab092ebcf590426453bc9b91e9ab6c89334bc49578",
+			"file": "src/encoding.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "2505b55fd527d6679fa6b829ef9362087bc7e168c3ffcda102f50949476cfa1b",
+			"file": "src/encoding.ts",
+			"label": "symbol:AMPERSAND_RE"
+		},
+		{
+			"id": "4d3e44d02a2ff868e5c5bf5595dcace1fb7eb73aca1706b6001adb071a4b3b18",
+			"file": "src/encoding.ts",
+			"label": "symbol:ENC_PIPE_RE"
+		},
+		{
+			"id": "217021f9d66053f910182c97d067b7810b0c3f89e19ef97f42d923dfe398fa1a",
+			"file": "src/encoding.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "aeec766e663f4db68d7fa5f67e3cd62a39d05a1cd2648106523b135b0e54570c",
+			"file": "src/encoding.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "c3b3190340c8038c29bdb69da385b993c8f3ba2542eff2320da3f6787bf710ae",
+			"file": "src/encoding.ts",
+			"label": "symbol:SLASH_RE"
+		},
+		{
+			"id": "ccbcc6b1970c8b4f47957daa3b6e23842943ca4f1576cf0044622d0b1ecf4e2a",
+			"file": "src/encoding.ts",
+			"label": "symbol:HASH_RE"
+		},
+		{
+			"id": "2be679b57e9df7829b4f38dde212899fad1bfd0b04782affcd315ed5af96de32",
+			"file": "src/encoding.ts",
+			"label": "symbol:PLUS_RE"
+		},
+		{
+			"id": "fe48524dc4b4ec2265b3e3d4f6da74f40549231547f3d35f55f53d840f287473",
+			"file": "src/query.ts",
+			"label": "symbol:QueryValue"
+		},
+		{
+			"id": "6945589e8c174abd465e8585b5ee4595de8f8657df04dbafb07d70674133d509",
+			"file": "src/query.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "4918ad1b176b3d0f1881df212c908f03784d729c0273950cea4c5235b1949fa9",
+			"file": "src/query.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "1eaeeeb79d4f025ff2f1207d43f5e319cb4249c01dcd48d226f53e8b984b599b",
+			"file": "src/query.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "9094c90847a29a15bf41ffb7a9c2488d90f5ad3ea8636fdddf9f52d168d97bbe",
+			"file": "src/query.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "724f644bc16d28222cca8b07afef5d16ee76d808fc9a78a00c3011e5e9373adf",
+			"file": "src/query.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "ab263c905e84ed34c72f002acda1cf789615ea6c7f21cad5104c5590cdfbcffb",
+			"file": "src/query.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "46442d5c8193dfdf0a2a4c96bd89aab4b9ab4d498d8c7deba6e26dabc9925b04",
+			"file": "src/query.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "eebd54f4ec0aa87eadbf91ec0486b1e715ceb1ad4304f492b16763017132c782",
+			"file": "src/query.ts",
+			"label": "symbol:k"
+		},
+		{
+			"id": "423f2286e29d0576d2875619d809757f7eea9c12a879a24b6b15edaefc5fe285",
+			"file": "src/query.ts",
+			"label": "symbol:k"
+		},
+		{
+			"id": "8f0e415bdb916f1a97e664a2e99b0dcd363317472483c75f4e982db949775fd6",
+			"file": "src/query.ts",
+			"label": "symbol:query"
+		},
+		{
+			"id": "d2f2d5c2dce4d39e1dd4733811e770a6994f12f55708cfd58152305c540dcc4c",
+			"file": "src/query.ts",
+			"label": "symbol:stringifyQuery"
+		},
+		{
+			"id": "b78fd33866fe9232f3b04e8d46b412a37afc863f038bf4c06ead536406914d06",
+			"file": "src/query.ts",
+			"label": "symbol:parametersString"
+		},
+		{
+			"id": "386468e2ece198b98cde32ab2ed3d793fb777e7a8c1d58a91b0f66f73b30b194",
+			"file": "src/query.ts",
+			"label": "symbol:T"
+		},
+		{
+			"id": "df2d7bbdd4439724fbf348bb26b02bdbdb628dc87f9378779037711a087b4a38",
+			"file": "src/query.ts",
+			"label": "symbol:QueryObject"
+		},
+		{
+			"id": "8eb551dc79f50de0fae0673f4be9dca283fb5bcb423fe42faa021d748bc2f4f5",
+			"file": "src/query.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "cb2fc09e2cf350dbaf538c8b1f17fa1a1f6fd3a5dd8c62938b920c6cd120e59a",
+			"file": "src/query.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "c11f01a8631c6b9f895e74c5db228e1d629a6fc2a76b50e2702ea932fd2a1828",
+			"file": "src/query.ts",
+			"label": "symbol:key"
+		},
+		{
+			"id": "6533683b9eead01331a0c32ac661ec377886f4b7c452fe4c0437ba8f2b1d9789",
+			"file": "src/query.ts",
+			"label": "symbol:value"
+		},
+		{
+			"id": "d6abb137d4d61fcfba8a52541f8aeee54f58cc478254d8a358bf031b69cb6e22",
+			"file": "src/query.ts",
+			"label": "symbol:_value"
+		},
+		{
+			"id": "05443b623fc25795bfc38375f84516b8299f5b4e33260f45102a243137917d9f",
+			"file": "src/query.ts",
+			"label": "symbol:key"
+		},
+		{
+			"id": "30c04a417c976eb7566085725c8a32ad94c1278cd749dc444f01e9edad22ff11",
+			"file": "src/query.ts",
+			"label": "symbol:value"
+		},
+		{
+			"id": "165f5fba9392d233c6a122cd73a9082ba31abee51a97108c8d0040c58522503c",
+			"file": "src/query.ts",
+			"label": "symbol:encodeQueryItem"
+		},
+		{
+			"id": "bd6a7ab8917694adafdb892fe4fc4248d69d28b344d3242d3105ad0651de5a45",
+			"file": "src/query.ts",
+			"label": "symbol:parameter"
+		},
+		{
+			"id": "b1b5eb6b6add8adae30d6c6221d9d50bb7f3a1520ca04d5444d0420820a95b43",
+			"file": "src/query.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "ce2345a9b781695446605a1e8613ea16649329dffb5f82f695165705b70ae27a",
+			"file": "src/query.ts",
+			"label": "symbol:ParsedQuery"
+		},
+		{
+			"id": "ec036ce5d64a2fd9198fd6bcf1da05315447ff83708bc2bd446cb6888b29df8c",
+			"file": "src/query.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "d7b8a88f4f9190b185aded28fbb7c21efa7c78f127fb9bf9a1c91c428ba26efc",
+			"file": "src/query.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "4e18d2a9123f0cdaf40ea80145d593ad06f736ac813d1d6da74b1855a65e8cdb",
+			"file": "src/query.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "a414c59bfc7ab1ce841f709d76208fe221cf1d53d9f1a3b4e6bf7fd896e26494",
+			"file": "src/query.ts",
+			"label": "symbol:s"
+		},
+		{
+			"id": "c2e45b32ff431943f9c3aeee048d1f06deec94585611f7fba98e0fc4f416b274",
+			"file": "src/query.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "866ba327e6fba603b0ba927825964b7147aa21b33485886ecb162b1fece6a268",
+			"file": "src/query.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "fecc1e2ed6786ccccd996ff7d5a52a3720514853db4c9502d1f92eeccb6537d8",
+			"file": "src/query.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "99a9e40514180d3e55e85663ea8a8919342270698e2bfc4e0d62a9bab69118a1",
+			"file": "src/query.ts",
+			"label": "symbol:object"
+		},
+		{
+			"id": "e360dfeea94c92662b51d433bfdcf91886a1fba392b11255377c364e6e683d70",
+			"file": "src/query.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "f477886149e1d670de564028956038ea96817a9f00ec346def5e7b464a63b25e",
+			"file": "src/query.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "cb9f0329f20e983228bd42bbf894f22bb72c7f7441d88626d0c2f4d62ce7b771",
+			"file": "src/query.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "1186c3ff06155c8077a45c9c872ca8e111b76b35af730e11d546cdf715fe5760",
+			"file": "src/query.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "b2545d42618f9388d3e86e0e2af04ec9b25b9cc5b84e50f5bca3f294b6626ab9",
+			"file": "src/query.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "e284fc78bb01fd13f6d65d81c5138f2078574643be4b23f5ab7b476e28663240",
+			"file": "src/encoding.ts",
+			"label": "site:reachable-unresolved-reference"
+		},
+		{
+			"id": "788aa0dcdc6bc1857dff9d6d3b4b40a1b220fb48e76ac25bf93528aae7e609da",
+			"file": "src/encoding.ts",
+			"label": "site:reachable-unresolved-reference"
+		},
+		{
+			"id": "005ab88995ad927c33cc2660ff15369a0441d8ed46bd263ec27bf55d61426856",
+			"file": "src/encoding.ts",
+			"label": "site:reachable-unresolved-reference"
+		},
+		{
+			"id": "7f6d35c2ad3732edbfa9a99c7021fd0d290a3ef62f0b6859f71a75fe36985cef",
+			"file": "src/query.ts",
+			"label": "site:reachable-unresolved-reference"
+		},
+		{
+			"id": "87a856d2f1a031dd536c03d9e10086e5d9fe0680e8dd60e6757c9820ac481229",
+			"file": "src/query.ts",
+			"label": "site:reachable-unresolved-reference"
+		},
+		{
+			"id": "7d37af78b46a9a05bc4a9f2d1d8b82a6f8500450edcb84480a7f2ebeb795d249",
+			"file": "src/query.ts",
+			"label": "site:reachable-unresolved-reference"
+		},
+		{
+			"id": "2ee7fb77ff7c5da0160c2cfda98efe62cba3ebd644e8d2f3c59e001d7f333b08",
+			"file": "src/query.ts",
+			"label": "site:reachable-unresolved-reference"
+		},
+		{
+			"id": "686ed36bb851edc7363f60fd926e999f78e4aa30a88c6df8c593cc8a76007100",
+			"file": "src/query.ts",
+			"label": "site:reachable-unresolved-reference"
+		},
+		{
+			"id": "f01c721e6db3210dc2cbeb1e4f0791142f397e338d60d51f48ba8771b8ff690c",
+			"file": "src/query.ts",
+			"label": "site:reachable-unresolved-reference"
+		},
+		{
+			"id": "391b729f407786cccfa7b01b0e3693123cd908d35ebd0146ee643528dd661622",
+			"file": "src/query.ts",
+			"label": "site:reachable-unresolved-reference"
+		},
+		{
+			"id": "7e76f46bc315c955b5f492fd28600e2e9a831ed26d57c270f8a210f8a66ef776",
+			"file": "src/query.ts",
+			"label": "site:reachable-unresolved-reference"
+		},
+		{
+			"id": "49d095d232783c80796c9655c8556053015edc4addef6c0485385747d8faf187",
+			"file": "src/query.ts",
+			"label": "site:reachable-unresolved-reference"
+		},
+		{
+			"id": "b4d9919104766e46041c849f6aa246f59e6dbbe0279527eb7dbd9a7f76b8c92b",
+			"file": "src/query.ts",
+			"label": "site:reachable-unresolved-reference"
+		},
+		{
+			"id": "7e04b38aabb13d688397b329ed16cf0a2c889b5daa5b289c0cdc12cd8a31b474",
+			"file": "src/query.ts",
+			"label": "site:reachable-unresolved-reference"
+		},
+		{
+			"id": "86b34fee43c382968bfb71318eb7952d1913c7493ca85b267685e989d76a3a04",
+			"file": "src/query.ts",
+			"label": "site:reachable-unresolved-reference"
+		}
+	],
+	"results": [
+		{
+			"site": 0,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 1,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 2,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 3,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 4,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 5,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 6,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 7,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 8,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 9,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 10,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 11,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 12,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 13,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 14,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 15,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 16,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 17,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 18,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 19,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 20,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 21,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 22,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 23,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 24,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 25,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 26,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 27,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 28,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 29,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 30,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 31,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 32,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 33,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 34,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 35,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 36,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 37,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 38,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 39,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 40,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 41,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 42,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 43,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 44,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 45,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 46,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 47,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 48,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 49,
+			"roles": [
+				"declaration",
+				"export"
+			]
+		},
+		{
+			"site": 50,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 51,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 52,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 53,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 54,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 55,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 56,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 57,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 58,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 59,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 60,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 61,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 62,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 63,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 64,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 65,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 66,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 67,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 68,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 69,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 70,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 71,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 72,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 73,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 74,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 75,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 76,
+			"roles": [
+				"witness"
+			]
+		}
+	],
+	"unresolved": [
+		{
+			"site": 77,
+			"reason": "unresolved-symbol"
+		},
+		{
+			"site": 78,
+			"reason": "unresolved-symbol"
+		},
+		{
+			"site": 79,
+			"reason": "unresolved-symbol"
+		},
+		{
+			"site": 80,
+			"reason": "unresolved-symbol"
+		},
+		{
+			"site": 81,
+			"reason": "unresolved-symbol"
+		},
+		{
+			"site": 82,
+			"reason": "unresolved-symbol"
+		},
+		{
+			"site": 83,
+			"reason": "unresolved-symbol"
+		},
+		{
+			"site": 84,
+			"reason": "unresolved-symbol"
+		},
+		{
+			"site": 85,
+			"reason": "unresolved-symbol"
+		},
+		{
+			"site": 86,
+			"reason": "unresolved-symbol"
+		},
+		{
+			"site": 87,
+			"reason": "unresolved-symbol"
+		},
+		{
+			"site": 88,
+			"reason": "unresolved-symbol"
+		},
+		{
+			"site": 89,
+			"reason": "unresolved-symbol"
+		},
+		{
+			"site": 90,
+			"reason": "unresolved-symbol"
+		},
+		{
+			"site": 91,
+			"reason": "unresolved-symbol"
+		}
+	],
+	"proofHandle": "9b834a75de9a42084434d7e8339a7f01a21955a258b73fcc9404cabf4630ef80",
+	"counts": {
+		"sites": 92,
+		"results": 77,
+		"unresolved": 15
+	},
+	"integrity": "5468f7045b7b642fcfb36f113e7523bb0f20273853d47bfa3a5ecc8f6e9a16d8"
+}

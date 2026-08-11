@@ -1,0 +1,32 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"additionalProperties": false,
+	"properties": {
+		"bytes": {
+			"maximum": 2097152,
+			"minimum": 1,
+			"type": "integer"
+		},
+		"path": {
+			"const": "answer.json"
+		},
+		"schema": {
+			"const": "guessless.v7-answer-seal/v1"
+		},
+		"sha256": {
+			"pattern": "^[a-f0-9]{64}$",
+			"type": "string"
+		},
+		"taskId": {
+			"type": "string"
+		}
+	},
+	"required": [
+		"schema",
+		"taskId",
+		"path",
+		"bytes",
+		"sha256"
+	],
+	"type": "object"
+}

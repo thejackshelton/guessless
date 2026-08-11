@@ -1,0 +1,12 @@
+{
+	"name": "guessless",
+	"version": "0.0.1",
+	"bin": {
+		"guessless": "./dist/cli.js"
+	},
+	"type": "module",
+	"exports": "./dist/index.js",
+	"dependencies": {
+		"@guessless/engine": "workspace:*"
+	}
+}

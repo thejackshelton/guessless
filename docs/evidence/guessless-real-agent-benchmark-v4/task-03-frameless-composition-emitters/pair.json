@@ -1,0 +1,22 @@
+{
+  "schema": "guessless.real-agent-benchmark.pair/v4",
+  "id": "task-03-frameless-composition-emitters",
+  "repository": "frameless",
+  "historicalParent": "1e6cc0a0ef0bca9e4029e461a99fdf5b95c3b1ec",
+  "historicalSolution": "2c81b5afd3d279fbb80f36d78e275e7cf8f4e0f8",
+  "startingTree": "d67e0ef6df6748658e623a4a2af72c8a77955821",
+  "startingHeads": {"control": "a45ca50a58e741ae382e078cbfed18f1f0052535", "treatment": "0447443ce29317afba12e9fcf97d9d8097edd0e2"},
+  "basePromptSha256": "1d85e3ea27e14bb88140c5b09bbf9a765c2c9793957e82ff0b4f890fc605684c",
+  "treatmentPromptSha256": "6304d62631da400fe9cb0c3f0b9c9c5763ab0503a35c497919792bd2d685f51c",
+  "onboardingTemplateSha256": "fb5d103116be512e22544c340f3d227f78845ba79b252e5b45a547caf6e32f43",
+  "treatmentStructuralRoot": "/private/tmp/guessless-real-agent-benchmark-v4/task-03-frameless-composition-emitters/treatment/packages/frameworks",
+  "order": "control-first",
+  "solutionObjectsAbsentBeforeLaunch": true,
+  "sourceTreeParity": true,
+  "promptParity": "The treatment prompt ends with the byte-identical base prompt; its only prefix is the frozen onboarding template with the structural-root placeholder substituted.",
+  "environmentParity": "Same model, sandbox, approval policy, inherited environment, no timeout, and same copy-on-write dependency tree; treatment-only deltas were Guessless and onboarding.",
+  "setupArtifact": "A synthetic untracked website directory was accidentally present before both launches, was not solution-bearing, remained untouched, and was excluded from both staged patches. The pair is retained for the Judge to accept or exclude.",
+  "contamination": {"state": "clean-with-disclosed-same-parity-setup-artifact"},
+  "score": "pending-independent-judge",
+  "cells": ["cells/control.json", "cells/treatment.json"]
+}

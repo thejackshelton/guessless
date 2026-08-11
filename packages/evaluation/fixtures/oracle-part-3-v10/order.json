@@ -1,0 +1,30 @@
+[
+	{
+		"arm": "full",
+		"id": "v10-01-ufo-rename-encode-query-item-full",
+		"kind": "consumption",
+		"ordinal": 1,
+		"taskId": "ufo-rename-encode-query-item"
+	},
+	{
+		"arm": "paged",
+		"id": "v10-02-ufo-rename-encode-query-item-paged",
+		"kind": "consumption",
+		"ordinal": 2,
+		"taskId": "ufo-rename-encode-query-item"
+	},
+	{
+		"arm": "control",
+		"id": "v10-03-ufo-rename-encode-query-item-control",
+		"kind": "discovery",
+		"ordinal": 3,
+		"taskId": "ufo-rename-encode-query-item"
+	},
+	{
+		"arm": "production",
+		"id": "v10-04-ufo-rename-encode-query-item-production",
+		"kind": "discovery",
+		"ordinal": 4,
+		"taskId": "ufo-rename-encode-query-item"
+	}
+]

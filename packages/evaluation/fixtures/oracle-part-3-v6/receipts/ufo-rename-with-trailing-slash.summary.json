@@ -1,0 +1,142 @@
+{
+	"schema": "guessless.safe-change-summary/v1",
+	"state": "complete",
+	"request": {
+		"kind": "safeChangeImpact",
+		"snapshot": "1d3cc31cd81f3af5d301fbe3711b88c46453206c7f6983bde00b1deb3440b2e3",
+		"intent": "rename",
+		"target": {
+			"schema": "guessless.symbol-anchor/v1",
+			"file": "src/utils.ts",
+			"semanticPath": [
+				"global:scope:Program",
+				"module:scope:Program",
+				"symbol:withTrailingSlash",
+				"declaration:FunctionDeclaration"
+			],
+			"fingerprint": "98f6bb44fe02957ee704f0993e7f26a15a25d85d0eadb1de71e968cb5396ab53"
+		}
+	},
+	"snapshot": "1d3cc31cd81f3af5d301fbe3711b88c46453206c7f6983bde00b1deb3440b2e3",
+	"sites": [
+		{
+			"id": "2286112c81dfd778bb2549e9c3b4469193374f9293d12363b452469e73fee28c",
+			"file": "src/index.ts",
+			"label": "site:safe-change-export"
+		},
+		{
+			"id": "152b67451f143edf665dda7c99e2a737104a80b95e33e3d91a98ff35a9fb5269",
+			"file": "src/url.ts",
+			"label": "site:reference"
+		},
+		{
+			"id": "7cf3a6f93db4daa2c1aba3d7432ecbdb2da9d2a05fbb560dece2b6cbb09eb026",
+			"file": "src/url.ts",
+			"label": "site:safe-change-import"
+		},
+		{
+			"id": "f62553b2a94e053aa613676850049adfef3cae0ccb1473b26a96982014e4c439",
+			"file": "src/utils.ts",
+			"label": "site:reference"
+		},
+		{
+			"id": "e9e0f09786f26cf3c9ff489ed75a32d635987745c3812163dc62c2a8aa1fa767",
+			"file": "src/utils.ts",
+			"label": "site:reference"
+		},
+		{
+			"id": "8ad32b8e379b8371c7f653398ea5a2672a58284c71cde9666e0d282d397279e6",
+			"file": "src/utils.ts",
+			"label": "site:reference"
+		},
+		{
+			"id": "1a03a8cddb2b47045682eb8fe83532673fef83ba0cb3d3abb7e60b6b69ef140c",
+			"file": "src/utils.ts",
+			"label": "site:reference"
+		},
+		{
+			"id": "9af6104197a04256511e74987261394460472ea0be2d29550226e6ef8e152cc7",
+			"file": "src/utils.ts",
+			"label": "symbol:withTrailingSlash"
+		}
+	],
+	"results": [
+		{
+			"site": 0,
+			"roles": [
+				"reference",
+				"export",
+				"barrel"
+			]
+		},
+		{
+			"site": 1,
+			"roles": [
+				"reference",
+				"read",
+				"call",
+				"import",
+				"export"
+			]
+		},
+		{
+			"site": 2,
+			"roles": [
+				"reference",
+				"import"
+			]
+		},
+		{
+			"site": 3,
+			"roles": [
+				"reference",
+				"read",
+				"call",
+				"export"
+			]
+		},
+		{
+			"site": 4,
+			"roles": [
+				"reference",
+				"read",
+				"call",
+				"export"
+			]
+		},
+		{
+			"site": 5,
+			"roles": [
+				"reference",
+				"read",
+				"call",
+				"export"
+			]
+		},
+		{
+			"site": 6,
+			"roles": [
+				"reference",
+				"read",
+				"call",
+				"export"
+			]
+		},
+		{
+			"site": 7,
+			"roles": [
+				"declaration",
+				"reference",
+				"export"
+			]
+		}
+	],
+	"unresolved": [],
+	"proofHandle": "d4dc64b3c4805e30b0cf442c08d5474855675d6b7002f3944692a475f9c7fb5d",
+	"counts": {
+		"sites": 8,
+		"results": 8,
+		"unresolved": 0
+	},
+	"integrity": "07a2854c86128a47c528966859270f034eec0c4b1d0438191946d199936740cf"
+}

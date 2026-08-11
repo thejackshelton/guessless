@@ -1,0 +1,2033 @@
+$ /bin/zsh -lc "rg -n '\"@markless/(core|compiler)\"|markless-compiler-' package.json pnpm-lock.yaml packages/frameworks/react/package.json
+find node_modules packages/frameworks/react/node_modules -path '*/@markless/core/package.json' -print 2>/dev/null | head
+grep -o 'markless-compiler-[0-9.]*\\.tgz' package.json || true
+node -e \"console.log(require('/Users/jacksm5pro/dev/open-source/markless/packages/compiler/package.json').version)\"
+rg -n \"shared handler|SharedDefinition|state write|setter|method body|shared\" packages/frameworks/react/src packages/frameworks/react/test | head -200
+rg --files packages/frameworks/react/src packages/frameworks/react/test | sort"
+exit=0
+package.json:49:			"@markless/compiler": "file:vendor/markless-compiler-0.2.2-overlay.b4b94de6.tgz",
+package.json:50:			"@markless/core": "file:vendor/markless-core-0.2.2.tgz",
+pnpm-lock.yaml:25:  '@markless/compiler': file:vendor/markless-compiler-0.2.2-overlay.b4b94de6.tgz
+pnpm-lock.yaml:445:        specifier: file:../../vendor/markless-compiler-0.2.2-overlay.b4b94de6.tgz
+pnpm-lock.yaml:446:        version: file:vendor/markless-compiler-0.2.2-overlay.b4b94de6.tgz(@typescript-eslint/types@8.65.0)
+pnpm-lock.yaml:2052:  '@markless/compiler@file:vendor/markless-compiler-0.2.2-overlay.b4b94de6.tgz':
+pnpm-lock.yaml:2053:    resolution: {integrity: sha512-Bt5QTlLi5s8aMD02SQhqFgY98aLeeYBgG5TeqsHjh8jW9kZp31qjk5O9uU6qrKMV1yXavZN+jd2+6IgdQ7ME8Q==, tarball: file:vendor/markless-compiler-0.2.2-overlay.b4b94de6.tgz}
+pnpm-lock.yaml:8238:      '@markless/compiler': file:vendor/markless-compiler-0.2.2-overlay.b4b94de6.tgz(@typescript-eslint/types@8.65.0)
+pnpm-lock.yaml:8250:  '@markless/compiler@file:vendor/markless-compiler-0.2.2-overlay.b4b94de6.tgz(@typescript-eslint/types@8.65.0)':
+0.2.2
+packages/frameworks/react/test/emitted-typecheck.test.ts:185:			"generated-composition/C2-shared.tsx: TS2349 This expression is not callable.   Type '{}' has no call signatures.",
+packages/frameworks/react/test/emitted-typecheck.test.ts:186:			"C2-shared's `advance()` dispatch loop calls `listener()` off `countListeners`, declared `new Set()`.",
+packages/frameworks/react/test/emitted-typecheck.test.ts:189:			"generated-composition/C2-shared.tsx: TS2349 This expression is not callable.   Type '{}' has no call signatures.",
+packages/frameworks/react/test/emitted-typecheck.test.ts:190:			"C2-shared's `advance()` dispatch loop calls `listener2()` off `historyListeners`, declared `new Set()`.",
+packages/frameworks/react/test/emitted-typecheck.test.ts:193:			"generated-composition/C2-shared.tsx: TS2349 This expression is not callable.   Type '{}' has no call signatures.",
+packages/frameworks/react/test/emitted-typecheck.test.ts:194:			"C2-shared's `advance()` dispatch loop calls `listener3()` off `auditListeners`, declared `new Set()`.",
+packages/frameworks/react/test/emitted-typecheck.test.ts:197:			"generated-composition/C2-shared.tsx: TS2349 This expression is not callable.   Type '{}' has no call signatures.",
+packages/frameworks/react/test/emitted-typecheck.test.ts:198:			"C2-shared's `append()` dispatch loop calls `listener4()` off `countListeners`, declared `new Set()`.",
+packages/frameworks/react/test/emitted-typecheck.test.ts:201:			"generated-composition/C2-shared.tsx: TS2349 This expression is not callable.   Type '{}' has no call signatures.",
+packages/frameworks/react/test/emitted-typecheck.test.ts:202:			"C2-shared's `append()` dispatch loop calls `listener5()` off `historyListeners`, declared `new Set()`.",
+packages/frameworks/react/test/emitted-typecheck.test.ts:205:			"generated-composition/C2-shared.tsx: TS2349 This expression is not callable.   Type '{}' has no call signatures.",
+packages/frameworks/react/test/emitted-typecheck.test.ts:206:			"C2-shared's `append()` dispatch loop calls `listener6()` off `auditListeners`, declared `new Set()`.",
+packages/frameworks/react/src/gate/index.ts:70:	{ id: 'one-call-per-setter', dossierRef: 'T002 ruling 5' },
+packages/frameworks/react/src/gate/index.ts:76:	{ id: 'render-phase-setter', dossierRef: 'T002 ruling 1' },
+packages/frameworks/react/src/gate/index.ts:334:				'Module-store lowering does not match the artifact-recorded shared scope',
+packages/frameworks/react/src/gate/index.ts:619:					new Set(artifact?.records.sharedDefinitions.map((d) => d.name) ?? []),
+packages/frameworks/react/test/idref-emit.ts:26:/** The single source of truth, shared byte-for-byte by all three lanes. */
+packages/frameworks/react/src/gate/custom-policies.ts:94:	| { kind: 'setter'; symbol: YukuSymbol }
+packages/frameworks/react/src/gate/custom-policies.ts:103:	// T002 ruling 10, RE-CUT (not weakened) by `frameless-lift-shared-v1` T004 u4.
+packages/frameworks/react/src/gate/custom-policies.ts:109:	// component and appears in no gated corpus. A module that declares a shared
+packages/frameworks/react/src/gate/custom-policies.ts:116:	// of the module's OWN `ir.records.sharedDefinitions` — the LOCAL table, never the
+packages/frameworks/react/src/gate/custom-policies.ts:117:	// distinct `importedSharedDefinitions` table the T001 piece-3 ruling minted — so
+packages/frameworks/react/src/gate/custom-policies.ts:123:	localSharedDefinitionNames: ReadonlySet<string> = new Set(),
+packages/frameworks/react/src/gate/custom-policies.ts:231:			if (stateSetters.has(symbol)) return { kind: 'setter', symbol };
+packages/frameworks/react/src/gate/custom-policies.ts:266:				if (resolved?.kind === 'setter') return resolved;
+packages/frameworks/react/src/gate/custom-policies.ts:291:					if (resolved?.kind === 'setter')
+packages/frameworks/react/src/gate/custom-policies.ts:295:								'render-phase-setter',
+packages/frameworks/react/src/gate/custom-policies.ts:296:								'A useState setter is reachable during render',
+packages/frameworks/react/src/gate/custom-policies.ts:527:			// T002 ruling 5 reads "at most one call per setter per handler", and it
+packages/frameworks/react/src/gate/custom-policies.ts:530:			// cell into ONE setter call, so a second call could only be an emitter
+packages/frameworks/react/src/gate/custom-policies.ts:537:			// So the count is keyed by (suspension segment, setter). Inside any one
+packages/frameworks/react/src/gate/custom-policies.ts:542:			const setterCalls = new Map<YukuSymbol, number>();
+packages/frameworks/react/src/gate/custom-policies.ts:546:				if ([...setterCalls.values()].some((count) => count > 1)) repeatedSetter = true;
+packages/frameworks/react/src/gate/custom-policies.ts:547:				setterCalls.clear();
+packages/frameworks/react/src/gate/custom-policies.ts:597:							if (resolved?.kind === 'setter')
+packages/frameworks/react/src/gate/custom-policies.ts:598:								setterCalls.set(
+packages/frameworks/react/src/gate/custom-policies.ts:600:									(setterCalls.get(resolved.symbol) ?? 0) + 1,
+packages/frameworks/react/src/gate/custom-policies.ts:633:						'one-call-per-setter',
+packages/frameworks/react/src/gate/custom-policies.ts:634:						'A handler may call each state setter at most once between suspension points',
+packages/frameworks/react/src/gate/custom-policies.ts:676:			// The emitter-minted accessor for a shared definition THIS module declares
+packages/frameworks/react/src/gate/custom-policies.ts:680:			if (node.id && localSharedDefinitionNames.has(node.id.name)) return;
+packages/frameworks/react/src/gate/custom-policies.ts:815:						'Emitted shared context names must end in Context',
+packages/frameworks/react/src/gate/custom-policies.ts:843:						'Emitted shared hooks must retain the authored useName',
+packages/frameworks/react/src/gate/custom-policies.ts:1008:					'Emitted shared provider names must retain the factory-derived Provider suffix',
+packages/frameworks/react/src/emitter/index.ts:13:	type ImportedSharedDefinition,
+packages/frameworks/react/src/emitter/index.ts:15:	type SharedDefinition,
+packages/frameworks/react/src/emitter/index.ts:31:	readonly setterNames: ReadonlyMap<string, string>;
+packages/frameworks/react/src/emitter/index.ts:50:	readonly sharedPropRoutes: ReadonlyMap<string, SharedPropRoute>;
+packages/frameworks/react/src/emitter/index.ts:52:	readonly sharedHookNames: ReadonlyMap<string, string>;
+packages/frameworks/react/src/emitter/index.ts:271: * single ref cell shared by N rows, last writer wins, and the emitted component
+packages/frameworks/react/src/emitter/index.ts:299:		`React emitter does not support a row-owned element handle: el={${String(binding.handleName)}} on ${String(binding.hostNodeId)} is owned by the rows of ${repeatId}, so it names one element per row, and this lane's only element-handle lowering is a component-scoped useRef shared by every row (last writer wins, silently wrong)`,
+packages/frameworks/react/src/emitter/index.ts:308: * absent table means "this module imports no shared definition", which makes
+packages/frameworks/react/src/emitter/index.ts:311:function importedSharedDefinitionsOf(ir: EnrichedIR): ReadonlyArray<ImportedSharedDefinition> {
+packages/frameworks/react/src/emitter/index.ts:312:	return ir.records.importedSharedDefinitions ?? [];
+packages/frameworks/react/src/emitter/index.ts:327:	// so the module that declares a `shared` factory can legitimately hold no
+packages/frameworks/react/src/emitter/index.ts:330:	// legal exactly when there is a shared definition to emit, and a module with
+packages/frameworks/react/src/emitter/index.ts:332:	if (ir.components.length === 0 && ir.records.sharedDefinitions.length === 0)
+packages/frameworks/react/src/emitter/index.ts:363:		'sharedDefinitions',
+packages/frameworks/react/src/emitter/index.ts:364:		'importedSharedDefinitions',
+packages/frameworks/react/src/emitter/index.ts:365:		'sharedInstances',
+packages/frameworks/react/src/emitter/index.ts:366:		'sharedReads',
+packages/frameworks/react/src/emitter/index.ts:367:		'sharedCalls',
+packages/frameworks/react/src/emitter/index.ts:368:		'sharedWrites',
+packages/frameworks/react/src/emitter/index.ts:383:		['sharedDefinitions', ir.records.sharedDefinitions],
+packages/frameworks/react/src/emitter/index.ts:384:		['sharedInstances', ir.records.sharedInstances],
+packages/frameworks/react/src/emitter/index.ts:385:		['sharedReads', ir.records.sharedReads],
+packages/frameworks/react/src/emitter/index.ts:386:		['sharedCalls', ir.records.sharedCalls],
+packages/frameworks/react/src/emitter/index.ts:387:		['sharedWrites', ir.records.sharedWrites],
+packages/frameworks/react/src/emitter/index.ts:405:		ir.records.importedSharedDefinitions !== undefined &&
+packages/frameworks/react/src/emitter/index.ts:406:		!Array.isArray(ir.records.importedSharedDefinitions)
+packages/frameworks/react/src/emitter/index.ts:409:			'EnrichedRecordTable importedSharedDefinitions has malformed record family',
+packages/frameworks/react/src/emitter/index.ts:436:	const sharedGraphIds = new Set([
+packages/frameworks/react/src/emitter/index.ts:437:		...ir.records.sharedDefinitions.flatMap((definition) => definition.graphBindings),
+packages/frameworks/react/src/emitter/index.ts:442:		...importedSharedDefinitionsOf(ir).flatMap((definition) =>
+packages/frameworks/react/src/emitter/index.ts:526:		const sharedCell = ir.records.sharedDefinitions
+packages/frameworks/react/src/emitter/index.ts:532:		if (!binding && !sharedCell)
+packages/frameworks/react/src/emitter/index.ts:534:		if ((binding ?? sharedCell)!.name !== record.bindingName)
+packages/frameworks/react/src/emitter/index.ts:566:			(!bindingIds.has(read.graphNodeId) && !sharedGraphIds.has(read.graphNodeId))
+packages/frameworks/react/src/emitter/index.ts:1046:	for (const definition of ir.records.sharedDefinitions) {
+packages/frameworks/react/src/emitter/index.ts:1047:		keys('SharedDefinition', definition, [
+packages/frameworks/react/src/emitter/index.ts:1068:			throw new Error('SharedDefinition has malformed construct');
+packages/frameworks/react/src/emitter/index.ts:1071:				'SharedDefinitionCell',
+packages/frameworks/react/src/emitter/index.ts:1090:				throw new Error('SharedDefinitionCell has malformed construct');
+packages/frameworks/react/src/emitter/index.ts:1091:			if (cell.kind === 'state') ast('SharedDefinitionCell initializer', cell.initializer);
+packages/frameworks/react/src/emitter/index.ts:1092:			else ast('SharedDefinitionCell expression', cell.expression);
+packages/frameworks/react/src/emitter/index.ts:1095:			keys('SharedDefinitionMethod', method, ['name', 'site', 'writes']);
+packages/frameworks/react/src/emitter/index.ts:1097:				throw new Error('SharedDefinitionMethod has malformed construct');
+packages/frameworks/react/src/emitter/index.ts:1098:			ast('SharedDefinitionMethod site', method.site);
+packages/frameworks/react/src/emitter/index.ts:1100:				validateSharedWrite(write, 'SharedDefinitionMethod write'),
+packages/frameworks/react/src/emitter/index.ts:1128:	for (const instance of ir.records.sharedInstances) {
+packages/frameworks/react/src/emitter/index.ts:1134:	for (const read of ir.records.sharedReads) {
+packages/frameworks/react/src/emitter/index.ts:1145:	for (const call of ir.records.sharedCalls) {
+packages/frameworks/react/src/emitter/index.ts:1167:	for (const write of ir.records.sharedWrites) validateSharedWrite(write, 'SharedWrite');
+packages/frameworks/react/src/emitter/index.ts:1299:	const definitionIds = new Set(ir.records.sharedDefinitions.map((entry) => entry.id));
+packages/frameworks/react/src/emitter/index.ts:1301:		importedSharedDefinitionsOf(ir).map((entry) => [entry.id, entry]),
+packages/frameworks/react/src/emitter/index.ts:1306:	// local-only - a write is definition-owned, minted from a method body inside
+packages/frameworks/react/src/emitter/index.ts:1310:		['SharedInstance', ir.records.sharedInstances, true],
+packages/frameworks/react/src/emitter/index.ts:1311:		['SharedRead', ir.records.sharedReads, true],
+packages/frameworks/react/src/emitter/index.ts:1312:		['SharedCall', ir.records.sharedCalls, true],
+packages/frameworks/react/src/emitter/index.ts:1313:		['SharedWrite', ir.records.sharedWrites, false],
+packages/frameworks/react/src/emitter/index.ts:1321:					`${construct} has dangling SharedDefinition: ${record.definitionId}`,
+packages/frameworks/react/src/emitter/index.ts:1323:	for (const definition of importedSharedDefinitionsOf(ir)) {
+packages/frameworks/react/src/emitter/index.ts:1324:		keys('ImportedSharedDefinition', definition, [
+packages/frameworks/react/src/emitter/index.ts:1342:			throw new Error('ImportedSharedDefinition has malformed construct');
+packages/frameworks/react/src/emitter/index.ts:1345:				`ImportedSharedDefinition ${definition.name} is also declared in this module: ${definition.id}`,
+packages/frameworks/react/src/emitter/index.ts:1353:				`ImportedSharedDefinition ${definition.name} has no recorded shared tier: ${String(definition.tier)}`,
+packages/frameworks/react/src/emitter/index.ts:1356:		for (const call of ir.records.sharedCalls.filter(
+packages/frameworks/react/src/emitter/index.ts:1362:	for (const definition of ir.records.sharedDefinitions) {
+packages/frameworks/react/src/emitter/index.ts:1363:		const instances = ir.records.sharedInstances.filter(
+packages/frameworks/react/src/emitter/index.ts:1372:			throw new Error(`SharedDefinition ${definition.name} has no SharedInstance records`);
+packages/frameworks/react/src/emitter/index.ts:1374:		for (const call of ir.records.sharedCalls.filter(
+packages/frameworks/react/src/emitter/index.ts:1379:		const recordedWrites = ir.records.sharedWrites.filter(
+packages/frameworks/react/src/emitter/index.ts:1393:				`SharedWrite records are incomplete for SharedDefinition ${definition.name}`,
+packages/frameworks/react/src/emitter/index.ts:1443:const setterName = (name: string): string => `set${name[0]!.toUpperCase()}${name.slice(1)}`;
+packages/frameworks/react/src/emitter/index.ts:1471:	for (const definition of ir.records.sharedDefinitions) {
+packages/frameworks/react/src/emitter/index.ts:1485:		sharedInstances: ir.records.sharedInstances.filter(
+packages/frameworks/react/src/emitter/index.ts:1488:		sharedReads: ir.records.sharedReads.filter((record) => record.componentId === component.id),
+packages/frameworks/react/src/emitter/index.ts:1489:		sharedCalls: ir.records.sharedCalls.filter((record) => record.componentId === component.id),
+packages/frameworks/react/src/emitter/index.ts:1508:const setterFor = (context: EmitContext, state: StateBinding): string =>
+packages/frameworks/react/src/emitter/index.ts:1509:	context.setterNames.get(state.id)!;
+packages/frameworks/react/src/emitter/index.ts:2500: * FAIL CLOSED on a state write this emitter cannot lower.
+packages/frameworks/react/src/emitter/index.ts:2512: * React re-renders off the setter and nothing called it. Neither was refused by
+packages/frameworks/react/src/emitter/index.ts:2553:			`React emitter cannot lower the state write to "${name}" in ${event.id}: it is inside ` +
+packages/frameworks/react/src/emitter/index.ts:2635:					t.callExpression(t.identifier(setterFor(context, state)), [
+packages/frameworks/react/src/emitter/index.ts:3057:		const state = writable.find((candidate) => setterFor(context, candidate) === calleeName);
+packages/frameworks/react/src/emitter/index.ts:3212:	definition: SharedDefinition,
+packages/frameworks/react/src/emitter/index.ts:3216:			ir.records.sharedInstances
+packages/frameworks/react/src/emitter/index.ts:3255:	definition: SharedDefinition | ImportedSharedDefinition,
+packages/frameworks/react/src/emitter/index.ts:3257:	if (isImportedSharedDefinition(definition)) return definition.tier;
+packages/frameworks/react/src/emitter/index.ts:3259:	return sharedTier(ir, definition);
+packages/frameworks/react/src/emitter/index.ts:3262:function isImportedSharedDefinition(
+packages/frameworks/react/src/emitter/index.ts:3263:	definition: SharedDefinition | ImportedSharedDefinition,
+packages/frameworks/react/src/emitter/index.ts:3264:): definition is ImportedSharedDefinition {
+packages/frameworks/react/src/emitter/index.ts:3269:function exportedSharedTier(definition: SharedDefinition): SharedTier {
+packages/frameworks/react/src/emitter/index.ts:3277:function sharedTier(ir: EnrichedIR, definition: SharedDefinition): SharedTier {
+packages/frameworks/react/src/emitter/index.ts:3288:	for (const read of ir.records.sharedReads.filter(
+packages/frameworks/react/src/emitter/index.ts:3300:function sharedInstanceDeclaration(
+packages/frameworks/react/src/emitter/index.ts:3304:	definition: SharedDefinition | ImportedSharedDefinition,
+packages/frameworks/react/src/emitter/index.ts:3308:	const hook = context.sharedHookNames.get(definition.id)!;
+packages/frameworks/react/src/emitter/index.ts:3310:		const route = context.sharedPropRoutes.get(definition.id);
+packages/frameworks/react/src/emitter/index.ts:3311:		if (!route) throw new Error(`SharedDefinition ${definition.name} has no props-tier route`);
+packages/frameworks/react/src/emitter/index.ts:3312:		const read = ir.records.sharedReads.find(
+packages/frameworks/react/src/emitter/index.ts:3329:	const reads = ir.records.sharedReads.filter(
+packages/frameworks/react/src/emitter/index.ts:3332:	const calls = ir.records.sharedCalls.filter(
+packages/frameworks/react/src/emitter/index.ts:3360:function sharedNames(definition: SharedDefinition, allocator: NameAllocator) {
+packages/frameworks/react/src/emitter/index.ts:3403:function missingProviderGuard(valueName: string, definition: SharedDefinition): t.Statement {
+packages/frameworks/react/src/emitter/index.ts:3424:	// argument: `importedSharedDefinitions` is a different array, so there is no
+packages/frameworks/react/src/emitter/index.ts:3433:	// See test/lift-shared-hostdecl-probe.ts, which pins this.
+packages/frameworks/react/src/emitter/index.ts:3434:	const declaresShared = ir.records.sharedDefinitions.length > 0;
+packages/frameworks/react/src/emitter/index.ts:3437:	for (const definition of ir.records.sharedDefinitions) {
+packages/frameworks/react/src/emitter/index.ts:3440:		const names = sharedNames(definition, context.names);
+packages/frameworks/react/src/emitter/index.ts:3441:		const hook = context.sharedHookNames.get(definition.id)!;
+packages/frameworks/react/src/emitter/index.ts:3642:	definition: SharedDefinition,
+packages/frameworks/react/src/emitter/index.ts:4015:	names: ReturnType<typeof sharedNames>,
+packages/frameworks/react/src/emitter/index.ts:4062:	definition: SharedDefinition,
+packages/frameworks/react/src/emitter/index.ts:4063:	names: ReturnType<typeof sharedNames>,
+packages/frameworks/react/src/emitter/index.ts:4253: * a shared-definition prop route - have no IR-8 channel at all, so their
+packages/frameworks/react/src/emitter/index.ts:4312:	for (const route of context.sharedPropRoutes.values())
+packages/frameworks/react/src/emitter/index.ts:4337:	for (const [definitionId, route] of context.sharedPropRoutes)
+packages/frameworks/react/src/emitter/index.ts:4339:			const definition = ir.records.sharedDefinitions.find(
+packages/frameworks/react/src/emitter/index.ts:4345:					`SharedDefinition ${definition.name} has no props-tier scalar cell`,
+packages/frameworks/react/src/emitter/index.ts:4491:		const sharedInstance = ir.records.sharedInstances.find(
+packages/frameworks/react/src/emitter/index.ts:4495:		if (sharedInstance) {
+packages/frameworks/react/src/emitter/index.ts:4499:			const definition: SharedDefinition | ImportedSharedDefinition | undefined =
+packages/frameworks/react/src/emitter/index.ts:4500:				ir.records.sharedDefinitions.find(
+packages/frameworks/react/src/emitter/index.ts:4501:					(candidate) => candidate.id === sharedInstance.definitionId,
+packages/frameworks/react/src/emitter/index.ts:4503:				importedSharedDefinitionsOf(ir).find(
+packages/frameworks/react/src/emitter/index.ts:4504:					(candidate) => candidate.id === sharedInstance.definitionId,
+packages/frameworks/react/src/emitter/index.ts:4508:					`SharedInstance has no SharedDefinition: ${sharedInstance.definitionId}`,
+packages/frameworks/react/src/emitter/index.ts:4511:				sharedInstanceDeclaration(
+packages/frameworks/react/src/emitter/index.ts:4514:					sharedInstance.localName,
+packages/frameworks/react/src/emitter/index.ts:4549:					elements.push(t.identifier(setterFor(context, mapped)));
+packages/frameworks/react/src/emitter/index.ts:4637:		ir.records.sharedDefinitions.length > 0 ||
+packages/frameworks/react/src/emitter/index.ts:4663:	const setterNames = new Map<string, string>();
+packages/frameworks/react/src/emitter/index.ts:4666:		setterNames.set(state.id, allocator.claim(setterName(state.name)));
+packages/frameworks/react/src/emitter/index.ts:4683:	const sharedHookNames = new Map(
+packages/frameworks/react/src/emitter/index.ts:4684:		ir.records.sharedDefinitions.map((definition) => [definition.id, definition.name]),
+packages/frameworks/react/src/emitter/index.ts:4691:	for (const definition of importedSharedDefinitionsOf(ir)) {
+packages/frameworks/react/src/emitter/index.ts:4700:				`ImportedSharedDefinition ${definition.name} has no module import of ${definition.exportedName} from ${definition.source}`,
+packages/frameworks/react/src/emitter/index.ts:4702:		sharedHookNames.set(definition.id, imported.localName);
+packages/frameworks/react/src/emitter/index.ts:4704:	const sharedPropRoutes = new Map<string, SharedPropRoute>();
+packages/frameworks/react/src/emitter/index.ts:4706:	for (const definition of ir.records.sharedDefinitions) {
+packages/frameworks/react/src/emitter/index.ts:4709:		if (!found) throw new Error(`SharedDefinition ${definition.name} has no direct props root`);
+packages/frameworks/react/src/emitter/index.ts:4721:		sharedPropRoutes.set(definition.id, route);
+packages/frameworks/react/src/emitter/index.ts:4738:		setterNames,
+packages/frameworks/react/src/emitter/index.ts:4741:		sharedHookNames,
+packages/frameworks/react/src/emitter/index.ts:4742:		sharedPropRoutes,
+packages/frameworks/react/src/emitter/index.ts:4780:	const sharedContext: EmitContext = {
+packages/frameworks/react/src/emitter/index.ts:4790:	if (composition) body.push(...emitSharedDeclarations(ir, sharedContext, hooks));
+packages/frameworks/react/src/emitter/index.ts:4799:			...ir.records.sharedDefinitions.map((entry) => entry.name),
+packages/frameworks/react/src/emitter/index.ts:4800:			...[...sharedPropRoutes.values()].map((entry) => entry.propName),
+packages/frameworks/react/src/emitter/index.ts:4808:			componentSetterNames.set(state.id, componentNames.claim(setterName(state.name)));
+packages/frameworks/react/src/emitter/index.ts:4879:			setterNames: componentSetterNames,
+packages/frameworks/react/src/emitter/index.ts:4907:				t.importSpecifier(t.identifier(hookName(sharedContext, hook)), t.identifier(hook)),
+packages/frameworks/react/src/emitter/index.ts:4972:		const localName = hookName(sharedContext, hook);
+packages/frameworks/react/src/emitter/index.ts:4994:		const name = setterFor(sharedContext, state);
+packages/frameworks/react/src/emitter/index.ts:4995:		let setterSymbol: ReturnType<typeof verified.symbolOf> = null;
+packages/frameworks/react/src/emitter/index.ts:4998:				const setter = node.id?.type === 'ArrayPattern' ? node.id.elements[1] : null;
+packages/frameworks/react/src/emitter/index.ts:4999:				if (t.isIdentifier(setter, { name })) setterSymbol = verified.symbolOf(setter);
+packages/frameworks/react/src/emitter/index.ts:5002:		if (!setterSymbol)
+packages/frameworks/react/src/adapter.ts
+packages/frameworks/react/src/emitter/estree.ts
+packages/frameworks/react/src/emitter/index.ts
+packages/frameworks/react/src/eslint-plugins.d.ts
+packages/frameworks/react/src/format-emitted.ts
+packages/frameworks/react/src/gate/custom-policies.ts
+packages/frameworks/react/src/gate/index.ts
+packages/frameworks/react/src/index.ts
+packages/frameworks/react/test/__screenshots__/action-order.browser.test.ts/emitted-output-agrees-with-the-reference-under-any-action-order-CALIBRATION--an-order-sensitive-component-is-caught-1.png
+packages/frameworks/react/test/__screenshots__/action-order.browser.test.ts/emitted-output-agrees-with-the-reference-under-any-action-order-CALIBRATION--two-different-action-orders-produce-different-traces-1.png
+packages/frameworks/react/test/__screenshots__/action-order.browser.test.ts/emitted-output-agrees-with-the-reference-under-any-action-order-S2-keyed-todo--order-seed-1--1.png
+packages/frameworks/react/test/__screenshots__/action-order.browser.test.ts/emitted-output-agrees-with-the-reference-under-any-action-order-S2-keyed-todo--order-seed-1337--1.png
+packages/frameworks/react/test/__screenshots__/action-order.browser.test.ts/emitted-output-agrees-with-the-reference-under-any-action-order-S2-keyed-todo--order-seed-42--1.png
+packages/frameworks/react/test/__screenshots__/action-order.browser.test.ts/emitted-output-agrees-with-the-reference-under-any-action-order-S2-keyed-todo--order-seed-7--1.png
+packages/frameworks/react/test/__screenshots__/calibration.browser.test.ts/React-handwritten-reference-calibration-broken-key-identity-is-rejected-in-identity-1.png
+packages/frameworks/react/test/__screenshots__/calibration.browser.test.ts/React-handwritten-reference-calibration-timing-is-rejected-in-dom-1.png
+packages/frameworks/react/test/__screenshots__/composition-emitted-smoke.browser.test.ts/emitted-React-composition-against-the-calibrated-handwritten-reference-C1-slot-rendering-1.png
+packages/frameworks/react/test/__screenshots__/composition-emitted-smoke.browser.test.ts/emitted-React-composition-against-the-calibrated-handwritten-reference-C2-shared-propagation-1.png
+packages/frameworks/react/test/__screenshots__/composition-emitted-smoke.browser.test.ts/emitted-React-composition-against-the-calibrated-handwritten-reference-C3-ref-driven-focus-1.png
+packages/frameworks/react/test/__screenshots__/composition-emitted-smoke.browser.test.ts/emitted-React-composition-against-the-calibrated-handwritten-reference-C4-attach-cleanup-1.png
+packages/frameworks/react/test/__screenshots__/composition-emitted-smoke.browser.test.ts/emitted-React-composition-against-the-calibrated-handwritten-reference-C5-props-tier-1.png
+packages/frameworks/react/test/action-order.browser.test.ts
+packages/frameworks/react/test/adapter-entry.test.ts
+packages/frameworks/react/test/adapter-input.browser.test.ts
+packages/frameworks/react/test/baseui-baseline.baseui.test.ts
+packages/frameworks/react/test/baseui-fixtures.tsx
+packages/frameworks/react/test/calibration.browser.test.ts
+packages/frameworks/react/test/composition-calibration.browser.test.ts
+packages/frameworks/react/test/composition-emitted-smoke.browser.test.ts
+packages/frameworks/react/test/composition-fixtures/C1-slot.tsrx
+packages/frameworks/react/test/composition-fixtures/C2-shared.tsrx
+packages/frameworks/react/test/composition-fixtures/C3-ref.tsrx
+packages/frameworks/react/test/composition-fixtures/C4-attach.tsrx
+packages/frameworks/react/test/composition-fixtures/C5-props.tsrx
+packages/frameworks/react/test/composition-fixtures/C6-scalar-context.tsrx
+packages/frameworks/react/test/composition-fixtures/C7-object-context.tsrx
+packages/frameworks/react/test/composition-fixtures/C8-page-store.tsrx
+packages/frameworks/react/test/composition-fixtures/M1-panel.tsrx
+packages/frameworks/react/test/composition-fixtures/M2-page.tsrx
+packages/frameworks/react/test/composition-reference.tsx
+packages/frameworks/react/test/conformance-scoring.test.ts
+packages/frameworks/react/test/emitted-smoke.browser.test.ts
+packages/frameworks/react/test/emitted-typecheck.test.ts
+packages/frameworks/react/test/emitter-source.test.ts
+packages/frameworks/react/test/emitter.test.ts
+packages/frameworks/react/test/event-spelling-calibration.browser.test.ts
+packages/frameworks/react/test/format-emitted.test.ts
+packages/frameworks/react/test/gate.test.ts
+packages/frameworks/react/test/idref-conformance.browser.test.ts
+packages/frameworks/react/test/idref-emit.test.ts
+packages/frameworks/react/test/idref-emit.ts
+packages/frameworks/react/test/idref-generated/IdrefLabelling.tsx
+packages/frameworks/react/test/lift-collapsible-target-probe.ts
+packages/frameworks/react/test/lift-collapsible-target.test.ts
+packages/frameworks/react/test/lift-conformance.browser.test.ts
+packages/frameworks/react/test/lift-emit.test.ts
+packages/frameworks/react/test/lift-emit.ts
+packages/frameworks/react/test/lift-generated/CheckboxRoot.tsx
+packages/frameworks/react/test/lift-generated/CollapsiblePanel.tsx
+packages/frameworks/react/test/lift-generated/CollapsibleRoot.tsx
+packages/frameworks/react/test/lift-generated/CollapsibleTrigger.tsx
+packages/frameworks/react/test/lift-generated/MenuItem.tsx
+packages/frameworks/react/test/lift-generated/MenuPopup.tsx
+packages/frameworks/react/test/lift-generated/MenuPortal.tsx
+packages/frameworks/react/test/lift-generated/MenuTrigger.tsx
+packages/frameworks/react/test/lift-generated/SwitchRoot.tsx
+packages/frameworks/react/test/lift-generated/Toggle.tsx
+packages/frameworks/react/test/lift-raw-text.d.ts
+packages/frameworks/react/test/lift-shared-hook-shape.test.ts
+packages/frameworks/react/test/lift-shared-hostdecl-probe.ts
+packages/frameworks/react/test/lift-shared-hostdecl.test.ts
+packages/frameworks/react/test/lift-shared-scope-probe.ts
+packages/frameworks/react/test/lift-shared-scope.test.ts
+packages/frameworks/react/test/overlay-conformance.browser.test.ts
+packages/frameworks/react/test/overlay-emit.test.ts
+packages/frameworks/react/test/overlay-emit.ts
+packages/frameworks/react/test/overlay-generated/OverlayEscape.tsx
+packages/frameworks/react/test/react-event-spellings.ts
+packages/frameworks/react/test/reference.tsx
+packages/frameworks/react/test/setup.ts
+packages/frameworks/react/test/size.test.ts
+packages/frameworks/react/test/strictmode.browser.test.ts
+
+
+$ /bin/zsh -lc "sed -n '3600,4140p' packages/frameworks/react/src/emitter/index.ts
+rg -n \"shared.*method|SharedDefinition|advance\\(\\)|append\\(\\)\" packages/frameworks/react/test/emitter.test.ts packages/frameworks/react/test/lift-shared*.test.ts | head -160
+sed -n '1,220p' packages/frameworks/react/test/emitter.test.ts"
+exit=0
+							t.nullLiteral(),
+						]),
+					),
+				]),
+			);
+			output.push(storeProviderDeclaration(names, context));
+		}
+		output.push(
+			t.variableDeclaration('const', [
+				t.variableDeclarator(
+					t.identifier(names.subscribeNothing),
+					t.arrowFunctionExpression(
+						[],
+						t.arrowFunctionExpression([], t.blockStatement([])),
+					),
+				),
+			]),
+			t.variableDeclaration('const', [
+				t.variableDeclarator(
+					t.identifier(names.getNothing),
+					t.arrowFunctionExpression([], t.numericLiteral(0)),
+				),
+			]),
+		);
+		output.push(
+			exportedIfDeclaringModule(storeHookDeclaration(definition, names, hook, context)),
+		);
+	}
+	return output;
+}
+
+function unwrapSharedComputed(node: SerializableAstNode): t.Expression {
+	const value = expression(node);
+	if (!t.isArrowFunctionExpression(value))
+		throw new Error('Shared computed expression must be an arrow');
+	if (!t.isBlockStatement(value.body)) return value.body;
+	const returned = value.body.body.find((statement: any) => t.isReturnStatement(statement));
+	if (!returned?.argument) throw new Error('Shared computed expression has no return');
+	return returned.argument;
+}
+
+function createStoreDeclaration(
+	definition: SharedDefinition,
+	name: string,
+	context: EmitContext,
+): t.FunctionDeclaration {
+	const body: t.Statement[] = [];
+	const stateCells = definition.cells.filter((cell) => cell.kind === 'state');
+	const listenerNames = new Map(
+		stateCells.map((cell) => [cell.graphNodeId, context.names.claim(`${cell.name}Listeners`)]),
+	);
+	const versionNames = new Map(
+		stateCells.map((cell) => [cell.graphNodeId, context.names.claim(`${cell.name}Version`)]),
+	);
+	const snapshotNames = new Map(
+		stateCells.map((cell) => [cell.graphNodeId, context.names.claim(`${cell.name}Snapshot`)]),
+	);
+	const snapshotVersionNames = new Map(
+		stateCells.map((cell) => [
+			cell.graphNodeId,
+			context.names.claim(`${cell.name}SnapshotVersion`),
+		]),
+	);
+	const writeNames = new Map(
+		stateCells
+			.filter((cell) =>
+				definition.methods.some((method) =>
+					method.writes.some((write) => write.graphNodeId === cell.graphNodeId),
+				),
+			)
+			.map((cell) => [
+				cell.graphNodeId,
+				context.names.claim(`write${cell.name[0]!.toUpperCase()}${cell.name.slice(1)}`),
+			]),
+	);
+	const listenerName = (cell: { graphNodeId: string }) => listenerNames.get(cell.graphNodeId)!;
+	const versionName = (cell: { graphNodeId: string }) => versionNames.get(cell.graphNodeId)!;
+	const snapshotName = (cell: { graphNodeId: string }) => snapshotNames.get(cell.graphNodeId)!;
+	const snapshotVersionName = (cell: { graphNodeId: string }) =>
+		snapshotVersionNames.get(cell.graphNodeId)!;
+	const writeName = (cell: { graphNodeId: string }) => writeNames.get(cell.graphNodeId)!;
+	for (const cell of stateCells) {
+		const persistence = persistenceForGraph(context, cell.graphNodeId);
+		body.push(
+			t.variableDeclaration('let', [
+				t.variableDeclarator(
+					t.identifier(cell.name),
+					persistence ? persistenceSeed(persistence) : expression(cell.initializer),
+				),
+			]),
+			t.variableDeclaration('let', [
+				t.variableDeclarator(t.identifier(versionName(cell)), t.numericLiteral(0)),
+			]),
+			t.variableDeclaration('let', [
+				t.variableDeclarator(t.identifier(snapshotName(cell)), t.identifier(cell.name)),
+			]),
+			t.variableDeclaration('let', [
+				t.variableDeclarator(
+					t.identifier(snapshotVersionName(cell)),
+					t.identifier(versionName(cell)),
+				),
+			]),
+			t.variableDeclaration('const', [
+				t.variableDeclarator(
+					t.identifier(listenerName(cell)),
+					t.newExpression(t.identifier('Set'), []),
+				),
+			]),
+		);
+	}
+	for (const cell of stateCells) {
+		if (!writeNames.has(cell.graphNodeId)) continue;
+		const next = context.names.claim(`next${cell.name[0]!.toUpperCase()}${cell.name.slice(1)}`);
+		body.push(
+			t.variableDeclaration('const', [
+				t.variableDeclarator(
+					t.identifier(writeName(cell)),
+					t.arrowFunctionExpression(
+						[t.identifier(next), t.identifier('changed')],
+						t.blockStatement([
+							t.ifStatement(
+								t.callExpression(member(t.identifier('Object'), 'is'), [
+									t.identifier(cell.name),
+									t.identifier(next),
+								]),
+								t.blockStatement([t.returnStatement(null)]),
+							),
+							t.expressionStatement(
+								t.assignmentExpression(
+									'=',
+									t.identifier(cell.name),
+									t.identifier(next),
+								),
+							),
+							t.expressionStatement(
+								t.updateExpression('++', t.identifier(versionName(cell))),
+							),
+							t.expressionStatement(
+								t.callExpression(member(t.identifier('changed'), 'add'), [
+									t.stringLiteral(cell.name),
+								]),
+							),
+						]),
+					),
+				),
+			]),
+		);
+	}
+	const properties: t.Node[] = [];
+	for (const cell of definition.cells) {
+		const cap = `${cell.name[0]!.toUpperCase()}${cell.name.slice(1)}`;
+		if (cell.kind === 'state')
+			properties.push(
+				t.objectProperty(
+					t.identifier(`get${cap}`),
+					t.arrowFunctionExpression(
+						[],
+						t.blockStatement([
+							t.ifStatement(
+								t.binaryExpression(
+									'!==',
+									t.identifier(snapshotVersionName(cell)),
+									t.identifier(versionName(cell)),
+								),
+								t.blockStatement([
+									t.expressionStatement(
+										t.assignmentExpression(
+											'=',
+											t.identifier(snapshotName(cell)),
+											t.identifier(cell.name),
+										),
+									),
+									t.expressionStatement(
+										t.assignmentExpression(
+											'=',
+											t.identifier(snapshotVersionName(cell)),
+											t.identifier(versionName(cell)),
+										),
+									),
+								]),
+							),
+							t.returnStatement(t.identifier(snapshotName(cell))),
+						]),
+					),
+				),
+			);
+		else
+			properties.push(
+				t.objectProperty(
+					t.identifier(`get${cap}`),
+					t.arrowFunctionExpression([], unwrapSharedComputed(cell.expression)),
+				),
+			);
+		if (cell.kind === 'state') {
+			const persistence = persistenceForGraph(context, cell.graphNodeId);
+			if (persistence)
+				properties.push(
+					t.objectProperty(
+						t.identifier(`getServer${cap}`),
+						t.arrowFunctionExpression([], t.stringLiteral(persistence.authoredInitial)),
+					),
+				);
+		}
+		const dependencies = cell.kind === 'state' ? [cell.graphNodeId] : cell.dependencies;
+		const dependentCells = dependencies
+			.map((id) => stateCells.find((candidate) => candidate.graphNodeId === id))
+			.filter(Boolean) as typeof stateCells;
+		properties.push(
+			t.objectProperty(
+				t.identifier(`subscribe${cap}`),
+				t.arrowFunctionExpression(
+					[t.identifier('listener')],
+					t.blockStatement([
+						...dependentCells.map((dependency) =>
+							t.expressionStatement(
+								t.callExpression(
+									member(t.identifier(listenerName(dependency)), 'add'),
+									[t.identifier('listener')],
+								),
+							),
+						),
+						t.returnStatement(
+							t.arrowFunctionExpression(
+								[],
+								t.blockStatement(
+									dependentCells.map((dependency) =>
+										t.expressionStatement(
+											t.callExpression(
+												member(
+													t.identifier(listenerName(dependency)),
+													'delete',
+												),
+												[t.identifier('listener')],
+											),
+										),
+									),
+								),
+							),
+						),
+					]),
+				),
+			),
+		);
+	}
+	for (const method of definition.methods) {
+		const property = expression(method.site as SerializableAstNode) as any;
+		const params = property.value?.params ?? [];
+		const changedName = context.names.claim('changed');
+		const initialNames = new Map(
+			stateCells.map((cell) => [
+				cell.graphNodeId,
+				context.names.claim(`initial${cell.name[0]!.toUpperCase()}${cell.name.slice(1)}`),
+			]),
+		);
+		const methodBody: t.Statement[] = [
+			t.variableDeclaration('const', [
+				t.variableDeclarator(
+					t.identifier(changedName),
+					t.newExpression(t.identifier('Set'), []),
+				),
+			]),
+			...stateCells.map((cell) =>
+				t.variableDeclaration('const', [
+					t.variableDeclarator(
+						t.identifier(initialNames.get(cell.graphNodeId)!),
+						t.identifier(cell.name),
+					),
+				]),
+			),
+		];
+		for (const write of [...method.writes].sort((left, right) => left.order - right.order)) {
+			const cell = stateCells.find(
+				(candidate) => candidate.graphNodeId === write.graphNodeId,
+			);
+			if (!cell) throw new Error(`SharedWrite has no state cell: ${write.graphNodeId}`);
+			let next: t.Expression;
+			if (
+				write.operation === 'assign' &&
+				(write.assignmentOperator === undefined || write.assignmentOperator === '=')
+			)
+				next = write.path.length
+					? immutablePatch(t.identifier(cell.name), write.path, expression(write.value))
+					: expression(write.value);
+			else if (write.operation === 'assign' && write.assignmentOperator?.endsWith('=')) {
+				const target = write.path.reduce<t.Expression>(
+					(value, part) => member(value, part),
+					t.identifier(cell.name),
+				);
+				const value = t.binaryExpression(
+					write.assignmentOperator.slice(0, -1),
+					target,
+					expression(write.value),
+				);
+				next = write.path.length
+					? immutablePatch(t.identifier(cell.name), write.path, value)
+					: value;
+			} else if (write.operation === 'update') {
+				const target = write.path.reduce<t.Expression>(
+					(value, part) => member(value, part),
+					t.identifier(cell.name),
+				);
+				const value = t.binaryExpression(
+					write.updateOperator === '++' ? '+' : '-',
+					target,
+					t.numericLiteral(1),
+				);
+				next = write.path.length
+					? immutablePatch(t.identifier(cell.name), write.path, value)
+					: value;
+			} else if (write.operation === 'call' && write.method && write.path.length === 0) {
+				const cloneName = context.names.claim(
+					`next${cell.name[0]!.toUpperCase()}${cell.name.slice(1)}`,
+				);
+				const clone =
+					cell.valueKind === 'array'
+						? t.callExpression(member(t.identifier(cell.name), 'slice'), [])
+						: t.objectExpression([t.spreadElement(t.identifier(cell.name))]);
+				methodBody.push(
+					t.variableDeclaration('const', [
+						t.variableDeclarator(t.identifier(cloneName), clone),
+					]),
+					t.expressionStatement(
+						t.callExpression(
+							member(t.identifier(cloneName), write.method),
+							(write.arguments ?? []).map(expression),
+						),
+					),
+					t.expressionStatement(
+						t.callExpression(t.identifier(writeName(cell)), [
+							t.identifier(cloneName),
+							t.identifier(changedName),
+						]),
+					),
+				);
+				continue;
+			} else
+				throw new Error(
+					`SharedWrite has unsupported assignment operator: ${write.assignmentOperator}`,
+				);
+			methodBody.push(
+				t.expressionStatement(
+					t.callExpression(t.identifier(writeName(cell)), [
+						next,
+						t.identifier(changedName),
+					]),
+				),
+			);
+		}
+		for (const cell of stateCells) {
+			const persistence = persistenceForGraph(context, cell.graphNodeId);
+			if (!persistence) continue;
+			methodBody.push(
+				t.ifStatement(
+					t.callExpression(member(t.identifier(changedName), 'has'), [
+						t.stringLiteral(cell.name),
+					]),
+					t.blockStatement(
+						persistenceStatements(context, persistence, t.identifier(cell.name)),
+					),
+				),
+			);
+		}
+		const changedCellName = context.names.claim('changedCell');
+		const notificationBody: t.Statement[] = [];
+		for (const cell of stateCells) {
+			const listener = context.names.claim('listener');
+			notificationBody.push(
+				t.ifStatement(
+					t.logicalExpression(
+						'&&',
+						t.binaryExpression(
+							'===',
+							t.identifier(changedCellName),
+							t.stringLiteral(cell.name),
+						),
+						t.unaryExpression(
+							'!',
+							t.callExpression(member(t.identifier('Object'), 'is'), [
+								t.identifier(initialNames.get(cell.graphNodeId)!),
+								t.identifier(cell.name),
+							]),
+						),
+					),
+					t.blockStatement([
+						{
+							type: 'ForOfStatement',
+							await: false,
+							left: t.variableDeclaration('const', [
+								t.variableDeclarator(t.identifier(listener), null),
+							]),
+							right: t.identifier(listenerName(cell)),
+							body: t.expressionStatement(
+								t.callExpression(t.identifier(listener), []),
+							),
+						},
+					]),
+				),
+			);
+		}
+		methodBody.push({
+			type: 'ForOfStatement',
+			await: false,
+			left: t.variableDeclaration('const', [
+				t.variableDeclarator(t.identifier(changedCellName), null),
+			]),
+			right: t.identifier(changedName),
+			body: t.blockStatement(notificationBody),
+		});
+		properties.push(functionProperty(method.name, params, methodBody));
+	}
+	body.push(t.returnStatement(t.objectExpression(properties)));
+	return t.functionDeclaration(t.identifier(name), [], t.blockStatement(body));
+}
+
+function storeProviderDeclaration(
+	names: ReturnType<typeof sharedNames>,
+	context: EmitContext,
+): t.ExportNamedDeclaration {
+	return t.exportNamedDeclaration(
+		t.functionDeclaration(
+			t.identifier(names.provider),
+			[
+				t.objectPattern([
+					t.objectProperty(
+						t.identifier('children'),
+						t.identifier('children'),
+						false,
+						true,
+					),
+				]),
+			],
+			t.blockStatement([
+				t.variableDeclaration('const', [
+					t.variableDeclarator(
+						t.arrayPattern([t.identifier('store')]),
+						t.callExpression(t.identifier(hookName(context, 'useState')), [
+							t.identifier(names.createStore),
+						]),
+					),
+				]),
+				t.returnStatement(
+					t.jsxElement(
+						t.jsxOpeningElement(
+							t.jsxIdentifier(names.context),
+							[
+								t.jsxAttribute(
+									t.jsxIdentifier('value'),
+									t.jsxExpressionContainer(t.identifier('store')),
+								),
+							],
+							false,
+						),
+						t.jsxClosingElement(t.jsxIdentifier(names.context)),
+						[t.jsxExpressionContainer(t.identifier('children'))],
+					),
+				),
+			]),
+		),
+	);
+}
+
+function storeHookDeclaration(
+	definition: SharedDefinition,
+	names: ReturnType<typeof sharedNames>,
+	hook: string,
+	context: EmitContext,
+): t.FunctionDeclaration {
+	const body: t.Statement[] = [];
+	if (definition.scope === 'page')
+		body.push(
+			t.variableDeclaration('const', [
+				t.variableDeclarator(t.identifier('store'), t.identifier(names.moduleStore)),
+			]),
+		);
+	else {
+		body.push(
+			t.variableDeclaration('const', [
+				t.variableDeclarator(
+					t.identifier('store'),
+					t.callExpression(t.identifier(hookName(context, 'useContext')), [
+						t.identifier(names.context),
+					]),
+				),
+			]),
+			missingProviderGuard('store', definition),
+		);
+	}
+	let subscribe: t.Expression = t.identifier(names.subscribeNothing);
+	let snapshot: t.Expression = t.identifier(names.getNothing);
+	let serverSnapshot: t.Expression = t.identifier(names.getNothing);
+	const graphProperties = definition.returnProperties.filter(
+		(property) => property.kind === 'graph',
+	);
+	for (let index = graphProperties.length - 1; index >= 0; index -= 1) {
+		const property = graphProperties[index]!;
+		const cap = `${property.name[0]!.toUpperCase()}${property.name.slice(1)}`;
+		const test = t.binaryExpression(
+			'===',
+			t.identifier('cell'),
+			t.stringLiteral(property.name),
+		);
+		subscribe = t.conditionalExpression(
+			test,
+			member(t.identifier('store'), `subscribe${cap}`),
+			subscribe,
+		);
+		snapshot = t.conditionalExpression(
+			test,
+			member(t.identifier('store'), `get${cap}`),
+			snapshot,
+		);
+		const persistence = persistenceForGraph(context, property.graphNodeId);
+		serverSnapshot = t.conditionalExpression(
+			t.cloneNode(test, true),
+			member(t.identifier('store'), persistence ? `getServer${cap}` : `get${cap}`),
+			serverSnapshot,
+		);
+	}
+	body.push(
+		t.variableDeclaration('const', [
+			t.variableDeclarator(
+				t.identifier('value'),
+				t.callExpression(t.identifier(hookName(context, 'useSyncExternalStore')), [
+					subscribe,
+					snapshot,
+					serverSnapshot,
+				]),
+			),
+		]),
+	);
+	for (const property of graphProperties)
+		body.push(
+			t.ifStatement(
+				t.binaryExpression('===', t.identifier('cell'), t.stringLiteral(property.name)),
+				t.blockStatement([t.returnStatement(t.identifier('value'))]),
+			),
+		);
+	body.push(t.returnStatement(t.identifier('store')));
+	return t.functionDeclaration(
+		t.identifier(hook),
+		[t.identifier('cell')],
+packages/frameworks/react/test/lift-shared-scope.test.ts:210://       alternative - an `importedFrom` marker on `SharedDefinition` - would put
+packages/frameworks/react/test/lift-shared-scope.test.ts:290:		expect(consumerIr.records.importedSharedDefinitions?.[0]?.tier).toBe('store');
+packages/frameworks/react/test/lift-shared-scope.test.ts:321:		(emptied.records as unknown as { importedSharedDefinitions: unknown[] }).importedSharedDefinitions =
+packages/frameworks/react/test/lift-shared-scope.test.ts:335:		(renamed.records.importedSharedDefinitions![0] as { id: string }).id =
+packages/frameworks/react/test/lift-shared-scope.test.ts:338:			'SharedInstance has dangling SharedDefinition: shared:./lift-shared-pair-decl.tsrx#usePanel',
+packages/frameworks/react/test/lift-shared-scope.test.ts:351:			'SharedDefinition useUnused has no SharedInstance records',
+packages/frameworks/react/test/lift-shared-scope.test.ts:365:		delete (untiered.records.importedSharedDefinitions![0] as { tier?: unknown }).tier;
+packages/frameworks/react/test/lift-shared-scope.test.ts:367:			'ImportedSharedDefinition usePanel has no recorded shared tier: undefined',
+packages/frameworks/react/test/lift-shared-scope.test.ts:380:		(stripped.records.importedSharedDefinitions![0] as unknown as { methods: unknown[] }).methods =
+packages/frameworks/react/test/emitter.test.ts:1600:		test('selects scalar context and page module-store tiers from SharedDefinition records', async () => {
+packages/frameworks/react/test/emitter.test.ts:1640:			page.records.sharedDefinitions[0].methods = [
+packages/frameworks/react/test/emitter.test.ts:1952:				/SharedWrite records are incomplete for SharedDefinition useCounter/,
+packages/frameworks/react/test/emitter.test.ts:2088:			const allWrites = source.indexOf('advance()');
+packages/frameworks/react/test/emitter.test.ts:2237:		test('rejects a non-empty SharedDefinition family with its construct diagnostic', async () => {
+packages/frameworks/react/test/emitter.test.ts:2252:				/SharedDefinition useCounter has no SharedInstance/,
+packages/frameworks/react/test/emitter.test.ts:2271:				/SharedDefinition has malformed construct/,
+packages/frameworks/react/test/emitter.test.ts:2275:				/SharedDefinition has malformed construct/,
+packages/frameworks/react/test/emitter.test.ts:2279:				/SharedDefinition useCounter has no SharedInstance/,
+packages/frameworks/react/test/emitter.test.ts:2308:			expect(() => validateEnrichedIr(ir)).toThrow(/SharedDefinitionCell/);
+packages/frameworks/react/test/emitter.test.ts:2310:			expect(() => validateEnrichedIr(ir)).toThrow(/SharedDefinitionCell initializer/);
+packages/frameworks/react/test/emitter.test.ts:2325:				/SharedDefinition useCounter has no SharedInstance/,
+packages/frameworks/react/test/emitter.test.ts:2331:				/SharedDefinitionCell has malformed construct/,
+packages/frameworks/react/test/emitter.test.ts:2335:				/SharedDefinitionCell has unknown semantic field/,
+packages/frameworks/react/test/emitter.test.ts:2338:			ir.records.sharedDefinitions[0].methods = [
+packages/frameworks/react/test/emitter.test.ts:2341:			expect(() => validateEnrichedIr(ir)).toThrow(/SharedDefinitionMethod/);
+import { readdirSync } from 'node:fs';
+import { mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import { runInNewContext } from 'node:vm';
+import {
+	adaptPersistenceFacts,
+	buildEnrichedIr,
+	FRAMELESS_STATE_GLOBAL,
+	type EnrichedIR,
+	type FramelessPersistenceRecord,
+	type MarklessStorageSourceFact,
+} from '@frameless/compiler';
+import { resolve } from 'pathe';
+// Type-only: erased at runtime, so it does not hoist a `react` load above the
+// minimal-DOM install below.
+import type { ReactElement } from 'react';
+import ts from 'typescript';
+import { analyze } from 'yuku-analyzer';
+import { generate } from 'yuku-codegen';
+import { parse } from 'yuku-parser';
+import { describe, expect, test } from 'vitest';
+import { compositionFixtures, emitCompositionFixture } from '../scripts/regenerate-composition.ts';
+import {
+	emit,
+	reactEventSpellings,
+	reactPropSpellings,
+	validateEnrichedIr,
+} from '../src/emitter/index.ts';
+import { REACT_EVENT_SPELLINGS_MIRROR } from './react-event-spellings.ts';
+import { formatEmitted } from '../src/format-emitted.ts';
+import { checkSources } from '../src/gate/index.ts';
+
+// `tsx`, NOT `jsx`, AT EVERY SITE IN THIS FILE THAT PARSES EMITTED OUTPUT.
+// The artifact became `.tsx` at `frameless-emitter-capability-v1` T009/T011 and
+// carries an IR-8 props type from T014. MEASURED at yuku-parser/yuku-analyzer
+// 0.7.0: `jsx` reports "Expected ')' to close parameter list, but found ':'" on a
+// typed props parameter, so a stale `jsx` here fails on VALID output.
+
+const root = resolve(import.meta.dirname, '..');
+const goldenRoot = resolve(root, '../../compiler/test/goldens');
+const generatedRoot = resolve(root, 'generated');
+
+/** Numeric, so S10 sorts after S9 rather than between S1 and S2. */
+function byScenarioNumber(left: string, right: string): number {
+	return Number(/(\d+)/.exec(left)![1]) - Number(/(\d+)/.exec(right)![1]);
+}
+
+/**
+ * THE FIXTURE TABLE IS DERIVED, NOT RE-LITERALLED.
+ *
+ * This table stopped at `s3-event-form.json`, which meant that when S4 landed NO
+ * standing test asserted its emitted bytes equal `formatEmitted(emit(golden))`.
+ * That freshness was proved ONCE, by regenerating and diffing by hand; nothing
+ * re-proved it per run, so the emitted S4 could have drifted from the emitter
+ * that claims to produce it and every lane would still have been green. A table
+ * hand-edited per scenario is that same hole once per scenario after it - and
+ * the corpus proved it by growing. MEASURED 2026-08-01 off the goldens
+ * themselves: seventeen `s<n>-*.json` scenario goldens (s1-s17) exist, all
+ * seventeen are in this table (the derivation subtracts nothing), and NONE is
+ * queued - no s18 golden, no s18 fixture, and no roadmap row anywhere in the
+ * repo queues one.
+ *
+ * The derivation source is the compiler's ratified golden corpus - `s<n>-*.json`
+ * - which is INDEPENDENT of `generated/`: one is the IR this repo agreed to
+ * compile, the other is what the emitter actually wrote. `preconditions` below
+ * compares the two and watches both directions go red.
+ */
+function scenarioFixtures(goldenDir = goldenRoot): Array<readonly [string, string]> {
+	const table = readdirSync(goldenDir)
+		.filter((entry) => /^s\d+-[\w-]+\.json$/.test(entry))
+		.sort(byScenarioNumber)
+		.map((entry) => [`S${/^s(\d+)-/.exec(entry)![1]}.tsx`, entry] as const);
+	// Fail LOUD rather than returning []. An empty table would emit zero freshness
+	// tests and the file would still report green, which is the one way a derived
+	// list could be greener than the literal it replaced.
+	if (table.length === 0)
+		throw new Error(`no s<n>-*.json scenario goldens found in ${goldenDir}`);
+	return table;
+}
+
+/** What the emitter actually wrote - the other side of the cross-check. */
+function emittedScenarios(directory = generatedRoot): string[] {
+	return readdirSync(directory)
+		.filter((entry) => /^S\d+\.tsx$/.test(entry))
+		.sort(byScenarioNumber);
+}
+
+const fixtures = scenarioFixtures();
+
+async function golden(name: string): Promise<EnrichedIR> {
+	return JSON.parse(await readFile(resolve(goldenRoot, name), 'utf8')) as EnrichedIR;
+}
+
+function clone<T>(value: T): T {
+	return structuredClone(value);
+}
+
+function persistenceRecord(
+	graphNodeId: string,
+	bindingName: string,
+	authoredInitial: string,
+	moduleId: string,
+): FramelessPersistenceRecord {
+	return {
+		version: 'frameless-persistence-record/1',
+		graphNodeId,
+		moduleId,
+		bindingName,
+		driver: 'localStorage',
+		key: {
+			origin: 'derived',
+			sourceIdentifier: bindingName,
+			literal: `markless:${bindingName}`,
+			bakedAtCompileTime: true,
+		},
+		authoredInitial,
+		antiFlashAttribute: `data-markless-${bindingName}`,
+		access: { render: true, handler: true },
+		seed: {
+			lowering: 'pre-paint',
+			readFailure: 'authored-initial',
+			corruptedValue: 'authored-initial',
+			landings: [
+				{
+					target: 'react',
+					kind: 'sync-read-seed-slot',
+					graphNodeId,
+				},
+			],
+		},
+		writeThrough: {
+			trigger: 'ordinary-assignment',
+			value: 'final-committed-string',
+			timing: 'commit-before-notify',
+			writeFailure: 'swallow',
+			crossTabSync: 'off',
+		},
+	};
+}
+
+/**
+ * THE AUTHORED PERSISTENCE IR, BUILT BY THE REAL COMPILER FROM A REAL `.tsrx`.
+ *
+ * Nothing here constructs a `FramelessPersistenceRecord`. The fixture asks for
+ * persistence with `state(initial, { storage: '<key>' })` and every record in
+ * `ir.records.persistence` is minted by `buildPersistenceRecords` from those
+ * bytes. `packages/compiler/test/persistence.test.ts` proves the same file is
+ * the ONLY `.tsrx` in the corpus that reports a non-zero count.
+ */
+const AUTHORED_PERSISTENCE_FIXTURE = 'test/fixtures/persistence-authored.tsrx';
+
+async function authoredPersistenceIr(): Promise<EnrichedIR> {
+	return buildEnrichedIr({
+		filename: AUTHORED_PERSISTENCE_FIXTURE,
+		source: await readFile(
+			resolve(root, '../../compiler', AUTHORED_PERSISTENCE_FIXTURE),
+			'utf8',
+		),
+	});
+}
+
+function visit(value: unknown, callback: (record: Record<string, any>) => void): void {
+	if (!value || typeof value !== 'object') return;
+	callback(value as Record<string, any>);
+	for (const child of Object.values(value)) {
+		if (Array.isArray(child)) child.forEach((entry) => visit(entry, callback));
+		else visit(child, callback);
+	}
+}
+
+function renameIdentifier(ir: EnrichedIR, from: string, to: string): void {
+	visit(ir, (record) => {
+		if (record.type === 'Identifier' && record.name === from) record.name = to;
+		if (record.name === from) record.name = to;
+	});
+	ir.components[0]!.locals.forEach((local: any) => {
+		local.names = local.names.map((name: string) => (name === from ? to : name));
+	});
+}
+
+function staticAttributeValue(source: string, name: string): string {
+	const parsed = parse(source, { lang: 'tsx', sourceType: 'module', preserveParens: false });
+	expect(parsed.diagnostics).toEqual([]);
+	const module = analyze(source, { lang: 'tsx', sourceType: 'module', preserveParens: false });
+	let result: string | undefined;
+	visit(module.ast, (record) => {
+		if (record.type === 'JSXAttribute' && record.name?.name === name && result === undefined) {
+			const value =
+				record.value?.type === 'JSXExpressionContainer'
+					? record.value.expression
+					: record.value;
+			if (value?.type === 'Literal' && typeof value.value === 'string') result = value.value;
+		}
+	});
+	if (result === undefined) throw new Error(`missing ${name}`);
+	return result;
+}
+
+function expectTopLevelSpacing(source: string): void {
+	const parsed = parse(source, { lang: 'tsx', sourceType: 'module', preserveParens: false });
+	expect(parsed.diagnostics).toEqual([]);
+	for (let index = 1; index < parsed.program.body.length; index += 1) {
+		const previous = parsed.program.body[index - 1]!;
+		const current = parsed.program.body[index]!;
+		const bothImports =
+			previous.type === 'ImportDeclaration' && current.type === 'ImportDeclaration';
+		expect(source.slice(previous.end, current.start)).toBe(bothImports ? '\n' : '\n\n');
+	}
+}
+
+/**
+ * THE REACT RUNTIME, FOR REAL, IN A NODE ENVIRONMENT - T047.
+ *
+ * The across-await measurement below is about what the emitted handler DOES on a
+ * second dispatch, and that is only observable through a renderer that actually
+ * re-renders and re-creates the handler closure. Structural assertions on emitted
+ * text cannot see it, and `react-dom/server` never re-renders.
+ *
+ * This suite runs under `environment: 'node'` and no DOM implementation is a
+ * declared dependency anywhere in the workspace, so the container is a minimal
+
+
+$ /bin/zsh -lc "sed -n '1560,1715p' packages/frameworks/react/test/emitter.test.ts
+sed -n '1880,2135p' packages/frameworks/react/test/emitter.test.ts
+rg -n \"functionProperty\\(|function expression|VariableDeclaration\" packages/frameworks/react/src/emitter/index.ts | head -40
+rg -n '\"site\".*Property|\"methods\"' packages/compiler/test/goldens/*composition* packages/compiler/test/goldens/*.json | head -30"
+exit=0
+			);
+			const storeSource = emit(store);
+			expect(storeSource).toContain('function createCompositionStore()');
+			expect(storeSource).not.toContain('createCompositionStoreStore');
+			expect(storeSource).toContain('function useCompositionStore(cell)');
+			const pageStore = clone(store) as any;
+			pageStore.records.sharedDefinitions[0].scope = 'page';
+			expect(emit(pageStore)).toContain('const compositionStore = createCompositionStore()');
+
+			const context = await build(
+				'src/context-suffix.tsrx',
+				`import { shared, state } from "@markless/core"; export const useCompositionContext = shared(() => { let value = state(0); return { value }; }); export function Reader() @{ const sharedValue = useCompositionContext(); <output>{sharedValue.value}</output> }`,
+			);
+			expect(emit(context)).toContain('const CompositionContext = createContext(null)');
+
+			const provider = await build(
+				'src/provider-suffix.tsrx',
+				`import { shared, state } from "@markless/core"; export const useCompositionProvider = shared(() => { let value = state(0); return { value }; }); export function Reader() @{ const sharedValue = useCompositionProvider(); <output>{sharedValue.value}</output> }`,
+			);
+			expect(emit(provider)).toContain('export function CompositionProvider({ children })');
+
+			const fallback = await build(
+				'src/fallback-suffix.tsrx',
+				`import { shared, state } from "@markless/core"; export const useCompositionToNothing = shared(() => { let value = state(0); return { value, increment() { value++; } }; }); export function Reader() @{ const sharedValue = useCompositionToNothing(); <button onClick={() => sharedValue.increment()}>{sharedValue.value}</button> }`,
+			);
+			const fallbackSource = emit(fallback);
+			expect(fallbackSource).toContain('const subscribeCompositionToNothing =');
+			expect(fallbackSource).toContain('const getCompositionToNothing =');
+			expect(fallbackSource).not.toContain('ToNothingToNothing');
+
+			const ledger = await build(
+				'src/ledger-suffix.tsrx',
+				`import { shared, state } from "@markless/core"; export const useLedger = shared(() => { let value = state(0); return { value, increment() { value++; } }; }); export function Reader() @{ const ledger = useLedger(); <button onClick={() => ledger.increment()}>{ledger.value}</button> }`,
+			);
+			const ledgerSource = emit(ledger);
+			expect(ledgerSource).toContain('function createLedgerStore()');
+			expect(ledgerSource).toContain('const LedgerContext = createContext(null)');
+			expect(ledgerSource).toContain('export function LedgerProvider({ children })');
+		});
+
+		test('selects scalar context and page module-store tiers from SharedDefinition records', async () => {
+			const props = await build(
+				'src/props-tier.tsrx',
+				`import { shared, state } from "@markless/core";
+				export const useValue = shared(() => { let value = state(1); return { value }; }, { scope: "container" });
+				function Reader() @{ const sharedValue = useValue(); <output>{sharedValue.value}</output> }
+				export function Page() @{ <Reader /> }`,
+			);
+			const propsSource = emit(props);
+			expect(propsSource).toContain('const [valueSharedValue] = useState(1)');
+			expect(propsSource).toContain('function Reader({ valueSharedValue })');
+			expect(propsSource).toContain('export function Page()');
+			expect(propsSource).toContain('<Reader valueSharedValue={valueSharedValue} />');
+			expect(propsSource).not.toContain('ValueContext');
+
+			const scalar = await build(
+				'src/scalar.tsrx',
+				`import { shared, state } from "@markless/core";
+				export const useValue = shared(() => { let value = state(1); return { value }; }, { scope: "container" });
+				export function Reader() @{ const sharedValue = useValue(); <output>{sharedValue.value}</output> }`,
+			);
+			const scalarSource = emit(scalar);
+			expect(scalarSource).toContain('const ValueContext = createContext(null)');
+			expect(scalarSource).toContain('function useValue()');
+			expect(scalarSource).not.toContain('useSyncExternalStore');
+
+			const object = await build(
+				'src/object-context.tsrx',
+				`import { shared, state } from "@markless/core";
+				export const usePair = shared(() => { let left = state(1); let right = state(2); return { left, right }; }, { scope: "container" });
+				export function Pair() @{ const pair = usePair(); <output>{pair.left}:{pair.right}</output> }`,
+			);
+			const objectSource = emit(object);
+			expect(objectSource).toContain('const PairContext = createContext(null)');
+			expect(objectSource).toContain('const [value] = useState(');
+			expect(objectSource).toContain('const pair = usePair()');
+			expect(objectSource).not.toContain('useSyncExternalStore');
+
+			const page = clone(scalar) as any;
+			page.records.sharedDefinitions[0].scope = 'page';
+			page.records.sharedDefinitions[0].methods = [
+				{
+					name: 'set',
+					site: {
+						type: 'Property',
+						value: {
+							type: 'FunctionExpression',
+							params: [],
+							body: { type: 'BlockStatement', body: [] },
+						},
+					},
+					writes: [],
+				},
+			];
+			page.records.sharedDefinitions[0].returnProperties.push({
+				kind: 'method',
+				name: 'set',
+			});
+			const pageSource = emit(page);
+			expect(pageSource).toContain('const valueStore = createValueStore()');
+			expect(pageSource).not.toContain('ValueProvider');
+		});
+
+		test('emits direct handles and one memoized callback ref with reverse cleanup', async () => {
+			const ir = await build(
+				'src/handles.tsrx',
+				`import { element } from "@markless/core";
+				export function Search() @{ const input = element<HTMLInputElement>(); <><input el={input} attach={(node) => { node.dataset.ready = "yes"; return () => { delete node.dataset.ready; }; }} /><button onClick={() => input?.focus()}>focus</button></> }`,
+			);
+			const source = emit(ir);
+			expect(source).toContain('const input = useRef(null)');
+			expect(source).toContain('const attachInput = useCallback(');
+			expect(source).toContain('input.current = node');
+			expect(source).toContain("if (typeof cleanup === 'function')");
+			expect(source.indexOf('cleanup();')).toBeLessThan(
+				source.indexOf('input.current = null'),
+			);
+			expect(source).toContain('if (input.current !== null)');
+			expect(source).not.toMatch(/forwardRef|useImperativeHandle|Children\.|cloneElement/);
+		});
+
+		/**
+		 * `overlay`, LOWERED TO THIS LANE'S PORTAL.
+		 *
+		 * RE-RECORDED BY `frameless-lift-gaps-v1` T008 under the owner override
+		 * that retired the native popover API. What these rows assert is now one
+		 * half rather than two, because the lowering is declarative: the host is
+		 * wrapped in `createPortal(child, document.body)` and there is no
+		 * mount-time call, no attribute and no ref.
+		 *
+		 * The negative half is load-bearing and is asserted in the same test: a
+		 * `popover` attribute left behind "for compatibility" would still be the
+		 * refused mechanism, and would additionally hide the element, since a
+		 * popover is `display: none` until something shows it.
+		 */
+		test('lowers overlay to a createPortal wrap and no popover machinery at all', async () => {
+			const ir = await build(
+				'src/overlay.tsrx',
+				`export function App() @{ <main class="clip"><div overlay class="sheet" data-role="sheet">Menu</div></main> }`,
+			);
+			const source = emit(ir);
+			// THE WRAP IS AT THE AUTHORED POSITION and the element keeps every
+			// authored attribute; only its DOM parent moves.
+			expect(source).toContain(
+				'{createPortal(<div className="sheet" data-role="sheet">Menu</div>, document.body)}',
+			);
+			expect(source).toContain("import { createPortal } from 'react-dom';");
+			// The authored name is never a DOM attribute.
+			expect(source).not.toMatch(/\boverlay\b=/);
+			// THE RETIRED MECHANISM, ASSERTED ABSENT. Not "unused" - absent.
+			expect(source).not.toContain('popover');
+			expect(source).not.toContain('showPopover');
+			expect(source).not.toContain('hidePopover');
+			// AND NO MOUNT CALLBACK. `createPortal` is declarative, so an
+			// overlay-only host allocates no `useCallback` and no `ref`.
+			expect(source).not.toContain('useCallback');
+			ir.records.sharedDefinitions[0].name = 'useMeter';
+			ir.records.sharedDefinitions[0].cells[0].name = 'total';
+			ir.records.sharedDefinitions[0].returnProperties[0].name = 'total';
+			ir.records.sharedReads[0].propertyName = 'total';
+			const source = emit(ir);
+			expect(source).toContain('function useMeter(cell)');
+			expect(source).toContain('let total = 0');
+			expect(source).toContain("total: useMeter('total')");
+			expect(source).not.toContain('function useCounter');
+		});
+
+		test('allocates provider and store-internal generated families around authored names', async () => {
+			const ir = await build(
+				'src/collisions.tsrx',
+				`import { shared, state } from "@markless/core";
+				export const useCounter = shared(() => { let count = state(0); let countVersion = state(1); let countSnapshot = state(2); let countListeners = state(3); let writeCount = state(4); let nextCount = state(5); return { count, countVersion, countSnapshot, countListeners, writeCount, nextCount, increment() { count++; } }; });
+				export function CounterProvider() @{ <aside>authored</aside> }
+				export function Counter() @{ const counter = useCounter(); <button onClick={() => counter.increment()}>{counter.count}</button> }`,
+			);
+			const source = emit(ir);
+			expect(source).toContain('export function CounterProvider2({ children })');
+			expect(source).toContain('let countVersion2 = 0');
+			expect(source).toContain('let countSnapshot2 = count');
+			expect(source).toContain('const countListeners2 = new Set()');
+			expect(source).toContain('const writeCount2 =');
+			expect(analyze(source, { lang: 'tsx', sourceType: 'module' }).diagnostics).toEqual([]);
+		});
+
+		test('durably allocates every shared generated name family around authored collisions', async () => {
+			const ir = await build(
+				'src/shared-family-collisions.tsrx',
+				`import { shared, state } from "@markless/core";
+				export const useLedger = shared(() => { let balance = state(0); return { balance, increment() { balance++; } }; }, { scope: "container" });
+				function LedgerContext() @{ <i>context</i> }
+				function createLedgerStore() @{ <i>creator</i> }
+				function subscribeLedgerToNothing() @{ <i>subscribe</i> }
+				function getLedgerNothing() @{ <i>get</i> }
+				function ledgerStore() @{ <i>module store</i> }
+				export function Ledger() @{ const ledger = useLedger(); <button onClick={() => ledger.increment()}>{ledger.balance}</button> }`,
+			);
+			const containerSource = emit(ir);
+			expect(containerSource).toContain('const LedgerContext2 = createContext(null)');
+			expect(containerSource).toContain('function createLedgerStore2()');
+			expect(containerSource).toContain('const subscribeLedgerToNothing2 =');
+			expect(containerSource).toContain('const getLedgerNothing2 =');
+			expect(
+				analyze(containerSource, { lang: 'tsx', sourceType: 'module' }).diagnostics,
+			).toEqual([]);
+
+			const page = clone(ir) as any;
+			page.records.sharedDefinitions[0].scope = 'page';
+			const pageSource = emit(page);
+			expect(pageSource).toContain('function createLedgerStore2()');
+			expect(pageSource).toContain('const ledgerStore2 = createLedgerStore2()');
+			expect(pageSource).toContain('const subscribeLedgerToNothing2 =');
+			expect(pageSource).toContain('const getLedgerNothing2 =');
+			expect(analyze(pageSource, { lang: 'tsx', sourceType: 'module' }).diagnostics).toEqual(
+				[],
+			);
+		});
+
+		test('fails closed with construct-named diagnostics when composition records are missing', async () => {
+			const shared = clone(
+				await build(
+					'src/missing-shared.tsrx',
+					`import { shared, state } from "@markless/core";
+					export const useCounter = shared(() => { let count = state(0); return { count, increment() { count++; } }; });
+					export function Counter() @{ const counter = useCounter(); <button onClick={() => counter.increment()}>{counter.count}</button> }`,
+				),
+			) as any;
+			shared.records.sharedWrites = [];
+			expect(() => emit(shared)).toThrow(
+				/SharedWrite records are incomplete for SharedDefinition useCounter/,
+			);
+
+			const handles = clone(
+				await build(
+					'src/missing-handle.tsrx',
+					`import { element } from "@markless/core"; export function Search() @{ const input = element<HTMLInputElement>(); <><input el={input} /><button onClick={() => input?.focus()}>focus</button></> }`,
+				),
+			) as any;
+			handles.records.elementHandleBindings = [];
+			expect(() => emit(handles)).toThrow(
+				/HandleCallRecord has dangling ElementHandleBinding/,
+			);
+		});
+	});
+
+	describe('fail-closed enriched IR validation', () => {
+		// `P1` IS AUTHORED NOW, NOT SYNTHESISED, AND THAT IS THE WHOLE POINT.
+		//
+		// Until `frameless-app-axes-v1` T016 this artifact was produced by taking
+		// the `s2-keyed-todo` golden and ATTACHING A HAND-BUILT PERSISTENCE RECORD
+		// to it, because there was no way to ask for persistence from a `.tsrx` at
+		// all. That made the only shipped persistence artifact in the repository a
+		// statement about a record the test itself wrote. It is now emitted from
+		// `packages/compiler/test/fixtures/persistence-authored.tsrx` through the
+		// REAL `buildEnrichedIr`, so every record below came out of the author's
+		// own bytes and the artifact is a statement about the compiler.
+		test('emits the AUTHORED persisted fixture and passes the artifact gate', async () => {
+			const ir = clone(await authoredPersistenceIr()) as any;
+			// THE ANTI-VACUOUS ASSERTION. If the authoring channel ever goes dead
+			// this is zero, and every expectation below would still pass on an
+			// artifact with no persistence in it at all.
+			expect(ir.records.persistence.map((record: any) => record.key.literal)).toEqual([
+				'markless:draft',
+				'markless:filter',
+				'markless:touches',
+			]);
+
+			const source = emit(ir);
+			const formatted = await formatEmitted(source);
+			expect(source).toContain(
+				`useState(() => globalThis.${FRAMELESS_STATE_GLOBAL}?.['markless:filter'] ?? 'all')`,
+			);
+			expect(source).not.toContain(`window.${FRAMELESS_STATE_GLOBAL}`);
+			expect(source).not.toMatch(
+				new RegExp(`use(?:Effect|LayoutEffect)[\\s\\S]*${FRAMELESS_STATE_GLOBAL}`),
+			);
+			const setter = source.indexOf('setDraft(nextDraft)');
+			const write = source.indexOf(
+				"__framelessWrite('markless:draft', 'data-markless-draft', nextDraft)",
+				setter,
+			);
+			expect(setter).toBeGreaterThan(-1);
+			expect(write).toBeGreaterThan(setter);
+			expect(source).toMatch(
+				/function __framelessWrite\(key, attr, value\) \{\s*try \{\s*localStorage\.setItem\(key, value\);\s*\} catch \{\s*void 0;\s*\}\s*document\.documentElement\.setAttribute\(attr, value\);\s*\}/,
+			);
+			expect(source.match(/^import .* from 'react';$/gm)).toHaveLength(1);
+			if (process.env.UPDATE_GOLDENS === '1')
+				await writeFile(resolve(root, 'generated-persistence/P1.tsx'), formatted);
+			expect(await readFile(resolve(root, 'generated-persistence/P1.tsx'), 'utf8')).toBe(
+				formatted,
+			);
+			const gate = await checkSources([
+				{ file: 'generated-persistence/P1.tsx', source: formatted, artifact: ir },
+			]);
+			expect(gate.violations, JSON.stringify(gate.violations, null, 2)).toEqual([]);
+		});
+
+		// THE HANDLER-ONLY HALF, NOW FROM THE SAME AUTHORED SOURCE. `touches` is
+		// read only inside the cycle handler, so its record carries
+		// `access.render: false` and `seed.lowering: 'none'` and React lowers the
+		// cell to `useRef`. React honours `writeThrough.trigger` anyway.
+		//
+		// ONE HALF OF A CROSS-LANE PAIR - the Solid twin is
+		// "closes the write-through hole for a HANDLER-ONLY persisted binding".
+		// Both lanes must report ONE write here. Until T016 Solid reported ZERO
+		// and the pair recorded the split; if they diverge again, one lane moved.
+		test('honours write-through for the AUTHORED handler-only binding', async () => {
+			const ir = clone(await authoredPersistenceIr()) as any;
+			const record = ir.records.persistence.find(
+				(candidate: any) => candidate.graphNodeId === 'state:touches',
+			);
+			expect(record.access).toEqual({ render: false, handler: true });
+			expect(record.seed.lowering).toBe('none');
+			expect(record.writeThrough.trigger).toBe('ordinary-assignment');
+
+			const source = emit(ir);
+			// No render read, so no seed slot - the contract's own `no-render-read`.
+			expect(source).not.toContain(`${FRAMELESS_STATE_GLOBAL}?.['markless:touches']`);
+			expect(source).toContain("useRef('0')");
+			expect(
+				source.match(/__framelessWrite\('markless:touches', 'data-markless-touches', /g),
+			).toHaveLength(1);
+		});
+
+		test('reads the persisted fallback without throwing during no-window SSR', async () => {
+			const sandbox = Object.create(null);
+			expect(runInNewContext('typeof window', sandbox)).toBe('undefined');
+			expect(
+				runInNewContext(
+					`globalThis.${FRAMELESS_STATE_GLOBAL}?.['markless:filter'] ?? 'all'`,
+					sandbox,
+				),
+			).toBe('all');
+
+			const persistedGolden = await readFile(
+				resolve(root, 'generated-persistence/P1.tsx'),
+				'utf8',
+			);
+			expect(persistedGolden).toContain(`globalThis.${FRAMELESS_STATE_GLOBAL}`);
+			expect(persistedGolden).not.toContain(`window.${FRAMELESS_STATE_GLOBAL}`);
+		});
+
+		test('emits separate persisted external-store client/server snapshots and persists before notify', async () => {
+			const filename = 'test/composition-fixtures/C2-shared.tsrx';
+			const ir = clone(
+				await buildEnrichedIr({
+					filename,
+					source: await readFile(resolve(root, filename), 'utf8'),
+				}),
+			) as any;
+			const definition = ir.records.sharedDefinitions[0];
+			const cell = definition.cells.find((candidate: any) => candidate.name === 'history');
+			ir.records.persistence = [
+				persistenceRecord(cell.graphNodeId, cell.name, 'seed', ir.filename),
+			];
+
+			const source = emit(ir);
+			expect(source).toContain(
+				`let history = globalThis.${FRAMELESS_STATE_GLOBAL}?.['markless:history'] ?? 'seed'`,
+			);
+			expect(source).toContain("getServerHistory: () => 'seed'");
+			expect(source).toMatch(
+				/useSyncExternalStore\([\s\S]*?store\.getHistory[\s\S]*?store\.getServerHistory/,
+			);
+			const allWrites = source.indexOf('advance()');
+			const write = source.indexOf(
+				"__framelessWrite('markless:history', 'data-markless-history', history)",
+				allWrites,
+			);
+			const notify = source.indexOf('for (const listener', write);
+			expect(allWrites).toBeGreaterThan(-1);
+			expect(write).toBeGreaterThan(allWrites);
+			expect(notify).toBeGreaterThan(write);
+			expect(
+				source.match(
+					/__framelessWrite\('markless:history', 'data-markless-history', history\)/g,
+				),
+			).toHaveLength(definition.methods.length);
+		});
+
+		// THE INITIALIZER SWAP - T007 3a - AND THE ONE PLACE IT IS STILL REACHABLE.
+		//
+		// This is a DELIBERATELY SYNTHESISED record, and it must stay that way: it
+		// exists to reach a state the AUTHORING CHANNEL CAN NO LONGER PRODUCE.
+		// `s2-keyed-todo` authors `next = state(3)` - a NUMBER - and the scalar
+		// refusal in `buildPersistenceRecords` now rejects that binding outright,
+		// so no `.tsrx` can put a number-valued cell into `records.persistence`.
+		// Injecting the record directly proves what the EMITTER would do if one
+		// ever arrived: it takes the record's `authoredInitial` STRING over the
+		// authored `3`, which is why the refusal upstream is load-bearing rather
+		// than decorative. It is the array channel's tripwire, kept armed.
+		test('takes the record initializer over a numeric authored one when a record is injected', async () => {
+			const ir = clone(await golden('s2-keyed-todo.json')) as any;
+			const state = ir.records.bindings.find((binding: any) => binding.id === 'state:next');
+			expect(state).toBeDefined();
+
+			// Built through the REAL vendor adapter rather than hand-shaped, so the
+			// record cannot be an artifact of the test's own opinion about seeds.
+			const [record] = adaptPersistenceFacts(
+				[
+					{
+						graphNodeId: state.id,
+						moduleId: ir.filename,
+						bindingName: state.name,
+						key: {
+							origin: 'derived',
+							sourceIdentifier: state.name,
+							literal: `markless:${state.name}`,
+							bakedAtCompileTime: true,
+						},
+						authoredInitial: '3',
+						writable: state.writable,
+1631:function expression(node: SerializableAstNode | null | undefined): t.Expression {
+1903:function expressionFromChildren(
+2306:	readonly aliasDeclaration: t.VariableDeclaration;
+2341:			const declaration = parents.get(declarator) as t.VariableDeclaration;
+2606:				t.isVariableDeclaration(statement) &&
+2727:			t.isVariableDeclaration(statement, { kind: 'let' }) &&
+2940:				(candidate, at): candidate is t.VariableDeclaration =>
+2944:					t.isVariableDeclaration(candidate, { kind: 'const' }) &&
+3009:			(statement: any): statement is t.VariableDeclaration =>
+3010:				t.isVariableDeclaration(statement, { kind: 'const' }) &&
+3099:					VariableDeclaration(node: any, context: any) {
+3306:): t.VariableDeclaration {
+3383:function functionProperty(name: string, params: t.Node[], body: t.Statement[]): t.Node {
+4008:		properties.push(functionProperty(method.name, params, methodBody));
+zsh:4: no matches found: packages/compiler/test/goldens/*composition*
+
+
+$ /bin/zsh -lc "sed -n '2860,3135p' packages/frameworks/react/src/emitter/index.ts
+sed -n '3360,3410p' packages/frameworks/react/src/emitter/index.ts
+rg -n \"const .*state\\(|increment\\(.*const|return \\{.*\\(.*\\).*const\" packages/frameworks/react/test packages/compiler/test -g '*.tsrx' -g '*.ts' | head -100
+rg -n \"function build\\(\" packages/frameworks/react/test/emitter.test.ts"
+exit=1
+		const state = writable.find((candidate) => nextFor(context, candidate) === variable);
+		const persistence = state ? persistenceForGraph(context, state.id) : undefined;
+		if (!state || !persistence) return [statement];
+		const sync = (statement as t.ExpressionStatement).expression;
+		const finalValue =
+			state.storage === 'ref' ? (sync as any).right : (sync as any).arguments[0];
+		return [statement, ...persistenceStatements(context, persistence, finalValue)];
+	});
+	return fn;
+}
+
+/**
+ * DEFECT 12.2 (a), CLOSED HERE: the stale render-closure read across an `await`.
+ *
+ * `toConstSsa` lowers `ticks = ticks + 1` to `const nextTicks = ticks + 1`, where
+ * `ticks` is the `useState` binding OF THE RENDER THAT CREATED THE HANDLER. That
+ * is correct for a synchronous body - the render cannot have moved - and wrong
+ * after a suspension: two dispatches that overlap at the `await` both resume with
+ * the same captured `ticks` and both compute `0 + 1`, so two clicks produce ONE
+ * increment. MEASURED against real react-dom 19.2.3 as `1|done` where every other
+ * frameless lane reports `2|done`.
+ *
+ * React's own answer is the FUNCTIONAL UPDATER: `setTicks((current) => current +
+ * 1)` hands the reducer the value React holds now rather than the one the closure
+ * captured. So where a post-suspension write reads the cell IT IS WRITING, the
+ * version const and its sync fold into one updater call and the stale binding is
+ * never read.
+ *
+ * FOUR SHAPES ARE DELIBERATELY OUT OF REACH, and all four stay v-limits rather
+ * than becoming refusals, because each one is emittable today and only the two
+ * mechanisms above are in this card:
+ *
+ *   1. A post-`await` read of a cell OTHER than the one being written. An updater
+ *      callback receives ONE cell's value; there is no form of it that can read a
+ *      second live. Triggering authoring: `let a = state(0); let b = state(0);`
+ *      with `await ready; b = a + 1;` - `a` is still the captured render's `a`.
+ *      Closing it needs a design change (a ref mirror or a reducer over a record),
+ *      NOT a bigger updater, so it is recorded here and not invented.
+ *   2. A post-`await` read that is not part of a write at all - `await ready;
+ *      onTrace('run', { ticks })`. Nothing to fold it into.
+ *   3. A version whose own initializer suspends (`ticks = (await load()) + ticks`).
+ *      An updater callback cannot be async.
+ *   4. A version the body reads again after its sync, and a persisted cell, whose
+ *      sync argument `persistenceStatements` re-reads as a VALUE - an updater
+ *      function is not one.
+ *
+ * `ref` cells are untouched on purpose: they sync through `handle.current`, which
+ * is already live at resume, so there is nothing stale to repair.
+ */
+function liftPostAwaitReadsToUpdaters(
+	fn: t.ArrowFunctionExpression,
+	writable: readonly StateBinding[],
+	context: EmitContext,
+): void {
+	// THE BYTE-NEUTRALITY GATE. Nothing below runs - and in particular the
+	// print/re-parse round trip inside `reanalyzeFunction` does not run - for a
+	// handler that cannot suspend, which is every handler in the corpus today.
+	if (
+		!t.isBlockStatement(fn.body) ||
+		!(fn.body.body as t.Statement[]).some((statement) => suspends(statement))
+	)
+		return;
+	reanalyzeFunction(fn, (module, analyzed) => {
+		if (!t.isBlockStatement(analyzed.body)) return;
+		const body = analyzed.body.body as t.Statement[];
+		const firstSuspension = body.findIndex((statement) => suspends(statement));
+		if (firstSuspension < 0) return;
+		const folded = new Set<t.Statement>();
+		for (let index = firstSuspension + 1; index < body.length; index += 1) {
+			const statement = body[index]!;
+			const variable = syncVariableName(statement, writable, context);
+			if (!variable) continue;
+			const state = writable.find((candidate) => nextFor(context, candidate) === variable);
+			if (!state || state.storage !== 'state') continue;
+			if (persistenceForGraph(context, state.id)) continue;
+			const call = (statement as t.ExpressionStatement).expression;
+			if (!t.isCallExpression(call) || call.arguments.length !== 1) continue;
+			const argument = call.arguments[0];
+			if (!t.isIdentifier(argument)) continue;
+			const declaration = body.find(
+				(candidate, at): candidate is t.VariableDeclaration =>
+					at > firstSuspension &&
+					at < index &&
+					!folded.has(candidate) &&
+					t.isVariableDeclaration(candidate, { kind: 'const' }) &&
+					candidate.declarations.length === 1 &&
+					t.isIdentifier(candidate.declarations[0]!.id, { name: argument.name }),
+			);
+			const identifier = declaration?.declarations[0]!.id;
+			const initializer = declaration?.declarations[0]!.init;
+			if (!declaration || !identifier || !initializer || !t.isExpression(initializer))
+				continue;
+			if (suspends(initializer)) continue;
+			const symbol = t.isIdentifier(identifier) ? module.symbolOf(identifier) : null;
+			if (!symbol || symbol.references.length !== 1) continue;
+			if ((symbol.references[0] as { node: t.Node }).node !== argument) continue;
+			// The reads that make it stale: FREE references to the cell's own render
+			// binding, inside this initializer. Free, because the handler is analyzed
+			// standalone - anything the component declared resolves to nothing here.
+			const stale = module.unresolvedReferences.filter((reference) => {
+				if (reference.name !== state.name) return false;
+				let ancestor: unknown = reference.node;
+				while (ancestor && ancestor !== initializer)
+					ancestor = module.parentOf(ancestor as t.Node);
+				return ancestor === initializer;
+			});
+			if (stale.length === 0) continue;
+			const parameter = context.names.claim(
+				`current${state.name[0]!.toUpperCase()}${state.name.slice(1)}`,
+			);
+			for (const reference of stale) {
+				reference.node.name = parameter;
+				const parent = module.parentOf(reference.node as t.Node) as {
+					type?: string;
+					shorthand?: boolean;
+				} | null;
+				if (parent?.type === 'Property' && parent.shorthand) parent.shorthand = false;
+			}
+			call.arguments[0] = t.arrowFunctionExpression([t.identifier(parameter)], initializer);
+			folded.add(declaration);
+		}
+		if (folded.size) analyzed.body.body = body.filter((statement) => !folded.has(statement));
+	});
+}
+
+function collapseRefSyncVersions(
+	fn: t.ArrowFunctionExpression,
+	writable: readonly StateBinding[],
+): void {
+	if (!t.isBlockStatement(fn.body)) return;
+	for (const state of writable.filter((candidate) => candidate.storage === 'ref')) {
+		const sync = fn.body.body.find(
+			(statement: any): statement is t.ExpressionStatement =>
+				t.isExpressionStatement(statement) &&
+				t.isAssignmentExpression(statement.expression, { operator: '=' }) &&
+				t.isMemberExpression(statement.expression.left) &&
+				t.isIdentifier(statement.expression.left.object, { name: state.name }) &&
+				t.isIdentifier(statement.expression.left.property, { name: 'current' }) &&
+				t.isIdentifier(statement.expression.right),
+		);
+		if (
+			!sync ||
+			!t.isAssignmentExpression(sync.expression) ||
+			!t.isIdentifier(sync.expression.right)
+		) {
+			continue;
+		}
+		const version = sync.expression.right.name;
+		const declaration = fn.body.body.find(
+			(statement: any): statement is t.VariableDeclaration =>
+				t.isVariableDeclaration(statement, { kind: 'const' }) &&
+				statement.declarations.length === 1 &&
+				t.isIdentifier(statement.declarations[0]!.id, { name: version }),
+		);
+		const initializer = declaration?.declarations[0]!.init;
+		if (!declaration || !initializer || !t.isExpression(initializer)) continue;
+		sync.expression.right = t.cloneNode(initializer, true);
+		fn.body.body = fn.body.body.filter((statement: any) => statement !== declaration);
+	}
+}
+
+function normalizeSoleVersionNames(
+	fn: t.ArrowFunctionExpression,
+	writable: readonly StateBinding[],
+	context: EmitContext,
+): void {
+	reanalyzeFunction(fn, (module, analyzed) => {
+		for (const state of writable.filter((candidate) => candidate.storage === 'state')) {
+			const base = nextFor(context, state);
+			if (module.resolve(base, module.scopeOf(analyzed as any))) continue;
+			const versions = module.symbols.filter(
+				(symbol) =>
+					new RegExp(`^${base}\\d+$`).test(symbol.name) &&
+					symbol.declarations.some((declaration) => {
+						let parent: any = declaration;
+						while (parent && parent !== analyzed) parent = module.parentOf(parent);
+						return parent === analyzed;
+					}),
+			);
+			if (versions.length !== 1) continue;
+			for (const declaration of versions[0]!.declarations) {
+				if (t.isIdentifier(declaration)) (declaration as any).name = base;
+			}
+			for (const reference of versions[0]!.references) reference.node.name = base;
+		}
+	});
+}
+
+function syncVariableName(
+	statement: t.Statement,
+	writable: readonly StateBinding[],
+	context: EmitContext,
+): string | null {
+	if (!t.isExpressionStatement(statement)) return null;
+	const value = statement.expression;
+	if (t.isCallExpression(value) && t.isIdentifier(value.callee)) {
+		const calleeName = value.callee.name;
+		const state = writable.find((candidate) => setterFor(context, candidate) === calleeName);
+		return state ? nextFor(context, state) : null;
+	}
+	if (
+		t.isAssignmentExpression(value, { operator: '=' }) &&
+		t.isMemberExpression(value.left) &&
+		t.isIdentifier(value.left.object) &&
+		t.isIdentifier(value.left.property, { name: 'current' })
+	) {
+		const object = value.left.object as t.Identifier;
+		const state = writable.find((candidate) => candidate.name === object.name);
+		return state ? nextFor(context, state) : null;
+	}
+	return null;
+}
+
+function removeDeadPureVersions(fn: t.ArrowFunctionExpression): void {
+	const pure = (node: any): boolean => {
+		if (!node || typeof node !== 'object') return true;
+		if (
+			[
+				'CallExpression',
+				'NewExpression',
+				'AssignmentExpression',
+				'UpdateExpression',
+				'AwaitExpression',
+				'YieldExpression',
+			].includes(node.type)
+		)
+			return false;
+		return Object.entries(node).every(
+			([key, value]) =>
+				['start', 'end', 'loc', 'comments'].includes(key) ||
+				(Array.isArray(value) ? value.every(pure) : pure(value)),
+		);
+	};
+	let changed = true;
+	while (changed) {
+		changed = false;
+		reanalyzeFunction(fn, (module, analyzed) => {
+			module.walk(
+				{
+					VariableDeclaration(node: any, context: any) {
+						if (changed || node.declarations.length !== 1) return;
+						const declaration = node.declarations[0];
+						if (
+							!t.isIdentifier(declaration.id) ||
+							!/^next[A-Z]/.test(declaration.id.name)
+						)
+							return;
+						const symbol = module.symbolOf(declaration.id);
+						if (!symbol || symbol.references.length || !pure(declaration.init)) return;
+						context.remove();
+						changed = true;
+					},
+				},
+				analyzed as any,
+			);
+		});
+	}
+}
+
+function emitSingleHandler(
+	handler: EventHandlerRecord,
+	event: EnrichedEventRecord,
+	context: EmitContext,
+	leafControl: boolean,
+): t.ArrowFunctionExpression {
+	const writable = [...new Set(handler.writes.map((write) => write.graphNodeId))].map((id) => {
+		const state = context.statesById.get(id);
+		if (!state) throw new Error(`Write refers to unknown state: ${id}`);
+		return state;
+	});
+	const fn = toConstSsa(emitMutableHandler(handler, event, context), writable, context);
+	if (leafControl) replaceLeafCurrentTarget(fn);
+	return fn;
+}
+
+function emitEvent(
+function sharedNames(definition: SharedDefinition, allocator: NameAllocator) {
+	const stem =
+		definition.name.startsWith('use') && definition.name.length > 3
+			? definition.name.slice(3)
+			: `${definition.name[0]!.toUpperCase()}${definition.name.slice(1)}`;
+	return {
+		context: allocator.claim(withGeneratedSuffix(stem, 'Context')),
+		provider: allocator.claim(withGeneratedSuffix(stem, 'Provider')),
+		createStore: allocator.claim(`create${withGeneratedSuffix(stem, 'Store')}`),
+		moduleStore: allocator.claim(lowercaseFirst(withGeneratedSuffix(stem, 'Store'))),
+		subscribeNothing: allocator.claim(`subscribe${withGeneratedSuffix(stem, 'ToNothing')}`),
+		getNothing: allocator.claim(`get${withGeneratedSuffix(stem, 'Nothing')}`),
+	};
+}
+
+function withGeneratedSuffix(base: string, suffix: string): string {
+	return base.endsWith(suffix) ? base : `${base}${suffix}`;
+}
+
+function lowercaseFirst(name: string): string {
+	return `${name[0]!.toLowerCase()}${name.slice(1)}`;
+}
+
+function functionProperty(name: string, params: t.Node[], body: t.Statement[]): t.Node {
+	return {
+		type: 'Property',
+		key: t.identifier(name),
+		value: {
+			type: 'FunctionExpression',
+			id: null,
+			params,
+			body: t.blockStatement(body),
+			async: false,
+			generator: false,
+			expression: false,
+		},
+		kind: 'init',
+		method: true,
+		computed: false,
+		shorthand: false,
+	};
+}
+
+function missingProviderGuard(valueName: string, definition: SharedDefinition): t.Statement {
+	return t.ifStatement(
+		t.binaryExpression('===', t.identifier(valueName), t.nullLiteral()),
+		t.blockStatement([
+			{
+				type: 'ThrowStatement',
+				argument: t.newExpression(t.identifier('Error'), [
+					t.stringLiteral(`${definition.name} is missing its provider`),
+packages/compiler/test/shared-surface-disagreement.test.ts:31:			export const useValue = shared(() => { let value = state(0); return { value }; });
+packages/frameworks/react/test/lift-shared-hook-shape.test.ts:38:			export const useValue = shared(() => { let value = state(1); return { value }; }, { scope: "container" });
+packages/frameworks/react/test/lift-shared-hook-shape.test.ts:41:			export const usePair = shared(() => { let left = state(1); let right = state(2); return { left, right }; }, { scope: "container" });
+packages/frameworks/react/test/lift-shared-hook-shape.test.ts:44:			export const usePageValue = shared(() => { let value = state(1); return { value, increment() { value++; } }; }, { scope: "page" });
+packages/frameworks/react/test/emitter.test.ts:1535:				export const useCounter = shared(() => { let count = state(0); let status = state("ready"); return { count, status, increment() { count++; status = "updated"; } }; }, { scope: "container" });
+packages/frameworks/react/test/emitter.test.ts:1559:				`import { shared, state } from "@markless/core"; export const useCompositionStore = shared(() => { let value = state(0); return { value, increment() { value++; } }; }); export function Reader() @{ const sharedValue = useCompositionStore(); <button onClick={() => sharedValue.increment()}>{sharedValue.value}</button> }`,
+packages/frameworks/react/test/emitter.test.ts:1571:				`import { shared, state } from "@markless/core"; export const useCompositionContext = shared(() => { let value = state(0); return { value }; }); export function Reader() @{ const sharedValue = useCompositionContext(); <output>{sharedValue.value}</output> }`,
+packages/frameworks/react/test/emitter.test.ts:1577:				`import { shared, state } from "@markless/core"; export const useCompositionProvider = shared(() => { let value = state(0); return { value }; }); export function Reader() @{ const sharedValue = useCompositionProvider(); <output>{sharedValue.value}</output> }`,
+packages/frameworks/react/test/emitter.test.ts:1583:				`import { shared, state } from "@markless/core"; export const useCompositionToNothing = shared(() => { let value = state(0); return { value, increment() { value++; } }; }); export function Reader() @{ const sharedValue = useCompositionToNothing(); <button onClick={() => sharedValue.increment()}>{sharedValue.value}</button> }`,
+packages/frameworks/react/test/emitter.test.ts:1592:				`import { shared, state } from "@markless/core"; export const useLedger = shared(() => { let value = state(0); return { value, increment() { value++; } }; }); export function Reader() @{ const ledger = useLedger(); <button onClick={() => ledger.increment()}>{ledger.value}</button> }`,
+packages/frameworks/react/test/emitter.test.ts:1604:				export const useValue = shared(() => { let value = state(1); return { value }; }, { scope: "container" });
+packages/frameworks/react/test/emitter.test.ts:1618:				export const useValue = shared(() => { let value = state(1); return { value }; }, { scope: "container" });
+packages/frameworks/react/test/emitter.test.ts:1629:				export const usePair = shared(() => { let left = state(1); let right = state(2); return { left, right }; }, { scope: "container" });
+packages/frameworks/react/test/emitter.test.ts:1872:				export const useCounter = shared(() => { let count = state(0); return { count, increment() { count++; } }; });
+packages/frameworks/react/test/emitter.test.ts:1895:				export const useCounter = shared(() => { let count = state(0); let countVersion = state(1); let countSnapshot = state(2); let countListeners = state(3); let writeCount = state(4); let nextCount = state(5); return { count, countVersion, countSnapshot, countListeners, writeCount, nextCount, increment() { count++; } }; });
+packages/frameworks/react/test/emitter.test.ts:1912:				export const useLedger = shared(() => { let balance = state(0); return { balance, increment() { balance++; } }; }, { scope: "container" });
+packages/frameworks/react/test/emitter.test.ts:1946:					export const useCounter = shared(() => { let count = state(0); return { count, increment() { count++; } }; });
+packages/frameworks/react/test/gate.test.ts:1111:			export const useValue = shared(() => { let value = state(1); return { value }; }, { scope: "container" });
+packages/frameworks/react/test/gate.test.ts:1115:			export const useValue = shared(() => { let value = state(1); return { value }; }, { scope: "container" });
+packages/frameworks/react/test/gate.test.ts:1118:			export const usePair = shared(() => { let left = state(1); let right = state(2); return { left, right }; }, { scope: "container" });
+packages/frameworks/react/test/gate.test.ts:1121:			export const usePageValue = shared(() => { let value = state(1); return { value, increment() { value++; } }; }, { scope: "page" });
+packages/compiler/test/persistence.test.ts:418:		const ir = await build(`state('', { storage: 'markless:empty' })`);
+packages/compiler/test/metamorphic.test.ts:407:			const mutated = original.replace('state(1)', 'state(2)');
+packages/compiler/test/composition-ir.test.ts:38:			export const useValue = shared(() => { let value = state("seed"); return { value, record(next) { value = next; } }; });
+packages/compiler/test/composition-ir.test.ts:127:			export const useValue = shared(() => { let value = state(); return { value }; });
+packages/compiler/test/composition-ir.test.ts:163:				export const useValue = shared(() => { let value = state(0); return { value }; }, { scope: "${scope}" });
+packages/compiler/test/composition-ir.test.ts:293:			export const useCounter = shared(() => { let count = state(0); return { count }; });
+packages/compiler/test/composition-ir.test.ts:304:			export const useC = shared(() => { let count = state(0); return { count, increment() { count++; } }; });
+packages/compiler/test/composition-ir.test.ts:315:			export const useC = shared(() => { let count = state(0); return { count, increment() { count++; } }; });
+packages/compiler/test/generative.test.ts:366:			const changed = base.replace('state(0)', 'state(7)');
+
+
+$ /bin/zsh -lc "sed -n '1610,1665p' packages/frameworks/react/src/emitter/index.ts
+rg -n \"function expression\\(|const expression\" packages/frameworks/react/src/emitter/index.ts
+rg -n \"async function build|const build\" packages/frameworks/react/test/emitter.test.ts | head"
+exit=0
+		if (behavior.componentId === component.id)
+			for (const input of behavior.inputs) ids.add(input.graphNodeId);
+	return ids;
+}
+
+function identifierIsUsed(ir: EnrichedIR, component: EnrichedComponent, name: string): boolean {
+	let used = false;
+	walk(
+		{
+			guards: component.guards,
+			template: component.template,
+			events: ir.records.events.filter((event) => event.componentId === component.id),
+			bindings: ir.records.bindings.filter((binding) => binding.componentId === component.id),
+		},
+		(record) => {
+			if (record.type === 'Identifier' && record.name === name) used = true;
+		},
+	);
+	return used;
+}
+
+function expression(node: SerializableAstNode | null | undefined): t.Expression {
+	const converted = node == null ? null : (structuredClone(node) as t.Node);
+	if (!converted || !t.isExpression(converted)) {
+		throw new Error(`Expected an expression, received ${converted?.type ?? 'null'}`);
+	}
+	return converted;
+}
+
+function unwrapComputed(binding: EnrichedGraphBinding): t.Expression {
+	if (!binding.computed) throw new Error(`Computed ${binding.id} has no expression`);
+	const fn = expression(binding.computed.expression);
+	if (!t.isArrowFunctionExpression(fn) || fn.params.length !== 0) {
+		throw new Error(`Computed ${binding.id} must be a zero-argument arrow`);
+	}
+	if (t.isBlockStatement(fn.body)) {
+		const returns = fn.body.body.filter((statement: any): statement is t.ReturnStatement =>
+			t.isReturnStatement(statement),
+		);
+		if (returns.length !== 1 || !returns[0]!.argument) {
+			throw new Error(`Computed ${binding.id} needs one returned expression`);
+		}
+		return returns[0]!.argument;
+	}
+	return fn.body;
+}
+
+function useStateInitializer(initializer: t.Expression): t.Expression {
+	// T002 ruling 1: primitive literals are passed directly; prop-reading and
+	// otherwise non-literal initializers remain lazy once-per-instance functions.
+	if (
+		t.isStringLiteral(initializer) ||
+		t.isNumericLiteral(initializer) ||
+		t.isBooleanLiteral(initializer) ||
+		t.isNullLiteral(initializer)
+	) {
+1631:function expression(node: SerializableAstNode | null | undefined): t.Expression {
+945:			const build = new Function(
+1478:		const build = (filename: string, source: string) => buildEnrichedIr({ filename, source });
+
+
+$ /bin/zsh -lc 'pnpm --dir packages/frameworks/react test -- --run test/emitter.test.ts'
+exit=1
+ ELIFECYCLE  Test failed. See above for more details.
+ WARN   Local package.json exists, but node_modules missing, did you mean to install?
+
+
+$ /bin/zsh -lc 'git diff --check
+git diff -- packages/frameworks/react/src/emitter/index.ts packages/frameworks/react/test/emitter.test.ts
+pnpm exec prettier --check packages/frameworks/react/src/emitter/index.ts packages/frameworks/react/test/emitter.test.ts'
+exit=254
+diff --git a/packages/frameworks/react/src/emitter/index.ts b/packages/frameworks/react/src/emitter/index.ts
+index 2c09dd7..ef6a0c9 100644
+--- a/packages/frameworks/react/src/emitter/index.ts
++++ b/packages/frameworks/react/src/emitter/index.ts
+@@ -3844,6 +3844,12 @@ function createStoreDeclaration(
+ 	for (const method of definition.methods) {
+ 		const property = expression(method.site as SerializableAstNode) as any;
+ 		const params = property.value?.params ?? [];
++		const localConsts = property.value?.body?.body
++			?.filter(
++				(statement: t.Statement): statement is t.VariableDeclaration =>
++					t.isVariableDeclaration(statement, { kind: 'const' }),
++			)
++			.map((statement: t.VariableDeclaration) => t.cloneNode(statement, true)) ?? [];
+ 		const changedName = context.names.claim('changed');
+ 		const initialNames = new Map(
+ 			stateCells.map((cell) => [
+@@ -3852,6 +3858,7 @@ function createStoreDeclaration(
+ 			]),
+ 		);
+ 		const methodBody: t.Statement[] = [
++			...localConsts,
+ 			t.variableDeclaration('const', [
+ 				t.variableDeclarator(
+ 					t.identifier(changedName),
+diff --git a/packages/frameworks/react/test/emitter.test.ts b/packages/frameworks/react/test/emitter.test.ts
+index 2bb1d89..0b07f94 100644
+--- a/packages/frameworks/react/test/emitter.test.ts
++++ b/packages/frameworks/react/test/emitter.test.ts
+@@ -1660,6 +1660,22 @@ export function SyncProbe({ onTrace }) @{
+ 			expect(pageSource).not.toContain('ValueProvider');
+ 		});
+ 
++		test('preserves method-local const declarations used by shared state writes', async () => {
++			const ir = await build(
++				'src/shared-handler-local.tsrx',
++				`import { shared, state } from "@markless/core";
++				export const useCounter = shared(() => { let count = state(0); return { count, add(step) { const next = count + step; count = next; } }; });
++				export function Counter() @{ const counter = useCounter(); <button onClick={() => counter.add(2)}>{counter.count}</button> }`,
++			);
++			const source = emit(ir);
++			expect(source).toMatch(
++				/add\(step\) \{\s*const next = count \+ step;[\s\S]*?writeCount\(next, changed\)/,
++			);
++			expect(analyze(source, { lang: 'tsx', sourceType: 'module' }).diagnostics).toEqual(
++				[],
++			);
++		});
++
+ 		test('emits direct handles and one memoized callback ref with reverse cleanup', async () => {
+ 			const ir = await build(
+ 				'src/handles.tsrx',
+undefined
+ ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL  Command "prettier" not found
+
+
+$ /bin/zsh -lc 'pnpm --dir packages/frameworks/react test --run test/emitter.test.ts'
+exit=1
+
+> @frameless/react@0.0.0 test /private/tmp/guessless-real-agent-benchmark-v1/task-04-frameless-handler-local/control/packages/frameworks/react
+> vitest run --config vitest.node.config.ts --run test/emitter.test.ts
+
+sh: vitest: command not found
+ ELIFECYCLE  Test failed. See above for more details.
+ WARN   Local package.json exists, but node_modules missing, did you mean to install?
+
+

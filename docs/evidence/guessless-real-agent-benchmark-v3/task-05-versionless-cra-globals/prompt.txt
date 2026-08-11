@@ -1,0 +1,1 @@
+Extend the generic React CRA Vite adapter to provide configured browser global identifiers such as process without rewriting strings, comments, property keys, or locally shadowed bindings. Keep the capability generic and fail closed on unsupported configuration. Add focused regression tests and run the relevant adapter tests.

@@ -1,0 +1,52 @@
+diff --git a/packages/frameworks/react/src/emitter/index.ts b/packages/frameworks/react/src/emitter/index.ts
+index 2c09dd7..ef6a0c9 100644
+--- a/packages/frameworks/react/src/emitter/index.ts
++++ b/packages/frameworks/react/src/emitter/index.ts
+@@ -3844,6 +3844,12 @@ function createStoreDeclaration(
+ 	for (const method of definition.methods) {
+ 		const property = expression(method.site as SerializableAstNode) as any;
+ 		const params = property.value?.params ?? [];
++		const localConsts = property.value?.body?.body
++			?.filter(
++				(statement: t.Statement): statement is t.VariableDeclaration =>
++					t.isVariableDeclaration(statement, { kind: 'const' }),
++			)
++			.map((statement: t.VariableDeclaration) => t.cloneNode(statement, true)) ?? [];
+ 		const changedName = context.names.claim('changed');
+ 		const initialNames = new Map(
+ 			stateCells.map((cell) => [
+@@ -3852,6 +3858,7 @@ function createStoreDeclaration(
+ 			]),
+ 		);
+ 		const methodBody: t.Statement[] = [
++			...localConsts,
+ 			t.variableDeclaration('const', [
+ 				t.variableDeclarator(
+ 					t.identifier(changedName),
+diff --git a/packages/frameworks/react/test/emitter.test.ts b/packages/frameworks/react/test/emitter.test.ts
+index 2bb1d89..0b07f94 100644
+--- a/packages/frameworks/react/test/emitter.test.ts
++++ b/packages/frameworks/react/test/emitter.test.ts
+@@ -1660,6 +1660,22 @@ export function SyncProbe({ onTrace }) @{
+ 			expect(pageSource).not.toContain('ValueProvider');
+ 		});
+ 
++		test('preserves method-local const declarations used by shared state writes', async () => {
++			const ir = await build(
++				'src/shared-handler-local.tsrx',
++				`import { shared, state } from "@markless/core";
++				export const useCounter = shared(() => { let count = state(0); return { count, add(step) { const next = count + step; count = next; } }; });
++				export function Counter() @{ const counter = useCounter(); <button onClick={() => counter.add(2)}>{counter.count}</button> }`,
++			);
++			const source = emit(ir);
++			expect(source).toMatch(
++				/add\(step\) \{\s*const next = count \+ step;[\s\S]*?writeCount\(next, changed\)/,
++			);
++			expect(analyze(source, { lang: 'tsx', sourceType: 'module' }).diagnostics).toEqual(
++				[],
++			);
++		});
++
+ 		test('emits direct handles and one memoized callback ref with reverse cleanup', async () => {
+ 			const ir = await build(
+ 				'src/handles.tsrx',

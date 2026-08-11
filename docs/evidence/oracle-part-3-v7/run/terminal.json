@@ -1,0 +1,628 @@
+{
+	"decision": "NO_GO",
+	"files": [
+		{
+			"bytes": 8838,
+			"path": "corpora/execa/lib/arguments/command-file.js",
+			"sha256": "e8c38980bfd31b423f6a20ea1519fca5134eab777c207f11adff31cfb5b70934"
+		},
+		{
+			"bytes": 777,
+			"path": "corpora/execa/lib/arguments/command.js",
+			"sha256": "7a70e7f9c339ddcbdbf676cc7078bf507a134bddadff47f1dbc418aa90a58a69"
+		},
+		{
+			"bytes": 1012,
+			"path": "corpora/execa/lib/arguments/cwd.js",
+			"sha256": "1959b4be8b0b3b7a8dd4845d864314a80764f161beee5fe8d614d30afa34c9b3"
+		},
+		{
+			"bytes": 1481,
+			"path": "corpora/execa/lib/arguments/encoding-option.js",
+			"sha256": "a6bfb52883379a8d63ae26290c3a8b4fccbf31c8d539bc935319dc59dcaf9666"
+		},
+		{
+			"bytes": 3728,
+			"path": "corpora/execa/lib/arguments/escape.js",
+			"sha256": "668db873623d98b12b81157301f9df4b7d43362edf01ee69563ece925649d8c0"
+		},
+		{
+			"bytes": 4071,
+			"path": "corpora/execa/lib/arguments/fd-options.js",
+			"sha256": "156769a282374326c665e584183e00663ec5eb16996adbae0eabb389f0c95cbf"
+		},
+		{
+			"bytes": 960,
+			"path": "corpora/execa/lib/arguments/file-url.js",
+			"sha256": "a3acafd429e0c16e8478535739459bed6d86f8f77bd6cdd63d2fed7f3634feee"
+		},
+		{
+			"bytes": 3484,
+			"path": "corpora/execa/lib/arguments/options.js",
+			"sha256": "67e01a0d8bf0351d00b3eb2744d9955a70d2476a3bed617c38f18897c5105b9c"
+		},
+		{
+			"bytes": 926,
+			"path": "corpora/execa/lib/arguments/shell.js",
+			"sha256": "1287d5e47b01bb60ee77aac753fde3051284638f8ebacdf7ae11949f8d650fd9"
+		},
+		{
+			"bytes": 3865,
+			"path": "corpora/execa/lib/arguments/specific.js",
+			"sha256": "f10ee0e1a76895e22ea4b29bf0cc24f57c2adf9abebe45321dcacec5c37a95a0"
+		},
+		{
+			"bytes": 1215,
+			"path": "corpora/execa/lib/convert/add.js",
+			"sha256": "41a38c68a655ee26bc31b5a7ebd53ddf8d44e3c7feeec0ddd8b2b958b5ee4864"
+		},
+		{
+			"bytes": 1155,
+			"path": "corpora/execa/lib/convert/concurrent.js",
+			"sha256": "e05e8b10b680dafcb35c28f65008be14d254d818262082f4fd94ccbab991b583"
+		},
+		{
+			"bytes": 2274,
+			"path": "corpora/execa/lib/convert/duplex.js",
+			"sha256": "df4b3af7d3f2c45f5cb65d47b6e2b1bac6233ee2a944d5ab743542b475a223d7"
+		},
+		{
+			"bytes": 951,
+			"path": "corpora/execa/lib/convert/iterable.js",
+			"sha256": "adf75daaec197245af457d0a1ebd34762f34d24e062668e8a5312d1035eddc0f"
+		},
+		{
+			"bytes": 4237,
+			"path": "corpora/execa/lib/convert/readable.js",
+			"sha256": "a1feb396dc873bbffb0f119e57f165de3bfa20de87745268eb2f07ce83d73349"
+		},
+		{
+			"bytes": 1201,
+			"path": "corpora/execa/lib/convert/shared.js",
+			"sha256": "ca8859ad8da7fad10cad5f21f7ed7a3b6c20726355eaf2a9f51b5e09043d4c87"
+		},
+		{
+			"bytes": 614,
+			"path": "corpora/execa/lib/convert/web.js",
+			"sha256": "d4ac041d4c9343b93411b46c053023a73de2a07a827c1ab62e6a51e02e1a8a6b"
+		},
+		{
+			"bytes": 4043,
+			"path": "corpora/execa/lib/convert/writable.js",
+			"sha256": "33985f64fa6a00f0397affd51386c03178e53df2370a1c671a550eb3bf9ce931"
+		},
+		{
+			"bytes": 3244,
+			"path": "corpora/execa/lib/io/contents.js",
+			"sha256": "33ed312509f5bc85149319b1128ef516c30bfa0e75b0f7188c842dc3de8cd66f"
+		},
+		{
+			"bytes": 1948,
+			"path": "corpora/execa/lib/io/input-sync.js",
+			"sha256": "291eeffd58379433ccbf8ab4d5a86265582604b55cf5ec57c4a6f962bea4473d"
+		},
+		{
+			"bytes": 3692,
+			"path": "corpora/execa/lib/io/iterate.js",
+			"sha256": "9595a0340fe85fe0f058bb7c12d10124e50617b59f7be749400e0c3e16366e23"
+		},
+		{
+			"bytes": 2894,
+			"path": "corpora/execa/lib/io/max-buffer.js",
+			"sha256": "d6d8244eb7f90375fc82bc1401aad340a7257493b873c7320752cd5e8205d21a"
+		},
+		{
+			"bytes": 3105,
+			"path": "corpora/execa/lib/io/output-async.js",
+			"sha256": "26eaac03e07e47afd6d3cfa8739f9242872ecb873e253971b5f2f328621edeb6"
+		},
+		{
+			"bytes": 3930,
+			"path": "corpora/execa/lib/io/output-sync.js",
+			"sha256": "8b3a9fa81455c7a82e7b879c583b608e385c56a258b571dc37acd163df4413bc"
+		},
+		{
+			"bytes": 1319,
+			"path": "corpora/execa/lib/io/pipeline.js",
+			"sha256": "1b98e30e2dbc2f1668bcebafdc4545e0e2a90352d5eea1888fea208a1f8f10be"
+		},
+		{
+			"bytes": 708,
+			"path": "corpora/execa/lib/io/strip-newline.js",
+			"sha256": "9ca28a495691a524c099d05a60c2256bb776f2b48dee38d699e6d2b0369e468b"
+		},
+		{
+			"bytes": 165,
+			"path": "corpora/execa/lib/ipc/array.js",
+			"sha256": "283e1c6e1b0feea87e9aff3184dd67d97c3fb8ef7b9f35f70b31b369c962fc7a"
+		},
+		{
+			"bytes": 1147,
+			"path": "corpora/execa/lib/ipc/buffer-messages.js",
+			"sha256": "2f1151d4464dc8afdcea48d466a9d6a83ffc1a5be580643b6d7a2589b2e246f0"
+		},
+		{
+			"bytes": 1963,
+			"path": "corpora/execa/lib/ipc/forward.js",
+			"sha256": "36e03f6d8f16e11b06411263ee1aa77f9a1f9057e310f8c1e188e9a191dd1872"
+		},
+		{
+			"bytes": 3028,
+			"path": "corpora/execa/lib/ipc/get-each.js",
+			"sha256": "a3b9bc5428030909c8790c5af1717e7ddc2cb1f2c2df34c08a2805a8b2ec3394"
+		},
+		{
+			"bytes": 2416,
+			"path": "corpora/execa/lib/ipc/get-one.js",
+			"sha256": "bfa5636739ae4b6caa851d9f4fc856eabdb44b90beabd987f442557e4033919f"
+		},
+		{
+			"bytes": 1938,
+			"path": "corpora/execa/lib/ipc/graceful.js",
+			"sha256": "609b656a5c839d3c3f6e98f8b7e28625a23e523daf343b1621edaeee00ead06b"
+		},
+		{
+			"bytes": 3544,
+			"path": "corpora/execa/lib/ipc/incoming.js",
+			"sha256": "4d7bb16ec3529edd516d8807530dd9911696252ef1100da7ecccf4ee1a9e85ed"
+		},
+		{
+			"bytes": 1207,
+			"path": "corpora/execa/lib/ipc/ipc-input.js",
+			"sha256": "619b0b4c3ec9909248dcb29ad4795f15ebadba5a91fe664ec5efc2c306673097"
+		},
+		{
+			"bytes": 1336,
+			"path": "corpora/execa/lib/ipc/methods.js",
+			"sha256": "1782cf71a0699c675e0e050b6ee69b827f580b991e7089c6528e93ee684e0db1"
+		},
+		{
+			"bytes": 2458,
+			"path": "corpora/execa/lib/ipc/outgoing.js",
+			"sha256": "5898e14cf3dee440f864175163f41803b8bada6650d20c71c7bbb256835985f3"
+		},
+		{
+			"bytes": 1797,
+			"path": "corpora/execa/lib/ipc/reference.js",
+			"sha256": "31f2260fd93892453e7917d3b1d34dba58bdf725fc1dc16ad20603334dc6f7fb"
+		},
+		{
+			"bytes": 2379,
+			"path": "corpora/execa/lib/ipc/send.js",
+			"sha256": "5622cd018cacb1848294679bf57396c51b1fe940feb4c07908a0824ec28201d1"
+		},
+		{
+			"bytes": 3318,
+			"path": "corpora/execa/lib/ipc/strict.js",
+			"sha256": "57ea6748670ce142e78d9c4927f4729c755823ef8f7296ed0ad38d4fa568d840"
+		},
+		{
+			"bytes": 5710,
+			"path": "corpora/execa/lib/ipc/validation.js",
+			"sha256": "0c15a0b39591cfc8c2daabbbeb41f0d96ce8b74bea34368d18db13ec0aac28db"
+		},
+		{
+			"bytes": 964,
+			"path": "corpora/execa/lib/methods/bind.js",
+			"sha256": "9aea587ff286743f10737bdf2f0cc763dfe107d950fb3b71fc728845000f7a05"
+		},
+		{
+			"bytes": 813,
+			"path": "corpora/execa/lib/methods/command.js",
+			"sha256": "74762b4456d1f2503596ce28b0245f96e39a0751877a2c35a09ebc215e740f13"
+		},
+		{
+			"bytes": 2371,
+			"path": "corpora/execa/lib/methods/create.js",
+			"sha256": "33882d901ca55eaac2a104f0a486ed37852029b96cf693cbee5f588fb7abae8b"
+		},
+		{
+			"bytes": 7036,
+			"path": "corpora/execa/lib/methods/main-async.js",
+			"sha256": "7892316a4b365a359c82c976a2bc69408630333a054b682fe1b758a215b4fc4c"
+		},
+		{
+			"bytes": 4799,
+			"path": "corpora/execa/lib/methods/main-sync.js",
+			"sha256": "609029fd0b55f077dbf6678a78ccd765dff38bd04f8f3d445849dc3fe15a1cad"
+		},
+		{
+			"bytes": 1836,
+			"path": "corpora/execa/lib/methods/node.js",
+			"sha256": "993722e63c81f5d16063298dacefec12c92783aab1fbdc29d9191fefe3ffa338"
+		},
+		{
+			"bytes": 1464,
+			"path": "corpora/execa/lib/methods/parameters.js",
+			"sha256": "c6fa237a7a5a324253973939bb419e5b58f240c43ab37ad3c75cefdfc682439f"
+		},
+		{
+			"bytes": 161,
+			"path": "corpora/execa/lib/methods/promise.js",
+			"sha256": "dbd880ab413d91ebd1ebd55dfc40930d00582624dc5381b4877c1fdc13201ce7"
+		},
+		{
+			"bytes": 1015,
+			"path": "corpora/execa/lib/methods/script.js",
+			"sha256": "58bb398a735f1f0e141259d14f3b921b0788894d28c6fc411b43983f0eb73f66"
+		},
+		{
+			"bytes": 5002,
+			"path": "corpora/execa/lib/methods/template.js",
+			"sha256": "842776a2afffea80a9ba3f942745669b4758c8c3dc70c17706476f2c1b34f3c5"
+		},
+		{
+			"bytes": 746,
+			"path": "corpora/execa/lib/pipe/abort.js",
+			"sha256": "a326c1ae1cec87626c2a8a573960384073e93f20c5238d477565d8f4152c2063"
+		},
+		{
+			"bytes": 3317,
+			"path": "corpora/execa/lib/pipe/pipe-arguments.js",
+			"sha256": "5ec6e49158f1ebc70fc2004433f694deb16e0d805909dfcfe7e7efaed7b377cb"
+		},
+		{
+			"bytes": 950,
+			"path": "corpora/execa/lib/pipe/sequence.js",
+			"sha256": "c7947b58b3287ce0531ce93d90eaee6e2dad1f4c01bfb2471da06db7e2613e7b"
+		},
+		{
+			"bytes": 7961,
+			"path": "corpora/execa/lib/pipe/setup.js",
+			"sha256": "f347f4ee17b3937026ed23ab4ff61e6fbecb6f3d8678cbe742bcd426a1767c2a"
+		},
+		{
+			"bytes": 2410,
+			"path": "corpora/execa/lib/pipe/streaming.js",
+			"sha256": "8aeb280427094c150f50cddc1aa9937f1106bd76ed5e9f9ef1d98f7c5b87f9c5"
+		},
+		{
+			"bytes": 1504,
+			"path": "corpora/execa/lib/pipe/throw.js",
+			"sha256": "510c40add49dd0f270aa70d7ee77abf5810a9328d5f6088e3b7f1b10cff64d5b"
+		},
+		{
+			"bytes": 1728,
+			"path": "corpora/execa/lib/resolve/all-async.js",
+			"sha256": "776ae07a3e13aa950ba6c3ab4b18bca9ea26866ef4ec08c95213adb30a4ca0ef"
+		},
+		{
+			"bytes": 751,
+			"path": "corpora/execa/lib/resolve/all-sync.js",
+			"sha256": "cf6e1a225bd5f9bb15e84bd471ddd178b97f774447ec4a11d1c27d718e5da106"
+		},
+		{
+			"bytes": 1867,
+			"path": "corpora/execa/lib/resolve/exit-async.js",
+			"sha256": "0b966211c9a6780db62816689682944e3eb91906a8ce1835e241ccc007b27a52"
+		},
+		{
+			"bytes": 796,
+			"path": "corpora/execa/lib/resolve/exit-sync.js",
+			"sha256": "76e9a3aab824f3d7ef7d3465cc96246ac62ca4d295640361d9cd935fe366f51a"
+		},
+		{
+			"bytes": 1279,
+			"path": "corpora/execa/lib/resolve/stdio.js",
+			"sha256": "86dbe376f2fbcea467021e65c912d1893441dde7c857ac072b3c3edce967e46e"
+		},
+		{
+			"bytes": 5109,
+			"path": "corpora/execa/lib/resolve/wait-stream.js",
+			"sha256": "f9308d6bf4dea30c579fe3e19a2a8818c3ed3d38ad6d37ff4fcc65aa752bbbaf"
+		},
+		{
+			"bytes": 4317,
+			"path": "corpora/execa/lib/resolve/wait-subprocess.js",
+			"sha256": "dac1d9fe077ecaf8d360c8d235684bdebd35cac69e550307b5d0ddfc7c713d49"
+		},
+		{
+			"bytes": 313,
+			"path": "corpora/execa/lib/return/duration.js",
+			"sha256": "ef3ae41de1f3fbb3859ed666005759df37fef88e7c3553a08903aebf1bd3a87a"
+		},
+		{
+			"bytes": 2134,
+			"path": "corpora/execa/lib/return/early-error.js",
+			"sha256": "05ef75b97a6c44e60cdb3cf816ad03648e4d165ec569fbbda29105510c1ca56f"
+		},
+		{
+			"bytes": 1758,
+			"path": "corpora/execa/lib/return/final-error.js",
+			"sha256": "ae62b4155d29481cff385bceb96410f9ad706734e439e47ddc6d97a151a2efed"
+		},
+		{
+			"bytes": 4238,
+			"path": "corpora/execa/lib/return/message.js",
+			"sha256": "baf12c56c61761f064d6fe333cfe4ce2575518e01235380107f1ca0ed45d01f8"
+		},
+		{
+			"bytes": 302,
+			"path": "corpora/execa/lib/return/reject.js",
+			"sha256": "e87e37879294e167be09b0af5944846c6101f973d25db63551e97e2e1fd1b7f5"
+		},
+		{
+			"bytes": 3690,
+			"path": "corpora/execa/lib/return/result.js",
+			"sha256": "ee02de07269ac5a12ae2c628039227b6f31201f146283e78fd3ee99ed59283e1"
+		},
+		{
+			"bytes": 3671,
+			"path": "corpora/execa/lib/stdio/direction.js",
+			"sha256": "a1c920d1fc3057c2a5ed65b4784cdfd08fc45d79921a241ca4924239c8c2c776"
+		},
+		{
+			"bytes": 4150,
+			"path": "corpora/execa/lib/stdio/duplicate.js",
+			"sha256": "5e7213fbd896bd26121741467cadf220ccb4a814c3369b161abbadcfb87481c4"
+		},
+		{
+			"bytes": 2228,
+			"path": "corpora/execa/lib/stdio/handle-async.js",
+			"sha256": "b09125e9feb915ae324fffa5c222f277782fad8cbca8d1201c141fb62317038a"
+		},
+		{
+			"bytes": 2503,
+			"path": "corpora/execa/lib/stdio/handle-sync.js",
+			"sha256": "21edc9fd4e6f7b3ab6b4bfd986fb5bc91aa540041463bfc2da9b3c8ed5366a8b"
+		},
+		{
+			"bytes": 8249,
+			"path": "corpora/execa/lib/stdio/handle.js",
+			"sha256": "dc6640a2d74035b16e03e8069b2a697ce7d73922d088ad80ece9ee96ef15a2d1"
+		},
+		{
+			"bytes": 1302,
+			"path": "corpora/execa/lib/stdio/input-option.js",
+			"sha256": "409304048011440cf86e942d9fecc192f3411495b9007ffa42a38e2ac1838ba1"
+		},
+		{
+			"bytes": 3771,
+			"path": "corpora/execa/lib/stdio/native.js",
+			"sha256": "d77c5802fea69c0c3126f613164de88ea89d03ccd4658fa8ec31f0d350bd814a"
+		},
+		{
+			"bytes": 3649,
+			"path": "corpora/execa/lib/stdio/stdio-option.js",
+			"sha256": "46d27d47f2877ea1b5ee4f386f20a7ba13e3607278aad2186cc017dcab7cd6a7"
+		},
+		{
+			"bytes": 6754,
+			"path": "corpora/execa/lib/stdio/type.js",
+			"sha256": "e256cb1c0e8b03361e00fe1f7f589d51a99868a7501b18aaccdaf99fafd69f7d"
+		},
+		{
+			"bytes": 883,
+			"path": "corpora/execa/lib/terminate/cancel.js",
+			"sha256": "8276b486378f415c37371d55395f9bb43f589213137900909cdb555ebe22767d"
+		},
+		{
+			"bytes": 411,
+			"path": "corpora/execa/lib/terminate/cleanup.js",
+			"sha256": "b28810e3d5ce6d4781ac4860e692a85864dfff468c7bae6bd1e88ab2b65b2c2d"
+		},
+		{
+			"bytes": 1945,
+			"path": "corpora/execa/lib/terminate/graceful.js",
+			"sha256": "b8dfbb3ac3f0697620c35471fbbc249e23208123536de705a705b6829612cbf8"
+		},
+		{
+			"bytes": 3094,
+			"path": "corpora/execa/lib/terminate/kill-descendants.js",
+			"sha256": "087dfcef9eeb4cf7ba2f0987ceb36c6d7f0f4f249d34480c290c6bb12767d45d"
+		},
+		{
+			"bytes": 2922,
+			"path": "corpora/execa/lib/terminate/kill.js",
+			"sha256": "a421b659fd893176fbf4b7dd4fea7dff5895e64573e650df50100f1ce71451f3"
+		},
+		{
+			"bytes": 2507,
+			"path": "corpora/execa/lib/terminate/signal.js",
+			"sha256": "1a3420055d09db94095c05370c59b2d680d8d9d102e0154e43b0df42ea4b94bc"
+		},
+		{
+			"bytes": 819,
+			"path": "corpora/execa/lib/terminate/timeout.js",
+			"sha256": "4030cbf861f1297ab0a8856bc7eb7e88ff4b7abc54eb91e518c2a0faaa8f6f57"
+		},
+		{
+			"bytes": 1624,
+			"path": "corpora/execa/lib/transform/encoding-transform.js",
+			"sha256": "f94372bd1e0f74ffa77aaff61fcedede35fc2f93d009ca63fdbcbd144453821c"
+		},
+		{
+			"bytes": 3752,
+			"path": "corpora/execa/lib/transform/generator.js",
+			"sha256": "701663eb3e4b555be970f6c155ed642c3a44e5679a8693e19773760f197b2e9f"
+		},
+		{
+			"bytes": 3284,
+			"path": "corpora/execa/lib/transform/normalize.js",
+			"sha256": "4b9d518d54ac73e829993afd34a1c462dd5250c85423070545f0c113203c5d38"
+		},
+		{
+			"bytes": 1881,
+			"path": "corpora/execa/lib/transform/object-mode.js",
+			"sha256": "4a2ae5b8d531ae5ad9e18c74db1aa8e6c7ebbff48a01e35c65d44b7eba60a225"
+		},
+		{
+			"bytes": 1739,
+			"path": "corpora/execa/lib/transform/run-async.js",
+			"sha256": "4fdb37f89ee289623ebafb71cdb720443fbc6ca0565aec2f49fc953665f72e59"
+		},
+		{
+			"bytes": 1355,
+			"path": "corpora/execa/lib/transform/run-sync.js",
+			"sha256": "2b477f3f82d39deb151ab9651c6c680f57fd2a9a762ad9880d404ce3ab076a00"
+		},
+		{
+			"bytes": 3324,
+			"path": "corpora/execa/lib/transform/split.js",
+			"sha256": "872ff4f779bbc5d82279033a7028cb3405cef5da409fbb67d86c92bc6979fc71"
+		},
+		{
+			"bytes": 1711,
+			"path": "corpora/execa/lib/transform/validate.js",
+			"sha256": "c053205a64f343c6a472d80bd8537e22e5865d7595c8bfbbc89af42da9aa9446"
+		},
+		{
+			"bytes": 303,
+			"path": "corpora/execa/lib/utils/abort-signal.js",
+			"sha256": "c122a19613ec347f5ca9dbf379810536f5632bb1311dd63288e8c519aaebf2b2"
+		},
+		{
+			"bytes": 205,
+			"path": "corpora/execa/lib/utils/deferred.js",
+			"sha256": "ea3d40f53eb7d0fcd20ab8755cb24449459aa725a5167f558433000a8a812606"
+		},
+		{
+			"bytes": 533,
+			"path": "corpora/execa/lib/utils/max-listeners.js",
+			"sha256": "031f7877c61d811ebc5d6658873ca2ffc21c4fc33283c013317cfbdedff26820"
+		},
+		{
+			"bytes": 367,
+			"path": "corpora/execa/lib/utils/standard-stream.js",
+			"sha256": "a20dae707b3e56b5d423b1e753fc51e7bcc9091f49151b04e45ebf698a1c4f24"
+		},
+		{
+			"bytes": 2308,
+			"path": "corpora/execa/lib/utils/uint-array.js",
+			"sha256": "efefbf9e06e4a4fb5f4d8249b3caa43bbac5a1af18b348775ba3e7a3e46c12f0"
+		},
+		{
+			"bytes": 611,
+			"path": "corpora/execa/lib/verbose/complete.js",
+			"sha256": "63646efd455f1cc58f99c955593ba3de0a18c2bd8d4661493174965d14a93615"
+		},
+		{
+			"bytes": 869,
+			"path": "corpora/execa/lib/verbose/custom.js",
+			"sha256": "4275aeaa6307a470acbfd8616d365661da62901213535e2b1a34addb032fcc2a"
+		},
+		{
+			"bytes": 1406,
+			"path": "corpora/execa/lib/verbose/default.js",
+			"sha256": "b647d8805981f5d81cc56a69154ecf80e18a1ea5a9e34bb3505d42a82edcf091"
+		},
+		{
+			"bytes": 306,
+			"path": "corpora/execa/lib/verbose/error.js",
+			"sha256": "73ba71d68865ea9673c2c3ab289c223841ad815b17a7b12e3f5283b5efe4091d"
+		},
+		{
+			"bytes": 1511,
+			"path": "corpora/execa/lib/verbose/info.js",
+			"sha256": "564bc557ff8ed91c289e8f1cdcbcc2061c169a06dc93723566710d253d2903bc"
+		},
+		{
+			"bytes": 458,
+			"path": "corpora/execa/lib/verbose/ipc.js",
+			"sha256": "bb573eec20b7641a09648d237ad841b6875533e6de27b3a7871be8a0eb85eecb"
+		},
+		{
+			"bytes": 2093,
+			"path": "corpora/execa/lib/verbose/log.js",
+			"sha256": "27a57b6e5e64008914d80866e999bb70b8afbeb8772232c8ce2149a6452b8727"
+		},
+		{
+			"bytes": 2721,
+			"path": "corpora/execa/lib/verbose/output.js",
+			"sha256": "7ce99303c84d58f7be64cd73a5242478dfd735d73b362beb3bbfcb5bf7d948ed"
+		},
+		{
+			"bytes": 335,
+			"path": "corpora/execa/lib/verbose/start.js",
+			"sha256": "3e5c13a862a9644020967c8ca51804fea00bf5255630d293aaa7f36b8acc3f8a"
+		},
+		{
+			"bytes": 1649,
+			"path": "corpora/execa/lib/verbose/values.js",
+			"sha256": "ac2361cac33e010b89ba7e298013f85496913e909f309fe86ff1b37ec2bc0865"
+		},
+		{
+			"bytes": 4475,
+			"path": "corpora/ufo/src/encoding.ts",
+			"sha256": "8700a80814edd5ecfa19bc19d61b8ad0be0dfc60dfde5ddd86ab399fda5503dc"
+		},
+		{
+			"bytes": 126,
+			"path": "corpora/ufo/src/index.ts",
+			"sha256": "42486fac22b82f8b6be79c8941e3b1827dde1a8103e9772f6ccddf2d7fdd50d3"
+		},
+		{
+			"bytes": 5988,
+			"path": "corpora/ufo/src/parse.ts",
+			"sha256": "c8b4224297787a599669cc7e41242113a927c1f5fd9b2d1c835440f247d716ea"
+		},
+		{
+			"bytes": 3003,
+			"path": "corpora/ufo/src/punycode.ts",
+			"sha256": "e389c56c10d46e33804ca595f0ece4adce3f4f16526c1f7556aeecdb53509c7b"
+		},
+		{
+			"bytes": 3352,
+			"path": "corpora/ufo/src/query.ts",
+			"sha256": "be4106f9d10b9ac90da3893c0046956375d7c67ff1430ddc8a77de899e19db49"
+		},
+		{
+			"bytes": 3367,
+			"path": "corpora/ufo/src/url.ts",
+			"sha256": "ddf9f468f1f1c169ea6fd6bc72b746c9fc4d928ee59bb08968f894452e64feca"
+		},
+		{
+			"bytes": 18078,
+			"path": "corpora/ufo/src/utils.ts",
+			"sha256": "bced262a057669ad04a2f4f6cb47439dbe3851f7c9db0f9b965ac7a004047933"
+		},
+		{
+			"bytes": 2212,
+			"path": "corpora/uvu/src/assert.d.ts",
+			"sha256": "89d4516e781ec2345b1e461720f96e7245c5e1d275626f50e6f6b79e83fab90e"
+		},
+		{
+			"bytes": 5348,
+			"path": "corpora/uvu/src/assert.js",
+			"sha256": "650cbaeebd81163bb0867a65f1131d92a6efcdf8299053f5ed43394b3f361042"
+		},
+		{
+			"bytes": 337,
+			"path": "corpora/uvu/src/diff.d.ts",
+			"sha256": "b7a2358685b3750fb83b60b21444b8a8b430cf1f7244c18b863f02e28a4e2385"
+		},
+		{
+			"bytes": 6079,
+			"path": "corpora/uvu/src/diff.js",
+			"sha256": "cdf655e7165b43ababba20d47aa872aea7631315d0f4af6b8bf4ee026e7f6047"
+		},
+		{
+			"bytes": 751,
+			"path": "corpora/uvu/src/index.d.ts",
+			"sha256": "ec771a84165cf6d628e98d018393ba1002e6bd36207e6908febc1ea756e7a666"
+		},
+		{
+			"bytes": 5146,
+			"path": "corpora/uvu/src/index.js",
+			"sha256": "dde0c5b1ef6ef2f49dc85de12882021b9b15a45e65452aff17e50d70a4fe17f8"
+		},
+		{
+			"bytes": 107,
+			"path": "decision.json",
+			"sha256": "ae2e91a2f622ab49856d40a495190e8c047e793973c29f1a70541fdc9d20c44e"
+		},
+		{
+			"bytes": 10638,
+			"path": "replay.json",
+			"sha256": "d223c5d5caa3c5ad20646456801b1cea85c9238e87fa00724e8fa38c99adae58"
+		},
+		{
+			"bytes": 3,
+			"path": "scores.json",
+			"sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+		}
+	],
+	"integrity": "076935de2ed18969739caff5f879a9db9063274d359a744e24a9bac909617b45",
+	"outcome": "partial-NO_GO",
+	"schema": "guessless.v7-evidence/v1"
+}

@@ -1,0 +1,16 @@
+{
+	"kind": "referencesOf",
+	"target": {
+		"schema": "guessless.symbol-anchor/v1",
+		"file": "packages/serializer/src/value.ts",
+		"semanticPath": [
+			"global:scope:Program",
+			"module:scope:Program",
+			"function:scope:Program>FunctionDeclaration:b77fe5d734798af924e7e5d88d685441df5b12c5cda952291512f5a88ef13ebc:0",
+			"block:scope:Program>FunctionDeclaration>BlockStatement>IfStatement>BlockStatement:74b88654cc7f886b603aa75081207bdde7c38b53310e62e6cc61f73185d41090:0",
+			"symbol:index",
+			"declaration:VariableDeclarator"
+		],
+		"fingerprint": "b60e9276e74f9531609ba9ef07f3d965814b6f3925612f5fdd3f3b6bb72fd611"
+	}
+}

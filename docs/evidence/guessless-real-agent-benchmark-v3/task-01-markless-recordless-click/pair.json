@@ -1,0 +1,18 @@
+{
+  "schema": "guessless.real-agent-benchmark.pair/v3",
+  "id": "task-01-markless-recordless-click",
+  "repository": "markless",
+  "historicalParent": "2c8dc21d51b2fa8fede09a98212b60152439c027",
+  "historicalSolution": "537e750abc824ae6b2c32f69fec07e2835b4dae5",
+  "historicalSolutionSubject": "fix(bundler): recordless click no longer kills staged dispatch on prerendered pages",
+  "startingTree": "9c36949d4cc7b44aa59c157ec9dafd2586c08146",
+  "basePromptSha256": "99ac53ee5b05fdcfd1d557a5f2e3a84760169a93d59c1c76439389451227ea79",
+  "onboardingSha256": "268ed309b55431a93b3e10ee918ee3b699534d90de310b6129b0cf6f20adeeb5",
+  "treatmentPromptSha256": "7da37fc185bb9b77f64a260df821eb34e45eeaebe6e3b616cf8b988164fd5bb1",
+  "order": "control-first",
+  "solutionAbsentBeforeLaunch": true,
+  "dependencyTree": "both arms linked identically to /Users/jacksm5pro/dev/open-source/markless/node_modules after parent and current pnpm-lock.yaml blob equality was proved",
+  "parity": "identical parent tree, model, approval mode, no timeout, environment, dependency link, and base prompt; declared treatment deltas are onboarding context and Guessless MCP argv",
+  "score": {"control": "invalid", "treatment": "invalid", "testedComplete": {"control": false, "treatment": false}, "semanticCorrect": {"control": false, "treatment": false}, "falseComplete": {"control": false, "treatment": false}},
+  "cells": ["cells/control.json", "cells/treatment.json"]
+}

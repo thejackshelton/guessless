@@ -1,0 +1,1 @@
+Fix the TypeScript plugin so every CSS mapping exposed to Volar has a deterministic, document-scoped embedded ID. Multiple style blocks must have distinct stable IDs, and files without styles must remain unchanged. Add focused regression tests and run the relevant tests.

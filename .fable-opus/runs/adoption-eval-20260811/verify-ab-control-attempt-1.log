@@ -1,0 +1,4 @@
+--- node -e 'const fs=require("fs");const f="docs/evidence/adoption-eval-fable-v1/ab/control-answer.md";const t=fs.readFileSync(f,"utf8");if(!/## Question 1/.test(t)||!/## Question 2/.test(t))throw new Error("missing sections");if(!/CLAIM: (NOT )?COMPLETE/.test(t))throw new Error("missing CLAIM line");console.log("ok",t.length,"bytes")' (exit 0) ---
+ok 10027 bytes
+
+

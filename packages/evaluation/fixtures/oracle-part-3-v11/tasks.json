@@ -1,0 +1,9 @@
+[
+	{
+		"file": "src/query.ts",
+		"id": "ufo-rename-encode-query-item",
+		"intent": "rename",
+		"repository": "ufo",
+		"symbol": "encodeQueryItem"
+	}
+]

@@ -1,0 +1,48 @@
+{"evidence":"authoritative evaluation identity mismatch","expectedRed":true,"guard":"protocol","restorationByteIdentical":true}
+{"evidence":"authoritative evaluation identity mismatch","expectedRed":true,"guard":"model","restorationByteIdentical":true}
+{"evidence":"authoritative evaluation identity mismatch","expectedRed":true,"guard":"prompt","restorationByteIdentical":true}
+{"evidence":"authoritative evaluation identity mismatch","expectedRed":true,"guard":"input","restorationByteIdentical":true}
+{"evidence":"authoritative evaluation identity mismatch","expectedRed":true,"guard":"tool","restorationByteIdentical":true}
+{"evidence":"authoritative evaluation identity mismatch","expectedRed":true,"guard":"budget","restorationByteIdentical":true}
+{"evidence":"authoritative evaluation identity mismatch","expectedRed":true,"guard":"scoring","restorationByteIdentical":true}
+{"evidence":"authoritative evaluation identity mismatch","expectedRed":true,"guard":"protocol-extra","restorationByteIdentical":true}
+{"evidence":"authoritative evaluation identity mismatch","expectedRed":true,"guard":"order","restorationByteIdentical":true}
+{"evidence":"authoritative evaluation identity mismatch","expectedRed":true,"guard":"response-schema","restorationByteIdentical":true}
+{"evidence":"receipt-derived ground truth mismatch","expectedRed":true,"guard":"ground-truth","restorationByteIdentical":true}
+{"evidence":"six completed sentinel cells","expectedRed":true,"guard":"production-complete-zero-codex","restorationByteIdentical":true}
+{"evidence":"durable failure at 0","expectedRed":true,"guard":"production-failure-0","restorationByteIdentical":true}
+{"evidence":"durable failure at 2","expectedRed":true,"guard":"production-failure-2","restorationByteIdentical":true}
+{"evidence":"durable failure at 5","expectedRed":true,"guard":"production-failure-5","restorationByteIdentical":true}
+{"evidence":"run-01-rename-control transcript hash mismatch","expectedRed":true,"guard":"transcript","restorationByteIdentical":true}
+{"evidence":"evaluation protocol mismatch","expectedRed":true,"guard":"protocol-semantic","restorationByteIdentical":true}
+{"evidence":"evaluation run order mismatch","expectedRed":true,"guard":"order","restorationByteIdentical":true}
+{"evidence":"run-01-rename-control cumulative failure classification mismatch","expectedRed":true,"guard":"failure-state","restorationByteIdentical":true}
+{"evidence":"run-01-rename-control unknown run state","expectedRed":true,"guard":"unknown-state","restorationByteIdentical":true}
+{"evidence":"run-01-rename-control keys mismatch","expectedRed":true,"guard":"completed-forbidden-reason","restorationByteIdentical":true}
+{"evidence":"run-01-rename-control immutablePostflight boolean mismatch","expectedRed":true,"guard":"completed-nonboolean-immutable-postflight","restorationByteIdentical":true}
+{"evidence":"run-01-rename-control unrun outcome mismatch","expectedRed":true,"guard":"unrun-state","restorationByteIdentical":true}
+{"evidence":"run-01-rename-control exact argv mismatch","expectedRed":true,"guard":"argv","restorationByteIdentical":true}
+{"evidence":"run-01-rename-control child environment contract mismatch","expectedRed":true,"guard":"environment","restorationByteIdentical":true}
+{"evidence":"run-01-rename-control failed transcript replay mismatch","expectedRed":true,"guard":"tool-count","restorationByteIdentical":true}
+{"evidence":"run-01-rename-control failed transcript replay mismatch","expectedRed":true,"guard":"token-count","restorationByteIdentical":true}
+{"evidence":"run-01-rename-control failed transcript replay mismatch","expectedRed":true,"guard":"terminal","restorationByteIdentical":true}
+{"evidence":"run-01-rename-control failed transcript replay mismatch","expectedRed":true,"guard":"duplicate-reportedSiteIds-transcript","restorationByteIdentical":true}
+{"evidence":"run-01-rename-control failed transcript replay mismatch","expectedRed":true,"guard":"duplicate-unresolvedSiteIds-transcript","restorationByteIdentical":true}
+{"evidence":"evaluation score mismatch","expectedRed":true,"guard":"score","restorationByteIdentical":true}
+{"evidence":"evaluation score mismatch","expectedRed":true,"guard":"false-completeness","restorationByteIdentical":true}
+{"evidence":"evaluation benchmarks mismatch","expectedRed":true,"guard":"benchmark-identity","restorationByteIdentical":true}
+{"evidence":"evaluation benchmarks mismatch","expectedRed":true,"guard":"benchmark-model","restorationByteIdentical":true}
+{"evidence":"evaluation benchmarks mismatch","expectedRed":true,"guard":"benchmark-version","restorationByteIdentical":true}
+{"evidence":"evaluation benchmarks mismatch","expectedRed":true,"guard":"benchmark-order","restorationByteIdentical":true}
+{"evidence":"evaluation benchmarks mismatch","expectedRed":true,"guard":"benchmark-fixture-task","restorationByteIdentical":true}
+{"evidence":"evaluation benchmarks mismatch","expectedRed":true,"guard":"benchmark-fixture-total","restorationByteIdentical":true}
+{"evidence":"evaluation benchmarks mismatch","expectedRed":true,"guard":"benchmark-cell-identity","restorationByteIdentical":true}
+{"evidence":"evaluation benchmarks mismatch","expectedRed":true,"guard":"benchmark-cell-state","restorationByteIdentical":true}
+{"evidence":"evaluation benchmarks mismatch","expectedRed":true,"guard":"benchmark-cell-duration","restorationByteIdentical":true}
+{"evidence":"evaluation benchmarks mismatch","expectedRed":true,"guard":"benchmark-cell-tokens","restorationByteIdentical":true}
+{"evidence":"evaluation benchmarks mismatch","expectedRed":true,"guard":"benchmark-cell-tools","restorationByteIdentical":true}
+{"evidence":"evaluation benchmarks mismatch","expectedRed":true,"guard":"benchmark-cell-guessless","restorationByteIdentical":true}
+{"evidence":"evaluation benchmarks mismatch","expectedRed":true,"guard":"benchmark-cell-status","restorationByteIdentical":true}
+{"evidence":"evaluation benchmarks mismatch","expectedRed":true,"guard":"benchmark-limitations","restorationByteIdentical":true}
+{"evidence":"evaluation score mismatch","expectedRed":true,"guard":"partial-pair-totals","restorationByteIdentical":true}
+{"evidence":"evaluation manifest mismatch","expectedRed":true,"guard":"manifest","restorationByteIdentical":true}

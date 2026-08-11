@@ -1,0 +1,240 @@
+diff --git a/packages/frameworks/react/src/react-cra-vite-adapter.ts b/packages/frameworks/react/src/react-cra-vite-adapter.ts
+index 0303561..57b5358 100644
+--- a/packages/frameworks/react/src/react-cra-vite-adapter.ts
++++ b/packages/frameworks/react/src/react-cra-vite-adapter.ts
+@@ -1,6 +1,7 @@
+ import { mkdir, readdir, readFile, writeFile } from 'node:fs/promises';
+ import { charIn, createRegExp, exactly, global, maybe, oneOrMore, whitespace, wordChar } from 'magic-regexp';
+ import * as path from 'pathe';
++import { analyze } from 'yuku-analyzer';
+ 
+ /**
+  * Reusable create-react-app compatibility capabilities for a Vite build.
+@@ -145,6 +146,116 @@ export type CraTransformPlugin = Readonly<{
+ 	transform(code: string, id: string): CraTransformResult | null;
+ }>;
+ 
++export type CraNodeCoreModules = Readonly<Record<string, string>>;
++
++function canonicalNodeCoreModule(specifier: string): string {
++	return specifier.startsWith('node:') ? specifier.slice('node:'.length) : specifier;
++}
++
++function configuredNodeCoreModules(modules: CraNodeCoreModules): ReadonlyMap<string, string> {
++	const configured = new Map<string, string>();
++	for (const [specifier, replacement] of Object.entries(modules)) {
++		const canonical = canonicalNodeCoreModule(specifier);
++		const previous = configured.get(canonical);
++		if (previous !== undefined && previous !== replacement)
++			throw new Error(`Conflicting CRA Node core-module replacements for ${canonical}`);
++		configured.set(canonical, replacement);
++	}
++	return configured;
++}
++
++function sourceLanguage(id: string): 'js' | 'jsx' | 'ts' | 'tsx' | null {
++	switch (path.extname(pathWithoutQuery(id))) {
++		case '.js':
++		case '.mjs':
++		case '.cjs':
++			return 'js';
++		case '.jsx':
++			return 'jsx';
++		case '.ts':
++		case '.mts':
++		case '.cts':
++			return 'ts';
++		case '.tsx':
++			return 'tsx';
++		default:
++			return null;
++	}
++}
++
++type ModuleSpecifierNode = Readonly<{
++	type: string;
++	start: number;
++	end: number;
++	value?: unknown;
++}>;
++
++/**
++ * Rewrite configured Node core-module specifiers to browser implementations.
++ * Only syntax-level module specifiers and calls to the unbound CommonJS
++ * `require` are eligible; matching text in ordinary strings or calls through a
++ * locally declared `require` binding is deliberately left unchanged.
++ */
++export function rewriteCraNodeCoreModules(
++	code: string,
++	id: string,
++	modules: CraNodeCoreModules,
++): string {
++	const language = sourceLanguage(id);
++	if (!language) return code;
++	const configured = configuredNodeCoreModules(modules);
++	if (configured.size === 0) return code;
++	const semanticModule = analyze(code, { lang: language, path: pathWithoutQuery(id) });
++	if (semanticModule.diagnostics.length)
++		throw new Error(
++			`Refused CRA Node core-module rewrite for ${id}: ${JSON.stringify(semanticModule.diagnostics)}`,
++		);
++	const edits: Array<Readonly<{ start: number; end: number; replacement: string }>> = [];
++	const addSpecifier = (node: ModuleSpecifierNode | null | undefined): void => {
++		if (node?.type !== 'Literal' || typeof node.value !== 'string') return;
++		const replacement = configured.get(canonicalNodeCoreModule(node.value));
++		if (replacement === undefined) return;
++		edits.push({ start: node.start, end: node.end, replacement: JSON.stringify(replacement) });
++	};
++	semanticModule.walk({
++		ImportDeclaration(node) {
++			addSpecifier(node.source);
++		},
++		ExportNamedDeclaration(node) {
++			addSpecifier(node.source);
++		},
++		ExportAllDeclaration(node) {
++			addSpecifier(node.source);
++		},
++		ImportExpression(node) {
++			addSpecifier(node.source);
++		},
++		CallExpression(node) {
++			if (
++				node.callee.type !== 'Identifier' ||
++				node.callee.name !== 'require' ||
++				semanticModule.referenceOf(node.callee)?.symbol
++			)
++				return;
++			addSpecifier(node.arguments.length === 1 ? node.arguments[0] : null);
++		},
++	});
++	for (const edit of edits.sort((left, right) => right.start - left.start))
++		code = `${code.slice(0, edit.start)}${edit.replacement}${code.slice(edit.end)}`;
++	return code;
++}
++
++export function createCraNodeCoreModulesPlugin(modules: CraNodeCoreModules): CraTransformPlugin {
++	return {
++		name: 'versionless-cra-node-core-modules',
++		enforce: 'pre',
++		transform(code, id) {
++			const rewritten = rewriteCraNodeCoreModules(code, id, modules);
++			return rewritten === code ? null : { code: rewritten, map: null };
++		},
++	};
++}
++
+ export function createCraTildeCssImportPlugin(): CraTransformPlugin {
+ 	return {
+ 		name: 'versionless-cra-tilde-css-import',
+@@ -229,21 +340,25 @@ export function createCraPublicDirectoryPlugin(
+ export type CraViteAdapterOptions = Readonly<{
+ 	publicDirectory: string;
+ 	templateFile?: string;
++	nodeCoreModules?: CraNodeCoreModules;
+ }>;
+ 
+ export type CraViteAdapterPlugins = readonly [
++	CraTransformPlugin,
+ 	CraTransformPlugin,
+ 	CraDefinePlugin,
+ 	CraOutputPlugin,
+ ];
+ 
+ /**
+- * The create-react-app compatibility plugin set: tilde CSS specifier rewriting,
+- * the ambient `global` identifier, plus public directory replication.
++ * The create-react-app compatibility plugin set: tilde CSS and configured Node
++ * core-module specifier rewriting, the ambient `global` identifier, plus public
++ * directory replication.
+  */
+ export function createCraViteAdapter(options: CraViteAdapterOptions): CraViteAdapterPlugins {
+ 	return [
+ 		createCraTildeCssImportPlugin(),
++		createCraNodeCoreModulesPlugin(options.nodeCoreModules ?? {}),
+ 		createCraGlobalIdentifierPlugin(),
+ 		createCraPublicDirectoryPlugin({
+ 			directory: options.publicDirectory,
+diff --git a/packages/frameworks/react/test/react-cra-vite-adapter.test.ts b/packages/frameworks/react/test/react-cra-vite-adapter.test.ts
+index 936f461..cedf0e0 100644
+--- a/packages/frameworks/react/test/react-cra-vite-adapter.test.ts
++++ b/packages/frameworks/react/test/react-cra-vite-adapter.test.ts
+@@ -10,13 +10,60 @@ import {
+ 	craProcessEnvironmentDefines,
+ 	craPublicAssetPaths,
+ 	createCraGlobalIdentifierPlugin,
++	createCraNodeCoreModulesPlugin,
+ 	createCraPublicDirectoryPlugin,
+ 	createCraTildeCssImportPlugin,
+ 	createCraViteAdapter,
+ 	rewriteWebpackTildeCssImports,
++	rewriteCraNodeCoreModules,
+ 	substituteCraTemplatePlaceholders,
+ } from '../src/react-cra-vite-adapter.ts';
+ 
++describe('configured Node core modules', () => {
++	const modules = { path: 'path-browserify', 'node:crypto': 'crypto-browserify' };
++
++	test('rewrites static imports, dynamic imports, exports, and ambient require calls', () => {
++		const source = [
++			"import path from 'path';",
++			'import "node:path";',
++			"export { default as crypto } from 'crypto';",
++			"export * from 'node:crypto';",
++			"const lazy = import('node:path');",
++			"const commonJs = require('crypto');",
++		].join('\n');
++		expect(rewriteCraNodeCoreModules(source, '/app/src/probe.ts', modules)).toBe(
++			[
++				'import path from "path-browserify";',
++				'import "path-browserify";',
++				'export { default as crypto } from "crypto-browserify";',
++				'export * from "crypto-browserify";',
++				'const lazy = import("path-browserify");',
++				'const commonJs = require("crypto-browserify");',
++			].join('\n'),
++		);
++	});
++
++	test('leaves unrelated strings, modules, computed calls, and shadowed require bindings alone', () => {
++		const source = [
++			"const text = 'require(\\\"path\\\") and node:crypto';",
++			"import fs from 'fs';",
++			"const computed = require(name);",
++			"function load(require) { return require('path'); }",
++		].join('\n');
++		expect(rewriteCraNodeCoreModules(source, '/app/src/probe.js?used', modules)).toBe(source);
++		expect(rewriteCraNodeCoreModules(source, '/app/src/probe.css', modules)).toBe(source);
++	});
++
++	test('the plugin returns a transform only when configured syntax changes', () => {
++		const plugin = createCraNodeCoreModulesPlugin({ stream: 'stream-browserify' });
++		expect(plugin.transform("import('stream')", '/app/lazy.ts')).toEqual({
++			code: 'import("stream-browserify")',
++			map: null,
++		});
++		expect(plugin.transform("const stream = 'stream'", '/app/plain.ts')).toBeNull();
++	});
++});
++
+ const template = [
+ 	'<!DOCTYPE html>',
+ 	'<html lang="en">',
+@@ -235,8 +282,16 @@ describe('create-react-app public directory', () => {
+ 		await expect(plugin.closeBundle.handler()).rejects.toThrow('outDir is unresolved');
+ 	});
+ 	test('the composed adapter excludes the template by default', () => {
+-		const [transform, define, output] = createCraViteAdapter({ publicDirectory: tmpdir() });
++		const [transform, nodeCore, define, output] = createCraViteAdapter({
++			publicDirectory: tmpdir(),
++			nodeCoreModules: { path: 'path-browserify' },
++		});
+ 		expect(transform.name).toBe('versionless-cra-tilde-css-import');
++		expect(nodeCore.name).toBe('versionless-cra-node-core-modules');
++		expect(nodeCore.transform("require('node:path')", '/app/index.js')).toEqual({
++			code: 'require("path-browserify")',
++			map: null,
++		});
+ 		expect(define.name).toBe('versionless-cra-global-identifier');
+ 		expect(define.config()).toEqual({ define: { global: 'globalThis' } });
+ 		expect(output.name).toBe('versionless-cra-public-directory');

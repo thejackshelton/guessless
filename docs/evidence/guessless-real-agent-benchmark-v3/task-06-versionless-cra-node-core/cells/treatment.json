@@ -1,0 +1,17 @@
+{
+  "schema": "guessless.real-agent-benchmark.cell/v3",
+  "arm": "treatment",
+  "model": "gpt-5.6-sol",
+  "argvProfile": "control argv plus Guessless MCP command/args and default_tools_approval_mode=approve; onboarding-v3c with exact package root followed by identical base prompt",
+  "exitCode": 0,
+  "modelBacked": true,
+  "wallSeconds": 160.97,
+  "patch": {"path": "../treatment.patch", "sha256": "da9488e769df9c9864fd98f0aabac578dbee07e7f3368329a2e2d1cd908bebca"},
+  "tests": {"state": "passed", "passed": "TypeScript noEmit, 16/16 focused adapter tests, and git diff --check", "gaps": ["Unrelated fixture-dependent full React tests could not run because benchmark cache fixtures were absent."]},
+  "usage": {"inputTokens": 705444, "cachedInputTokens": 649728, "outputTokens": 6492},
+  "tools": {"commandExecutions": 14, "fileChanges": 2, "mcpCalls": 2},
+  "guessless": {"visible": true, "selected": true, "successfulReceipt": true, "receiptState": "complete snapshot then partial impact", "materialUse": true, "result": "Snapshot covered all 11 JS/TS source and test files. Impact identified the adapter declaration, barrel export, test import, and test call while naming 26 unresolved external/builtin boundaries; agent cited this bounded result in final verification."},
+  "outcome": "complete",
+  "semanticCorrectness": "pending-independent-judge",
+  "raw": {"stdout": "../raw/treatment.stdout.jsonl", "stderr": "../raw/treatment.stderr.txt", "final": "../raw/treatment.final.txt", "time": "../raw/treatment.time.txt"}
+}

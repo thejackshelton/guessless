@@ -1,0 +1,28 @@
+{
+	"accounting": [
+		{
+			"cancellations": 0,
+			"deliveredApplicableImpact": 0,
+			"deliveredApplicablePrepare": 0,
+			"deliveredResults": 5,
+			"durationMs": 39773,
+			"proofReads": 0,
+			"reportedTokens": 125543,
+			"starts": 5,
+			"toolCalls": 5
+		},
+		{
+			"cancellations": 1,
+			"deliveredApplicableImpact": 0,
+			"deliveredApplicablePrepare": 0,
+			"deliveredResults": 7,
+			"durationMs": 60438,
+			"proofReads": 0,
+			"reportedTokens": 168235,
+			"starts": 8,
+			"toolCalls": 8
+		}
+	],
+	"completed": 2,
+	"lastCell": "v10-02-ufo-rename-encode-query-item-paged"
+}

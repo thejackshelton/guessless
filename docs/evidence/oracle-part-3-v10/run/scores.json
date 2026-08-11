@@ -1,0 +1,64 @@
+[
+	{
+		"arm": "full",
+		"artifactBytes": 1780,
+		"delivery": {
+			"cancellations": 0,
+			"deliveredApplicableImpact": 0,
+			"deliveredApplicablePrepare": 0,
+			"deliveredResults": 5,
+			"durationMs": 39773,
+			"proofReads": 0,
+			"reportedTokens": 125543,
+			"starts": 5,
+			"toolCalls": 5
+		},
+		"id": "v10-01-ufo-rename-encode-query-item-full",
+		"initialBytes": 1780,
+		"intent": "rename",
+		"kind": "consumption",
+		"score": {
+			"coordinateRoleErrors": 0,
+			"correct": true,
+			"falseComplete": false,
+			"falsePositiveResolved": [],
+			"falsePositiveUnresolved": [],
+			"missedResolved": [],
+			"missedUnresolved": []
+		},
+		"semanticCalls": 0,
+		"taskId": "ufo-rename-encode-query-item",
+		"warmSemanticCalls": 0
+	},
+	{
+		"arm": "paged",
+		"artifactBytes": 6057,
+		"delivery": {
+			"cancellations": 1,
+			"deliveredApplicableImpact": 0,
+			"deliveredApplicablePrepare": 0,
+			"deliveredResults": 7,
+			"durationMs": 60438,
+			"proofReads": 0,
+			"reportedTokens": 168235,
+			"starts": 8,
+			"toolCalls": 8
+		},
+		"id": "v10-02-ufo-rename-encode-query-item-paged",
+		"initialBytes": 2613,
+		"intent": "rename",
+		"kind": "consumption",
+		"score": {
+			"coordinateRoleErrors": 0,
+			"correct": true,
+			"falseComplete": false,
+			"falsePositiveResolved": [],
+			"falsePositiveUnresolved": [],
+			"missedResolved": [],
+			"missedUnresolved": []
+		},
+		"semanticCalls": 0,
+		"taskId": "ufo-rename-encode-query-item",
+		"warmSemanticCalls": 0
+	}
+]

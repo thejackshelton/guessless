@@ -1,0 +1,209 @@
+diff --git a/packages/frameworks/react/src/react-cra-vite-adapter.ts b/packages/frameworks/react/src/react-cra-vite-adapter.ts
+index c88724a..7c38e53 100644
+--- a/packages/frameworks/react/src/react-cra-vite-adapter.ts
++++ b/packages/frameworks/react/src/react-cra-vite-adapter.ts
+@@ -1,6 +1,7 @@
+ import { mkdir, readdir, readFile, writeFile } from 'node:fs/promises';
+ import { charIn, createRegExp, exactly, global, maybe, oneOrMore, whitespace, wordChar } from 'magic-regexp';
+ import * as path from 'pathe';
++import { analyze } from 'yuku-analyzer';
+ 
+ /**
+  * Reusable create-react-app compatibility capabilities for a Vite build.
+@@ -109,6 +110,88 @@ export type CraTransformPlugin = Readonly<{
+ 	transform(code: string, id: string): CraTransformResult | null;
+ }>;
+ 
++export type CraBrowserGlobalImport = Readonly<
++	| { from: string; import: 'default' | 'namespace' }
++	| { from: string; import: 'named'; name: string }
++>;
++export type CraBrowserGlobals = Readonly<Record<string, CraBrowserGlobalImport>>;
++
++type CraScriptLanguage = 'js' | 'jsx' | 'ts' | 'tsx';
++
++const scriptLanguages = new Map<string, CraScriptLanguage>([
++	['.js', 'jsx'],
++	['.jsx', 'jsx'],
++	['.mjs', 'jsx'],
++	['.cjs', 'jsx'],
++	['.ts', 'ts'],
++	['.tsx', 'tsx'],
++]);
++
++function assertBindingName(name: string, description: string): void {
++	const probe = analyze(`const ${name} = 0;`, { lang: 'js', path: 'binding.js' });
++	if (probe.diagnostics.length || !probe.rootScope.find(name))
++		throw new Error(`Unsupported CRA browser global ${description}: ${JSON.stringify(name)}`);
++}
++
++function browserGlobalImport(globalName: string, configured: CraBrowserGlobalImport): string {
++	if (
++		!configured ||
++		typeof configured !== 'object' ||
++		typeof configured.from !== 'string' ||
++		!configured.from
++	)
++		throw new Error(`Unsupported CRA browser global configuration for ${globalName}`);
++	const source = JSON.stringify(configured.from);
++	if (configured.import === 'default') return `import ${globalName} from ${source};`;
++	if (configured.import === 'namespace') return `import * as ${globalName} from ${source};`;
++	if (configured.import === 'named') {
++		assertBindingName(configured.name, 'named import');
++		return `import { ${configured.name} as ${globalName} } from ${source};`;
++	}
++	throw new Error(`Unsupported CRA browser global import kind for ${globalName}`);
++}
++
++/**
++ * Provide selected browser globals through imports. Only unresolved runtime
++ * identifier references trigger an import, so syntax that merely contains the
++ * same text and references resolved to a local binding remain untouched.
++ */
++export function createCraBrowserGlobalsPlugin(globals: CraBrowserGlobals): CraTransformPlugin {
++	const entries = Object.entries(globals).sort(([left], [right]) =>
++		compareUtf16CodeUnits(left, right),
++	);
++	const imports = new Map<string, string>();
++	for (const [name, configured] of entries) {
++		assertBindingName(name, 'identifier');
++		imports.set(name, browserGlobalImport(name, configured));
++	}
++	return {
++		name: 'versionless-cra-browser-globals',
++		enforce: 'pre',
++		transform(code, id) {
++			const sourcePath = pathWithoutQuery(id);
++			const lang = scriptLanguages.get(path.extname(sourcePath));
++			if (!lang) return null;
++			const module = analyze(code, { lang, path: sourcePath });
++			if (module.diagnostics.length)
++				throw new Error(`Unsupported CRA browser global source ${id}: analyzer diagnostics`);
++			const needed = new Set<string>();
++			for (const reference of module.unresolvedReferences) {
++				if (!imports.has(reference.name) || reference.inTypePosition) continue;
++				if (reference.isWrite)
++					throw new Error(`Unsupported write to CRA browser global ${reference.name} in ${id}`);
++				needed.add(reference.name);
++			}
++			if (!needed.size) return null;
++			const prelude = [...needed]
++				.sort(compareUtf16CodeUnits)
++				.map((name) => imports.get(name) as string)
++				.join('\n');
++			return { code: `${prelude}\n${code}`, map: null };
++		},
++	};
++}
++
+ export function createCraTildeCssImportPlugin(): CraTransformPlugin {
+ 	return {
+ 		name: 'versionless-cra-tilde-css-import',
+@@ -193,20 +276,28 @@ export function createCraPublicDirectoryPlugin(
+ export type CraViteAdapterOptions = Readonly<{
+ 	publicDirectory: string;
+ 	templateFile?: string;
++	browserGlobals?: CraBrowserGlobals;
+ }>;
+ 
+-export type CraViteAdapterPlugins = readonly [CraTransformPlugin, CraOutputPlugin];
++export type CraViteAdapterPlugins = readonly [
++	CraTransformPlugin,
++	CraOutputPlugin,
++	...CraTransformPlugin[],
++];
+ 
+ /**
+- * The create-react-app compatibility plugin set: tilde CSS specifier rewriting
+- * plus public directory replication.
++ * The create-react-app compatibility plugin set: tilde CSS specifier rewriting,
++ * public directory replication, and optionally configured browser globals.
+  */
+ export function createCraViteAdapter(options: CraViteAdapterOptions): CraViteAdapterPlugins {
+-	return [
++	const plugins: [CraTransformPlugin, CraOutputPlugin, ...CraTransformPlugin[]] = [
+ 		createCraTildeCssImportPlugin(),
+ 		createCraPublicDirectoryPlugin({
+ 			directory: options.publicDirectory,
+ 			exclude: [options.templateFile ?? 'index.html'],
+ 		}),
+ 	];
++	if (options.browserGlobals)
++		plugins.push(createCraBrowserGlobalsPlugin(options.browserGlobals));
++	return plugins;
+ }
+diff --git a/packages/frameworks/react/test/react-cra-vite-adapter.test.ts b/packages/frameworks/react/test/react-cra-vite-adapter.test.ts
+index 6eae3ae..05f7cc3 100644
+--- a/packages/frameworks/react/test/react-cra-vite-adapter.test.ts
++++ b/packages/frameworks/react/test/react-cra-vite-adapter.test.ts
+@@ -6,6 +6,7 @@ import {
+ 	craEntryDocument,
+ 	craProcessEnvironmentDefines,
+ 	craPublicAssetPaths,
++	createCraBrowserGlobalsPlugin,
+ 	createCraPublicDirectoryPlugin,
+ 	createCraTildeCssImportPlugin,
+ 	createCraViteAdapter,
+@@ -77,6 +78,62 @@ describe('create-react-app process environment defines', () => {
+ 	});
+ });
+ 
++describe('create-react-app browser globals', () => {
++	const processGlobal = {
++		process: { from: 'process/browser', import: 'default' as const },
++	};
++
++	test('imports configured unresolved runtime identifiers without rewriting source text', () => {
++		const plugin = createCraBrowserGlobalsPlugin(processGlobal);
++		const source = [
++			'// process remains a comment',
++			"const label = 'process';",
++			"const record = { process: 'key', value: process.env.NODE_ENV };",
++			'const member = record.process;',
++		].join('\n');
++		expect(plugin.transform(source, '/app/src/index.tsx')).toEqual({
++			code: `import process from "process/browser";\n${source}`,
++			map: null,
++		});
++	});
++
++	test('does not provide a global where the binding is locally shadowed', () => {
++		const plugin = createCraBrowserGlobalsPlugin(processGlobal);
++		const source = 'function inspect(process: { env: object }) { return process.env; }';
++		expect(plugin.transform(source, '/app/src/index.tsx')).toBeNull();
++		expect(plugin.transform('process.env.NODE_ENV', '/app/src/styles.css')).toBeNull();
++	});
++
++	test('supports generic named imports and fails closed on unsupported configuration and writes', () => {
++		const plugin = createCraBrowserGlobalsPlugin({
++			Buffer: { from: 'buffer', import: 'named', name: 'Buffer' },
++		});
++		expect(plugin.transform('Buffer.from("ok")', '/app/src/index.js')?.code).toBe(
++			'import { Buffer as Buffer } from "buffer";\nBuffer.from("ok")',
++		);
++		expect(() =>
++			createCraBrowserGlobalsPlugin({
++				process: { from: 'process/browser', import: 'side-effect' },
++			} as never),
++		).toThrow('Unsupported CRA browser global import kind');
++		expect(() => plugin.transform('Buffer = replacement;', '/app/src/index.js')).toThrow(
++			'Unsupported write to CRA browser global Buffer',
++		);
++	});
++
++	test('composes configured globals into the generic adapter', () => {
++		const plugins = createCraViteAdapter({
++			publicDirectory: tmpdir(),
++			browserGlobals: processGlobal,
++		});
++		expect(plugins.map(({ name }) => name)).toEqual([
++			'versionless-cra-tilde-css-import',
++			'versionless-cra-public-directory',
++			'versionless-cra-browser-globals',
++		]);
++	});
++});
++
+ describe('webpack tilde specifiers in CSS', () => {
+ 	test('rewrites quoted and url() imports without touching relative ones', () => {
+ 		const code = [

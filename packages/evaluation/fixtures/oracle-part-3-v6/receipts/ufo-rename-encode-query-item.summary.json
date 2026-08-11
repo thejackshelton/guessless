@@ -1,0 +1,73 @@
+{
+	"schema": "guessless.safe-change-summary/v1",
+	"state": "complete",
+	"request": {
+		"kind": "safeChangeImpact",
+		"snapshot": "1d3cc31cd81f3af5d301fbe3711b88c46453206c7f6983bde00b1deb3440b2e3",
+		"intent": "rename",
+		"target": {
+			"schema": "guessless.symbol-anchor/v1",
+			"file": "src/query.ts",
+			"semanticPath": [
+				"global:scope:Program",
+				"module:scope:Program",
+				"symbol:encodeQueryItem",
+				"declaration:FunctionDeclaration"
+			],
+			"fingerprint": "a84695aa2a4652ab22df6a6dca179276d975b73323a8e479e8b2a9e055b0bcf3"
+		}
+	},
+	"snapshot": "1d3cc31cd81f3af5d301fbe3711b88c46453206c7f6983bde00b1deb3440b2e3",
+	"sites": [
+		{
+			"id": "f753f13bf974f162eee184004f477d2185f8c77999d010aab8dee156786a622c",
+			"file": "src/index.ts",
+			"label": "site:safe-change-export"
+		},
+		{
+			"id": "adb2267ade43c91b20cf79bc94395abed56d0016c028f9267c5fac9fe104da30",
+			"file": "src/query.ts",
+			"label": "site:reference"
+		},
+		{
+			"id": "165f5fba9392d233c6a122cd73a9082ba31abee51a97108c8d0040c58522503c",
+			"file": "src/query.ts",
+			"label": "symbol:encodeQueryItem"
+		}
+	],
+	"results": [
+		{
+			"site": 0,
+			"roles": [
+				"reference",
+				"export",
+				"barrel"
+			]
+		},
+		{
+			"site": 1,
+			"roles": [
+				"reference",
+				"read",
+				"call",
+				"export"
+			]
+		},
+		{
+			"site": 2,
+			"roles": [
+				"declaration",
+				"reference",
+				"export"
+			]
+		}
+	],
+	"unresolved": [],
+	"proofHandle": "71de7f3b3872cd0e783cd07d27159e9f3584e975775079e33f992ce0b3047f48",
+	"counts": {
+		"sites": 3,
+		"results": 3,
+		"unresolved": 0
+	},
+	"integrity": "cbcea4795d389e2914989e965965d615a2c96ffb629953269192f2af64f8ab42"
+}

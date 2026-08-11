@@ -1,0 +1,11 @@
+Implemented deterministic, document-scoped Volar CSS IDs.
+
+Changes:
+
+- CSS IDs now use `style:<document filename>:<block index>`.
+- Multiple style blocks receive distinct, stable IDs.
+- Style-free documents still expose no embedded codes.
+- Added focused regression tests covering stability, cross-document uniqueness, multiple blocks, and no-style files.
+- `git diff --check` passes.
+
+Test execution was attempted, but dependencies are absent and offline installation is blocked by sandbox permissions to the pnpm store. Both `vitest` and `vp` were therefore unavailable.

@@ -1,0 +1,1 @@
+Fix the React connect-to-hooks migration so reducer and saga injection semantics are preserved when converting React Boilerplate containers. Keep source-drift handling fail-closed, strengthen the relevant receipt integrity checks, add focused regression tests, and run the relevant tests.

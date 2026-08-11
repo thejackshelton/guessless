@@ -1,0 +1,18 @@
+Implemented object-form `style` lowering in the `tsrx-semantic-graph` pass.
+
+Key support includes:
+
+- Inline literals and immutable same-file const references/spreads.
+- Static CSS emitted directly into markup.
+- Reactive state, computed, props, and template expressions lowered through computed graph updates.
+- camelCase conversion, custom properties, unitless values, automatic `px`, and nullish removal.
+- Last-write-wins spread behavior and compile-time string keys.
+- Specific fail-closed diagnostics for unsupported object forms.
+- Updated editor-facing style types.
+- Focused compiler and diagnostic regression tests.
+- No runtime or serializer changes.
+
+Verification:
+
+- `pnpm exec tsc --noEmit -p tsconfig.json` — passed.
+- Requested Vitest command — 2 files passed, 156 tests passed. Vite emitted two existing dynamic-import analysis warnings; no test failures.

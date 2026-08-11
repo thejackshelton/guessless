@@ -1,0 +1,26 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"type": "object",
+	"additionalProperties": false,
+	"required": ["status", "reportedSiteIds", "unresolvedSiteIds", "reasoning"],
+	"properties": {
+		"status": { "enum": ["complete", "partial", "refused"] },
+		"reportedSiteIds": {
+			"description": "Resolved requested sites only. Canonical IDs are <task>/<task-relative-posix-path>:<1-based-line>:<1-based-column>; paths must begin rename/, delete/, or reach/. This field must be disjoint from unresolvedSiteIds.",
+			"type": "array",
+			"items": {
+				"type": "string",
+				"pattern": "^(rename|delete|reach)/[^:]+:[1-9][0-9]*:[1-9][0-9]*$"
+			}
+		},
+		"unresolvedSiteIds": {
+			"description": "Unresolved boundaries only. Canonical IDs use task-prefixed paths and must be disjoint from reportedSiteIds.",
+			"type": "array",
+			"items": {
+				"type": "string",
+				"pattern": "^(rename|delete|reach)/[^:]+:[1-9][0-9]*:[1-9][0-9]*$"
+			}
+		},
+		"reasoning": { "type": "string" }
+	}
+}

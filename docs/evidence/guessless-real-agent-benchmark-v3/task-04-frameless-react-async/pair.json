@@ -1,0 +1,16 @@
+{
+  "schema": "guessless.real-agent-benchmark.pair/v3",
+  "id": "task-04-frameless-react-async",
+  "repository": "frameless",
+  "historicalParent": "db6e27570e86826cafeafa0bbd98d8ac13704197",
+  "historicalSolution": "61a677995f09e13b8535409f20618e410946a575",
+  "startingTree": "4e01872593bbe106fd5d6334099192b3a8f44419",
+  "sourceTreeSanitization": "Identically removed solution-bearing docs/goals planning artifacts from both historical-parent trees, created fresh root commits, expired reflogs, pruned unreachable objects, and verified both original parent and solution objects absent.",
+  "basePromptSha256": "90292fc6be52622269e71ff39e3f8a051c59b82ddd5c322047f80a821cfe382c",
+  "treatmentPromptSha256": "7762d67e49d30cad64824d5b012e569ff931a6ed46758788b8ea26a777cd9ebc",
+  "order": "treatment-first",
+  "solutionAbsentBeforeLaunch": true,
+  "parity": "Identical sanitized starting tree, base prompt, model, workspace-write sandbox, inherited environment, no timeout, never approval policy, and synthetic dependency link. Treatment deltas were onboarding context and Guessless MCP configuration.",
+  "score": "pending-independent-judge",
+  "cells": ["cells/control.json", "cells/treatment.json"]
+}

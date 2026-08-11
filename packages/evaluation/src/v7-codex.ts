@@ -1,0 +1,346 @@
+import { spawn } from 'node:child_process';
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
+import {
+	V7_BUDGETS,
+	V7_CODEX_VERSION,
+	V7_MODEL,
+	V7_POLICY,
+	sha256,
+	stableJson,
+	type V7Cell,
+} from './v7-contracts.ts';
+
+export interface V7JsonlEvent {
+	readonly type: string;
+	readonly [key: string]: unknown;
+}
+
+export interface V7DeliveryAccounting {
+	readonly starts: number;
+	readonly cancellations: number;
+	readonly deliveredResults: number;
+	readonly deliveredApplicablePrepare: number;
+	readonly deliveredApplicableImpact: number;
+	readonly proofReads: number;
+	readonly toolCalls: number;
+	readonly reportedTokens: number;
+	readonly durationMs: number;
+}
+
+export interface V7TranscriptInspection {
+	readonly events: readonly V7JsonlEvent[];
+	readonly accounting: V7DeliveryAccounting;
+	readonly finalText: string;
+	readonly failed: boolean;
+}
+
+function itemOf(event: V7JsonlEvent): Record<string, unknown> | null {
+	return event.item !== null && typeof event.item === 'object' && !Array.isArray(event.item)
+		? (event.item as Record<string, unknown>)
+		: null;
+}
+
+function toolIdentity(item: Record<string, unknown>): string | null {
+	if (item.type === 'mcp_tool_call') {
+		const server = typeof item.server === 'string' ? item.server : 'mcp';
+		const tool = typeof item.tool === 'string' ? item.tool : null;
+		return tool === null ? null : `${server}/${tool}`;
+	}
+	if (['command_execution', 'file_change', 'web_search'].includes(String(item.type)))
+		return `${String(item.type)}/${String(item.id ?? '')}`;
+	return null;
+}
+
+function usageTokens(event: V7JsonlEvent): number {
+	const usage =
+		event.usage !== null && typeof event.usage === 'object' && !Array.isArray(event.usage)
+			? (event.usage as Record<string, unknown>)
+			: {};
+	const total = Number(usage.total_tokens);
+	if (Number.isSafeInteger(total) && total >= 0) return total;
+	const input = Number(usage.input_tokens ?? 0);
+	const output = Number(usage.output_tokens ?? 0);
+	return Number.isSafeInteger(input) && input >= 0 && Number.isSafeInteger(output) && output >= 0
+		? input + output
+		: Number.NaN;
+}
+
+export function parseV7Jsonl(jsonl: string, durationMs: number): V7TranscriptInspection {
+	const events = jsonl
+		.split('\n')
+		.filter((line) => line.trim().length > 0)
+		.map((line) => JSON.parse(line) as V7JsonlEvent);
+	let starts = 0;
+	let cancellations = 0;
+	let deliveredResults = 0;
+	let deliveredApplicablePrepare = 0;
+	let deliveredApplicableImpact = 0;
+	let proofReads = 0;
+	let terminal = 0;
+	let reportedTokens = Number.NaN;
+	let finalText = '';
+	let failed = false;
+	const pending = new Map<string, string>();
+	for (const event of events) {
+		if (terminal > 0) throw new Error('v7 JSONL event follows terminal turn');
+		const item = itemOf(event);
+		if (event.type === 'item.started' && item !== null) {
+			const tool = toolIdentity(item);
+			if (tool !== null) {
+				const id = String(item.id ?? '');
+				if (id.length === 0 || pending.has(id)) throw new Error('v7 duplicate tool start');
+				pending.set(id, tool);
+				starts += 1;
+			}
+		}
+		if (event.type === 'item.completed' && item !== null) {
+			if (item.type === 'agent_message' && typeof item.text === 'string')
+				finalText = item.text;
+			const tool = toolIdentity(item);
+			if (tool !== null) {
+				const id = String(item.id ?? '');
+				if (pending.get(id) !== tool) throw new Error('v7 delivery lacks matching start');
+				pending.delete(id);
+				if (item.status === 'failed' || item.status === 'cancelled') cancellations += 1;
+				else {
+					deliveredResults += 1;
+					if (tool.endsWith('/guessless_prepare_snapshot'))
+						deliveredApplicablePrepare += 1;
+					if (tool.endsWith('/guessless_safe_change_impact'))
+						deliveredApplicableImpact += 1;
+					if (tool.endsWith('/guessless_safe_change_page')) proofReads += 1;
+				}
+			}
+		}
+		if (event.type === 'turn.completed') {
+			terminal += 1;
+			reportedTokens = usageTokens(event);
+		}
+		if (event.type === 'turn.failed' || event.type === 'error') {
+			terminal += 1;
+			failed = true;
+			reportedTokens = usageTokens(event);
+			if (!Number.isSafeInteger(reportedTokens)) reportedTokens = 0;
+		}
+	}
+	if (terminal !== 1) throw new Error('v7 JSONL requires exactly one terminal turn');
+	if (pending.size !== 0) throw new Error('v7 JSONL contains undelivered tool starts');
+	for (const [label, value, maximum] of [
+		['tools', starts, V7_BUDGETS.perCell.maxToolCalls],
+		['tokens', reportedTokens, V7_BUDGETS.perCell.maxReportedTokens],
+		['duration', durationMs, V7_BUDGETS.perCell.timeoutMs],
+	] as const)
+		if (!Number.isSafeInteger(value) || value < 0 || value > maximum)
+			throw new Error(`v7 ${label} budget exceeded`);
+	return {
+		events,
+		accounting: {
+			starts,
+			cancellations,
+			deliveredResults,
+			deliveredApplicablePrepare,
+			deliveredApplicableImpact,
+			proofReads,
+			toolCalls: starts,
+			reportedTokens,
+			durationMs,
+		},
+		finalText,
+		failed,
+	};
+}
+
+export interface V7SpawnRequest {
+	readonly cell: V7Cell;
+	readonly prompt: string;
+	readonly answerDirectory: string;
+	readonly sealSchemaPath: string;
+	readonly corpusRoot: string;
+	readonly mcpServerPath: string;
+	readonly nodeExecutable: string;
+	readonly codexExecutable: string;
+	readonly codexHome: string;
+	readonly production: boolean;
+}
+
+export interface V7SpawnResult {
+	readonly command: readonly string[];
+	readonly stdout: string;
+	readonly stderr: string;
+	readonly exitCode: number | null;
+	readonly signal: NodeJS.Signals | null;
+	readonly inspection: V7TranscriptInspection;
+}
+
+export async function spawnV7Cell(request: V7SpawnRequest): Promise<V7SpawnResult> {
+	const args = [
+		'exec',
+		'--model',
+		V7_MODEL,
+		'--json',
+		'--ephemeral',
+		'--ignore-user-config',
+		'--ignore-rules',
+		'--skip-git-repo-check',
+		'--sandbox',
+		'workspace-write',
+		'--cd',
+		request.answerDirectory,
+		'--output-schema',
+		request.sealSchemaPath,
+		'--output-last-message',
+		join(request.answerDirectory, 'seal.json'),
+		'-c',
+		'shell_environment_policy.inherit="none"',
+	];
+	if (request.production) {
+		const command = `cd ${JSON.stringify(request.corpusRoot)} && exec ${JSON.stringify(request.nodeExecutable)} ${JSON.stringify(request.mcpServerPath)}`;
+		args.push(
+			'-c',
+			'mcp_servers.guessless.command="/bin/sh"',
+			'-c',
+			`mcp_servers.guessless.args=${JSON.stringify(['-c', command])}`,
+		);
+	}
+	args.push('-');
+	const started = performance.now();
+	let stdout = '';
+	let stderr = '';
+	let observedStarts = 0;
+	let buffered = '';
+	let killedForCap = false;
+	const child = spawn(request.codexExecutable, args, {
+		cwd: request.answerDirectory,
+		env: {
+			PATH: process.env.PATH,
+			CODEX_HOME: request.codexHome,
+			HOME: join(request.answerDirectory, 'home'),
+			LANG: 'C.UTF-8',
+			LC_ALL: 'C.UTF-8',
+		},
+		stdio: ['pipe', 'pipe', 'pipe'],
+	});
+	const timeout = setTimeout(() => child.kill('SIGTERM'), V7_BUDGETS.perCell.timeoutMs);
+	child.stdout.setEncoding('utf8');
+	child.stderr.setEncoding('utf8');
+	child.stdout.on('data', (chunk: string) => {
+		stdout += chunk;
+		buffered += chunk;
+		const lines = buffered.split('\n');
+		buffered = lines.pop() ?? '';
+		for (const line of lines) {
+			try {
+				const event = JSON.parse(line) as V7JsonlEvent;
+				if (event.type === 'item.started' && toolIdentity(itemOf(event) ?? {}) !== null) {
+					observedStarts += 1;
+					if (observedStarts > V7_BUDGETS.perCell.maxToolCalls) {
+						killedForCap = true;
+						child.kill('SIGTERM');
+					}
+				}
+			} catch {
+				// The complete parser rejects malformed JSONL after process termination.
+			}
+		}
+	});
+	child.stderr.on('data', (chunk: string) => {
+		stderr += chunk;
+	});
+	child.stdin.end(request.prompt);
+	const { exitCode, signal } = await new Promise<{
+		exitCode: number | null;
+		signal: NodeJS.Signals | null;
+	}>((resolve) => child.once('close', (exitCode, signal) => resolve({ exitCode, signal })));
+	clearTimeout(timeout);
+	const durationMs = Math.ceil(performance.now() - started);
+	if (killedForCap) throw new Error('v7 tool cap stopped cell');
+	const inspection = parseV7Jsonl(stdout, durationMs);
+	return {
+		command: [request.codexExecutable, ...args],
+		stdout,
+		stderr,
+		exitCode,
+		signal,
+		inspection,
+	};
+}
+
+export interface V7ReplayRecord {
+	readonly cellId: string;
+	readonly status: 'completed' | 'unrun';
+	readonly accounting: V7DeliveryAccounting | null;
+	readonly reason?: string;
+}
+
+export interface V7SealedReplay {
+	readonly schema: 'guessless.v7-sealed-replay/v1';
+	readonly outcome: 'complete' | 'partial-NO_GO';
+	readonly records: readonly V7ReplayRecord[];
+	readonly integrity: string;
+}
+
+export function sealV7Replay(
+	order: readonly V7Cell[],
+	completed: readonly V7ReplayRecord[],
+	failure?: string,
+): V7SealedReplay {
+	if (order.length !== V7_POLICY.cellCount)
+		throw new Error('v7 frozen order must contain 72 cells');
+	const records: V7ReplayRecord[] = [...completed];
+	if (failure !== undefined)
+		for (const cell of order.slice(completed.length))
+			records.push({
+				cellId: cell.id,
+				status: 'unrun',
+				accounting: null,
+				reason: 'completion-impossible',
+			});
+	if (records.length !== order.length) throw new Error('v7 replay is not terminal');
+	const unsigned = {
+		schema: 'guessless.v7-sealed-replay/v1' as const,
+		outcome: failure === undefined ? ('complete' as const) : ('partial-NO_GO' as const),
+		records,
+	};
+	return { ...unsigned, integrity: sha256(stableJson(unsigned)) };
+}
+
+export function fakeV7Preflight(order: readonly V7Cell[]): {
+	allSuccess: V7SealedReplay;
+	firstFailure: V7SealedReplay;
+	spawnedOnFailure: 1;
+	unrunOnFailure: 71;
+} {
+	const accounting: V7DeliveryAccounting = {
+		starts: 0,
+		cancellations: 0,
+		deliveredResults: 0,
+		deliveredApplicablePrepare: 0,
+		deliveredApplicableImpact: 0,
+		proofReads: 0,
+		toolCalls: 0,
+		reportedTokens: 1,
+		durationMs: 1,
+	};
+	const all = order.map((cell) => ({
+		cellId: cell.id,
+		status: 'completed' as const,
+		accounting,
+	}));
+	const first = [{ cellId: order[0]!.id, status: 'completed' as const, accounting }];
+	return {
+		allSuccess: sealV7Replay(order, all),
+		firstFailure: sealV7Replay(order, first, 'injected'),
+		spawnedOnFailure: 1,
+		unrunOnFailure: 71,
+	};
+}
+
+export function readFinalSeal(answerDirectory: string): unknown {
+	return JSON.parse(readFileSync(join(answerDirectory, 'seal.json'), 'utf8'));
+}
+
+export function assertCodexVersion(versionOutput: string): void {
+	if (versionOutput.trim().split(/\s+/).at(-1) !== V7_CODEX_VERSION)
+		throw new Error('v7 Codex version mismatch');
+}

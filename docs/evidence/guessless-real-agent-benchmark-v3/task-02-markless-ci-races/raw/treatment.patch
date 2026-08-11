@@ -1,0 +1,162 @@
+diff --git a/demos/js-framework-benchmark/frameworks/keyed/markless/vite.config.ts b/demos/js-framework-benchmark/frameworks/keyed/markless/vite.config.ts
+index 044cab1..115d110 100644
+--- a/demos/js-framework-benchmark/frameworks/keyed/markless/vite.config.ts
++++ b/demos/js-framework-benchmark/frameworks/keyed/markless/vite.config.ts
+@@ -1,6 +1,6 @@
+-import { existsSync } from 'node:fs';
+ import { resolve } from 'node:path';
+ import { fileURLToPath, pathToFileURL } from 'node:url';
++import { createMarklessPackageAliases } from './package-aliases';
+ 
+ const benchmarkRoot = fileURLToPath(new URL('.', import.meta.url));
+ const marklessRoot = resolve(process.env.MARKLESS_REPO_ROOT ?? '../../../../..');
+@@ -9,20 +9,6 @@ function marklessPackage(path: string) {
+ 	return resolve(marklessRoot, path);
+ }
+ 
+-const hasWebPackage = existsSync(marklessPackage('packages/web/src/render.ts'));
+-const webOrRuntimeRender = hasWebPackage
+-	? 'packages/web/src/render.ts'
+-	: 'packages/runtime/src/render.ts';
+-const webOrRuntimeEventOnlyResume = hasWebPackage
+-	? 'packages/web/src/event-only-resume.ts'
+-	: 'packages/runtime/src/event-only-resume.ts';
+-const marklessWebOrRuntimeEventOnlyResume = hasWebPackage
+-	? 'packages/core/src/web/event-only-resume.ts'
+-	: 'packages/core/src/runtime/event-only-resume.ts';
+-const marklessWebOrRuntimeResume = hasWebPackage
+-	? 'packages/core/src/web/resume.ts'
+-	: 'packages/core/src/runtime/resume.ts';
+-
+ const { markless } = await import(
+ 	pathToFileURL(marklessPackage('packages/bundler/src/vite/index.ts')).href
+ );
+@@ -39,77 +25,6 @@ export default {
+ 		target: 'es2022',
+ 	},
+ 	resolve: {
+-		alias: [
+-			{
+-				find: '@markless/bundler/vite',
+-				replacement: marklessPackage('packages/bundler/src/vite/index.ts'),
+-			},
+-			{
+-				find: '@markless/bundler/rolldown',
+-				replacement: marklessPackage('packages/bundler/src/rolldown.ts'),
+-			},
+-			{
+-				find: '@markless/web/render',
+-				replacement: marklessPackage(webOrRuntimeRender),
+-			},
+-			{
+-				find: '@markless/runtime/render',
+-				replacement: marklessPackage(webOrRuntimeRender),
+-			},
+-			{
+-				find: '@markless/web/event-only-resume',
+-				replacement: marklessPackage(webOrRuntimeEventOnlyResume),
+-			},
+-			{
+-				find: '@markless/runtime/event-only-resume',
+-				replacement: marklessPackage(webOrRuntimeEventOnlyResume),
+-			},
+-			{
+-				find: '@markless/runtime',
+-				replacement: marklessPackage('packages/runtime/src/index.ts'),
+-			},
+-			{
+-				find: '@markless/core/preload',
+-				replacement: marklessPackage('packages/core/src/preload.ts'),
+-			},
+-			{
+-				find: '@markless/core/web/event-only-resume',
+-				replacement: marklessPackage(marklessWebOrRuntimeEventOnlyResume),
+-			},
+-			{
+-				find: '@markless/core/runtime/event-only-resume',
+-				replacement: marklessPackage(marklessWebOrRuntimeEventOnlyResume),
+-			},
+-			{
+-				// Keyed-row modules escalate the emitted browser entry to the
+-				// full resume runtime; without this alias the catch-all below
+-				// resolves index.ts + '/web/resume' (Not a directory).
+-				find: '@markless/core/web/resume',
+-				replacement: marklessPackage(marklessWebOrRuntimeResume),
+-			},
+-			{
+-				find: '@markless/core/runtime/resume',
+-				replacement: marklessPackage(marklessWebOrRuntimeResume),
+-			},
+-			{
+-				find: '@markless/core',
+-				replacement: marklessPackage('packages/core/src/index.ts'),
+-			},
+-			{
+-				// repeat-runtime.ts imports the client decode subpath; without
+-				// this alias the catch-all below resolves index.ts +
+-				// '/decode-client' (Not a directory).
+-				find: '@markless/serializer/decode-client',
+-				replacement: marklessPackage('packages/serializer/src/value-decode-client.ts'),
+-			},
+-			{
+-				find: '@markless/serializer/protocol',
+-				replacement: marklessPackage('packages/serializer/src/protocol.ts'),
+-			},
+-			{
+-				find: '@markless/serializer',
+-				replacement: marklessPackage('packages/serializer/src/index.ts'),
+-			},
+-		],
++		alias: createMarklessPackageAliases(marklessRoot),
+ 	},
+ };
+diff --git a/vite.config.ts b/vite.config.ts
+index 64947c2..0d1dbac 100644
+--- a/vite.config.ts
++++ b/vite.config.ts
+@@ -207,6 +207,29 @@ const buildOrder: PackUserConfig[] = [
+ 	}),
+ ];
+ 
++export const nodeTestProjects = [
++	{
++		test: {
++			name: 'node',
++			environment: 'node',
++			include: ['packages/*/test/**/*.test.ts', 'scripts/**/*.test.ts'],
++			exclude: [
++				'packages/typescript-plugin/test/**/*.test.ts',
++				'packages/typescript-plugin/test/completion-matrix.test.ts',
++			],
++		},
++	},
++	{
++		test: {
++			name: 'typescript-plugin',
++			environment: 'node',
++			fileParallelism: false,
++			include: ['packages/typescript-plugin/test/**/*.test.ts'],
++			exclude: ['packages/typescript-plugin/test/completion-matrix.test.ts'],
++		},
++	},
++];
++
+ export default defineConfig({
+ 	staged: {
+ 		'*': 'vp check --fix',
+@@ -216,14 +239,7 @@ export default defineConfig({
+ 		// Keep CPU available for the concurrent Chromium + Vite transform pipeline.
+ 		maxWorkers: '50%',
+ 		projects: [
+-			{
+-				test: {
+-					name: 'node',
+-					environment: 'node',
+-					include: ['packages/*/test/**/*.test.ts', 'scripts/**/*.test.ts'],
+-					exclude: ['packages/typescript-plugin/test/completion-matrix.test.ts'],
+-				},
+-			},
++			...nodeTestProjects,
+ 			'packages/vitest-browser/vitest.config.ts',
+ 		],
+ 	},

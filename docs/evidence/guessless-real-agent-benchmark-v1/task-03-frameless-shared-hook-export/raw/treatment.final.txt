@@ -1,0 +1,8 @@
+Implemented the React and Solid emitter fix.
+
+- Shared hooks are now exported whenever their module declares the shared definition, including declaration-plus-host modules.
+- Modules without shared definitions remain unaffected.
+- Added focused React and Solid regression tests asserting both the shared hook and host component are exported.
+- `git diff --check` passes.
+
+Tests could not run because dependencies are unavailable. `vitest` was not found, and offline installation was blocked by sandbox permissions while accessing pnpm’s external store.

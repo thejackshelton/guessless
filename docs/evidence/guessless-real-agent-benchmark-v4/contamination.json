@@ -1,0 +1,30 @@
+{
+  "schema": "guessless.real-agent-benchmark.contamination/v4",
+  "policy": "Preserve every attempted cell in the denominator. Exclude a pair from blinded correctness and paired efficiency if either arm accesses the historical solution. Never retry or substitute.",
+  "pairs": {
+    "task-01-markless-prerender-live-state": {"state": "clean"},
+    "task-02-markless-browser-runtime-regressions": {
+      "state": "excluded",
+      "contaminatedArm": "treatment",
+      "firstDecisiveEventIndex": 45,
+      "decisiveCommand": "git -C /Users/jacksm5pro/dev/open-source/markless show --stat --oneline e9db0a54 && git -C /Users/jacksm5pro/dev/open-source/markless show --format=fuller --find-renames e9db0a54 --",
+      "additionalEvidence": [
+        "Events 40-43 inspected the original repository and searched its history by solution-topic terms.",
+        "Events 68-77 diffed the treatment implementation against files read directly from historical solution e9db0a54.",
+        "The final patch closely follows that exposed solution; it is not eligible for blinded scoring."
+      ],
+      "retry": false,
+      "substitution": false
+    },
+    "task-03-frameless-composition-emitters": {"state": "clean-with-disclosed-setup-artifact", "artifact": "Same-parity, non-solution-bearing untracked website directory present before both launches; untouched and excluded from both agent patches."},
+    "task-04-frameless-demo-tooling": {"state": "clean"},
+    "task-05-versionless-loopback-api": {"state": "clean"},
+    "task-06-versionless-papercups-append": {"state": "clean"}
+  },
+  "attemptedPairs": 6,
+  "excludedPairs": 1,
+  "blindedEligiblePairs": 5,
+  "attemptedCells": 12,
+  "contaminatedCells": 1,
+  "blindedEligibleCells": 10
+}

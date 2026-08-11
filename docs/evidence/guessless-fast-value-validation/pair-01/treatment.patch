@@ -1,0 +1,618 @@
+diff --git a/packages/compiler/src/passes/semantic-graph/collect-elements.ts b/packages/compiler/src/passes/semantic-graph/collect-elements.ts
+index 830a5a5..ffc9612 100644
+--- a/packages/compiler/src/passes/semantic-graph/collect-elements.ts
++++ b/packages/compiler/src/passes/semantic-graph/collect-elements.ts
+@@ -55,6 +55,7 @@ import {
+ 	rowOwnedIdrefElementHandleDiagnostic,
+ 	unboundIdrefElementHandleDiagnostic,
+ } from './diagnostics.ts';
++import { lowerStyleObject } from './style-objects.ts';
+ import { isIdrefAttribute } from './idref-attributes.ts';
+ import type {
+ 	MutableSemanticGraphArtifact,
+@@ -670,6 +671,84 @@ function collectAttribute(
+ 	}
+ 
+ 	if (expressionValue && expressionValue.type !== 'Literal') {
++		if (attributeName === 'style' && isObjectStyleExpression(expressionValue, state)) {
++			const directStyleBinding = resolveGraphPath(
++				expressionSource(expressionValue, state.source),
++				graphBindingMap(state.graph),
++				semanticAliasMap(state.graph),
++			);
++			if (
++				directStyleBinding?.path.length === 0 &&
++				directStyleBinding.binding.kind === 'state'
++			) {
++				state.graph.diagnostics.push(
++					styleObjectUnsupportedDiagnostic({
++						valueSource: expressionSource(expressionValue, state.source),
++						reason: 'state-object',
++						node: expressionValue,
++						filename: state.filename,
++					}),
++				);
++				walk(expressionValue, state);
++				return;
++			}
++			const lowered = lowerStyleObject({
++				expression: expressionValue,
++				source: state.source,
++				filename: state.filename,
++			});
++			if ('failure' in lowered) {
++				state.graph.diagnostics.push(
++					styleObjectUnsupportedDiagnostic({
++						valueSource: expressionSource(expressionValue, state.source),
++						reason: lowered.failure,
++						node: expressionValue,
++						filename: state.filename,
++					}),
++				);
++				walk(expressionValue, state);
++				return;
++			}
++			if (lowered.cssText !== null) return;
++
++			const dependencies = lowered.dynamicSources.flatMap((source) => {
++				const resolved = resolveGraphPath(
++					source,
++					graphBindingMap(state.graph),
++					semanticAliasMap(state.graph),
++				);
++				return resolved &&
++					(resolved.binding.kind === 'state' ||
++						resolved.binding.kind === 'computed' ||
++						resolved.binding.kind === 'prop')
++					? [{ source, graphNodeId: resolved.binding.id, path: resolved.path }]
++					: [];
++			});
++			const index = state.graph.graphBindings.filter((binding) =>
++				binding.id.startsWith('computed:styleObject:'),
++			).length;
++			const computedGraphNodeId = `computed:styleObject:${index}`;
++			state.graph.graphBindings.push({
++				id: computedGraphNodeId,
++				name: `marklessStyleObject${index}`,
++				kind: 'computed',
++				writable: false,
++				async: false,
++				asyncCapable: false,
++				functionSource: `() => ${lowered.expressionSource}`,
++				dependencies,
++			});
++			state.graph.templateReads.push({
++				hostNodeId,
++				source: expressionSource(expressionValue, state.source),
++				sourceSpan: sourceSpan(expressionValue, state.filename),
++				target: { kind: 'style' },
++				asyncBoundaryId: state.currentAsyncBoundaryId ?? undefined,
++				computedGraphNodeId,
++			});
++			walk(expressionValue, state);
++			return;
++		}
+ 		const attributeDiagnostic = attributeValueDiagnostic(attributeName, expressionValue, state);
+ 		if (attributeDiagnostic) state.graph.diagnostics.push(attributeDiagnostic);
+ 		state.graph.templateReads.push({
+@@ -683,6 +762,22 @@ function collectAttribute(
+ 	}
+ }
+ 
++function isObjectStyleExpression(expression: AnyNode, state: WalkState): boolean {
++	if (expression.type === 'ObjectExpression' || expression.type === 'ArrayExpression') return true;
++	if (expression.type === 'CallExpression' || expression.type === 'NewExpression') return true;
++	const source = expressionSource(expression, state.source);
++	const resolved = resolveGraphPath(
++		source,
++		graphBindingMap(state.graph),
++		semanticAliasMap(state.graph),
++	);
++	if (resolved?.path.length === 0 && resolved.binding.kind === 'state') return true;
++	if (getIdentifierName(expression)) {
++		return resolveStaticObjectExpression(expression, state) !== null || !resolved;
++	}
++	return false;
++}
++
+ function collectDuplicateAttributeDiagnostics(
+ 	node: AnyNode,
+ 	state: WalkState,
+@@ -804,6 +899,7 @@ function attributeValueDiagnostic(
+ 	if (attributeName === 'style') {
+ 		return styleObjectUnsupportedDiagnostic({
+ 			valueSource,
++			reason: resolved?.binding.kind === 'state' ? 'state-object' : 'unsupported-object',
+ 			node: expressionValue,
+ 			filename: state.filename,
+ 		});
+diff --git a/packages/compiler/src/passes/semantic-graph/collect-markup.ts b/packages/compiler/src/passes/semantic-graph/collect-markup.ts
+index 1bcd215..57f768f 100644
+--- a/packages/compiler/src/passes/semantic-graph/collect-markup.ts
++++ b/packages/compiler/src/passes/semantic-graph/collect-markup.ts
+@@ -27,6 +27,7 @@ import type {
+ 	SemanticMarkupSlot,
+ } from '../../artifacts.ts';
+ import { isIdrefAttribute } from './idref-attributes.ts';
++import { lowerStyleObject } from './style-objects.ts';
+ import { collectStyleScopes } from '../public-render/style-scopes.ts';
+ import type { MutableSemanticGraphArtifact } from './types.ts';
+ 
+@@ -365,6 +366,25 @@ function emitNode(
+ 		const value = attribute.value as AnyNode | undefined;
+ 		const expression = unwrapExpressionContainer(value);
+ 		const literal = staticAttributeValue(value, expression);
++		const objectStyle =
++			name === 'style' && expression
++				? lowerStyleObject({ expression, source: context.source, filename: context.filename })
++				: null;
++		if (objectStyle && !('failure' in objectStyle) && objectStyle.cssText !== null) {
++			append(builder, ` style="${escapeAttribute(objectStyle.cssText)}"`);
++			continue;
++		}
++		if (objectStyle && !('failure' in objectStyle)) {
++			append(builder, ' style="');
++			addSlot(builder, {
++				kind: 'attribute',
++				name: 'style',
++				coordinate: { kind: 'child-index', path },
++				residue: { kind: 'authored-expression', source: objectStyle.expressionSource },
++			});
++			append(builder, '"');
++			continue;
++		}
+ 		if (literal !== null) {
+ 			append(builder, ` ${name}="${escapeAttribute(name === 'class' && context.styleScopeClass ? `${literal} ${context.styleScopeClass}` : literal)}"`);
+ 			continue;
+@@ -481,6 +501,22 @@ function emitDynamicHost(
+ 		const value = attribute.value as AnyNode | undefined;
+ 		const expression = unwrapExpressionContainer(value);
+ 		const literal = staticAttributeValue(value, expression);
++		const objectStyle =
++			name === 'style' && expression
++				? lowerStyleObject({ expression, source: context.source, filename: context.filename })
++				: null;
++		if (objectStyle && !('failure' in objectStyle) && objectStyle.cssText !== null) {
++			staticAttributes[name] = objectStyle.cssText;
++			continue;
++		}
++		if (objectStyle && !('failure' in objectStyle)) {
++			attributeSlots.push({
++				kind: 'attribute',
++				name: 'style',
++				residue: { kind: 'authored-expression', source: objectStyle.expressionSource },
++			});
++			continue;
++		}
+ 		if (literal !== null) {
+ 			staticAttributes[name] = literal;
+ 			continue;
+diff --git a/packages/compiler/src/passes/semantic-graph/diagnostics.ts b/packages/compiler/src/passes/semantic-graph/diagnostics.ts
+index b41c963..42dc745 100644
+--- a/packages/compiler/src/passes/semantic-graph/diagnostics.ts
++++ b/packages/compiler/src/passes/semantic-graph/diagnostics.ts
+@@ -1086,16 +1086,37 @@ export function duplicateAttributeDiagnostic(input: {
+ export function styleObjectUnsupportedDiagnostic(
+ 	input: AttributeDisciplineNode & {
+ 		readonly valueSource: string;
++		readonly reason:
++			| 'array'
++			| 'dynamic-key'
++			| 'exported-object'
++			| 'imported-object'
++			| 'mutated-object'
++			| 'runtime-merge'
++			| 'state-object'
++			| 'unsupported-object'
++			| 'unsupported-spread';
+ 	},
+ ): SemanticGraphDiagnostic {
++	const details = {
++		array: ['Style arrays are not supported', 'an array cannot define compile-time CSS property names'],
++		'dynamic-key': ['Style keys must be compile-time strings', 'a dynamic key hides which CSS declaration must update'],
++		'exported-object': ['Exported style objects are not immutable locally', 'another module may observe or depend on the object'],
++		'imported-object': ['Imported style objects cannot be proven immutable', 'the defining module is outside this compiler unit'],
++		'mutated-object': ['Style objects must be immutable const values', 'the object or its binding is mutated'],
++		'runtime-merge': ['Runtime style merges are not supported', 'the compiler cannot prove the merged keys or last-write order'],
++		'state-object': ['Whole style objects cannot be held in state', 'state must be bound through individual style entries'],
++		'unsupported-object': ['This style object form is not supported', 'the compiler cannot lower it deterministically'],
++		'unsupported-spread': ['Style spreads need immutable same-file const objects', 'the spread target cannot be flattened safely'],
++	} as const;
++	const [title, why] = details[input.reason];
+ 	return attributeDisciplineDiagnostic(input.node, input.filename, {
+ 		code: 'MARKLESS_STYLE_OBJECT_UNSUPPORTED',
+ 		severity: 'error',
+-		title: 'Object style bindings are not supported yet',
+-		message: `style={${input.valueSource}} passes an object to style. This compiler slice would render "[object Object]" instead of CSS text.`,
+-		why: 'The current public render artifact supports text style attributes, but not object-style lowering into CSS declarations and update records.',
+-		suggestion:
+-			'Use a CSS string for now, or bind class names until object-style lowering is implemented.',
++		title,
++		message: `style={${input.valueSource}} is unsupported because ${why}.`,
++		why: 'Object-form style lowering is fail-closed: every property name and overwrite must be known while each reactive value remains visible to the update graph.',
++		suggestion: 'Use an inline object or an unexported, unmodified same-file const object with compile-time string keys.',
+ 	});
+ }
+ 
+diff --git a/packages/compiler/src/passes/semantic-graph/style-objects.ts b/packages/compiler/src/passes/semantic-graph/style-objects.ts
+new file mode 100644
+index 0000000..3e02560
+--- /dev/null
++++ b/packages/compiler/src/passes/semantic-graph/style-objects.ts
+@@ -0,0 +1,254 @@
++import { parseModule } from '@tsrx/core';
++import { asNodes, getIdentifierName, walkNode, type AnyNode } from '../../ast/nodes.ts';
++import { expressionSource } from '../../ast/source.ts';
++
++export type StyleObjectFailure =
++	| 'array'
++	| 'dynamic-key'
++	| 'exported-object'
++	| 'imported-object'
++	| 'mutated-object'
++	| 'runtime-merge'
++	| 'unsupported-object'
++	| 'unsupported-spread';
++
++export type LoweredStyleObject = {
++	readonly cssText: string | null;
++	readonly expressionSource: string;
++	readonly dynamicSources: ReadonlyArray<string>;
++};
++
++type StyleEntry = {
++	readonly name: string;
++	readonly value: AnyNode;
++};
++
++const unitlessProperties = new Set([
++	'animationIterationCount', 'aspectRatio', 'borderImageOutset', 'borderImageSlice',
++	'borderImageWidth', 'boxFlex', 'boxFlexGroup', 'boxOrdinalGroup', 'columnCount',
++	'columns', 'flex', 'flexGrow', 'flexNegative', 'flexOrder', 'flexPositive',
++	'flexShrink', 'floodOpacity', 'fontWeight', 'gridArea', 'gridColumn',
++	'gridColumnEnd', 'gridColumnSpan', 'gridColumnStart', 'gridRow', 'gridRowEnd',
++	'gridRowSpan', 'gridRowStart', 'lineClamp', 'lineHeight', 'opacity', 'order',
++	'orphans', 'scale', 'stopOpacity', 'strokeDasharray', 'strokeDashoffset',
++	'strokeMiterlimit', 'strokeOpacity', 'strokeWidth', 'tabSize', 'widows', 'zIndex',
++	'zoom',
++]);
++
++export function lowerStyleObject(input: {
++	readonly expression: AnyNode;
++	readonly source: string;
++	readonly filename: string;
++}): LoweredStyleObject | { readonly failure: StyleObjectFailure } {
++	const ast = parseModule(input.source, input.filename) as unknown as AnyNode;
++	const resolved = resolveStyleObject(input.expression, ast, input.source, new Set());
++	if ('failure' in resolved) return resolved;
++
++	const entries = new Map<string, StyleEntry>();
++	const flattened = flattenProperties(resolved.object, ast, input.source, new Set());
++	if ('failure' in flattened) return flattened;
++	for (const entry of flattened.entries) entries.set(entry.name, entry);
++
++	const cssParts: string[] = [];
++	const expressionParts: string[] = [];
++	const dynamicSources: string[] = [];
++	let fullyStatic = true;
++	for (const entry of entries.values()) {
++		const propertyName = cssPropertyName(entry.name);
++		const literal = staticStyleValue(entry.name, entry.value);
++		if (literal !== undefined) {
++			if (literal !== null) {
++				const declaration = `${propertyName}:${literal};`;
++				cssParts.push(declaration);
++				expressionParts.push(JSON.stringify(declaration));
++			}
++			continue;
++		}
++
++		fullyStatic = false;
++		const valueSource = expressionSource(entry.value, input.source);
++		if (!valueSource) return { failure: 'unsupported-object' };
++		dynamicSources.push(...dependencyCandidateSources(entry.value, input.source));
++		expressionParts.push(dynamicDeclarationExpression(entry.name, propertyName, valueSource));
++	}
++
++	return {
++		cssText: fullyStatic ? cssParts.join('') : null,
++		expressionSource: expressionParts.length === 0 ? '""' : expressionParts.join(' + '),
++		dynamicSources: [...new Set(dynamicSources)],
++	};
++}
++
++function dependencyCandidateSources(node: AnyNode, source: string): string[] {
++	const candidates: string[] = [];
++	walkNode(node, (candidate) => {
++		if (candidate.type !== 'Identifier' && candidate.type !== 'MemberExpression') return;
++		const value = expressionSource(candidate, source);
++		if (value) candidates.push(value);
++	});
++	return candidates;
++}
++
++function resolveStyleObject(
++	expression: AnyNode,
++	ast: AnyNode,
++	source: string,
++	seen: Set<string>,
++): { readonly object: AnyNode } | { readonly failure: StyleObjectFailure } {
++	if (expression.type === 'ObjectExpression') return { object: expression };
++	if (expression.type === 'ArrayExpression') return { failure: 'array' };
++	if (expression.type === 'CallExpression' || expression.type === 'NewExpression') {
++		return { failure: 'runtime-merge' };
++	}
++	const name = getIdentifierName(expression);
++	if (!name) return { failure: 'unsupported-object' };
++	if (seen.has(name)) return { failure: 'unsupported-spread' };
++	seen.add(name);
++	if (isImported(name, ast)) return { failure: 'imported-object' };
++	const declaration = variableDeclaration(name, ast);
++	if (!declaration) return { failure: 'unsupported-object' };
++	if (declaration.exported) return { failure: 'exported-object' };
++	if (declaration.kind !== 'const') return { failure: 'mutated-object' };
++	if (isMutated(name, ast)) return { failure: 'mutated-object' };
++	const init = declaration.declarator.init as AnyNode | undefined;
++	if (!init) return { failure: 'unsupported-object' };
++	return resolveStyleObject(init, ast, source, seen);
++}
++
++function flattenProperties(
++	object: AnyNode,
++	ast: AnyNode,
++	source: string,
++	seen: Set<string>,
++): { readonly entries: ReadonlyArray<StyleEntry> } | { readonly failure: StyleObjectFailure } {
++	const entries: StyleEntry[] = [];
++	for (const property of asNodes(object.properties)) {
++		if (property.type === 'SpreadElement') {
++			const argument = property.argument as AnyNode | undefined;
++			const name = getIdentifierName(argument);
++			if (!argument || !name || seen.has(name)) return { failure: 'unsupported-spread' };
++			seen.add(name);
++			const resolved = resolveStyleObject(argument, ast, source, new Set());
++			if ('failure' in resolved) return resolved;
++			const spread = flattenProperties(resolved.object, ast, source, seen);
++			if ('failure' in spread) return spread;
++			entries.push(...spread.entries);
++			continue;
++		}
++		if (property.type !== 'Property' || property.kind === 'get' || property.kind === 'set') {
++			return { failure: 'unsupported-object' };
++		}
++		const key = stylePropertyKey(property);
++		if (key === null) return { failure: 'dynamic-key' };
++		const value = property.value as AnyNode | undefined;
++		if (!value) return { failure: 'unsupported-object' };
++		entries.push({ name: key, value });
++	}
++	return { entries };
++}
++
++function stylePropertyKey(property: AnyNode): string | null {
++	const key = property.key as AnyNode | undefined;
++	if (!key) return null;
++	if (property.computed !== true) {
++		const identifier = getIdentifierName(key);
++		if (identifier) return identifier;
++	}
++	if (key.type === 'Literal' && typeof key.value === 'string') return key.value;
++	if (key.type === 'TemplateLiteral' && asNodes(key.expressions).length === 0) {
++		const quasi = asNodes(key.quasis)[0];
++		const value = quasi?.value as { cooked?: unknown } | undefined;
++		return typeof value?.cooked === 'string' ? value.cooked : null;
++	}
++	return null;
++}
++
++function staticStyleValue(name: string, node: AnyNode): string | null | undefined {
++	if (node.type === 'Literal') {
++		if (node.value == null) return null;
++		if (typeof node.value === 'string') return node.value;
++		if (typeof node.value === 'number') return formatStaticNumber(name, node.value);
++		return undefined;
++	}
++	if (node.type === 'Identifier' && node.name === 'undefined') return null;
++	if (node.type === 'UnaryExpression' && node.operator === '-') {
++		const argument = node.argument as AnyNode | undefined;
++		if (argument?.type === 'Literal' && typeof argument.value === 'number') {
++			return formatStaticNumber(name, -argument.value);
++		}
++	}
++	return undefined;
++}
++
++function formatStaticNumber(name: string, value: number): string {
++	return value === 0 || name.startsWith('--') || unitlessProperties.has(name)
++		? String(value)
++		: `${value}px`;
++}
++
++function dynamicDeclarationExpression(name: string, cssName: string, value: string): string {
++	const prefix = JSON.stringify(`${cssName}:`);
++	const suffix = JSON.stringify(';');
++	const formatted = name.startsWith('--') || unitlessProperties.has(name)
++		? 'String(value)'
++		: '(typeof value === "number" && value !== 0 ? value + "px" : String(value))';
++	return `((value) => value == null ? "" : ${prefix} + ${formatted} + ${suffix})(${value})`;
++}
++
++function cssPropertyName(name: string): string {
++	if (name.startsWith('--')) return name;
++	return name.replace(/^ms-/, '-ms-').replace(/[A-Z]/g, (letter) => `-${letter.toLowerCase()}`);
++}
++
++function isImported(name: string, ast: AnyNode): boolean {
++	return asNodes(ast.body).some((statement) =>
++		statement.type === 'ImportDeclaration' &&
++		asNodes(statement.specifiers).some((specifier) =>
++			getIdentifierName(specifier.local as AnyNode | undefined) === name,
++		),
++	);
++}
++
++function variableDeclaration(name: string, ast: AnyNode): {
++	readonly declarator: AnyNode;
++	readonly kind: string | null;
++	readonly exported: boolean;
++} | null {
++	let found: { declarator: AnyNode; kind: string | null; exported: boolean } | null = null;
++	for (const statement of asNodes(ast.body)) {
++		const exportWrapper = statement.type === 'ExportNamedDeclaration' || statement.type === 'ExportDefaultDeclaration';
++		const root = (exportWrapper ? statement.declaration : statement) as AnyNode | undefined;
++		if (!root) continue;
++		const exported = exportWrapper && root.type === 'VariableDeclaration';
++		walkNode(root, (node) => {
++			if (found || node.type !== 'VariableDeclaration') return;
++			for (const declarator of asNodes(node.declarations)) {
++				if (getIdentifierName(declarator.id as AnyNode | undefined) === name) {
++					found = { declarator, kind: typeof node.kind === 'string' ? node.kind : null, exported };
++				}
++			}
++		});
++	}
++	return found;
++}
++
++function isMutated(name: string, ast: AnyNode): boolean {
++	let mutated = false;
++	walkNode(ast, (node) => {
++		if (mutated) return;
++		if (node.type === 'AssignmentExpression' || node.type === 'UpdateExpression') {
++			const target = (node.left ?? node.argument) as AnyNode | undefined;
++			if (rootIdentifier(target) === name) mutated = true;
++		}
++		if (node.type === 'UnaryExpression' && node.operator === 'delete') {
++			if (rootIdentifier(node.argument as AnyNode | undefined) === name) mutated = true;
++		}
++	});
++	return mutated;
++}
++
++function rootIdentifier(node: AnyNode | undefined): string | null {
++	let current = node;
++	while (current?.type === 'MemberExpression') current = current.object as AnyNode | undefined;
++	return getIdentifierName(current);
++}
+diff --git a/packages/compiler/test/compile-module.test.ts b/packages/compiler/test/compile-module.test.ts
+index 5b11c3b..673b828 100644
+--- a/packages/compiler/test/compile-module.test.ts
++++ b/packages/compiler/test/compile-module.test.ts
+@@ -2031,6 +2031,44 @@ export function App() @{
+ 	expect(output.html).not.toContain('<style');
+ });
+ 
++test('compileTsrxModule lowers static and reactive object-form style entries', async () => {
++	const result = await compileTsrxModule({
++		filename: 'src/ObjectStyle.tsrx',
++		source: `
++import { state } from '@markless/core';
++const base = { marginTop: 4, lineHeight: 1.5, color: 'blue' };
++export function App() @{
++	let size = state(6);
++	const local = { ...base, color: 'red', '--accent': 'gold', opacity: null };
++	<section style={{ ...local, width: size, paddingInline: \`${'${size}'}px\` }}>Styled</section>
++}
++`,
++		symbols: [],
++	});
++
++	expect(result.semanticGraph.diagnostics).toEqual([]);
++	const ssrModule = await importPublicRenderTestModule(ssrRenderTestModuleSource(result));
++	const output = await (ssrModule.marklessRenderSsr as () => { readonly html: string })();
++	expect(output.html).toBe(
++		'<section style="margin-top:4px;line-height:1.5;color:red;--accent:gold;width:6px;padding-inline:6px;">Styled</section>',
++	);
++	expect(result.semanticGraph.templateReads).toEqual(
++		expect.arrayContaining([
++			expect.objectContaining({ target: { kind: 'style' }, computedGraphNodeId: 'computed:styleObject:0' }),
++		]),
++	);
++	expect(result.semanticGraph.graphBindings).toEqual(
++		expect.arrayContaining([
++			expect.objectContaining({
++				id: 'computed:styleObject:0',
++				dependencies: expect.arrayContaining([
++					expect.objectContaining({ source: 'size', path: [] }),
++				]),
++			}),
++		]),
++	);
++});
++
+ test('compileTsrxModule renders fragment-rooted components in SSR html', async () => {
+ 	const result = await compileTsrxModule({
+ 		filename: 'src/FragmentCard.tsrx',
+diff --git a/packages/compiler/test/semantic-diagnostics.test.ts b/packages/compiler/test/semantic-diagnostics.test.ts
+index d9ba229..2f58280 100644
+--- a/packages/compiler/test/semantic-diagnostics.test.ts
++++ b/packages/compiler/test/semantic-diagnostics.test.ts
+@@ -869,12 +869,7 @@ test('B921 reports attribute and spread value discipline diagnostics without fla
+ 	expect(byCode('MARKLESS_ATTRIBUTE_DUPLICATE')[0]).toEqual(
+ 		expect.objectContaining({ severity: 'error', message: expect.stringContaining('id') }),
+ 	);
+-	expect(byCode('MARKLESS_STYLE_OBJECT_UNSUPPORTED')[0]).toEqual(
+-		expect.objectContaining({
+-			severity: 'error',
+-			message: expect.stringContaining('style={{ color:'),
+-		}),
+-	);
++	expect(byCode('MARKLESS_STYLE_OBJECT_UNSUPPORTED')).toEqual([]);
+ 	expect(byCode('MARKLESS_ATTRIBUTE_OBJECT_VALUE')).toEqual([
+ 		expect.objectContaining({
+ 			message: expect.stringContaining('data-menu="[object Object]"'),
+@@ -893,6 +888,30 @@ test('B921 reports attribute and spread value discipline diagnostics without fla
+ 	);
+ });
+ 
++test('object-form styles fail closed for objects the compiler cannot flatten', async () => {
++	const cases = [
++		{ title: 'Style arrays are not supported', module: '', local: '', value: '[]' },
++		{ title: 'Style keys must be compile-time strings', module: '', local: "const key = 'color';", value: '{ [key]: "red" }' },
++		{ title: 'Exported style objects are not immutable locally', module: 'export const styles = { color: "red" };', local: '', value: 'styles' },
++		{ title: 'Imported style objects cannot be proven immutable', module: 'import { styles } from "./styles";', local: '', value: 'styles' },
++		{ title: 'Style objects must be immutable const values', module: '', local: 'const styles = { color: "red" }; styles.color = "blue";', value: 'styles' },
++		{ title: 'Whole style objects cannot be held in state', module: '', local: 'const styles = state({ color: "red" });', value: 'styles' },
++		{ title: 'Runtime style merges are not supported', module: '', local: 'const first = { color: "red" };', value: 'Object.assign({}, first)' },
++	] as const;
++
++	for (const item of cases) {
++		const graph = await buildSemanticGraph({
++			filename: 'src/ObjectStyleDiagnostic.tsrx',
++			source: `import { state } from '@markless/core'; ${item.module} export function App() @{ ${item.local} <div style={${item.value}}>x</div> }`,
++		});
++		expect(graph.diagnostics).toEqual(
++			expect.arrayContaining([
++				expect.objectContaining({ code: 'MARKLESS_STYLE_OBJECT_UNSUPPORTED', title: item.title }),
++			]),
++		);
++	}
++});
++
+ test('buildSemanticGraph reports reactive reads after await in async computed bodies', async () => {
+ 	const graph = await buildSemanticGraph({
+ 		filename: 'src/UserRoute.tsrx',
+diff --git a/packages/typescript-plugin/src/markless-jsx.d.ts b/packages/typescript-plugin/src/markless-jsx.d.ts
+index 0f3f8a0..2d450ee 100644
+--- a/packages/typescript-plugin/src/markless-jsx.d.ts
++++ b/packages/typescript-plugin/src/markless-jsx.d.ts
+@@ -11,6 +11,10 @@ declare namespace __MarklessTypeService {
+ 
+ 	type Child = Element | string | number | null | undefined | readonly Child[];
+ 	type AttributeValue = string | number | boolean | undefined;
++	type StyleValue = string | number | null | undefined;
++	type StyleObject = {
++		[Property: string]: StyleValue;
++	};
+ 	/**
+ 	 * An IDREF position - an attribute that names another element by id. An
+ 	 * element() handle is valid here: the compiler resolves the relationship and
+@@ -84,7 +88,7 @@ declare namespace __MarklessTypeService {
+ 		role?: string;
+ 		slot?: string;
+ 		spellcheck?: boolean | 'true' | 'false';
+-		style?: string;
++		style?: string | StyleObject;
+ 		tabindex?: number;
+ 		title?: string;
+ 		translate?: 'yes' | 'no';

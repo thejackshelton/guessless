@@ -1,0 +1,3 @@
+ M packages/trust/src/generate.ts
+ M packages/trust/src/verify.ts
+ M packages/trust/test/trust-package.test.ts

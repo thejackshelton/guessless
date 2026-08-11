@@ -1,0 +1,16 @@
+{
+  "schema": "guessless.real-agent-benchmark.pair/v3",
+  "id": "task-03-frameless-citation-suffix",
+  "repository": "frameless",
+  "historicalParent": "7c0e9a9a2f3236fa180f31bd816bf04d8d6716f0",
+  "historicalSolution": "b31601b535cec6b6a7436f29f91e4cdf199e78dd",
+  "startingTree": "c70830d0572d286bd8e65321e91b4e28beee737d",
+  "basePromptSha256": "b796bd80d5b8065e0ecc0546608939da716e85e197623041bdef78debdd7c722",
+  "treatmentPromptSha256": "cf501d8f899a7ee1293f3f490cb09cb8e51c22f0afd9f39002f1fd3b14cae10f",
+  "order": "control-first",
+  "solutionAbsentBeforeLaunch": false,
+  "contamination": "Historical solution object was hidden, but a docs/goals planning card in the parent tree described the exact solution. Both arms are retained but excluded from blinded correctness scoring.",
+  "parity": "Identical starting tree, base prompt, model, workspace-write sandbox, inherited environment, no timeout, and never approval policy. Treatment deltas were onboarding context and Guessless MCP configuration.",
+  "score": "invalid-contaminated",
+  "cells": ["cells/control.json", "cells/treatment.json"]
+}

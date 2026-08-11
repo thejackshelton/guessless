@@ -1,0 +1,17 @@
+{
+  "schema": "guessless.real-agent-benchmark.cell/v3",
+  "arm": "control",
+  "model": "gpt-5.6-sol",
+  "startedAt": "2026-08-11T02:53:21Z",
+  "argv": ["codex", "exec", "--approve-for-me", "--skip-git-repo-check", "--ephemeral", "--json", "-m", "gpt-5.6-sol", "-C", "/private/tmp/guessless-real-agent-benchmark-v3/task-01-markless-recordless-click/control", "-o", "/private/tmp/guessless-real-agent-benchmark-v3/task-01-markless-recordless-click/raw/control.final.txt", "<base-prompt>"],
+  "exitCode": 1,
+  "modelBacked": false,
+  "patch": null,
+  "tests": null,
+  "usage": null,
+  "tools": [],
+  "guessless": {"visible": false, "selected": false, "successfulReceipt": false, "materialUse": false},
+  "outcome": "invalid",
+  "reason": "Codex failed before model initialization: failed to initialize in-process app-server client: Operation not permitted (os error 1).",
+  "raw": {"stdout": "../raw/control.stdout.jsonl", "stderr": "../raw/control.stderr.txt", "startedAt": "../raw/control.started-at.txt"}
+}

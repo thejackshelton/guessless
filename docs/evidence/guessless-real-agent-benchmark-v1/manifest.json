@@ -1,0 +1,27 @@
+{
+  "schema": "guessless.real-agent-benchmark/v1",
+  "sealedAt": "2026-08-11T02:18:00Z",
+  "model": "gpt-5.6-sol",
+  "taskCount": 6,
+  "cellCount": 12,
+  "modelBackedCellCount": 9,
+  "arms": { "control": 6, "treatment": 6 },
+  "repositories": { "markless": 2, "frameless": 2, "versionless": 2 },
+  "order": { "controlFirst": 3, "treatmentFirst": 3 },
+  "sharedArgv": ["codex", "exec", "--ignore-user-config", "--ignore-rules", "--ephemeral", "-m", "gpt-5.6-sol", "-s", "workspace-write", "--json", "-C", "<arm-worktree>", "-o", "<arm-final-path>", "<frozen-prompt>"],
+  "treatmentOnlyArgv": ["-c", "mcp_servers.guessless.command=\"node\"", "-c", "mcp_servers.guessless.args=[\"/Users/jacksm5pro/dev/open-source/guessless/packages/mcp/dist/server.js\"]"],
+  "timeoutSeconds": null,
+  "environmentParity": "same inherited environment; isolated byte-identical parent trees; treatment-only Guessless MCP configuration",
+  "solutionSecrecy": "each isolated bare repository fetched only the parent at depth one; solution object absence was checked before launch",
+  "taskRecords": [
+    "task-01-markless-style-completions/pair.json",
+    "task-02-markless-volar-id/pair.json",
+    "task-03-frameless-shared-hook-export/pair.json",
+    "task-04-frameless-handler-local/pair.json",
+    "task-05-versionless-acquisition-trust/pair.json",
+    "task-06-versionless-react-injection/pair.json"
+  ],
+  "aggregate": "aggregate.json",
+  "decision": "decision.json",
+  "integrity": "Every prompt, patch, transcript, final response, status, start time, and timing file is retained under its task directory; invalid cells have closed machine-readable reasons."
+}

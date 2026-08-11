@@ -1,0 +1,17 @@
+Implemented object-form `style` attributes.
+
+- Added deterministic lowering for literals and same-file immutable `const` objects/spreads.
+- Supports camelCase conversion, custom properties, unitless values, automatic `px`, nullish removal, last-write wins, template expressions, and reactive state/computed/prop dependencies.
+- Added fail-closed diagnostics for unsupported object forms.
+- Updated editor-facing style types.
+- No runtime or serializer changes.
+
+Owning pass: `tsrx-semantic-graph`, consuming TSRX source and producing semantic graph/template-read and markup artifacts. Main implementation: [style-objects.ts](/private/tmp/guessless-fast-value-validation/pair-01/treatment/packages/compiler/src/passes/semantic-graph/style-objects.ts).
+
+Verification:
+
+- Requested Vitest command: **155 tests passed**
+- `pnpm exec tsc --noEmit -p tsconfig.json`: **passed**
+- `git diff --check`: **passed**
+
+Guessless resolved the changed diagnostic’s declaration and sole live compiler call; its broader receipt remained partial at explicitly reported package/test import boundaries, so those boundaries were covered through focused compiler tests rather than treated as safe.

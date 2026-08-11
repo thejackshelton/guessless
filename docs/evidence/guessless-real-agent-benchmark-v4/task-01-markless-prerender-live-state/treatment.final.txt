@@ -1,0 +1,11 @@
+Implemented both prerendered async-arm fixes:
+
+- Served pending-arm hosts and event records are materialized during canonical CSR setup, so events work immediately when mounted.
+- Browser re-settles now read authored state cells from the live graph in both the full evaluator and settle kernel. Props and computed/server evaluation authority remain unchanged.
+- Added focused kernel parity coverage and a browser assertion proving a re-settled arm renders the post-interaction state value.
+
+Validation:
+
+- TypeScript syntax transpilation passed.
+- `git diff --check` passed.
+- Focused web/browser tests were attempted but could not start because the workspace’s external read-only `node_modules` prevents Vite from writing `.vite-temp`; workspace package imports are consequently unresolved. No test pass is claimed.

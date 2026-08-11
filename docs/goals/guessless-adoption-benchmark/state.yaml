@@ -1,0 +1,1744 @@
+version: 2
+
+goal:
+  title: "Guessless adoption benchmark"
+  slug: guessless-adoption-benchmark
+  kind: specific
+  tranche: "Design, implement, execute, verify, and publish a decision-grade repeated paired Guessless benchmark."
+  status: done
+  oracle:
+    signal: "A sealed repeated paired same-model benchmark produces verified effect metrics and an explicit sibling-repository adoption decision under preregistered criteria."
+    cadence: "at protocol approval, pre-live gate, post-live analysis, and final audit"
+    final_proof: "Complete valid paired trials, raw transcripts, manifest/replay/calibration, uncertainty-aware metrics, and a criterion-backed adopt/pilot/do-not-adopt decision."
+  intake:
+    original_request: "Do a conclusive benchmark so we can know whether or not we need to put it into markless, frameless, versionless, etc. asap"
+    interpreted_outcome: "Obtain a trustworthy immediate adoption decision for Guessless across sibling repositories."
+    input_shape: specific
+    audience: "maintainer of Guessless and sibling projects"
+    authority: requested
+    proof_type: metric
+    completion_proof: "A preregistered repeated paired benchmark completes, verifies, and yields an explicit evidence-backed adoption decision."
+    likely_misfire: "Treat another single invalid run or synthetic metric without a fixed decision rule as conclusive."
+    blind_spots_considered:
+      - "Codex fixed-context token accounting invalidated the previous 16k total-token cap."
+      - "Order, warm-cache, model nondeterminism, and synthetic-task scope need counterbalancing and uncertainty."
+      - "The decision should govern a sibling-repo pilot, not overclaim universal causality."
+    existing_plan_facts:
+      - "V1 and v2 evidence are immutable historical attempts."
+      - "A new versioned protocol must preserve paired prompt/model/fixture/scoring parity."
+      - "Raw evidence, benchmarks, and a final adoption decision are required."
+
+rules:
+  pm_owns_state: true
+  one_active_task: true
+  max_write_workers: 1
+  no_implementation_without_worker_or_pm_task: true
+  no_completion_without_judge_or_pm_audit: true
+  planning_is_not_completion: true
+  queued_required_worker_blocks_completion: true
+  continuous_until_full_outcome: true
+  missing_input_or_credentials_do_not_stop_goal: true
+  exact_human_approval_can_terminal_wait: true
+  preserve_and_validate_existing_plan: true
+  intake_misfire_must_be_audited: true
+  goal_pressure_requires_oracle: true
+  no_completion_on_weak_proof: true
+  slice_policy:
+    max_consecutive_tiny_tasks: 2
+    prefer_vertical_slices: true
+    judge_picks_largest_safe_slice: true
+    worker_completes_whole_slice: true
+
+agents:
+  scout: installed
+  worker: installed
+  judge: installed
+
+visual_board:
+  selected: local
+  local:
+    status: live
+    url: "http://goalbuddy.localhost:41737/guessless-adoption-benchmark/"
+    command: "node /Users/jacksm5pro/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/guessless-adoption-benchmark"
+
+active_task: null
+
+tasks:
+  - id: T001
+    type: scout
+    assignee: Scout
+    status: done
+    reasoning_hint: low
+    objective: "Audit the existing v1/v2 evaluator, evidence, prompts, fixtures, scoring, token accounting, and failure topology; propose the smallest preregistered repeated paired protocol that can yield a defensible sibling-repository adoption decision quickly."
+    inputs:
+      - goal.md
+      - README.md
+      - packages/evaluation/src
+      - packages/evaluation/test
+      - packages/evaluation/fixtures/oracle-part-3-v1
+      - packages/evaluation/fixtures/oracle-part-3-v2
+      - docs/evidence/oracle-part-3-attempt.md
+      - docs/evidence/oracle-part-3-v2
+    constraints:
+      - "Read-only; no model/network calls or file edits."
+      - "Distinguish statistical conclusiveness, protocol validity, and the narrower product-adoption decision."
+      - "Return exact source paths, current failure causes, realistic cell counts, counterbalancing, token semantics, decision thresholds, costs, and implementation surfaces."
+    expected_output:
+      - "Evidence map and v2 failure diagnosis"
+      - "Preregistered v3 design with repetitions, order, validity, stopping, and decision rules"
+      - "Exact implementation and evidence surfaces"
+      - "Cost/time estimate and risks"
+    receipt:
+      result: done
+      summary: "V2 failed solely because its first correct control response reported 61,066 total tokens against a 16,000 cap; the remaining five cells were deliberately unrun. The smallest credible v3 is 18 paired trials/36 cells: six repetitions of each of three tasks, counterbalanced AB/BA, all attempts sealed, with at least five valid pairs per task. Record final-turn total usage but never validity-gate it. Complete all cells without retries, calculate paired correctness and efficiency uncertainty, then mechanically emit adopt/pilot/do-not-adopt under preregistered thresholds. Expected runtime is roughly 15–45 minutes and about 2.2M reported tokens at the observed baseline."
+      evidence:
+        - "packages/evaluation/fixtures/oracle-part-3-v2/protocol.json fixes one pair per task, 16 tool calls, 16,000 reported-token cap, 300-second timeout, and counterbalanced task order."
+        - "docs/evidence/oracle-part-3-v2/raw/runs.jsonl proves the correct four-site terminal was failed only by TOKEN_BUDGET_EXCEEDED 61066>16000 and five cells were canonical unrun."
+        - "packages/evaluation/src/codex.ts records the last turn.completed input_tokens+output_tokens and currently uses it as a validity cap despite Codex fixed context."
+        - "packages/evaluation/src/codex.ts preserves arm parity and differs only by Guessless MCP arguments."
+        - "packages/evaluation/src/scoring.ts lacks repeated-pair uncertainty and decision classification."
+        - "packages/evaluation/src/evidence.ts already seals attempted cells and honest unrun suffixes."
+      facts:
+        - "Design: oracle-part-3-v3; 6 repetitions x 3 tasks x 2 arms = 36 sequential cells/18 pairs; three AB and three BA pairs per task with task/order rotation."
+        - "Validity: both cells must pass process/transcript/schema/secret/postflight/fairness gates; control Guessless calls=0 and treatment >=1; reported total tokens are recorded, not validity-gated; retain 16 tool-call and 300-second limits."
+        - "Stopping: execute all 36 cells once without efficacy early stop, retries, substitution, deletion, or selective omission; require >=5 valid pairs per task and >=16 overall or conclude INCONCLUSIVE."
+        - "Analysis: task-stratified paired correctness and efficiency deltas with exact paired/randomization or deterministic exhaustive uncertainty; invalidity reasons explicit; sentinel zeros excluded."
+        - "Decision: correctness dominates. Broad adoption requires zero added false-completeness, no task regression, and strong correctness improvement or tied correctness with bounded efficiency gain. Harm or large tied-correctness overhead means do not adopt; intermediate evidence means pilot one sibling; insufficient validity means inconclusive."
+        - "Implementation surfaces: evaluation contracts, fixtures, codex, scoring, evidence, CLI, tests, v3 fixture, and generated dist. Evidence adds v3 protocol/commands/scores/benchmarks/decision/summary/manifest and 36 transcript pairs."
+      contradictions:
+        - "V2 was not a completed paired evaluation; it had zero scored cells and no pair."
+        - "Repeated synthetic trials estimate reliability on these fixtures, not universal repository benefit; the defensible decision is scoped to sibling rollout/pilot."
+      ambiguity_requiring_judge:
+        - "Define ADOPT as sibling integration permission rather than universal causal proof."
+        - "Preregister exact small-sample uncertainty and tie handling before live calls."
+  - id: T002
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "Review the Scout proposal and approve the smallest decision-grade v3 protocol and exact non-live Worker package."
+    inputs:
+      - "T001 receipt"
+      - "Current evaluator and immutable evidence"
+    constraints:
+      - "Read-only; no model/network calls or edits."
+      - "Reject underpowered, post-hoc, unfair, token-accounting-invalid, retryable, or overclaiming designs."
+    expected_output:
+      - "approved or rejected"
+      - "Exact preregistered protocol"
+      - "Worker allowed_files, verify, and stop_if"
+      - "Pre-live audit requirements"
+    receipt:
+      result: done
+      decision: approved
+      full_outcome_complete: false
+      rationale: "Approve a new immutable v3 vertical slice: 18 preregistered pairs are the minimum that gives each task three control-first and three Guessless-first repetitions while tolerating one invalid pair per task. V2’s reported-token cap must disappear because Codex reports fixed-context final-turn usage, not marginal task cost. Cell-local failures must be sealed and execution must continue; only authority mutation, secret exposure, or evidence-write failure is run-fatal. Exact paired inference and mechanical adoption thresholds must be implemented and calibrated offline before any live call. The result supports a scoped sibling-repository decision, not a universal performance claim."
+      evidence:
+        - "Identity is oracle-part-3-v3 with protocol v3, isolated fixture/final/staging paths, and byte-identical v2 inputs, truth, and response schema."
+        - "Exact 36-cell order gives each task six pairs, three control-first and three Guessless-first; globally nine pairs start with each arm and task positions are balanced."
+        - "All 36 cells run sequentially once without retry, replacement, resume, reordering, efficacy stopping, or selective omission."
+        - "Cell validity requires clean spawn/process/transcript/schema/count/tool/secret/postflight/arm compliance. Pair validity requires both cells valid."
+        - "Cell-local failures are sealed and execution continues; authority mutation, secret exposure, or durable-evidence failure is run-fatal and classifies INCONCLUSIVE."
+        - "reportedTotalTokens is last-turn input plus output usage, finite and recorded only; it never gates validity or represents marginal task cost."
+        - "Correctness uses exact planted equality, truth-aligned terminal state, and explicit false-completeness."
+        - "Exact paired sign tests use integer binomial arithmetic; ties are reported and excluded from directional n; no asymptotic approximation."
+        - "Efficiency is computed only for both-correct valid pairs and reports duration/token ratios and tool-call deltas with task and overall medians."
+        - "Exact distribution-free 95% median intervals use deterministic binomial order-statistic bounds with unbounded endpoints when n is insufficient."
+        - "INCONCLUSIVE precedes all decisions below 16 valid pairs overall, five per task, after fatal/replay disagreement, or missing metrics."
+        - "ADOPT requires no added false-completeness, no task correctness regression, and either significant correctness benefit or tied correctness plus bounded duration efficiency and capped token/tool overhead."
+        - "DO_NOT_ADOPT requires added false-completeness, significant correctness harm, or tied correctness with strongly bounded duration/tool overhead; every other valid outcome is PILOT one sibling."
+        - "The sealed bundle is exactly 82 files: manifest plus 81 covered members including protocol, commands, scores, benchmarks, decision, replay, summary, runs, calibration, and 72 transcript files."
+      missing_evidence:
+        - "Offline v3 implementation and calibrated verifier"
+        - "Pre-live hash, executable, auth, cost, absence, and command audit"
+        - "36-cell sealed live evidence, replayed metrics, adoption decision, and publication"
+      required_board_updates:
+        - "Activate T003 with the exact approved worker package."
+        - "T004 must prove all frozen hashes, v3 parity/order, source/bundled calibration, tests, absence, Codex 0.146.0/auth, projected cost, exact command, and 82-file allowlist."
+        - "Post-live audit must prove all 36 attempt slots, validity thresholds, replay equality, decision recomputation, manifest membership, secrets, no retries, and unchanged frozen hashes."
+  - id: T003
+    type: worker
+    assignee: Worker
+    status: blocked
+    reasoning_hint: medium
+    objective: "Implement the complete offline oracle-part-3-v3 evaluator and fixture contract exactly as locked in T002: 36 sequential cells/18 pairs, exact order and counterbalancing, continue-after-invalid topology, record-only token accounting, exact paired uncertainty, mechanical INCONCLUSIVE/ADOPT/PILOT/DO_NOT_ADOPT classification, replay-derived evidence, mutation-red calibration, and strict v1/v2 immutability. Do not make model or network calls and do not create final or staging v3 evidence."
+    inputs:
+      - docs/goals/guessless-adoption-benchmark/notes/T002-locked-protocol.md
+      - "T001 and T002 receipts"
+      - "Current v1/v2 evaluator, fixtures, tests, dist, and immutable evidence"
+    allowed_files:
+      - packages/evaluation/src/contracts.ts
+      - packages/evaluation/src/codex.ts
+      - packages/evaluation/src/scoring.ts
+      - packages/evaluation/src/evidence.ts
+      - packages/evaluation/src/fixtures.ts
+      - packages/evaluation/src/cli.ts
+      - packages/evaluation/test/evaluation.test.ts
+      - packages/evaluation/dist/cli.js
+      - packages/evaluation/fixtures/oracle-part-3-v3/ground-truth.json
+      - packages/evaluation/fixtures/oracle-part-3-v3/protocol.json
+      - packages/evaluation/fixtures/oracle-part-3-v3/response.schema.json
+      - packages/evaluation/fixtures/oracle-part-3-v3/input/delete/alias.ts
+      - packages/evaluation/fixtures/oracle-part-3-v3/input/delete/consumers.ts
+      - packages/evaluation/fixtures/oracle-part-3-v3/input/delete/dynamic.ts
+      - packages/evaluation/fixtures/oracle-part-3-v3/input/delete/state.ts
+      - packages/evaluation/fixtures/oracle-part-3-v3/input/reach/boundaries.ts
+      - packages/evaluation/fixtures/oracle-part-3-v3/input/reach/cycle.ts
+      - packages/evaluation/fixtures/oracle-part-3-v3/input/reach/entry.ts
+      - packages/evaluation/fixtures/oracle-part-3-v3/input/reach/leaf.ts
+      - packages/evaluation/fixtures/oracle-part-3-v3/input/reach/middle.ts
+      - packages/evaluation/fixtures/oracle-part-3-v3/input/rename/alias.ts
+      - packages/evaluation/fixtures/oracle-part-3-v3/input/rename/api.ts
+      - packages/evaluation/fixtures/oracle-part-3-v3/input/rename/barrel.ts
+      - packages/evaluation/fixtures/oracle-part-3-v3/input/rename/direct.ts
+      - packages/evaluation/fixtures/oracle-part-3-v3/input/rename/higher-order.ts
+      - packages/evaluation/fixtures/oracle-part-3-v3/input/rename/namespace.ts
+    verify:
+      - "pnpm build"
+      - "GUESSLESS_EVALUATION_NETWORK_CONSENT=disabled pnpm --filter @guessless/evaluation evaluation:calibrate -- --offline --fixture-only --evidence-id oracle-part-3-v3"
+      - "GUESSLESS_EVALUATION_NETWORK_CONSENT=disabled pnpm --filter @guessless/evaluation evaluation:verify -- --offline --evidence-id oracle-part-3-v2 --evidence-dir docs/evidence/oracle-part-3-v2"
+      - "GUESSLESS_EVALUATION_NETWORK_CONSENT=disabled pnpm --filter @guessless/evaluation evaluation:calibrate -- --offline --evidence-id oracle-part-3-v2 --evidence-dir docs/evidence/oracle-part-3-v2"
+      - "pnpm test"
+      - "pnpm typecheck"
+      - "pnpm lint"
+      - "pnpm exec vp check"
+    stop_if:
+      - "Any model/network process, Codex login, or live record path would be invoked."
+      - "Any file outside allowed_files is needed."
+      - "Any byte in v1/v2 fixtures or evidence changes."
+      - "V3 input, ground truth, or response schema is not byte-identical to v2."
+      - "Model, prompts, system instruction, Codex flags, environment policy, 16-tool-call limit, 300-second timeout, or arm parity would differ from v2 except for the preregistered v3 changes."
+      - "Any docs/evidence/oracle-part-3-v3 final or .staging-oracle-part-3-v3-* path already exists or would be created."
+      - "The implementation cannot continue after a cell-local invalidity without retrying that cell."
+      - "Any decision, uncertainty, replay, topology, mutation-red calibration, full test, build, typecheck, lint, formatting, or v2 offline verification gate is red."
+    receipt:
+      result: blocked
+      changed_files: []
+      commands:
+        - "Inspected active T003 and evaluation implementation surfaces"
+        - "Searched board and evaluator for exact order, thresholds, binomial, and median interval contract"
+      summary: "Stopped before editing because the compact T002 receipt omitted the exact protocol details it claimed to lock. The PM subsequently restored those Judge details verbatim in notes/T002-locked-protocol.md, so a replacement Worker can proceed without making product-strategy choices. No live/model/network calls or v3 paths were created, and no files changed."
+      deviations: []
+      remaining_blockers:
+        - "T003 itself ended before the durable protocol note arrived; T008 replaces it with the missing evidence attached."
+      verification_attempts: 0
+      stopped_because: "Required locked evidence was absent from the task at execution time."
+  - id: T008
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: medium
+    objective: "Implement the complete offline oracle-part-3-v3 evaluator and fixture contract using the exact order, numeric decision thresholds, validity topology, statistics, and evidence contract in notes/T002-locked-protocol.md. No model/network calls and no v3 evidence/staging."
+    inputs:
+      - docs/goals/guessless-adoption-benchmark/notes/T002-locked-protocol.md
+      - "T001-T003 receipts"
+      - "Current v1/v2 evaluator, fixtures, tests, dist, and immutable evidence"
+    allowed_files:
+      - packages/evaluation/src/contracts.ts
+      - packages/evaluation/src/codex.ts
+      - packages/evaluation/src/scoring.ts
+      - packages/evaluation/src/evidence.ts
+      - packages/evaluation/src/fixtures.ts
+      - packages/evaluation/src/cli.ts
+      - packages/evaluation/test/evaluation.test.ts
+      - packages/evaluation/dist/cli.js
+      - packages/evaluation/fixtures/oracle-part-3-v3/ground-truth.json
+      - packages/evaluation/fixtures/oracle-part-3-v3/protocol.json
+      - packages/evaluation/fixtures/oracle-part-3-v3/response.schema.json
+      - packages/evaluation/fixtures/oracle-part-3-v3/input/delete/alias.ts
+      - packages/evaluation/fixtures/oracle-part-3-v3/input/delete/consumers.ts
+      - packages/evaluation/fixtures/oracle-part-3-v3/input/delete/dynamic.ts
+      - packages/evaluation/fixtures/oracle-part-3-v3/input/delete/state.ts
+      - packages/evaluation/fixtures/oracle-part-3-v3/input/reach/boundaries.ts
+      - packages/evaluation/fixtures/oracle-part-3-v3/input/reach/cycle.ts
+      - packages/evaluation/fixtures/oracle-part-3-v3/input/reach/entry.ts
+      - packages/evaluation/fixtures/oracle-part-3-v3/input/reach/leaf.ts
+      - packages/evaluation/fixtures/oracle-part-3-v3/input/reach/middle.ts
+      - packages/evaluation/fixtures/oracle-part-3-v3/input/rename/alias.ts
+      - packages/evaluation/fixtures/oracle-part-3-v3/input/rename/api.ts
+      - packages/evaluation/fixtures/oracle-part-3-v3/input/rename/barrel.ts
+      - packages/evaluation/fixtures/oracle-part-3-v3/input/rename/direct.ts
+      - packages/evaluation/fixtures/oracle-part-3-v3/input/rename/higher-order.ts
+      - packages/evaluation/fixtures/oracle-part-3-v3/input/rename/namespace.ts
+    verify:
+      - "pnpm build"
+      - "GUESSLESS_EVALUATION_NETWORK_CONSENT=disabled pnpm --filter @guessless/evaluation evaluation:calibrate -- --offline --fixture-only --evidence-id oracle-part-3-v3"
+      - "GUESSLESS_EVALUATION_NETWORK_CONSENT=disabled pnpm --filter @guessless/evaluation evaluation:verify -- --offline --evidence-id oracle-part-3-v2 --evidence-dir docs/evidence/oracle-part-3-v2"
+      - "GUESSLESS_EVALUATION_NETWORK_CONSENT=disabled pnpm --filter @guessless/evaluation evaluation:calibrate -- --offline --evidence-id oracle-part-3-v2 --evidence-dir docs/evidence/oracle-part-3-v2"
+      - "pnpm test"
+      - "pnpm typecheck"
+      - "pnpm lint"
+      - "pnpm exec vp check"
+    stop_if:
+      - "Any model/network process, Codex login, or live record path would be invoked."
+      - "Any file outside allowed_files is needed."
+      - "Any byte in v1/v2 fixtures or evidence changes."
+      - "V3 input, ground truth, or response schema is not byte-identical to v2."
+      - "Any preregistered value in notes/T002-locked-protocol.md would be changed or decided by the Worker."
+      - "Any docs/evidence/oracle-part-3-v3 final or staging path exists or would be created."
+      - "Any decision, uncertainty, replay, topology, mutation-red calibration, full test, build, typecheck, lint, formatting, or v2 offline verification gate is red."
+    receipt:
+      result: done
+      changed_files:
+        - packages/evaluation/src/contracts.ts
+        - packages/evaluation/src/codex.ts
+        - packages/evaluation/src/scoring.ts
+        - packages/evaluation/src/evidence.ts
+        - packages/evaluation/src/fixtures.ts
+        - packages/evaluation/test/evaluation.test.ts
+        - packages/evaluation/dist/cli.js
+        - packages/evaluation/fixtures/oracle-part-3-v3/ground-truth.json
+        - packages/evaluation/fixtures/oracle-part-3-v3/protocol.json
+        - packages/evaluation/fixtures/oracle-part-3-v3/response.schema.json
+        - packages/evaluation/fixtures/oracle-part-3-v3/input/delete/alias.ts
+        - packages/evaluation/fixtures/oracle-part-3-v3/input/delete/consumers.ts
+        - packages/evaluation/fixtures/oracle-part-3-v3/input/delete/dynamic.ts
+        - packages/evaluation/fixtures/oracle-part-3-v3/input/delete/state.ts
+        - packages/evaluation/fixtures/oracle-part-3-v3/input/reach/boundaries.ts
+        - packages/evaluation/fixtures/oracle-part-3-v3/input/reach/cycle.ts
+        - packages/evaluation/fixtures/oracle-part-3-v3/input/reach/entry.ts
+        - packages/evaluation/fixtures/oracle-part-3-v3/input/reach/leaf.ts
+        - packages/evaluation/fixtures/oracle-part-3-v3/input/reach/middle.ts
+        - packages/evaluation/fixtures/oracle-part-3-v3/input/rename/alias.ts
+        - packages/evaluation/fixtures/oracle-part-3-v3/input/rename/api.ts
+        - packages/evaluation/fixtures/oracle-part-3-v3/input/rename/barrel.ts
+        - packages/evaluation/fixtures/oracle-part-3-v3/input/rename/direct.ts
+        - packages/evaluation/fixtures/oracle-part-3-v3/input/rename/higher-order.ts
+        - packages/evaluation/fixtures/oracle-part-3-v3/input/rename/namespace.ts
+      commands:
+        - cmd: "pnpm build"
+          status: pass
+        - cmd: "disabled-consent v3 fixture-only calibration"
+          status: pass
+        - cmd: "disabled-consent v2 offline verify and calibration"
+          status: pass
+        - cmd: "pnpm test"
+          status: pass
+          result: 169/169
+        - cmd: "pnpm typecheck"
+          status: pass
+        - cmd: "pnpm lint"
+          status: pass
+        - cmd: "pnpm exec vp check"
+          status: pass
+        - cmd: "v2/v3 ground-truth, schema, and input byte parity"
+          status: pass
+      summary: "Implemented the full offline v3 package: exact 36-cell order, continued local invalidity, fatal suffix topology, record-only tokens, exact integer sign tests and median intervals, efficiency uncertainty, mechanical four-way decision, replay-derived 82-file contract, mutation calibration, tests, and generated dist. Final verification passes 169/169 tests plus every listed gate. V3 has 18 fixture files; input/truth/schema exactly match v2. Key hashes: protocol 4f86c96f7d64709224175eb0152fc955d0228e02b12b94f2e3342763cb2271f6; truth dbf5a361045bb9707115898c7b5005b8067d533c79d7a1af17460b1e916d4655; schema 0f17b96d34ac989198ced68ef9ebe9ba6c70cafa5cf488e2755ccb4a5a3b66f3; dist ad9d2140b233a0804904fccdcf9100452b0234ac937d5e3ef9fa129864fe5db0. No v3 evidence/staging exists."
+      deviations: []
+      remaining_blockers: []
+      verification_attempts: 4
+      stopped_because: null
+  - id: T004
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "Run the final read-only pre-live fairness, validity, cost, identity, immutability, and one-shot execution gate."
+    constraints:
+      - "No model/network call or edits."
+      - "Approve only an exact direct-root live command and evidence allowlist."
+    expected_output:
+      - "approved or rejected"
+      - "Exact live package"
+      - "Post-live audit requirements"
+    receipt:
+      result: done
+      decision: rejected
+      full_outcome_complete: false
+      rationale: "Rejected the live gate despite green ordinary checks. A complete delete/reach response that reports known unresolved sites was not marked false-complete, allowing the immediate DO_NOT_ADOPT rule to be bypassed. Replay also forced runFatal=false and rejected a prior local invalidity followed by a later fatal suffix, so a late fatal could yield a non-INCONCLUSIVE decision. Identity, parity, order, record-only tokens, binary/authentication, absence, and ordinary offline gates otherwise pass."
+      evidence:
+        - "T008 passed build, v3 calibration, v2 replay/calibration, 169 tests, typecheck, lint, and Vite Plus."
+        - "V3 truth/schema/input parity, protocol order/model/tool/timeout, no reported-token cap, and absence gates pass."
+        - "scoring falseCompleteness considered only missed planted sites, not any truth-unresolved site under complete status."
+        - "replay analyzed with runFatal=false and topology rejected a local invalidity before a later fatal suffix."
+        - "Exact inference, numeric decision thresholds, continuation after local invalidity, record-only tokens, 82-file topology, canonical Codex 0.146.0/hash/auth, and platform gates pass."
+        - "Projected live exposure remains 15–45 minutes and about 2.2M reported final-turn tokens."
+      blocked_tasks:
+        - T005
+      missing_evidence:
+        - "V3 truth-unresolved false-completeness calibration"
+        - "Fatal derivation/topology and mandatory INCONCLUSIVE at early/middle/final positions including prior local invalidity"
+        - "Fresh full verification and pre-live approval"
+      required_board_updates:
+        - "Activate T009 repair Worker and do not activate T005."
+        - "After repair activate T010 fresh pre-live Judge."
+        - "Only an approved later live task may invoke the exact direct-root command once and write the exact 82 files."
+  - id: T009
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: medium
+    objective: "Repair the v3 false-completeness and fatal-topology decision-integrity defects without changing the locked protocol, v1/v2 behavior, fixtures, identity, order, thresholds, evidence topology, or any live path. Add v3-specific false-completeness for any truth-unresolved complete response; derive runFatal from sealed runs; require INCONCLUSIVE for every fatal position; accept a completed/local-invalid prefix, one fatal failed cell, then canonical unrun suffix; mutation-calibrate early/middle/final fatal cases including prior local invalidity; regenerate dist."
+    inputs:
+      - "T004 rejected pre-live receipt"
+      - docs/goals/guessless-adoption-benchmark/notes/T002-locked-protocol.md
+    allowed_files:
+      - packages/evaluation/src/scoring.ts
+      - packages/evaluation/src/evidence.ts
+      - packages/evaluation/test/evaluation.test.ts
+      - packages/evaluation/dist/cli.js
+    verify:
+      - "pnpm build"
+      - "GUESSLESS_EVALUATION_NETWORK_CONSENT=disabled pnpm --filter @guessless/evaluation evaluation:calibrate -- --offline --fixture-only --evidence-id oracle-part-3-v3"
+      - "GUESSLESS_EVALUATION_NETWORK_CONSENT=disabled pnpm --filter @guessless/evaluation evaluation:verify -- --offline --evidence-id oracle-part-3-v2 --evidence-dir docs/evidence/oracle-part-3-v2"
+      - "GUESSLESS_EVALUATION_NETWORK_CONSENT=disabled pnpm --filter @guessless/evaluation evaluation:calibrate -- --offline --evidence-id oracle-part-3-v2 --evidence-dir docs/evidence/oracle-part-3-v2"
+      - "pnpm test"
+      - "pnpm typecheck"
+      - "pnpm lint"
+      - "pnpm exec vp check"
+    stop_if:
+      - "Any model, network, authentication, or live record command would run."
+      - "Any file outside allowed_files is needed."
+      - "Any v1/v2 fixture, evidence, scoring result, or verifier behavior changes."
+      - "Any locked v3 order, validity rule, numeric threshold, identity, fixture byte, protocol byte, or 82-file topology changes."
+      - "Any v3 evidence/staging path exists or would be created."
+      - "A fatal run can produce ADOPT, PILOT, or DO_NOT_ADOPT."
+      - "A complete delete/reach response with known truth-unresolved sites is not false-complete."
+      - "Any full gate is red."
+    receipt:
+      result: done
+      changed_files:
+        - packages/evaluation/src/scoring.ts
+        - packages/evaluation/src/evidence.ts
+        - packages/evaluation/test/evaluation.test.ts
+        - packages/evaluation/dist/cli.js
+      commands:
+        - cmd: "pnpm build"
+          status: pass
+        - cmd: "disabled-consent v3 fixture calibration"
+          status: pass
+        - cmd: "disabled-consent v2 offline verify and calibration"
+          status: pass
+        - cmd: "pnpm test"
+          status: pass
+          result: 170/170
+        - cmd: "pnpm typecheck"
+          status: pass
+        - cmd: "pnpm lint"
+          status: pass
+        - cmd: "pnpm exec vp check"
+          status: pass
+      summary: "Repaired both T004 defects without changing the locked protocol. V3 score cells and decisions now classify every complete response for truth-unresolved delete/reach as false-complete. runFatal is derived from sealed RUN_FATAL records. Verification accepts any completed/local-invalid prefix, exactly one fatal cell, and a canonical unrun suffix; fatal analysis always returns INCONCLUSIVE. Calibration covers fatal cells 0, 17, and 35, including prior local invalidity. All gates pass with 170/170 tests. Hashes: scoring 3ca53771cd549fac939481b95f2a12e37d102529f985f1a5d89432f0863bf5f8; evidence 4b1a85f2ca99ba93a6d777323560c8cd13e583b8e0146dd4e6af7e60751e8e77; tests 2b8be8790bc03571dbc3935565e90385cb413acfdbe9fbcb8c5b85e9ee52396e; dist b17c6b270fe9ac46e9e9a95556c9da40129abaf1d8c8ffa6a156ed5bea30b97f. No v3 evidence/staging exists."
+      deviations: []
+      remaining_blockers: []
+      verification_attempts: 2
+      stopped_because: null
+  - id: T010
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "Rerun the definitive read-only v3 pre-live gate after T009, including repaired false-completeness/fatal calibration, all frozen hashes, exact command, binary/authentication, projected exposure, absence, and exact 82-file allowlist."
+    constraints:
+      - "No model/network call or edits."
+      - "Reject unless every T004 defect is closed and all full gates are fresh."
+    expected_output:
+      - "approved or rejected"
+      - "Exact direct-root one-shot live package"
+      - "Exact 82-file allowlist and post-live gates"
+    receipt:
+      result: done
+      decision: rejected
+      full_outcome_complete: false
+      rationale: "T009 closed the first two defects, but a full threshold audit found tied-correctness ADOPT checked only 16 both-correct pairs overall, not five per task, and fatal recognition used startsWith(RUN_FATAL), missing a local failure followed by a same-cell appended fatal postflight reason. Both can bypass preregistered decision/fatal precedence, so live execution remains rejected."
+      evidence:
+        - "T009 hashes and all 170-test/build/calibration/typecheck/lint/format gates pass."
+        - "Truth-unresolved complete responses are now false-complete and separate-cell fatal topology is INCONCLUSIVE."
+        - "A counterexample with six rename, six delete, four reach both-correct pairs and two reach both-incorrect ties incorrectly returned ADOPT."
+        - "Canonical cumulative failure text can contain PROCESS_STATUS then RUN_FATAL, which startsWith failed to recognize."
+        - "Protocol/parity/order/statistics/identity/82-file topology, v2 parity, absence, Codex hash/auth, platform, and projected exposure otherwise pass."
+      blocked_tasks:
+        - T005
+      missing_evidence:
+        - "Per-task five both-correct tied-ADOPT enforcement"
+        - "Cumulative RUN_FATAL recognition and calibration"
+        - "Fresh full gate and final pre-live approval"
+      required_board_updates:
+        - "Activate T011 exact repair Worker, then T012 fresh pre-live Judge; do not activate T005 before approval."
+  - id: T011
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: medium
+    objective: "Close the remaining v3 pre-live decision-integrity gaps: tied-correctness ADOPT requires at least 16 both-correct pairs overall and at least five per task; fatal state is derived from any canonical cumulative failure-reason component beginning RUN_FATAL, including local failure followed by same-cell fatal postflight. Use one shared predicate in analysis/topology, calibrate both cases, preserve all locked/v1/v2 behavior, regenerate dist, and make no live call."
+    inputs:
+      - "T010 rejected pre-live receipt"
+      - docs/goals/guessless-adoption-benchmark/notes/T002-locked-protocol.md
+    allowed_files:
+      - packages/evaluation/src/scoring.ts
+      - packages/evaluation/src/evidence.ts
+      - packages/evaluation/test/evaluation.test.ts
+      - packages/evaluation/dist/cli.js
+    verify:
+      - "pnpm build"
+      - "GUESSLESS_EVALUATION_NETWORK_CONSENT=disabled pnpm --filter @guessless/evaluation evaluation:calibrate -- --offline --fixture-only --evidence-id oracle-part-3-v3"
+      - "GUESSLESS_EVALUATION_NETWORK_CONSENT=disabled pnpm --filter @guessless/evaluation evaluation:verify -- --offline --evidence-id oracle-part-3-v2 --evidence-dir docs/evidence/oracle-part-3-v2"
+      - "GUESSLESS_EVALUATION_NETWORK_CONSENT=disabled pnpm --filter @guessless/evaluation evaluation:calibrate -- --offline --evidence-id oracle-part-3-v2 --evidence-dir docs/evidence/oracle-part-3-v2"
+      - "pnpm test"
+      - "pnpm typecheck"
+      - "pnpm lint"
+      - "pnpm exec vp check"
+    stop_if:
+      - "Any model/network/authentication/live record command would run."
+      - "Any file outside allowed_files is needed."
+      - "Any v1/v2 behavior, locked v3 byte/order/threshold/identity/validity/topology changes."
+      - "Tied ADOPT passes with fewer than five both-correct pairs for any task."
+      - "Any cumulative canonical RUN_FATAL component yields a non-INCONCLUSIVE result or fails fatal topology."
+      - "Any full gate is red or v3 evidence/staging exists."
+    receipt:
+      result: done
+      changed_files:
+        - packages/evaluation/src/scoring.ts
+        - packages/evaluation/src/evidence.ts
+        - packages/evaluation/test/evaluation.test.ts
+        - packages/evaluation/dist/cli.js
+      commands:
+        - cmd: "pnpm build"
+          status: pass
+        - cmd: "disabled-consent v3 fixture calibration"
+          status: pass
+        - cmd: "disabled-consent v2 offline verify/calibration"
+          status: pass
+        - cmd: "pnpm test"
+          status: pass
+          result: 171/171
+        - cmd: "pnpm typecheck"
+          status: pass
+        - cmd: "pnpm lint"
+          status: pass
+        - cmd: "pnpm exec vp check"
+          status: pass
+      summary: "Closed both T010 gaps. Tied-correctness ADOPT now requires at least five both-correct pairs per task as well as 16 overall; the calibrated 6/6/4 counterexample yields PILOT. One canonical failure-component predicate recognizes RUN_FATAL at the beginning or after cumulative separators and drives continuation, analysis, topology, and calibration. A same-cell local process failure plus fatal postflight mutation seals one fatal cell, canonical unrun suffix, and INCONCLUSIVE. All gates pass with 171/171 tests. Hashes: scoring 9db96e39e47f8b2b1f76850ab3650dec17e186111b5fe67cc3564cc72ff09784; evidence 01b87936200a5f38e7ccea955d8e3249fa9b97409c3744533550a76ed079a15f; tests 3050704f4b7e44e58ff1bc9019541bf61e95030f765366e138609b7d61f20a48; dist 8d441581d5a15256c9db0a1111041ffa353c8e839ed36167299f126060002ec2. Protocol remains hash 4f86c96f7d64709224175eb0152fc955d0228e02b12b94f2e3342763cb2271f6; no v3 evidence/staging exists."
+      deviations: []
+      remaining_blockers: []
+      verification_attempts: 1
+      stopped_because: null
+  - id: T012
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "Run the final definitive read-only v3 pre-live audit after T011 and issue the exact direct-root live package only if every prior defect and full gate is closed."
+    constraints:
+      - "No model/network call or edits."
+      - "Audit all locked thresholds and fatal combinations, not only prior probes."
+    expected_output:
+      - "approved or rejected"
+      - "Exact command, exact 82-file scope, verify and stop_if"
+    receipt:
+      result: done
+      decision: approved
+      full_outcome_complete: false
+      rationale: "Approved for one direct-root live execution. T011 closes the last threshold and cumulative-fatal gaps. The locked identity, 36-cell counterbalancing, arm parity, record-only tokens, exact inference, decision precedence, replay-derived 82-file topology, mutation calibration, v1/v2 immutability, absence, canonical binary/authentication, platform, and full 171-test gates all pass. No retry, resume, replacement, reordering, or overwrite is authorized."
+      evidence:
+        - "T011 passed build, v3 calibration, v2 replay/calibration, 171 tests, typecheck, lint, and Vite Plus; all receipt hashes match."
+        - "The 6/6/4 both-correct counterexample now yields PILOT and tied ADOPT requires every task >=5."
+        - "Shared fatal-component recognition covers separate and same-cell cumulative fatality; all fatal cases are INCONCLUSIVE with canonical suffix."
+        - "All locked statistics, thresholds, identity, protocol, fixture parity, 36-cell order, 82-file replay contract, and v1/v2 isolation pass."
+        - "Canonical Codex 0.146.0 hash/resolver/auth and Node/pnpm/Darwin platform pass; no v3 evidence/staging exists."
+        - "Expected exposure is 15–45 minutes and about 2.2M reported final-turn tokens."
+      missing_evidence:
+        - "Authorized one-shot live execution and sealed transcripts"
+        - "Post-live audit, publication, and final audit"
+      required_board_updates:
+        - "Activate T005 exact one-shot package; never reactivate it regardless of outcome."
+        - "After T005 activate T006 read-only post-live audit."
+  - id: T005
+    type: worker
+    assignee: Worker
+    status: blocked
+    reasoning_hint: high
+    objective: "From the repository root, complete every approved preflight and invoke the exact oracle-part-3-v3 record command once. Let the evaluator attempt all 36 cells sequentially and seal its honest outcome. Never invoke a second process. Run all approved offline postchecks and preserve exact final or staging evidence after any post-spawn failure."
+    inputs:
+      - "T012 approved one-shot live package"
+      - docs/goals/guessless-adoption-benchmark/notes/T002-locked-protocol.md
+    allowed_files:
+      - docs/evidence/oracle-part-3-v3/manifest.json
+      - docs/evidence/oracle-part-3-v3/protocol.json
+      - docs/evidence/oracle-part-3-v3/commands.json
+      - docs/evidence/oracle-part-3-v3/scores.json
+      - docs/evidence/oracle-part-3-v3/benchmarks.json
+      - docs/evidence/oracle-part-3-v3/decision.json
+      - docs/evidence/oracle-part-3-v3/replay.json
+      - docs/evidence/oracle-part-3-v3/summary.md
+      - docs/evidence/oracle-part-3-v3/raw/runs.jsonl
+      - docs/evidence/oracle-part-3-v3/raw/calibration.jsonl
+      - docs/evidence/oracle-part-3-v3/raw/r01-rename-control.stdout.jsonl
+      - docs/evidence/oracle-part-3-v3/raw/r01-rename-control.stderr.txt
+      - docs/evidence/oracle-part-3-v3/raw/r01-rename-guessless.stdout.jsonl
+      - docs/evidence/oracle-part-3-v3/raw/r01-rename-guessless.stderr.txt
+      - docs/evidence/oracle-part-3-v3/raw/r01-delete-guessless.stdout.jsonl
+      - docs/evidence/oracle-part-3-v3/raw/r01-delete-guessless.stderr.txt
+      - docs/evidence/oracle-part-3-v3/raw/r01-delete-control.stdout.jsonl
+      - docs/evidence/oracle-part-3-v3/raw/r01-delete-control.stderr.txt
+      - docs/evidence/oracle-part-3-v3/raw/r01-reach-control.stdout.jsonl
+      - docs/evidence/oracle-part-3-v3/raw/r01-reach-control.stderr.txt
+      - docs/evidence/oracle-part-3-v3/raw/r01-reach-guessless.stdout.jsonl
+      - docs/evidence/oracle-part-3-v3/raw/r01-reach-guessless.stderr.txt
+      - docs/evidence/oracle-part-3-v3/raw/r02-delete-control.stdout.jsonl
+      - docs/evidence/oracle-part-3-v3/raw/r02-delete-control.stderr.txt
+      - docs/evidence/oracle-part-3-v3/raw/r02-delete-guessless.stdout.jsonl
+      - docs/evidence/oracle-part-3-v3/raw/r02-delete-guessless.stderr.txt
+      - docs/evidence/oracle-part-3-v3/raw/r02-reach-guessless.stdout.jsonl
+      - docs/evidence/oracle-part-3-v3/raw/r02-reach-guessless.stderr.txt
+      - docs/evidence/oracle-part-3-v3/raw/r02-reach-control.stdout.jsonl
+      - docs/evidence/oracle-part-3-v3/raw/r02-reach-control.stderr.txt
+      - docs/evidence/oracle-part-3-v3/raw/r02-rename-guessless.stdout.jsonl
+      - docs/evidence/oracle-part-3-v3/raw/r02-rename-guessless.stderr.txt
+      - docs/evidence/oracle-part-3-v3/raw/r02-rename-control.stdout.jsonl
+      - docs/evidence/oracle-part-3-v3/raw/r02-rename-control.stderr.txt
+      - docs/evidence/oracle-part-3-v3/raw/r03-reach-control.stdout.jsonl
+      - docs/evidence/oracle-part-3-v3/raw/r03-reach-control.stderr.txt
+      - docs/evidence/oracle-part-3-v3/raw/r03-reach-guessless.stdout.jsonl
+      - docs/evidence/oracle-part-3-v3/raw/r03-reach-guessless.stderr.txt
+      - docs/evidence/oracle-part-3-v3/raw/r03-rename-guessless.stdout.jsonl
+      - docs/evidence/oracle-part-3-v3/raw/r03-rename-guessless.stderr.txt
+      - docs/evidence/oracle-part-3-v3/raw/r03-rename-control.stdout.jsonl
+      - docs/evidence/oracle-part-3-v3/raw/r03-rename-control.stderr.txt
+      - docs/evidence/oracle-part-3-v3/raw/r03-delete-control.stdout.jsonl
+      - docs/evidence/oracle-part-3-v3/raw/r03-delete-control.stderr.txt
+      - docs/evidence/oracle-part-3-v3/raw/r03-delete-guessless.stdout.jsonl
+      - docs/evidence/oracle-part-3-v3/raw/r03-delete-guessless.stderr.txt
+      - docs/evidence/oracle-part-3-v3/raw/r04-rename-guessless.stdout.jsonl
+      - docs/evidence/oracle-part-3-v3/raw/r04-rename-guessless.stderr.txt
+      - docs/evidence/oracle-part-3-v3/raw/r04-rename-control.stdout.jsonl
+      - docs/evidence/oracle-part-3-v3/raw/r04-rename-control.stderr.txt
+      - docs/evidence/oracle-part-3-v3/raw/r04-delete-control.stdout.jsonl
+      - docs/evidence/oracle-part-3-v3/raw/r04-delete-control.stderr.txt
+      - docs/evidence/oracle-part-3-v3/raw/r04-delete-guessless.stdout.jsonl
+      - docs/evidence/oracle-part-3-v3/raw/r04-delete-guessless.stderr.txt
+      - docs/evidence/oracle-part-3-v3/raw/r04-reach-guessless.stdout.jsonl
+      - docs/evidence/oracle-part-3-v3/raw/r04-reach-guessless.stderr.txt
+      - docs/evidence/oracle-part-3-v3/raw/r04-reach-control.stdout.jsonl
+      - docs/evidence/oracle-part-3-v3/raw/r04-reach-control.stderr.txt
+      - docs/evidence/oracle-part-3-v3/raw/r05-delete-guessless.stdout.jsonl
+      - docs/evidence/oracle-part-3-v3/raw/r05-delete-guessless.stderr.txt
+      - docs/evidence/oracle-part-3-v3/raw/r05-delete-control.stdout.jsonl
+      - docs/evidence/oracle-part-3-v3/raw/r05-delete-control.stderr.txt
+      - docs/evidence/oracle-part-3-v3/raw/r05-reach-control.stdout.jsonl
+      - docs/evidence/oracle-part-3-v3/raw/r05-reach-control.stderr.txt
+      - docs/evidence/oracle-part-3-v3/raw/r05-reach-guessless.stdout.jsonl
+      - docs/evidence/oracle-part-3-v3/raw/r05-reach-guessless.stderr.txt
+      - docs/evidence/oracle-part-3-v3/raw/r05-rename-control.stdout.jsonl
+      - docs/evidence/oracle-part-3-v3/raw/r05-rename-control.stderr.txt
+      - docs/evidence/oracle-part-3-v3/raw/r05-rename-guessless.stdout.jsonl
+      - docs/evidence/oracle-part-3-v3/raw/r05-rename-guessless.stderr.txt
+      - docs/evidence/oracle-part-3-v3/raw/r06-reach-guessless.stdout.jsonl
+      - docs/evidence/oracle-part-3-v3/raw/r06-reach-guessless.stderr.txt
+      - docs/evidence/oracle-part-3-v3/raw/r06-reach-control.stdout.jsonl
+      - docs/evidence/oracle-part-3-v3/raw/r06-reach-control.stderr.txt
+      - docs/evidence/oracle-part-3-v3/raw/r06-rename-control.stdout.jsonl
+      - docs/evidence/oracle-part-3-v3/raw/r06-rename-control.stderr.txt
+      - docs/evidence/oracle-part-3-v3/raw/r06-rename-guessless.stdout.jsonl
+      - docs/evidence/oracle-part-3-v3/raw/r06-rename-guessless.stderr.txt
+      - docs/evidence/oracle-part-3-v3/raw/r06-delete-guessless.stdout.jsonl
+      - docs/evidence/oracle-part-3-v3/raw/r06-delete-guessless.stderr.txt
+      - docs/evidence/oracle-part-3-v3/raw/r06-delete-control.stdout.jsonl
+      - docs/evidence/oracle-part-3-v3/raw/r06-delete-control.stderr.txt
+    verify:
+      - "Run all T012 frozen hash, fixture parity, 36-order, calibration, v2 replay, 171-test, typecheck, lint, format, binary/auth, platform, absence, and residue preflights."
+      - "Invoke the exact approved direct-root record command once."
+      - "Run disabled-consent v3 offline verify and calibration."
+      - "Require exact 82-file topology, 81 manifest members, no special entries/residue, raw replay equality, decision recomputation, secrets and arm-parity checks."
+      - "Rerun full tests/typecheck/lint/format, v2 verification/calibration, and all frozen hashes."
+    stop_if:
+      - "Any preflight is red or v3 final/staging residue exists before spawn."
+      - "Canonical binary/auth/platform/model/consent/protocol/order/fixture/MCP/environment differs."
+      - "The command was already invoked or would run outside directly authorized root context."
+      - "Any retry, resume, replacement, reorder, omission, deletion, efficacy stop, second process, or second invocation is proposed."
+      - "Any file outside allowed_files would remain or any product/evaluator/v1/v2 file would change."
+      - "After spawn preserve exact final or staging evidence and never retry, delete, or overwrite after any failure."
+      - "Do not conceal invalid cells, fatal suffix, decision class, unexpected cost/duration, or replay disagreement."
+    receipt:
+      result: blocked
+      harness: codex
+      blocked_reason: "The only permitted oracle-part-3-v3 live process attempted all 36 cells but yielded zero valid pairs, then exited while calibrating staged evidence. Every cell was invalid because Codex 0.146.0 emitted two agent_message events; all 18 treatment cells also failed arm compliance because the model never invoked Guessless. The final ENOENT came from the v3 evidence calibrator looking for the legacy ORDER[0] transcript name run-01-rename-control instead of the v3 name r01-rename-control. The locked protocol forbids retrying or replacing this run."
+      changed_files:
+        - docs/evidence/.staging-oracle-part-3-v3-54610
+      commands:
+        - cmd: "Frozen hashes, v2/v3 fixture parity, v3 fixture calibration, v2 replay/calibration, build, 171 tests, typecheck, lint, format, Codex binary/auth/platform, and final absence preflights"
+          status: pass
+        - cmd: "PATH=canonical GUESSLESS_EVALUATION_NETWORK_CONSENT=oracle-part-3-v3 pnpm --filter @guessless/evaluation evaluation:record -- --allow-model-network --evidence-id oracle-part-3-v3 --model gpt-5.6-sol --codex-version 0.146.0"
+          status: fail
+        - cmd: "GUESSLESS_EVALUATION_NETWORK_CONSENT=disabled pnpm --filter @guessless/evaluation evaluation:verify -- --offline --evidence-id oracle-part-3-v3 --evidence-dir docs/evidence/.staging-oracle-part-3-v3-54610"
+          status: fail
+      summary: "The one-shot run consumed all 36 scheduled model calls and sealed a complete 82-file staging topology with 36 run records and 81 manifest members. Mechanical decision: INCONCLUSIVE; valid pairs 0/18 (rename 0, delete 0, reach 0). No retry, resume, reorder, replacement, or second live process occurred."
+      evidence:
+        - "docs/evidence/.staging-oracle-part-3-v3-54610/raw/runs.jsonl has exactly 36 records; 18 control failures are TRANSCRIPT terminal count 2, and 18 treatment failures add ARM_COMPLIANCE no Guessless invocation."
+        - "docs/evidence/.staging-oracle-part-3-v3-54610/decision.json mechanically records INCONCLUSIVE and zero valid pairs."
+        - "docs/evidence/.staging-oracle-part-3-v3-54610/manifest.json covers exactly 81 members; the directory contains exactly 82 files including the manifest."
+        - "Aggregate reported usage is 2,292,627 final-turn tokens; aggregate duration is 1,322,540 ms; treatment Guessless invocations are zero."
+        - "Record exited ENOENT for structural-eval-evidence-transcript-*/oracle-part-3-v3/raw/run-01-rename-control.stdout.jsonl after live calls; packages/evaluation/src/evidence.ts evidenceCalibrations uses legacy ORDER[0].id for the transcript mutation."
+      remaining_blockers:
+        - "V3 provides no valid treatment/control comparison and therefore cannot answer the sibling adoption question."
+        - "A Judge must decide whether to publish the invalid v3 attempt and specify a new versioned, preregistered exposure protocol; v3 must never be retried."
+  - id: T006
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "Audit the sealed v3 transcripts, scores, uncertainty, protocol compliance, and adoption decision before publication."
+    constraints:
+      - "Read-only; no retries, model calls, or evidence edits."
+      - "Reject conclusions stronger than the preregistered rule or evidence scope."
+    expected_output:
+      - "approved or rejected"
+      - "Effect and reliability evidence"
+      - "Exact publication package"
+    receipt:
+      result: done
+      decision: rejected
+      full_outcome_complete: false
+      rationale: "The v3 INCONCLUSIVE decision is correct, but publication as an adoption benchmark is rejected. All 36 scheduled processes returned successfully, yet every cell violated the preregistered terminal-message rule and every treatment cell additionally failed to invoke Guessless; therefore zero pairs are valid and no correctness or efficiency comparison exists. The later calibrator ENOENT is a separate post-run harness defect caused by using the legacy v1/v2 transcript ID. V3 must remain immutable and must not be rescored or retried. The largest safe continuation is an offline, separately versioned v4 exposure protocol that fixes terminal selection, explicitly requires available Guessless use under an arm-identical instruction, and fixes order-aware calibration."
+      worker_package:
+        objective: "Preserve docs/evidence/.staging-oracle-part-3-v3-54610 byte-for-byte and document it as an invalid historical attempt, then implement and fully offline-calibrate a separately versioned oracle-part-3-v4 protocol. V4 must retain the exact v3 fixture, 36-cell order, model, budgets, counterbalancing, validity thresholds, statistics, decision rules, and 82-file topology. Change only two preregistered exposure semantics: append the same exact instruction to both arms—\"If the Guessless MCP server is available, you MUST invoke at least one Guessless tool before any command execution; if it is unavailable, proceed with the available read-only tools.\"—and accept one or more schema-valid completed agent_message events, selecting the last as terminal, with exactly one later turn.completed event. Fix evidence calibration to select protocol.order[0].id rather than legacy ORDER[0].id. Prove local MCP initialize/list-tools availability offline. Do not rescore, promote, rename, copy, delete, or retry v3; do not make any model/network/auth/live call; do not create v4 evidence/staging."
+        allowed_files:
+          - docs/evidence/oracle-part-3-v3-attempt.md
+          - packages/evaluation/src/contracts.ts
+          - packages/evaluation/src/codex.ts
+          - packages/evaluation/src/scoring.ts
+          - packages/evaluation/src/evidence.ts
+          - packages/evaluation/src/fixtures.ts
+          - packages/evaluation/src/cli.ts
+          - packages/evaluation/test/evaluation.test.ts
+          - packages/evaluation/dist/cli.js
+          - packages/evaluation/fixtures/oracle-part-3-v4/ground-truth.json
+          - packages/evaluation/fixtures/oracle-part-3-v4/protocol.json
+          - packages/evaluation/fixtures/oracle-part-3-v4/response.schema.json
+          - packages/evaluation/fixtures/oracle-part-3-v4/input/delete/alias.ts
+          - packages/evaluation/fixtures/oracle-part-3-v4/input/delete/consumers.ts
+          - packages/evaluation/fixtures/oracle-part-3-v4/input/delete/dynamic.ts
+          - packages/evaluation/fixtures/oracle-part-3-v4/input/delete/state.ts
+          - packages/evaluation/fixtures/oracle-part-3-v4/input/reach/boundaries.ts
+          - packages/evaluation/fixtures/oracle-part-3-v4/input/reach/cycle.ts
+          - packages/evaluation/fixtures/oracle-part-3-v4/input/reach/entry.ts
+          - packages/evaluation/fixtures/oracle-part-3-v4/input/reach/leaf.ts
+          - packages/evaluation/fixtures/oracle-part-3-v4/input/reach/middle.ts
+          - packages/evaluation/fixtures/oracle-part-3-v4/input/rename/alias.ts
+          - packages/evaluation/fixtures/oracle-part-3-v4/input/rename/api.ts
+          - packages/evaluation/fixtures/oracle-part-3-v4/input/rename/barrel.ts
+          - packages/evaluation/fixtures/oracle-part-3-v4/input/rename/direct.ts
+          - packages/evaluation/fixtures/oracle-part-3-v4/input/rename/higher-order.ts
+          - packages/evaluation/fixtures/oracle-part-3-v4/input/rename/namespace.ts
+        verify:
+          - "Before and after all work, require docs/evidence/.staging-oracle-part-3-v3-54610 manifest hash 085dc307eecd15ec704018e9fe236628a6758377b5a3e3c1b274ea9aaafac560, runs hash 4f3c17c33a0eaa9ec1349348abe1b3bf5a58af9072afcd38f4846b802117f391, decision hash a96830a11dec0ddec855649c56fccab9e6c6a24c1dfaab0c3baf6de5312366a6, replay hash 4bb91a20c1839d1620dc9cfd461d44a8e818fe3649f959bb63dde0f6b18a6144, and calibration hash e1e5993f43d72f53db04613ed021f799e19d708b53017920593795fea1efe2b0."
+          - "Require the historical report to state exactly: v3 is an unpromoted one-shot attempt; 36/36 cells failed; zero valid pairs; 18 control reasons were terminal-count=2; 18 treatment reasons also lacked a Guessless invocation; 2,292,627 reported tokens; 1,322,540 ms; calibrator ENOENT after calls; no retry; no adoption conclusion."
+          - "Require v4 input, ground-truth.json, and response.schema.json byte-identical to v3/v2 and require the exact v3 36-cell order and decision thresholds."
+          - "Calibrate v4 transcripts with one, two, and multiple schema-valid agent messages; require the last message to score, exactly one later turn.completed, and mutation-red rejection for zero messages, malformed messages, a turn before terminal, multiple turns, or trailing terminal content."
+          - "Calibrate arm-identical instructions and exact argv parity beyond the Guessless MCP configuration; treatment remains valid only with at least one Guessless invocation and control only with zero."
+          - "Run an offline local MCP initialize and tools/list smoke check against packages/mcp/dist/server.js and require at least one usable Guessless tool without model or network access."
+          - "Calibrate complete 36-cell, continued cell-local invalidity, early/middle/final cumulative fatal suffix, record-only tokens, exact inference, every decision class and boundary, 82-file replay, manifest mutation, secrets, order, identity, no retries, and byte-identical restoration."
+          - "Calibrate evidence transcript mutation using the active protocol's first cell ID and prove v1, v2, v3, and v4 order selection independently."
+          - "pnpm build"
+          - "GUESSLESS_EVALUATION_NETWORK_CONSENT=disabled pnpm --filter @guessless/evaluation evaluation:calibrate -- --offline --fixture-only --evidence-id oracle-part-3-v4"
+          - "GUESSLESS_EVALUATION_NETWORK_CONSENT=disabled pnpm --filter @guessless/evaluation evaluation:verify -- --offline --evidence-id oracle-part-3-v2 --evidence-dir docs/evidence/oracle-part-3-v2"
+          - "GUESSLESS_EVALUATION_NETWORK_CONSENT=disabled pnpm --filter @guessless/evaluation evaluation:calibrate -- --offline --evidence-id oracle-part-3-v2 --evidence-dir docs/evidence/oracle-part-3-v2"
+          - "pnpm test"
+          - "pnpm typecheck"
+          - "pnpm lint"
+          - "pnpm exec vp check"
+          - "Require docs/evidence/oracle-part-3-v4 and every docs/evidence/.staging-oracle-part-3-v4-* path absent."
+        stop_if:
+          - "Any byte under docs/evidence/.staging-oracle-part-3-v3-54610 would change."
+          - "Any v3 rescore, calibration rewrite, promotion, rename, copy, deletion, retry, resume, or replacement is proposed."
+          - "Any model, network, authentication, or live record command would run."
+          - "Any file outside allowed_files is needed."
+          - "Any v1/v2/v3 fixture, evidence, historical result, or protocol byte would change."
+          - "V4 changes any locked v3 rule other than the exact shared exposure instruction, multi-message terminal-selection rule, identity, and order-aware calibrator fix."
+          - "Control and treatment receive different instruction/task text or differ beyond the Guessless MCP configuration."
+          - "The final completed agent message is not deterministically selected and replayed, or exactly one later turn.completed is not required."
+          - "Offline MCP initialization/list-tools cannot prove the treatment server exposes usable Guessless tools."
+          - "Any v4 fixture calibration, replay mutation, build, test, typecheck, lint, formatting, v2 verification, parity, absence, or preservation check is red."
+      evidence:
+        - "The preserved directory contains exactly 82 regular files; manifest.json lists 81 members and every listed byte count and SHA-256 matches the current file."
+        - "raw/runs.jsonl contains exactly 36 records in exact protocol order. Every record is state failed with process status 0, null signal, no timeout, and returned spawn provenance; this is cell invalidity, not a transport or model-process failure."
+        - "All 36 transcripts contain exactly two completed agent_message events and exactly one turn.completed event. The first message is a structured progress response and the last is the substantive answer."
+        - "All 18 control cells have terminal-message-count=2 failure. All 18 treatment cells add treatment did not invoke Guessless."
+        - "The run totals are 2,292,627 reported final-turn tokens, 1,322,540 ms, 113 tool calls, and zero Guessless invocations."
+        - "decision.json, replay.json, scores.json, and benchmarks.json agree mechanically on INCONCLUSIVE and zero valid pairs."
+        - "No ADOPT, PILOT, or DO_NOT_ADOPT conclusion is supportable; post-hoc relaxation would violate preregistration and treatment never used Guessless."
+        - "The post-call calibrator used legacy ORDER[0].id, leaving the bundle unpromoted and incompletely calibrated."
+        - "Preserved hashes: manifest 085dc307eecd15ec704018e9fe236628a6758377b5a3e3c1b274ea9aaafac560; runs 4f3c17c33a0eaa9ec1349348abe1b3bf5a58af9072afcd38f4846b802117f391; decision a96830a11dec0ddec855649c56fccab9e6c6a24c1dfaab0c3baf6de5312366a6; replay 4bb91a20c1839d1620dc9cfd461d44a8e818fe3649f959bb63dde0f6b18a6144; calibration e1e5993f43d72f53db04613ed021f799e19d708b53017920593795fea1efe2b0."
+        - "V3's one-shot identity is consumed; v4 is a separately preregistered protocol, not a v3 retry."
+      blocked_tasks:
+        - T007
+        - T999
+      missing_evidence:
+        - "A valid paired Guessless/control comparison with at least 16 valid pairs overall and five per task."
+        - "Any evidence-backed sibling-repository ADOPT, PILOT, or DO_NOT_ADOPT decision."
+        - "An offline-calibrated v4 implementation and fresh pre-live approval."
+        - "A separately authorized one-shot v4 run, post-live audit, publication, and final completion audit."
+      required_board_updates:
+        - "Record T006 rejected/not complete and do not activate T007."
+        - "Create and activate one offline v4 Worker exactly as specified."
+        - "After the Worker, run a fresh read-only pre-live Judge."
+        - "Only after approval may a new direct-root v4 live Worker be activated; v3 must never be invoked again."
+        - "Keep the goal active through a valid paired decision, publication, and final audit."
+  - id: T013
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: high
+    objective: "Preserve docs/evidence/.staging-oracle-part-3-v3-54610 byte-for-byte and document it as an invalid historical attempt, then implement and fully offline-calibrate a separately versioned oracle-part-3-v4 protocol. V4 must retain the exact v3 fixture, 36-cell order, model, budgets, counterbalancing, validity thresholds, statistics, decision rules, and 82-file topology. Change only two preregistered exposure semantics: append the same exact instruction to both arms—If the Guessless MCP server is available, you MUST invoke at least one Guessless tool before any command execution; if it is unavailable, proceed with the available read-only tools.—and accept one or more schema-valid completed agent_message events, selecting the last as terminal, with exactly one later turn.completed event. Fix evidence calibration to select protocol.order[0].id rather than legacy ORDER[0].id. Prove local MCP initialize/list-tools availability offline. Do not rescore, promote, rename, copy, delete, or retry v3; do not make any model/network/auth/live call; do not create v4 evidence/staging."
+    inputs:
+      - "T006 receipt and exact Worker package"
+      - docs/goals/guessless-adoption-benchmark/notes/T002-locked-protocol.md
+      - docs/evidence/.staging-oracle-part-3-v3-54610
+    allowed_files:
+      - docs/evidence/oracle-part-3-v3-attempt.md
+      - packages/evaluation/src/contracts.ts
+      - packages/evaluation/src/codex.ts
+      - packages/evaluation/src/scoring.ts
+      - packages/evaluation/src/evidence.ts
+      - packages/evaluation/src/fixtures.ts
+      - packages/evaluation/src/cli.ts
+      - packages/evaluation/test/evaluation.test.ts
+      - packages/evaluation/dist/cli.js
+      - packages/evaluation/fixtures/oracle-part-3-v4/ground-truth.json
+      - packages/evaluation/fixtures/oracle-part-3-v4/protocol.json
+      - packages/evaluation/fixtures/oracle-part-3-v4/response.schema.json
+      - packages/evaluation/fixtures/oracle-part-3-v4/input/delete/alias.ts
+      - packages/evaluation/fixtures/oracle-part-3-v4/input/delete/consumers.ts
+      - packages/evaluation/fixtures/oracle-part-3-v4/input/delete/dynamic.ts
+      - packages/evaluation/fixtures/oracle-part-3-v4/input/delete/state.ts
+      - packages/evaluation/fixtures/oracle-part-3-v4/input/reach/boundaries.ts
+      - packages/evaluation/fixtures/oracle-part-3-v4/input/reach/cycle.ts
+      - packages/evaluation/fixtures/oracle-part-3-v4/input/reach/entry.ts
+      - packages/evaluation/fixtures/oracle-part-3-v4/input/reach/leaf.ts
+      - packages/evaluation/fixtures/oracle-part-3-v4/input/reach/middle.ts
+      - packages/evaluation/fixtures/oracle-part-3-v4/input/rename/alias.ts
+      - packages/evaluation/fixtures/oracle-part-3-v4/input/rename/api.ts
+      - packages/evaluation/fixtures/oracle-part-3-v4/input/rename/barrel.ts
+      - packages/evaluation/fixtures/oracle-part-3-v4/input/rename/direct.ts
+      - packages/evaluation/fixtures/oracle-part-3-v4/input/rename/higher-order.ts
+      - packages/evaluation/fixtures/oracle-part-3-v4/input/rename/namespace.ts
+    verify:
+      - "Before and after all work, require docs/evidence/.staging-oracle-part-3-v3-54610 manifest hash 085dc307eecd15ec704018e9fe236628a6758377b5a3e3c1b274ea9aaafac560, runs hash 4f3c17c33a0eaa9ec1349348abe1b3bf5a58af9072afcd38f4846b802117f391, decision hash a96830a11dec0ddec855649c56fccab9e6c6a24c1dfaab0c3baf6de5312366a6, replay hash 4bb91a20c1839d1620dc9cfd461d44a8e818fe3649f959bb63dde0f6b18a6144, and calibration hash e1e5993f43d72f53db04613ed021f799e19d708b53017920593795fea1efe2b0."
+      - "Require the historical report to state exactly: v3 is an unpromoted one-shot attempt; 36/36 cells failed; zero valid pairs; 18 control reasons were terminal-count=2; 18 treatment reasons also lacked a Guessless invocation; 2,292,627 reported tokens; 1,322,540 ms; calibrator ENOENT after calls; no retry; no adoption conclusion."
+      - "Require v4 input, ground-truth.json, and response.schema.json byte-identical to v3/v2 and require the exact v3 36-cell order and decision thresholds."
+      - "Calibrate v4 transcripts with one, two, and multiple schema-valid agent messages; require the last message to score, exactly one later turn.completed, and mutation-red rejection for zero messages, malformed messages, a turn before terminal, multiple turns, or trailing terminal content."
+      - "Calibrate arm-identical instructions and exact argv parity beyond the Guessless MCP configuration; treatment remains valid only with at least one Guessless invocation and control only with zero."
+      - "Run an offline local MCP initialize and tools/list smoke check against packages/mcp/dist/server.js and require at least one usable Guessless tool without model or network access."
+      - "Calibrate complete 36-cell, continued cell-local invalidity, early/middle/final cumulative fatal suffix, record-only tokens, exact inference, every decision class and boundary, 82-file replay, manifest mutation, secrets, order, identity, no retries, and byte-identical restoration."
+      - "Calibrate evidence transcript mutation using the active protocol's first cell ID and prove v1, v2, v3, and v4 order selection independently."
+      - "pnpm build"
+      - "GUESSLESS_EVALUATION_NETWORK_CONSENT=disabled pnpm --filter @guessless/evaluation evaluation:calibrate -- --offline --fixture-only --evidence-id oracle-part-3-v4"
+      - "GUESSLESS_EVALUATION_NETWORK_CONSENT=disabled pnpm --filter @guessless/evaluation evaluation:verify -- --offline --evidence-id oracle-part-3-v2 --evidence-dir docs/evidence/oracle-part-3-v2"
+      - "GUESSLESS_EVALUATION_NETWORK_CONSENT=disabled pnpm --filter @guessless/evaluation evaluation:calibrate -- --offline --evidence-id oracle-part-3-v2 --evidence-dir docs/evidence/oracle-part-3-v2"
+      - "pnpm test"
+      - "pnpm typecheck"
+      - "pnpm lint"
+      - "pnpm exec vp check"
+      - "Require docs/evidence/oracle-part-3-v4 and every docs/evidence/.staging-oracle-part-3-v4-* path absent."
+    stop_if:
+      - "Any byte under docs/evidence/.staging-oracle-part-3-v3-54610 would change."
+      - "Any v3 rescore, calibration rewrite, promotion, rename, copy, deletion, retry, resume, or replacement is proposed."
+      - "Any model, network, authentication, or live record command would run."
+      - "Any file outside allowed_files is needed."
+      - "Any v1/v2/v3 fixture, evidence, historical result, or protocol byte would change."
+      - "V4 changes any locked v3 rule other than the exact shared exposure instruction, multi-message terminal-selection rule, identity, and order-aware calibrator fix."
+      - "Control and treatment receive different instruction/task text or differ beyond the Guessless MCP configuration."
+      - "The final completed agent message is not deterministically selected and replayed, or exactly one later turn.completed is not required."
+      - "Offline MCP initialization/list-tools cannot prove the treatment server exposes usable Guessless tools."
+      - "Any v4 fixture calibration, replay mutation, build, test, typecheck, lint, formatting, v2 verification, parity, absence, or preservation check is red."
+    receipt:
+      result: done
+      changed_files:
+        - docs/evidence/oracle-part-3-v3-attempt.md
+        - packages/evaluation/src/contracts.ts
+        - packages/evaluation/src/codex.ts
+        - packages/evaluation/src/evidence.ts
+        - packages/evaluation/src/fixtures.ts
+        - packages/evaluation/test/evaluation.test.ts
+        - packages/evaluation/dist/cli.js
+        - packages/evaluation/fixtures/oracle-part-3-v4/ground-truth.json
+        - packages/evaluation/fixtures/oracle-part-3-v4/protocol.json
+        - packages/evaluation/fixtures/oracle-part-3-v4/response.schema.json
+        - packages/evaluation/fixtures/oracle-part-3-v4/input/delete/alias.ts
+        - packages/evaluation/fixtures/oracle-part-3-v4/input/delete/consumers.ts
+        - packages/evaluation/fixtures/oracle-part-3-v4/input/delete/dynamic.ts
+        - packages/evaluation/fixtures/oracle-part-3-v4/input/delete/state.ts
+        - packages/evaluation/fixtures/oracle-part-3-v4/input/reach/boundaries.ts
+        - packages/evaluation/fixtures/oracle-part-3-v4/input/reach/cycle.ts
+        - packages/evaluation/fixtures/oracle-part-3-v4/input/reach/entry.ts
+        - packages/evaluation/fixtures/oracle-part-3-v4/input/reach/leaf.ts
+        - packages/evaluation/fixtures/oracle-part-3-v4/input/reach/middle.ts
+        - packages/evaluation/fixtures/oracle-part-3-v4/input/rename/alias.ts
+        - packages/evaluation/fixtures/oracle-part-3-v4/input/rename/api.ts
+        - packages/evaluation/fixtures/oracle-part-3-v4/input/rename/barrel.ts
+        - packages/evaluation/fixtures/oracle-part-3-v4/input/rename/direct.ts
+        - packages/evaluation/fixtures/oracle-part-3-v4/input/rename/higher-order.ts
+        - packages/evaluation/fixtures/oracle-part-3-v4/input/rename/namespace.ts
+      commands:
+        - cmd: "shasum -a 256 docs/evidence/.staging-oracle-part-3-v3-54610/manifest.json docs/evidence/.staging-oracle-part-3-v3-54610/raw/runs.jsonl docs/evidence/.staging-oracle-part-3-v3-54610/decision.json docs/evidence/.staging-oracle-part-3-v3-54610/replay.json docs/evidence/.staging-oracle-part-3-v3-54610/raw/calibration.jsonl"
+          status: pass
+        - cmd: "pnpm build"
+          status: pass
+        - cmd: "GUESSLESS_EVALUATION_NETWORK_CONSENT=disabled pnpm --filter @guessless/evaluation evaluation:calibrate -- --offline --fixture-only --evidence-id oracle-part-3-v4"
+          status: pass
+        - cmd: "GUESSLESS_EVALUATION_NETWORK_CONSENT=disabled pnpm --filter @guessless/evaluation evaluation:verify -- --offline --evidence-id oracle-part-3-v2 --evidence-dir docs/evidence/oracle-part-3-v2"
+          status: pass
+        - cmd: "GUESSLESS_EVALUATION_NETWORK_CONSENT=disabled pnpm --filter @guessless/evaluation evaluation:calibrate -- --offline --evidence-id oracle-part-3-v2 --evidence-dir docs/evidence/oracle-part-3-v2"
+          status: pass
+        - cmd: "pnpm test"
+          status: pass
+        - cmd: "pnpm typecheck"
+          status: pass
+        - cmd: "pnpm lint"
+          status: pass
+        - cmd: "pnpm exec vp check"
+          status: pass
+      summary: "Implemented isolated v4 and the immutable v3 historical report. V4 preserves the v3 order, fixture, rules, decisions, and 82-file topology while adding the exact shared exposure instruction and deterministic last-valid-message/one-later-turn semantics. Offline calibration proves 12 MCP tools, arm parity, terminal mutation reds, 36 cells, replay/manifest mutations, fatal/local topology, exact inference, order-aware calibration, and decision boundaries. All gates pass; 174/174 tests. V3 staging remains 82-file manifest-valid with all five required hashes unchanged. Hashes: report 4b8ecaad; protocol 015cf73e; contracts 00b53cba; codex 2a940058; evidence 30a0b0ce; fixtures e3351afd; tests b035c288; dist a5d21ef4. No v4 evidence/staging exists."
+      deviations: []
+      remaining_blockers: []
+      verification_attempts: 1
+  - id: T014
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "Perform the fresh pre-live oracle-part-3-v4 gate. Audit immutable v3 preservation, exact v4 fixture/order/statistics/decision parity, the shared exposure instruction, deterministic last-valid-message terminal semantics, one-later-turn topology, treatment/control argv parity, offline MCP availability, calibration and mutation coverage, frozen hashes, 82-file topology, no v4 residue, canonical Codex binary/auth/platform, projected live exposure, exact one-shot direct-root command, and exact final/staging allowlist. Approve only if one new separately versioned live process can defensibly produce the original sibling adoption decision without retrying v3."
+    inputs:
+      - "T006 and T013 receipts"
+      - docs/evidence/oracle-part-3-v3-attempt.md
+      - docs/evidence/.staging-oracle-part-3-v3-54610
+      - packages/evaluation/fixtures/oracle-part-3-v4
+      - packages/evaluation/src
+      - packages/evaluation/test/evaluation.test.ts
+      - packages/evaluation/dist/cli.js
+    constraints:
+      - "Read-only; no edits, model/network calls, record command, evidence creation, v3 rescore, promotion, retry, resume, replacement, rename, copy, or deletion."
+      - "Reject if treatment exposure is not mandatory when the MCP server is available, or if control/treatment differ beyond the Guessless MCP configuration."
+      - "Reject if a progress message can be selected as terminal, if terminal/turn ordering is ambiguous, or if calibration cannot catch every relevant mutation."
+      - "Reject if any v1/v2/v3 immutable byte changed or v4 final/staging residue exists."
+      - "Return the exact direct-root live Worker package, command, allowed files, verify, and stop_if only when approved."
+    expected_output:
+      - "approved or rejected"
+      - "Hash, parity, MCP, terminal, replay, calibration, executable/auth, cost, absence, and command evidence"
+      - "Exact one-shot live Worker package or exact repair package"
+    receipt:
+      result: done
+      decision: approved
+      full_outcome_complete: false
+      rationale: "Approved for one separately versioned direct-root v4 execution. V4 preserves every decision-grade v3 fixture, order, budget, scoring, uncertainty, validity, and evidence rule while changing only the preregistered exposure instruction, transcript terminal policy, identity, and order-aware calibration. Treatment exposure is mandatory under the same instruction received by controls; the local MCP server exposes 12 tools. Multi-message terminal selection and turn ordering are deterministic and mutation-calibrated. V3 remains byte-identical and historically quarantined. The build receipt and fresh 174 tests, calibration, typecheck, lint, formatting, v2 replay, absence, binary, authentication, and platform checks pass. No v4 retry is authorized."
+      worker_package:
+        objective: "From /Users/jacksm5pro/dev/open-source/guessless, run every approved preflight, then invoke exactly once and only from the directly authorized root context: PATH=canonical GUESSLESS_EVALUATION_NETWORK_CONSENT=oracle-part-3-v4 pnpm --filter @guessless/evaluation evaluation:record -- --allow-model-network --evidence-id oracle-part-3-v4 --model gpt-5.6-sol --codex-version 0.146.0. Allow the exact 36-cell v4 sequence to complete and seal honestly. Never invoke a second v4 process. Run the approved offline postchecks after return. Preserve any final or staging attempt byte-for-byte after any post-spawn failure."
+        allowed_files:
+          - docs/evidence/oracle-part-3-v4/manifest.json
+          - docs/evidence/oracle-part-3-v4/protocol.json
+          - docs/evidence/oracle-part-3-v4/commands.json
+          - docs/evidence/oracle-part-3-v4/scores.json
+          - docs/evidence/oracle-part-3-v4/benchmarks.json
+          - docs/evidence/oracle-part-3-v4/decision.json
+          - docs/evidence/oracle-part-3-v4/replay.json
+          - docs/evidence/oracle-part-3-v4/summary.md
+          - docs/evidence/oracle-part-3-v4/raw/runs.jsonl
+          - docs/evidence/oracle-part-3-v4/raw/calibration.jsonl
+          - docs/evidence/oracle-part-3-v4/raw/r01-rename-control.stdout.jsonl
+          - docs/evidence/oracle-part-3-v4/raw/r01-rename-control.stderr.txt
+          - docs/evidence/oracle-part-3-v4/raw/r01-rename-guessless.stdout.jsonl
+          - docs/evidence/oracle-part-3-v4/raw/r01-rename-guessless.stderr.txt
+          - docs/evidence/oracle-part-3-v4/raw/r01-delete-guessless.stdout.jsonl
+          - docs/evidence/oracle-part-3-v4/raw/r01-delete-guessless.stderr.txt
+          - docs/evidence/oracle-part-3-v4/raw/r01-delete-control.stdout.jsonl
+          - docs/evidence/oracle-part-3-v4/raw/r01-delete-control.stderr.txt
+          - docs/evidence/oracle-part-3-v4/raw/r01-reach-control.stdout.jsonl
+          - docs/evidence/oracle-part-3-v4/raw/r01-reach-control.stderr.txt
+          - docs/evidence/oracle-part-3-v4/raw/r01-reach-guessless.stdout.jsonl
+          - docs/evidence/oracle-part-3-v4/raw/r01-reach-guessless.stderr.txt
+          - docs/evidence/oracle-part-3-v4/raw/r02-delete-control.stdout.jsonl
+          - docs/evidence/oracle-part-3-v4/raw/r02-delete-control.stderr.txt
+          - docs/evidence/oracle-part-3-v4/raw/r02-delete-guessless.stdout.jsonl
+          - docs/evidence/oracle-part-3-v4/raw/r02-delete-guessless.stderr.txt
+          - docs/evidence/oracle-part-3-v4/raw/r02-reach-guessless.stdout.jsonl
+          - docs/evidence/oracle-part-3-v4/raw/r02-reach-guessless.stderr.txt
+          - docs/evidence/oracle-part-3-v4/raw/r02-reach-control.stdout.jsonl
+          - docs/evidence/oracle-part-3-v4/raw/r02-reach-control.stderr.txt
+          - docs/evidence/oracle-part-3-v4/raw/r02-rename-guessless.stdout.jsonl
+          - docs/evidence/oracle-part-3-v4/raw/r02-rename-guessless.stderr.txt
+          - docs/evidence/oracle-part-3-v4/raw/r02-rename-control.stdout.jsonl
+          - docs/evidence/oracle-part-3-v4/raw/r02-rename-control.stderr.txt
+          - docs/evidence/oracle-part-3-v4/raw/r03-reach-control.stdout.jsonl
+          - docs/evidence/oracle-part-3-v4/raw/r03-reach-control.stderr.txt
+          - docs/evidence/oracle-part-3-v4/raw/r03-reach-guessless.stdout.jsonl
+          - docs/evidence/oracle-part-3-v4/raw/r03-reach-guessless.stderr.txt
+          - docs/evidence/oracle-part-3-v4/raw/r03-rename-guessless.stdout.jsonl
+          - docs/evidence/oracle-part-3-v4/raw/r03-rename-guessless.stderr.txt
+          - docs/evidence/oracle-part-3-v4/raw/r03-rename-control.stdout.jsonl
+          - docs/evidence/oracle-part-3-v4/raw/r03-rename-control.stderr.txt
+          - docs/evidence/oracle-part-3-v4/raw/r03-delete-control.stdout.jsonl
+          - docs/evidence/oracle-part-3-v4/raw/r03-delete-control.stderr.txt
+          - docs/evidence/oracle-part-3-v4/raw/r03-delete-guessless.stdout.jsonl
+          - docs/evidence/oracle-part-3-v4/raw/r03-delete-guessless.stderr.txt
+          - docs/evidence/oracle-part-3-v4/raw/r04-rename-guessless.stdout.jsonl
+          - docs/evidence/oracle-part-3-v4/raw/r04-rename-guessless.stderr.txt
+          - docs/evidence/oracle-part-3-v4/raw/r04-rename-control.stdout.jsonl
+          - docs/evidence/oracle-part-3-v4/raw/r04-rename-control.stderr.txt
+          - docs/evidence/oracle-part-3-v4/raw/r04-delete-control.stdout.jsonl
+          - docs/evidence/oracle-part-3-v4/raw/r04-delete-control.stderr.txt
+          - docs/evidence/oracle-part-3-v4/raw/r04-delete-guessless.stdout.jsonl
+          - docs/evidence/oracle-part-3-v4/raw/r04-delete-guessless.stderr.txt
+          - docs/evidence/oracle-part-3-v4/raw/r04-reach-guessless.stdout.jsonl
+          - docs/evidence/oracle-part-3-v4/raw/r04-reach-guessless.stderr.txt
+          - docs/evidence/oracle-part-3-v4/raw/r04-reach-control.stdout.jsonl
+          - docs/evidence/oracle-part-3-v4/raw/r04-reach-control.stderr.txt
+          - docs/evidence/oracle-part-3-v4/raw/r05-delete-guessless.stdout.jsonl
+          - docs/evidence/oracle-part-3-v4/raw/r05-delete-guessless.stderr.txt
+          - docs/evidence/oracle-part-3-v4/raw/r05-delete-control.stdout.jsonl
+          - docs/evidence/oracle-part-3-v4/raw/r05-delete-control.stderr.txt
+          - docs/evidence/oracle-part-3-v4/raw/r05-reach-control.stdout.jsonl
+          - docs/evidence/oracle-part-3-v4/raw/r05-reach-control.stderr.txt
+          - docs/evidence/oracle-part-3-v4/raw/r05-reach-guessless.stdout.jsonl
+          - docs/evidence/oracle-part-3-v4/raw/r05-reach-guessless.stderr.txt
+          - docs/evidence/oracle-part-3-v4/raw/r05-rename-control.stdout.jsonl
+          - docs/evidence/oracle-part-3-v4/raw/r05-rename-control.stderr.txt
+          - docs/evidence/oracle-part-3-v4/raw/r05-rename-guessless.stdout.jsonl
+          - docs/evidence/oracle-part-3-v4/raw/r05-rename-guessless.stderr.txt
+          - docs/evidence/oracle-part-3-v4/raw/r06-reach-guessless.stdout.jsonl
+          - docs/evidence/oracle-part-3-v4/raw/r06-reach-guessless.stderr.txt
+          - docs/evidence/oracle-part-3-v4/raw/r06-reach-control.stdout.jsonl
+          - docs/evidence/oracle-part-3-v4/raw/r06-reach-control.stderr.txt
+          - docs/evidence/oracle-part-3-v4/raw/r06-rename-control.stdout.jsonl
+          - docs/evidence/oracle-part-3-v4/raw/r06-rename-control.stderr.txt
+          - docs/evidence/oracle-part-3-v4/raw/r06-rename-guessless.stdout.jsonl
+          - docs/evidence/oracle-part-3-v4/raw/r06-rename-guessless.stderr.txt
+          - docs/evidence/oracle-part-3-v4/raw/r06-delete-guessless.stdout.jsonl
+          - docs/evidence/oracle-part-3-v4/raw/r06-delete-guessless.stderr.txt
+          - docs/evidence/oracle-part-3-v4/raw/r06-delete-control.stdout.jsonl
+          - docs/evidence/oracle-part-3-v4/raw/r06-delete-control.stderr.txt
+        verify:
+          - "All T014 frozen hash, v3 preservation, v4 parity/order/protocol, calibration, MCP, v2 replay, 174-test, typecheck, lint, formatting, binary/auth/platform, cost, absence, and exact command preflights."
+          - "Invoke the exact approved v4 direct-root record command once."
+          - "Run disabled-consent v4 offline verify and calibration."
+          - "Require exact 82-file topology, 81 manifest members, replay/decision equality, secrets, parity, no residue, all frozen hashes, v2 verification, 174 tests, typecheck, lint, and formatting."
+        stop_if:
+          - "Any preflight is red, frozen hash differs, or v4 final/staging residue exists before spawn."
+          - "Any v3 byte or operation changes."
+          - "Protocol or arm parity differs from approval, MCP smoke is not exactly 12 tools, or terminal/replay calibration is red."
+          - "Canonical binary/auth/platform/model/consent/fixture/environment differs."
+          - "The command was already invoked, delegated, retried, resumed, replaced, reordered, omitted, or duplicated."
+          - "After spawn preserve final/staging evidence byte-for-byte and never retry, overwrite, manually promote, or repair it."
+          - "Do not conceal invalidity, fatal suffix, decision, usage, duration, or replay disagreement."
+      evidence:
+        - "Fresh v4 calibration, v2 verification/calibration, 174/174 tests, typecheck, lint, and formatting pass."
+        - "V4 protocol hash 015cf73e9d065daab3544c0141ce1a75a6629db66df42b3e6b564e456d689db1 differs from v3 only in schema, evidenceId, and exact shared systemInstruction append."
+        - "V4 fixture bytes and exact 36-cell order/decision values equal v3; treatment validity requires Guessless while control requires zero."
+        - "Parser and mutations prove last schema-valid agent message and exactly one later turn.completed."
+        - "Offline MCP reports @guessless/mcp 0.0.1 and exactly 12 tools."
+        - "V4 calibration proves 36 cells, 82 files, 81 manifest members, replay, mutations, continuation/fatal topology, secrets, and restoration."
+        - "V3 staging hashes and historical report remain unchanged; no v4 final or staging exists."
+        - "Codex binary hash ae1d3ffe6d48aec6a4dc3f50e7eb8e0d11962485a6a9406c5a7012139383da02, version 0.146.0, existing ChatGPT auth, Node v24.15.0, pnpm 10.33.2, Darwin arm64 25.5.0."
+        - "Approved exposure is 36 sequential calls; planning range 15–45 minutes and about 2.3 million reported final-turn tokens."
+      blocked_tasks: []
+      missing_evidence:
+        - "The authorized one-shot v4 live execution and sealed raw evidence have not occurred."
+        - "Post-live audit, publication, and final completion audit remain."
+      required_board_updates:
+        - "Record T014 approved and activate one direct-root v4 live Worker exactly."
+        - "After the one-shot process, never reactivate or retry it; activate a fresh post-live Judge regardless of outcome."
+        - "Keep T007 and T999 queued until valid v4 evidence yields a mechanical sibling adoption decision."
+  - id: T015
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: high
+    objective: "From the repository root, complete every T014-approved preflight and invoke exactly once: PATH=canonical GUESSLESS_EVALUATION_NETWORK_CONSENT=oracle-part-3-v4 pnpm --filter @guessless/evaluation evaluation:record -- --allow-model-network --evidence-id oracle-part-3-v4 --model gpt-5.6-sol --codex-version 0.146.0. Let all 36 cells run and seal honestly. Never invoke a second v4 process. Run all approved offline postchecks and preserve exact final or staging evidence after any post-spawn failure."
+    inputs:
+      - "T014 approved one-shot v4 live package"
+      - packages/evaluation/fixtures/oracle-part-3-v4/protocol.json
+      - docs/evidence/oracle-part-3-v3-attempt.md
+    allowed_files:
+      - docs/evidence/oracle-part-3-v4/manifest.json
+      - docs/evidence/oracle-part-3-v4/protocol.json
+      - docs/evidence/oracle-part-3-v4/commands.json
+      - docs/evidence/oracle-part-3-v4/scores.json
+      - docs/evidence/oracle-part-3-v4/benchmarks.json
+      - docs/evidence/oracle-part-3-v4/decision.json
+      - docs/evidence/oracle-part-3-v4/replay.json
+      - docs/evidence/oracle-part-3-v4/summary.md
+      - docs/evidence/oracle-part-3-v4/raw/runs.jsonl
+      - docs/evidence/oracle-part-3-v4/raw/calibration.jsonl
+      - docs/evidence/oracle-part-3-v4/raw/r01-rename-control.stdout.jsonl
+      - docs/evidence/oracle-part-3-v4/raw/r01-rename-control.stderr.txt
+      - docs/evidence/oracle-part-3-v4/raw/r01-rename-guessless.stdout.jsonl
+      - docs/evidence/oracle-part-3-v4/raw/r01-rename-guessless.stderr.txt
+      - docs/evidence/oracle-part-3-v4/raw/r01-delete-guessless.stdout.jsonl
+      - docs/evidence/oracle-part-3-v4/raw/r01-delete-guessless.stderr.txt
+      - docs/evidence/oracle-part-3-v4/raw/r01-delete-control.stdout.jsonl
+      - docs/evidence/oracle-part-3-v4/raw/r01-delete-control.stderr.txt
+      - docs/evidence/oracle-part-3-v4/raw/r01-reach-control.stdout.jsonl
+      - docs/evidence/oracle-part-3-v4/raw/r01-reach-control.stderr.txt
+      - docs/evidence/oracle-part-3-v4/raw/r01-reach-guessless.stdout.jsonl
+      - docs/evidence/oracle-part-3-v4/raw/r01-reach-guessless.stderr.txt
+      - docs/evidence/oracle-part-3-v4/raw/r02-delete-control.stdout.jsonl
+      - docs/evidence/oracle-part-3-v4/raw/r02-delete-control.stderr.txt
+      - docs/evidence/oracle-part-3-v4/raw/r02-delete-guessless.stdout.jsonl
+      - docs/evidence/oracle-part-3-v4/raw/r02-delete-guessless.stderr.txt
+      - docs/evidence/oracle-part-3-v4/raw/r02-reach-guessless.stdout.jsonl
+      - docs/evidence/oracle-part-3-v4/raw/r02-reach-guessless.stderr.txt
+      - docs/evidence/oracle-part-3-v4/raw/r02-reach-control.stdout.jsonl
+      - docs/evidence/oracle-part-3-v4/raw/r02-reach-control.stderr.txt
+      - docs/evidence/oracle-part-3-v4/raw/r02-rename-guessless.stdout.jsonl
+      - docs/evidence/oracle-part-3-v4/raw/r02-rename-guessless.stderr.txt
+      - docs/evidence/oracle-part-3-v4/raw/r02-rename-control.stdout.jsonl
+      - docs/evidence/oracle-part-3-v4/raw/r02-rename-control.stderr.txt
+      - docs/evidence/oracle-part-3-v4/raw/r03-reach-control.stdout.jsonl
+      - docs/evidence/oracle-part-3-v4/raw/r03-reach-control.stderr.txt
+      - docs/evidence/oracle-part-3-v4/raw/r03-reach-guessless.stdout.jsonl
+      - docs/evidence/oracle-part-3-v4/raw/r03-reach-guessless.stderr.txt
+      - docs/evidence/oracle-part-3-v4/raw/r03-rename-guessless.stdout.jsonl
+      - docs/evidence/oracle-part-3-v4/raw/r03-rename-guessless.stderr.txt
+      - docs/evidence/oracle-part-3-v4/raw/r03-rename-control.stdout.jsonl
+      - docs/evidence/oracle-part-3-v4/raw/r03-rename-control.stderr.txt
+      - docs/evidence/oracle-part-3-v4/raw/r03-delete-control.stdout.jsonl
+      - docs/evidence/oracle-part-3-v4/raw/r03-delete-control.stderr.txt
+      - docs/evidence/oracle-part-3-v4/raw/r03-delete-guessless.stdout.jsonl
+      - docs/evidence/oracle-part-3-v4/raw/r03-delete-guessless.stderr.txt
+      - docs/evidence/oracle-part-3-v4/raw/r04-rename-guessless.stdout.jsonl
+      - docs/evidence/oracle-part-3-v4/raw/r04-rename-guessless.stderr.txt
+      - docs/evidence/oracle-part-3-v4/raw/r04-rename-control.stdout.jsonl
+      - docs/evidence/oracle-part-3-v4/raw/r04-rename-control.stderr.txt
+      - docs/evidence/oracle-part-3-v4/raw/r04-delete-control.stdout.jsonl
+      - docs/evidence/oracle-part-3-v4/raw/r04-delete-control.stderr.txt
+      - docs/evidence/oracle-part-3-v4/raw/r04-delete-guessless.stdout.jsonl
+      - docs/evidence/oracle-part-3-v4/raw/r04-delete-guessless.stderr.txt
+      - docs/evidence/oracle-part-3-v4/raw/r04-reach-guessless.stdout.jsonl
+      - docs/evidence/oracle-part-3-v4/raw/r04-reach-guessless.stderr.txt
+      - docs/evidence/oracle-part-3-v4/raw/r04-reach-control.stdout.jsonl
+      - docs/evidence/oracle-part-3-v4/raw/r04-reach-control.stderr.txt
+      - docs/evidence/oracle-part-3-v4/raw/r05-delete-guessless.stdout.jsonl
+      - docs/evidence/oracle-part-3-v4/raw/r05-delete-guessless.stderr.txt
+      - docs/evidence/oracle-part-3-v4/raw/r05-delete-control.stdout.jsonl
+      - docs/evidence/oracle-part-3-v4/raw/r05-delete-control.stderr.txt
+      - docs/evidence/oracle-part-3-v4/raw/r05-reach-control.stdout.jsonl
+      - docs/evidence/oracle-part-3-v4/raw/r05-reach-control.stderr.txt
+      - docs/evidence/oracle-part-3-v4/raw/r05-reach-guessless.stdout.jsonl
+      - docs/evidence/oracle-part-3-v4/raw/r05-reach-guessless.stderr.txt
+      - docs/evidence/oracle-part-3-v4/raw/r05-rename-control.stdout.jsonl
+      - docs/evidence/oracle-part-3-v4/raw/r05-rename-control.stderr.txt
+      - docs/evidence/oracle-part-3-v4/raw/r05-rename-guessless.stdout.jsonl
+      - docs/evidence/oracle-part-3-v4/raw/r05-rename-guessless.stderr.txt
+      - docs/evidence/oracle-part-3-v4/raw/r06-reach-guessless.stdout.jsonl
+      - docs/evidence/oracle-part-3-v4/raw/r06-reach-guessless.stderr.txt
+      - docs/evidence/oracle-part-3-v4/raw/r06-reach-control.stdout.jsonl
+      - docs/evidence/oracle-part-3-v4/raw/r06-reach-control.stderr.txt
+      - docs/evidence/oracle-part-3-v4/raw/r06-rename-control.stdout.jsonl
+      - docs/evidence/oracle-part-3-v4/raw/r06-rename-control.stderr.txt
+      - docs/evidence/oracle-part-3-v4/raw/r06-rename-guessless.stdout.jsonl
+      - docs/evidence/oracle-part-3-v4/raw/r06-rename-guessless.stderr.txt
+      - docs/evidence/oracle-part-3-v4/raw/r06-delete-guessless.stdout.jsonl
+      - docs/evidence/oracle-part-3-v4/raw/r06-delete-guessless.stderr.txt
+      - docs/evidence/oracle-part-3-v4/raw/r06-delete-control.stdout.jsonl
+      - docs/evidence/oracle-part-3-v4/raw/r06-delete-control.stderr.txt
+    verify:
+      - "Run every T014 frozen hash, v3 preservation, v4 parity/order/protocol, calibration, MCP, v2 replay, 174-test, typecheck, lint, format, binary/auth/platform, cost, absence, and exact command preflight."
+      - "Invoke the exact approved v4 direct-root record command once."
+      - "Run disabled-consent v4 offline verify and calibration."
+      - "Require exact 82-file topology, 81 manifest members, replay/decision equality, secrets, parity, no residue, all frozen hashes, v2 verification, 174 tests, typecheck, lint, and formatting."
+    stop_if:
+      - "Any preflight is red, frozen hash differs, or v4 final/staging residue exists before spawn."
+      - "Any v3 byte or operation changes."
+      - "Protocol or arm parity differs from approval, MCP smoke is not exactly 12 tools, or terminal/replay calibration is red."
+      - "Canonical binary/auth/platform/model/consent/fixture/environment differs."
+      - "The command was already invoked, delegated, retried, resumed, replaced, reordered, omitted, or duplicated."
+      - "After spawn preserve final/staging evidence byte-for-byte and never retry, overwrite, manually promote, or repair it."
+      - "Do not conceal invalidity, fatal suffix, decision, usage, duration, or replay disagreement."
+    receipt:
+      result: done
+      changed_files:
+        - docs/evidence/oracle-part-3-v4/manifest.json
+        - docs/evidence/oracle-part-3-v4/protocol.json
+        - docs/evidence/oracle-part-3-v4/commands.json
+        - docs/evidence/oracle-part-3-v4/scores.json
+        - docs/evidence/oracle-part-3-v4/benchmarks.json
+        - docs/evidence/oracle-part-3-v4/decision.json
+        - docs/evidence/oracle-part-3-v4/replay.json
+        - docs/evidence/oracle-part-3-v4/summary.md
+        - docs/evidence/oracle-part-3-v4/raw/runs.jsonl
+        - docs/evidence/oracle-part-3-v4/raw/calibration.jsonl
+      commands:
+        - cmd: "PATH=canonical GUESSLESS_EVALUATION_NETWORK_CONSENT=oracle-part-3-v4 pnpm --filter @guessless/evaluation evaluation:record -- --allow-model-network --evidence-id oracle-part-3-v4 --model gpt-5.6-sol --codex-version 0.146.0"
+          status: pass
+        - cmd: "GUESSLESS_EVALUATION_NETWORK_CONSENT=disabled pnpm --filter @guessless/evaluation evaluation:verify --evidence-id oracle-part-3-v4 --evidence-dir docs/evidence/oracle-part-3-v4 --offline"
+          status: pass
+        - cmd: "GUESSLESS_EVALUATION_NETWORK_CONSENT=disabled pnpm --filter @guessless/evaluation evaluation:calibrate --evidence-id oracle-part-3-v4 --evidence-dir docs/evidence/oracle-part-3-v4"
+          status: pass
+        - cmd: "GUESSLESS_EVALUATION_NETWORK_CONSENT=disabled pnpm --filter @guessless/evaluation evaluation:verify --evidence-id oracle-part-3-v2 --evidence-dir docs/evidence/oracle-part-3-v2 --offline"
+          status: pass
+        - cmd: "GUESSLESS_EVALUATION_NETWORK_CONSENT=disabled pnpm --filter @guessless/evaluation evaluation:calibrate --evidence-id oracle-part-3-v2 --evidence-dir docs/evidence/oracle-part-3-v2"
+          status: pass
+        - cmd: "pnpm test"
+          status: pass
+        - cmd: "pnpm typecheck"
+          status: pass
+        - cmd: "pnpm lint"
+          status: pass
+        - cmd: "pnpm exec vp check"
+          status: pass
+        - cmd: "frozen v3/v4 source and evidence hash checks"
+          status: pass
+      summary: "Invoked the approved direct-root oracle-part-3-v4 live process exactly once. It completed all 36 sequential gpt-5.6-sol cells and sealed the canonical 82-file evidence bundle with 81 manifest members; there was no retry, resume, replacement, second process, staging residue, invalid cell, or fatal suffix. The run took 1,785,499 ms, reported 3,509,068 final-turn tokens, made 202 tool calls, and made 83 Guessless invocations, all in the treatment arm. The sealed scorer mechanically emitted DO_NOT_ADOPT with 18 valid pairs, 18 ties, zero both-correct pairs, and treatment-added false completeness. All offline replay, calibration, integrity, v2 replay, 174-test, typecheck, lint, format, frozen-hash, topology, and preservation gates pass."
+      evidence:
+        - "docs/evidence/oracle-part-3-v4/manifest.json sha256 d6908dc21fe94fe2a44c11df5089245e5f98d314d86b86a1693735566ba61d1e; exactly 82 regular files, 81 manifest members, zero symlinks, and no v4 staging residue."
+        - "docs/evidence/oracle-part-3-v4/raw/runs.jsonl sha256 c833a18ae41efc3af1a202b501ca15e8cc7abaa25d9db3fe21845f650de61512; all 36 cells completed and treatment/control Guessless invocation totals are 83/0."
+        - "docs/evidence/oracle-part-3-v4/decision.json sha256 fdc7cc6eaf667ef5ab41cca25230e14b1784d7f04201a2be5a06c5915af342c3; mechanical decision DO_NOT_ADOPT, 18 valid pairs, six per task, 18 correctness ties, zero both-correct pairs."
+        - "docs/evidence/oracle-part-3-v4/scores.json sha256 bd3f6a7974a41c03f6cb9896a78d48a29faff1aeb64f22f9a67c79e7d058c7a8; control/treatment sites missed 96/96, false positives 102/106, false completeness 17/18, unresolved 12/12, invalid 0/0."
+        - "Replay sha256 705a2fbe7d49ef7c163221e068d88ca1a11975849cd4c9c51377c58816a07ed5 and calibration sha256 257c97229b800628a8bf58b4a18a047052fb652dad6671466a5f3ac37cc8a01c reproduce offline."
+        - "All v3 staging hashes remain unchanged: manifest 085dc307, runs 4f3c17c3, decision a96830a1, replay 4bb91a20, calibration e1e5993f."
+        - "Fresh pnpm test reports 11 files and 174/174 tests passed; typecheck, lint, format, v4/v2 verify, and v4/v2 calibration pass."
+      deviations:
+        - "The first offline postcheck invocation used an incorrect forwarded-argument shape and failed before reading or changing evidence; the exact corrected offline verify and calibration commands then passed. The live process itself was invoked only once."
+        - "A post-live semantic audit found that model-visible scratch directories contain only task-local paths such as direct.ts, while ground truth uses task-prefixed IDs such as rename/direct.ts. The literal scorer turns an otherwise exact task-local ID into both a miss and false positive. The sealed mechanical result is preserved unchanged, but its decision-grade interpretation is delegated to T016."
+      remaining_blockers:
+        - "T016 must decide whether the task-prefix representation mismatch invalidates the mechanical adoption conclusion and whether a separately versioned replay-only correction or new live protocol is required."
+      verification_attempts: 2
+  - id: T016
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "Perform a fresh read-only post-live audit of the immutable oracle-part-3-v4 evidence. Verify topology, manifest, replay, decision, all 36 terminals, treatment exposure, paired statistics, and the exact product conclusion. Explicitly audit whether the model-visible scratch CWD contains only each task directory while ground truth IDs are task-prefixed, whether unprefixed reported IDs therefore become systematic misses and false positives under packages/evaluation/src/scoring.ts, and whether the mechanical DO_NOT_ADOPT result is substantively decision-grade. Decide whether a deterministic separately versioned replay-only correction can be preregistered without new model calls, or whether a fresh separately versioned live protocol/run is necessary. Never edit, rescore, retry, promote, replace, or mutate v3/v4 evidence."
+    inputs:
+      - "T015 receipt and immutable docs/evidence/oracle-part-3-v4"
+      - packages/evaluation/src/codex.ts
+      - packages/evaluation/src/scoring.ts
+      - packages/evaluation/src/evidence.ts
+      - packages/evaluation/fixtures/oracle-part-3-v4
+      - docs/evidence/.staging-oracle-part-3-v3-54610
+    constraints:
+      - "Read-only; no file edits, model/network calls, retries, evidence mutations, or post-hoc official rescoring."
+      - "Treat the sealed mechanical label and a defensible sibling-repository adoption conclusion as separate questions."
+      - "Trace exact reported IDs, task CWD construction, response-schema language, ground-truth IDs, and literal scorer comparisons."
+      - "Reject completion if a representation mismatch can change correctness, false-completeness, both-correct eligibility, efficiency statistics, or decision class."
+      - "If rejected, return the largest coherent exact repair package, whether it is replay-only or requires a new live run, with immutable v4 preservation and no v4 retry."
+    expected_output:
+      - "approved or rejected"
+      - "full_outcome_complete true or false"
+      - "Requirement-by-requirement evidence and exact benchmark numbers"
+      - "Decision-grade adoption recommendation or exact next Worker package"
+    receipt:
+      result: done
+      decision: rejected
+      full_outcome_complete: false
+      rationale: "The sealed v4 mechanics are reproducible, but its DO_NOT_ADOPT label is not decision-grade. Every one of 232 terminal IDs is task-local while truth is task-prefixed, so literal scoring systematically corrupts correctness and excludes all efficiency analysis. More seriously, ground truth is derived by Guessless itself, includes questionable reach anchors such as Promise at boundaries.ts:1:45, and requires unresolved IDs to be duplicated into reported IDs without telling participants. A prefix-only replay cannot repair oracle circularity or prompt/schema ambiguity. Post-hoc semantic reinterpretation would be result-aware. A fresh v5 live run is required after an independently specified offline protocol; v4 remains immutable and must never be retried."
+      worker_package:
+        objective: "Implement the complete non-live oracle-part-3-v5 protocol and independent oracle. Preserve v3/v4 byte-for-byte. Copy each task directory into scratch as scratch/<task>/ and run Codex with scratch as CWD and Guessless root, so both arms visibly use task-prefixed paths. Clarify prompts and schema that reportedSiteIds contains resolved requested sites, unresolvedSiteIds contains disjoint unresolved boundaries, paths begin with the task directory, and coordinates use task-specific anchors. Lock rename resolved truth to rename/alias.ts:2:38, rename/direct.ts:2:37, rename/higher-order.ts:2:42, rename/namespace.ts:2:51. Lock delete resolved truth to delete/state.ts:3:2, delete/consumers.ts:2:39, delete/alias.ts:2:43 and unresolved truth to delete/dynamic.ts:3:55, anchored at the first computed-property-expression token. Lock reach resolved truth to reach/boundaries.ts:1:23, reach/boundaries.ts:2:8, reach/cycle.ts:1:17, reach/cycle.ts:4:17, reach/entry.ts:2:17, reach/leaf.ts:1:14, reach/leaf.ts:2:17, reach/middle.ts:4:17 and unresolved truth to reach/boundaries.ts:3:9, anchored at the import keyword. Validate these sites independently from fixed source bytes and documented lexemes; never derive or certify truth with GuesslessEngine or another parser. Retain the v4 model, exposure rule, 36-cell order, counterbalancing, budgets, validity, exact statistics, decision thresholds, one-shot behavior, and 82-file live topology. Add mutation-red calibration for path visibility, task-prefix enforcement, disjoint fields, coordinate anchors, oracle independence, transcript semantics, decisions, topology, replay, and immutable predecessor hashes. Publish a read-only v4 audit report, but create no v5 evidence or staging and make no model/network calls."
+        allowed_files:
+          - packages/evaluation/src/contracts.ts
+          - packages/evaluation/src/codex.ts
+          - packages/evaluation/src/scoring.ts
+          - packages/evaluation/src/evidence.ts
+          - packages/evaluation/src/fixtures.ts
+          - packages/evaluation/src/cli.ts
+          - packages/evaluation/test/evaluation.test.ts
+          - packages/evaluation/dist/cli.js
+          - packages/evaluation/fixtures/oracle-part-3-v5/ground-truth.json
+          - packages/evaluation/fixtures/oracle-part-3-v5/oracle-rationale.json
+          - packages/evaluation/fixtures/oracle-part-3-v5/protocol.json
+          - packages/evaluation/fixtures/oracle-part-3-v5/response.schema.json
+          - packages/evaluation/fixtures/oracle-part-3-v5/input/delete/alias.ts
+          - packages/evaluation/fixtures/oracle-part-3-v5/input/delete/consumers.ts
+          - packages/evaluation/fixtures/oracle-part-3-v5/input/delete/dynamic.ts
+          - packages/evaluation/fixtures/oracle-part-3-v5/input/delete/state.ts
+          - packages/evaluation/fixtures/oracle-part-3-v5/input/reach/boundaries.ts
+          - packages/evaluation/fixtures/oracle-part-3-v5/input/reach/cycle.ts
+          - packages/evaluation/fixtures/oracle-part-3-v5/input/reach/entry.ts
+          - packages/evaluation/fixtures/oracle-part-3-v5/input/reach/leaf.ts
+          - packages/evaluation/fixtures/oracle-part-3-v5/input/reach/middle.ts
+          - packages/evaluation/fixtures/oracle-part-3-v5/input/rename/alias.ts
+          - packages/evaluation/fixtures/oracle-part-3-v5/input/rename/api.ts
+          - packages/evaluation/fixtures/oracle-part-3-v5/input/rename/barrel.ts
+          - packages/evaluation/fixtures/oracle-part-3-v5/input/rename/direct.ts
+          - packages/evaluation/fixtures/oracle-part-3-v5/input/rename/higher-order.ts
+          - packages/evaluation/fixtures/oracle-part-3-v5/input/rename/namespace.ts
+          - docs/evidence/oracle-part-3-v4-audit.md
+        verify:
+          - "pnpm build"
+          - "GUESSLESS_EVALUATION_NETWORK_CONSENT=disabled pnpm --filter @guessless/evaluation evaluation:calibrate -- --offline --fixture-only --evidence-id oracle-part-3-v5"
+          - "GUESSLESS_EVALUATION_NETWORK_CONSENT=disabled pnpm --filter @guessless/evaluation evaluation:verify -- --offline --evidence-id oracle-part-3-v4 --evidence-dir docs/evidence/oracle-part-3-v4"
+          - "GUESSLESS_EVALUATION_NETWORK_CONSENT=disabled pnpm --filter @guessless/evaluation evaluation:calibrate -- --offline --evidence-id oracle-part-3-v4 --evidence-dir docs/evidence/oracle-part-3-v4"
+          - "GUESSLESS_EVALUATION_NETWORK_CONSENT=disabled pnpm --filter @guessless/evaluation evaluation:verify -- --offline --evidence-id oracle-part-3-v2 --evidence-dir docs/evidence/oracle-part-3-v2"
+          - "GUESSLESS_EVALUATION_NETWORK_CONSENT=disabled pnpm --filter @guessless/evaluation evaluation:calibrate -- --offline --evidence-id oracle-part-3-v2 --evidence-dir docs/evidence/oracle-part-3-v2"
+          - "pnpm test"
+          - "pnpm typecheck"
+          - "pnpm lint"
+          - "pnpm exec vp check"
+          - "Preserve all exact v3 and v4 evidence hashes."
+          - "Require docs/evidence/oracle-part-3-v5 absent."
+        stop_if:
+          - "Any model, network, Codex login, live record command, v5 final evidence, or v5 staging path would be invoked or created."
+          - "Any file outside allowed_files is needed."
+          - "Any v1-v4 fixture/evidence byte changes, any v4 retry or rescore is attempted, or the known v4 hashes differ."
+          - "V5 truth is derived, validated, or selected using GuesslessEngine, another parser, v4 arm outputs, or outcome-dependent tuning."
+          - "The model-visible filesystem does not contain task-prefixed paths identically for both arms, or Guessless and shell tools do not share the same root."
+          - "Reported and unresolved fields remain overlapping or ambiguous, task prefixes are not explicit, or any locked coordinate lacks a source-byte and lexeme rationale."
+          - "V5 changes model, exposure instruction, cell order, counterbalancing, budgets, validity topology, exact inference, decision thresholds, one-shot policy, or sealed 82-file topology beyond the approved oracle/path/field corrections."
+          - "Any build, calibration, mutation, replay, predecessor verification, test, typecheck, lint, formatting, absence, or hash-preservation gate is red."
+      evidence:
+        - "V4 has exactly 82 regular files, 81 manifest members, zero manifest mismatches, and no v4 staging residue."
+        - "All 36 cells completed: 18 valid pairs, six per task, 202 tool calls, 3,509,068 reported final-turn tokens, 1,785,499 ms total, 83 treatment Guessless invocations, and zero control invocations."
+        - "The sealed scorer reports DO_NOT_ADOPT, 18 ties, zero both-correct pairs, missed sites 96/96, false positives 102/106, false completeness 17/18, unresolved 12/12, and invalid 0/0."
+        - "Across all pairs, descriptive treatment/control medians are duration 1.282028, tokens 1.277123, and tool-call delta +5.5; these are not correctness-conditioned decision metrics."
+        - "All 232 terminal identifiers are unprefixed but resolve under their task; scoring.ts compares them literally with task-prefixed truth."
+        - "proveGroundTruth derives the oracle through GuesslessEngine; reach truth anchors Promise at boundaries.ts:1:45 and the contract omits its unresolved-ID duplication requirement."
+      blocked_tasks:
+        - T007
+        - T999
+      missing_evidence:
+        - "Offline-calibrated v5 with independently justified truth and unambiguous response semantics."
+        - "Fresh v5 pre-live Judge approval and one separately versioned 36-cell run."
+        - "Sealed v5 replay, correctness-conditioned decision, publication, and final audit."
+      required_board_updates:
+        - "Mark T016 done and activate the exact v5 offline Worker package."
+        - "Require a read-only pre-live Judge before any v5 model call."
+        - "Keep T007 and T999 queued until decision-grade v5 evidence exists."
+  - id: T017
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: high
+    objective: "Implement the exact complete non-live oracle-part-3-v5 protocol and independent-oracle package frozen in notes/T016-v5-worker-package.md. Preserve v3/v4 byte-for-byte; make no model/network/auth/live calls and create no v5 evidence or staging."
+    inputs:
+      - docs/goals/guessless-adoption-benchmark/notes/T016-v5-worker-package.md
+      - "T016 rejected Judge receipt"
+      - docs/evidence/oracle-part-3-v4
+      - packages/evaluation/fixtures/oracle-part-3-v4
+    allowed_files:
+      - packages/evaluation/src/contracts.ts
+      - packages/evaluation/src/codex.ts
+      - packages/evaluation/src/scoring.ts
+      - packages/evaluation/src/evidence.ts
+      - packages/evaluation/src/fixtures.ts
+      - packages/evaluation/src/cli.ts
+      - packages/evaluation/test/evaluation.test.ts
+      - packages/evaluation/dist/cli.js
+      - packages/evaluation/fixtures/oracle-part-3-v5/ground-truth.json
+      - packages/evaluation/fixtures/oracle-part-3-v5/oracle-rationale.json
+      - packages/evaluation/fixtures/oracle-part-3-v5/protocol.json
+      - packages/evaluation/fixtures/oracle-part-3-v5/response.schema.json
+      - packages/evaluation/fixtures/oracle-part-3-v5/input/delete/alias.ts
+      - packages/evaluation/fixtures/oracle-part-3-v5/input/delete/consumers.ts
+      - packages/evaluation/fixtures/oracle-part-3-v5/input/delete/dynamic.ts
+      - packages/evaluation/fixtures/oracle-part-3-v5/input/delete/state.ts
+      - packages/evaluation/fixtures/oracle-part-3-v5/input/reach/boundaries.ts
+      - packages/evaluation/fixtures/oracle-part-3-v5/input/reach/cycle.ts
+      - packages/evaluation/fixtures/oracle-part-3-v5/input/reach/entry.ts
+      - packages/evaluation/fixtures/oracle-part-3-v5/input/reach/leaf.ts
+      - packages/evaluation/fixtures/oracle-part-3-v5/input/reach/middle.ts
+      - packages/evaluation/fixtures/oracle-part-3-v5/input/rename/alias.ts
+      - packages/evaluation/fixtures/oracle-part-3-v5/input/rename/api.ts
+      - packages/evaluation/fixtures/oracle-part-3-v5/input/rename/barrel.ts
+      - packages/evaluation/fixtures/oracle-part-3-v5/input/rename/direct.ts
+      - packages/evaluation/fixtures/oracle-part-3-v5/input/rename/higher-order.ts
+      - packages/evaluation/fixtures/oracle-part-3-v5/input/rename/namespace.ts
+      - docs/evidence/oracle-part-3-v4-audit.md
+    verify:
+      - "Implement every exact truth, path, field, independence, parity, mutation, topology, and preservation gate in notes/T016-v5-worker-package.md."
+      - "pnpm build"
+      - "Run disabled-consent v5 fixture calibration."
+      - "Run disabled-consent v4 final verification and calibration."
+      - "Run disabled-consent v2 final verification and calibration."
+      - "pnpm test"
+      - "pnpm typecheck"
+      - "pnpm lint"
+      - "pnpm exec vp check"
+      - "Preserve all exact v3/v4 evidence hashes and require all v5 final/staging evidence absent."
+    stop_if:
+      - "Any condition in notes/T016-v5-worker-package.md says to stop."
+      - "Any model, network, authentication, live record, v5 evidence/staging creation, predecessor mutation, or outcome-dependent oracle selection would occur."
+      - "Any required edit is outside allowed_files or any verification is red."
+    receipt:
+      result: done
+      changed_files:
+        - packages/evaluation/src/contracts.ts
+        - packages/evaluation/src/codex.ts
+        - packages/evaluation/src/scoring.ts
+        - packages/evaluation/src/evidence.ts
+        - packages/evaluation/src/fixtures.ts
+        - packages/evaluation/test/evaluation.test.ts
+        - packages/evaluation/dist/cli.js
+        - packages/evaluation/fixtures/oracle-part-3-v5/ground-truth.json
+        - packages/evaluation/fixtures/oracle-part-3-v5/oracle-rationale.json
+        - packages/evaluation/fixtures/oracle-part-3-v5/protocol.json
+        - packages/evaluation/fixtures/oracle-part-3-v5/response.schema.json
+        - packages/evaluation/fixtures/oracle-part-3-v5/input/delete/alias.ts
+        - packages/evaluation/fixtures/oracle-part-3-v5/input/delete/consumers.ts
+        - packages/evaluation/fixtures/oracle-part-3-v5/input/delete/dynamic.ts
+        - packages/evaluation/fixtures/oracle-part-3-v5/input/delete/state.ts
+        - packages/evaluation/fixtures/oracle-part-3-v5/input/reach/boundaries.ts
+        - packages/evaluation/fixtures/oracle-part-3-v5/input/reach/cycle.ts
+        - packages/evaluation/fixtures/oracle-part-3-v5/input/reach/entry.ts
+        - packages/evaluation/fixtures/oracle-part-3-v5/input/reach/leaf.ts
+        - packages/evaluation/fixtures/oracle-part-3-v5/input/reach/middle.ts
+        - packages/evaluation/fixtures/oracle-part-3-v5/input/rename/alias.ts
+        - packages/evaluation/fixtures/oracle-part-3-v5/input/rename/api.ts
+        - packages/evaluation/fixtures/oracle-part-3-v5/input/rename/barrel.ts
+        - packages/evaluation/fixtures/oracle-part-3-v5/input/rename/direct.ts
+        - packages/evaluation/fixtures/oracle-part-3-v5/input/rename/higher-order.ts
+        - packages/evaluation/fixtures/oracle-part-3-v5/input/rename/namespace.ts
+        - docs/evidence/oracle-part-3-v4-audit.md
+      commands:
+        - cmd: "pnpm build"
+          status: pass
+        - cmd: "disabled-consent v5 fixture calibration"
+          status: pass
+        - cmd: "disabled-consent v4 verify and calibrate"
+          status: pass
+        - cmd: "disabled-consent v2 verify and calibrate (sequential rerun after transient concurrent dist race)"
+          status: pass
+        - cmd: "pnpm test (177 tests)"
+          status: pass
+        - cmd: "pnpm typecheck"
+          status: pass
+        - cmd: "pnpm lint"
+          status: pass
+        - cmd: "pnpm exec vp check"
+          status: pass
+        - cmd: "v5 fixture parity/absence and exact v3/v4 predecessor hashes"
+          status: pass
+      summary: "Implemented the complete offline v5 protocol: task-prefixed shared scratch roots, explicit disjoint response semantics and status rules, independent 17-site byte/lexeme oracle, rationale freezing, v5 replay/evidence/version support, mutation-red calibration, full fake 36-cell pipeline, and exact 82-file topology. Published the read-only v4 invalidity audit. All final gates pass; 177 tests pass. Exact v3/v4 evidence hashes remain unchanged and no v5 final/staging evidence exists. No live, model, network, authentication, or record operation occurred."
+      deviations:
+        - "One concurrently launched v2 calibration observed a transient dist/cli ENOENT race while the build replaced dist; the exact sequential rerun passed without a code change."
+      remaining_blockers: []
+      verification_attempts: 2
+      stopped_because: null
+  - id: T018
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "Perform a fresh read-only pre-live oracle-part-3-v5 gate after T017. Approve one separately versioned live process only if the oracle is independent and byte/lexeme-validated, task-prefixed paths are visible identically to shell and Guessless in both arms, reported/unresolved fields are explicit and disjoint, all locked coordinates and prompts are unambiguous, all retained v4 protocol/statistical rules and exact 82-file topology are calibrated, predecessor evidence is immutable, no v5 residue exists, and canonical model/binary/auth/platform/cost/command checks pass."
+    inputs:
+      - "T016 Judge receipt"
+      - "T017 Worker receipt"
+      - docs/goals/guessless-adoption-benchmark/notes/T016-v5-worker-package.md
+      - packages/evaluation/fixtures/oracle-part-3-v5
+      - packages/evaluation/src
+      - packages/evaluation/test/evaluation.test.ts
+      - packages/evaluation/dist/cli.js
+      - docs/evidence/oracle-part-3-v4-audit.md
+    constraints:
+      - "Read-only; no edits, model/network calls, record command, evidence creation, retries, rescoring, promotion, replacement, rename, copy, or deletion."
+      - "Reject any circular/parser-derived/outcome-derived oracle or any ambiguous path, coordinate, field, status, or unresolved-boundary contract."
+      - "Reject if v5 differs from v4 beyond the explicitly approved path/oracle/field corrections or if any parity, calibration, mutation, replay, topology, hash, absence, binary/auth/platform, cost, or command gate is red."
+      - "If approved, return the exact one-shot direct-root live Worker package, exact command, all 82 allowed files, verify, and stop_if."
+    expected_output:
+      - "approved or rejected"
+      - "full_outcome_complete false"
+      - "Independent-oracle, path, field, parity, calibration, replay, topology, predecessor, binary/auth/platform, and cost evidence"
+      - "Exact one-shot v5 live Worker package or exact repair package"
+    receipt:
+      result: done
+      decision: approved
+      full_outcome_complete: false
+      rationale: "V5 is ready for one separately versioned live execution. Its 17-site oracle is fixed independently from source hashes, exact lines, columns, and lexemes; Guessless, parsers, v4 outputs, and model outcomes are forbidden authorities. Task-prefixed scratch layout, active-task prefixes, disjoint fields, and status rules are enforced and mutation-calibrated. Inputs, model, exposure instruction, 36-cell order, budgets, validity, statistics, decision thresholds, and 82-file topology retain v4 parity. T017 reports all 177 tests and offline gates green. Predecessor hashes remain unchanged, v5 has no residue, and canonical Codex 0.146.0 authentication/platform checks pass. Exactly one v5 process is approved; no retry is authorized."
+      worker_package:
+        objective: "Execute exactly one direct-root oracle-part-3-v5 live process using the frozen T018 command and T019's exact 82-file allowlist; complete all postchecks and never retry."
+        task: T019
+      evidence:
+        - "Protocol 736b3d16fa985a43ef21f1d738544e0dd7844ab56ee704f4ab028def0b967671; response schema 8e42acaf9806f361d717d31ae1739acb97dcb8cdf2f4092a968728bf45ce9e91; ground truth 137d8170a850410fee154b1be17b05d6761bcb282d0a279c4f58689111478f22; oracle rationale 98f91a25c7a44ed5a8a4d9e04336e3bd8c9b6b21bf0ebf2c51d6128f59ded389."
+        - "Independent oracle covers 17 unique sites with exact source hashes, lines, columns, first lexemes, and forbidden circular authorities."
+        - "All 15 v5 inputs are byte-identical to v4; retained model, exposure, budgets, 36-cell order, environment, and statistics match v4."
+        - "Both arms use scratch/<task> below shared scratch CWD/Guessless root; runtime validation enforces task prefixes, disjoint fields, and status semantics."
+        - "T017 reports 177 tests, all offline calibration/replay/type/lint/format gates, and 82-file/81-member calibration passing."
+        - "V3 and v4 hashes remain exact and no v5 final or staging residue exists."
+        - "Canonical Codex binary ae1d3ffe6d48aec6a4dc3f50e7eb8e0d11962485a6a9406c5a7012139383da02, codex-cli 0.146.0, ChatGPT login, Node v24.15.0, pnpm 10.33.2, Darwin arm64 25.5.0."
+      blocked_tasks:
+        - T007
+        - T999
+      missing_evidence:
+        - "One authorized v5 36-cell execution and sealed evidence."
+        - "Post-live decision-grade audit, publication, and final audit."
+      required_board_updates:
+        - "Mark T018 done and activate T019 exactly once."
+        - "After process invocation never reactivate or retry; activate a fresh post-live Judge."
+        - "Keep T007 and T999 queued until sealed v5 evidence passes audit."
+  - id: T019
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: high
+    objective: "From /Users/jacksm5pro/dev/open-source/guessless, run every T018-approved preflight, then invoke exactly once and only from the direct repository-root context the frozen oracle-part-3-v5 record command. Allow all 36 cells to finish and seal honestly. Never invoke a second v5 process. Run all offline postchecks and preserve any final or staging attempt byte-for-byte after any post-spawn failure."
+    inputs:
+      - "T018 approved Judge receipt"
+      - packages/evaluation/fixtures/oracle-part-3-v5
+      - docs/goals/guessless-adoption-benchmark/notes/T016-v5-worker-package.md
+    allowed_files:
+      - docs/evidence/oracle-part-3-v5/manifest.json
+      - docs/evidence/oracle-part-3-v5/protocol.json
+      - docs/evidence/oracle-part-3-v5/commands.json
+      - docs/evidence/oracle-part-3-v5/scores.json
+      - docs/evidence/oracle-part-3-v5/benchmarks.json
+      - docs/evidence/oracle-part-3-v5/decision.json
+      - docs/evidence/oracle-part-3-v5/replay.json
+      - docs/evidence/oracle-part-3-v5/summary.md
+      - docs/evidence/oracle-part-3-v5/raw/runs.jsonl
+      - docs/evidence/oracle-part-3-v5/raw/calibration.jsonl
+      - docs/evidence/oracle-part-3-v5/raw/r01-rename-control.stdout.jsonl
+      - docs/evidence/oracle-part-3-v5/raw/r01-rename-control.stderr.txt
+      - docs/evidence/oracle-part-3-v5/raw/r01-rename-guessless.stdout.jsonl
+      - docs/evidence/oracle-part-3-v5/raw/r01-rename-guessless.stderr.txt
+      - docs/evidence/oracle-part-3-v5/raw/r01-delete-guessless.stdout.jsonl
+      - docs/evidence/oracle-part-3-v5/raw/r01-delete-guessless.stderr.txt
+      - docs/evidence/oracle-part-3-v5/raw/r01-delete-control.stdout.jsonl
+      - docs/evidence/oracle-part-3-v5/raw/r01-delete-control.stderr.txt
+      - docs/evidence/oracle-part-3-v5/raw/r01-reach-control.stdout.jsonl
+      - docs/evidence/oracle-part-3-v5/raw/r01-reach-control.stderr.txt
+      - docs/evidence/oracle-part-3-v5/raw/r01-reach-guessless.stdout.jsonl
+      - docs/evidence/oracle-part-3-v5/raw/r01-reach-guessless.stderr.txt
+      - docs/evidence/oracle-part-3-v5/raw/r02-delete-control.stdout.jsonl
+      - docs/evidence/oracle-part-3-v5/raw/r02-delete-control.stderr.txt
+      - docs/evidence/oracle-part-3-v5/raw/r02-delete-guessless.stdout.jsonl
+      - docs/evidence/oracle-part-3-v5/raw/r02-delete-guessless.stderr.txt
+      - docs/evidence/oracle-part-3-v5/raw/r02-reach-guessless.stdout.jsonl
+      - docs/evidence/oracle-part-3-v5/raw/r02-reach-guessless.stderr.txt
+      - docs/evidence/oracle-part-3-v5/raw/r02-reach-control.stdout.jsonl
+      - docs/evidence/oracle-part-3-v5/raw/r02-reach-control.stderr.txt
+      - docs/evidence/oracle-part-3-v5/raw/r02-rename-guessless.stdout.jsonl
+      - docs/evidence/oracle-part-3-v5/raw/r02-rename-guessless.stderr.txt
+      - docs/evidence/oracle-part-3-v5/raw/r02-rename-control.stdout.jsonl
+      - docs/evidence/oracle-part-3-v5/raw/r02-rename-control.stderr.txt
+      - docs/evidence/oracle-part-3-v5/raw/r03-reach-control.stdout.jsonl
+      - docs/evidence/oracle-part-3-v5/raw/r03-reach-control.stderr.txt
+      - docs/evidence/oracle-part-3-v5/raw/r03-reach-guessless.stdout.jsonl
+      - docs/evidence/oracle-part-3-v5/raw/r03-reach-guessless.stderr.txt
+      - docs/evidence/oracle-part-3-v5/raw/r03-rename-guessless.stdout.jsonl
+      - docs/evidence/oracle-part-3-v5/raw/r03-rename-guessless.stderr.txt
+      - docs/evidence/oracle-part-3-v5/raw/r03-rename-control.stdout.jsonl
+      - docs/evidence/oracle-part-3-v5/raw/r03-rename-control.stderr.txt
+      - docs/evidence/oracle-part-3-v5/raw/r03-delete-control.stdout.jsonl
+      - docs/evidence/oracle-part-3-v5/raw/r03-delete-control.stderr.txt
+      - docs/evidence/oracle-part-3-v5/raw/r03-delete-guessless.stdout.jsonl
+      - docs/evidence/oracle-part-3-v5/raw/r03-delete-guessless.stderr.txt
+      - docs/evidence/oracle-part-3-v5/raw/r04-rename-guessless.stdout.jsonl
+      - docs/evidence/oracle-part-3-v5/raw/r04-rename-guessless.stderr.txt
+      - docs/evidence/oracle-part-3-v5/raw/r04-rename-control.stdout.jsonl
+      - docs/evidence/oracle-part-3-v5/raw/r04-rename-control.stderr.txt
+      - docs/evidence/oracle-part-3-v5/raw/r04-delete-control.stdout.jsonl
+      - docs/evidence/oracle-part-3-v5/raw/r04-delete-control.stderr.txt
+      - docs/evidence/oracle-part-3-v5/raw/r04-delete-guessless.stdout.jsonl
+      - docs/evidence/oracle-part-3-v5/raw/r04-delete-guessless.stderr.txt
+      - docs/evidence/oracle-part-3-v5/raw/r04-reach-guessless.stdout.jsonl
+      - docs/evidence/oracle-part-3-v5/raw/r04-reach-guessless.stderr.txt
+      - docs/evidence/oracle-part-3-v5/raw/r04-reach-control.stdout.jsonl
+      - docs/evidence/oracle-part-3-v5/raw/r04-reach-control.stderr.txt
+      - docs/evidence/oracle-part-3-v5/raw/r05-delete-guessless.stdout.jsonl
+      - docs/evidence/oracle-part-3-v5/raw/r05-delete-guessless.stderr.txt
+      - docs/evidence/oracle-part-3-v5/raw/r05-delete-control.stdout.jsonl
+      - docs/evidence/oracle-part-3-v5/raw/r05-delete-control.stderr.txt
+      - docs/evidence/oracle-part-3-v5/raw/r05-reach-control.stdout.jsonl
+      - docs/evidence/oracle-part-3-v5/raw/r05-reach-control.stderr.txt
+      - docs/evidence/oracle-part-3-v5/raw/r05-reach-guessless.stdout.jsonl
+      - docs/evidence/oracle-part-3-v5/raw/r05-reach-guessless.stderr.txt
+      - docs/evidence/oracle-part-3-v5/raw/r05-rename-control.stdout.jsonl
+      - docs/evidence/oracle-part-3-v5/raw/r05-rename-control.stderr.txt
+      - docs/evidence/oracle-part-3-v5/raw/r05-rename-guessless.stdout.jsonl
+      - docs/evidence/oracle-part-3-v5/raw/r05-rename-guessless.stderr.txt
+      - docs/evidence/oracle-part-3-v5/raw/r06-reach-guessless.stdout.jsonl
+      - docs/evidence/oracle-part-3-v5/raw/r06-reach-guessless.stderr.txt
+      - docs/evidence/oracle-part-3-v5/raw/r06-reach-control.stdout.jsonl
+      - docs/evidence/oracle-part-3-v5/raw/r06-reach-control.stderr.txt
+      - docs/evidence/oracle-part-3-v5/raw/r06-rename-control.stdout.jsonl
+      - docs/evidence/oracle-part-3-v5/raw/r06-rename-control.stderr.txt
+      - docs/evidence/oracle-part-3-v5/raw/r06-rename-guessless.stdout.jsonl
+      - docs/evidence/oracle-part-3-v5/raw/r06-rename-guessless.stderr.txt
+      - docs/evidence/oracle-part-3-v5/raw/r06-delete-guessless.stdout.jsonl
+      - docs/evidence/oracle-part-3-v5/raw/r06-delete-guessless.stderr.txt
+      - docs/evidence/oracle-part-3-v5/raw/r06-delete-control.stdout.jsonl
+      - docs/evidence/oracle-part-3-v5/raw/r06-delete-control.stderr.txt
+    verify:
+      - "Run every T018 fixture, independent-oracle, parity, mutation, replay, topology, predecessor-hash, 177-test, typecheck, lint, format, binary/auth/platform, absence, cost, and exact-command preflight."
+      - "Require frozen hashes: protocol 736b3d16fa985a43ef21f1d738544e0dd7844ab56ee704f4ab028def0b967671; schema 8e42acaf9806f361d717d31ae1739acb97dcb8cdf2f4092a968728bf45ce9e91; truth 137d8170a850410fee154b1be17b05d6761bcb282d0a279c4f58689111478f22; rationale 98f91a25c7a44ed5a8a4d9e04336e3bd8c9b6b21bf0ebf2c51d6128f59ded389."
+      - "Invoke exactly once the T018-approved command with canonical PATH, oracle-part-3-v5 consent, gpt-5.6-sol, and Codex 0.146.0."
+      - "After return run disabled-consent v5 final verify and calibration."
+      - "Require exactly 82 files, 81 manifest members, 36 locked attempts, transcript/hash/replay/decision agreement, arm exposure, no secrets/residue/retry, predecessor hashes, v4/v2 replay, 177 tests, typecheck, lint, and formatting."
+    stop_if:
+      - "Any T018 stop condition occurs or any preflight is red."
+      - "The frozen command, source, oracle, predecessor, binary, auth, platform, model, consent, environment, or absence state differs."
+      - "The v5 command was already invoked, delegated, retried, resumed, replaced, reordered, omitted, or duplicated."
+      - "After spawn preserve final or staging evidence byte-for-byte and never retry, overwrite, promote, rename, repair, replace, or delete it."
+      - "Do not conceal invalidity, fatal suffix, schema rejection, treatment non-exposure, decision, usage, duration, replay disagreement, or incomplete topology."
+    receipt:
+      result: done
+      changed_files:
+        - docs/evidence/oracle-part-3-v5/manifest.json
+        - docs/evidence/oracle-part-3-v5/protocol.json
+        - docs/evidence/oracle-part-3-v5/commands.json
+        - docs/evidence/oracle-part-3-v5/scores.json
+        - docs/evidence/oracle-part-3-v5/benchmarks.json
+        - docs/evidence/oracle-part-3-v5/decision.json
+        - docs/evidence/oracle-part-3-v5/replay.json
+        - docs/evidence/oracle-part-3-v5/summary.md
+        - docs/evidence/oracle-part-3-v5/raw/runs.jsonl
+        - docs/evidence/oracle-part-3-v5/raw/calibration.jsonl
+      commands:
+        - cmd: "all T018 frozen preflights"
+          status: pass
+        - cmd: "exact direct-root oracle-part-3-v5 record command, invoked once"
+          status: pass
+        - cmd: "disabled-consent v5 final verify"
+          status: pass
+        - cmd: "disabled-consent v5 final calibration"
+          status: pass
+        - cmd: "v4 and v2 final verify/calibration"
+          status: pass
+        - cmd: "pnpm test (177 tests)"
+          status: pass
+        - cmd: "pnpm typecheck"
+          status: pass
+        - cmd: "pnpm lint"
+          status: pass
+        - cmd: "pnpm exec vp check"
+          status: pass
+        - cmd: "v3/v4/v5 hashes, 82 files, 81 manifest members, zero symlinks/residue"
+          status: pass
+      summary: "Invoked the approved direct-root oracle-part-3-v5 process exactly once. All 36 gpt-5.6-sol cells completed, the canonical 82-file/81-member bundle sealed, and no retry, resume, replacement, staging residue, invalid cell, or fatal suffix occurred. The mechanical result is DO_NOT_ADOPT: 18 valid pairs; correctness wins/losses/ties 3/2/13; 7 both-correct pairs; treatment-added false completeness; rename task regression; and treatment slower in all 7 both-correct pairs. Median both-correct treatment/control duration is 1.2580, token ratio 1.5981, and tool-call delta +5. Offline replay/calibration and every postcheck pass."
+      evidence:
+        - "V5 manifest sha256 19171782e5c4a6713dcbdab676cba191de65084e5eed90c42aeb77a14e82acef; exactly 82 regular files, 81 manifest members, zero symlinks, no staging residue."
+        - "Runs sha256 0916f35cb25a130f1117a6d88904d54dae2b0843d89a34840d9a4f256b49a846; 36 completed cells, 68 treatment Guessless invocations and zero control invocations."
+        - "Decision sha256 6a22405fee38d56c1ed68ca08ccd61669f8deb52d81097bc20c121dfee3a630d; mechanical DO_NOT_ADOPT with no run fatal and 18 valid pairs, six per task."
+        - "Scores sha256 391b4c7deb2e6efe0873bf8eb0d5936387d9185f8c683c5b5fc0ec6f3ada6357; control/treatment missed sites 5/2, false positives 8/5, false completeness 1/2, unresolved 12/12, invalid 0/0."
+        - "Correct cells by task control/treatment: rename 5/4, delete 0/0, reach 4/6. Pair wins/losses/ties 3/2/13; treatment p=0.5; taskRegression true and addedFalseCompleteness true."
+        - "Seven both-correct pairs: duration median 1.258031 with 95% interval [1.036339,2.003532], all seven slower, exact two-sided p=0.015625; tokens median 1.598109; tool delta median +5 and all seven higher, p=0.015625."
+        - "Total control/treatment duration 748,146/948,660 ms, reported tokens 1,422,673/1,936,016, tool calls 56/120; total run 1,696,806 ms and 3,358,689 tokens."
+        - "Replay sha256 cec5761ae5a205bd57b942065a87039c6c5187e9a485015ce892ca9c66fc4d68 and calibration sha256 313a9e74d8d8053aa5a0570034ab4862768101d231d31df94f720f73c48887f6 reproduce offline."
+        - "All v3/v4 hashes remain unchanged; 177 tests, typecheck, lint, formatting, v5/v4/v2 replay and calibration pass."
+      deviations:
+        - "A v2 calibration launched concurrently with the test runner briefly observed dist/cli.js during atomic replacement and returned ENOENT; the exact sequential rerun passed without changes. The live process was unaffected and invoked only once."
+      remaining_blockers:
+        - "T020 post-live Judge, truthful publication, and T999 final audit."
+      verification_attempts: 2
+      stopped_because: null
+  - id: T020
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "Perform the fresh read-only post-live oracle-part-3-v5 audit. Verify the immutable 82-file bundle, 81-member manifest, all 36 terminals and exposure, independent-oracle scoring, exact per-task/pair correctness, false completeness, task regression, correctness-conditioned efficiency, replay/calibration, mechanical decision, predecessor preservation, and the explicit Markless/Frameless/Versionless recommendation. Approve the product conclusion only if it is decision-grade and no v5 representation/oracle/prompt/topology defect can change it."
+    inputs:
+      - "T018 and T019 receipts"
+      - docs/evidence/oracle-part-3-v5
+      - packages/evaluation/fixtures/oracle-part-3-v5
+      - packages/evaluation/src
+      - docs/evidence/oracle-part-3-v4-audit.md
+    constraints:
+      - "Read-only; no edits, model/network calls, record command, retry, rescore, repair, promotion, replacement, rename, copy, or deletion."
+      - "Separate sealed mechanical output from decision-grade interpretation, but do not reject merely because the preregistered result is unfavorable."
+      - "Audit all exact IDs/statuses and the deletion-definition convention against the frozen task contract and rationale."
+      - "If approved, return the exact truthful publication package and unblock T007; if rejected, return only a separately versioned repair package and preserve v5 forever."
+    expected_output:
+      - "approved or rejected"
+      - "full_outcome_complete false"
+      - "Exact requirement/evidence map and benchmark result"
+      - "Explicit sibling-repository recommendation and publication package or exact repair package"
+    receipt:
+      result: done
+      decision: approved
+      full_outcome_complete: false
+      rationale: "V5 is decision-grade and supports DO_NOT_ADOPT for Markless, Frameless, Versionless, and comparable siblings now. All 36 cells and 18 pairs are valid; treatment added false completeness and regressed rename correctness. Correctness was otherwise mixed and nonsignificant, while all seven both-correct pairs were slower and used more tools with Guessless. The deletion definition was preregistered as the target definition rather than a read/write use; all deletion answers also independently missed the locked unresolved boundary, and the decisive added false-completeness came from unambiguous rename coordinates. Topology, replay, calibration, oracle, exposure, and predecessor checks pass."
+      worker_package:
+        objective: "Publish the exact scoped DO_NOT_ADOPT recommendation using T007's two-file package."
+        task: T007
+      evidence:
+        - "Immutable v5: 82 files, 81 members, 36 completed cells, 18 valid pairs, no schema/status violations, 68/0 treatment/control Guessless invocations."
+        - "Correct by task control/treatment: rename 5/4, delete 0/0, reach 4/6; paired wins/losses/ties 3/2/13, treatment p=0.5."
+        - "Treatment added false completeness and regressed rename, independently triggering frozen DO_NOT_ADOPT."
+        - "Seven both-correct pairs: duration median 1.258031 and all seven slower, p=0.015625; tokens median 1.598109; tools +5 median and all seven higher, p=0.015625."
+        - "Aggregate control/treatment totals: 748,146/948,660 ms; 1,422,673/1,936,016 tokens; 56/120 tools."
+        - "Replay and calibration reproduce; v3/v4 hashes unchanged; all offline gates pass."
+      blocked_tasks:
+        - T999
+      missing_evidence:
+        - "Durable adoption report and README update."
+        - "T999 final audit."
+      required_board_updates:
+        - "Mark T020 done and activate exact T007 two-file publication package."
+        - "After T007 activate T999 final audit."
+        - "Never retry v3, v4, or v5."
+  - id: T007
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: medium
+    objective: "Publish the verified oracle-part-3-v5 result without changing sealed evidence or evaluator code. Add docs/evidence/oracle-part-3-adoption-decision.md and update README.md's obsolete oracle-part-3 status. State explicitly: do not integrate Guessless into Markless, Frameless, Versionless, or comparable siblings now. Explain this is scoped and current, not universal/permanent. Report exact protocol identity, validity, correctness, false completeness, task results, correctness-conditioned efficiency, aggregate usage, hashes, limitations, deletion convention, and immutable v3/v4 history. Acknowledge the positive reach result while explaining the preregistered decision."
+    inputs:
+      - "T020 approved Judge receipt"
+      - docs/evidence/oracle-part-3-v5
+      - docs/evidence/oracle-part-3-v4-audit.md
+      - docs/evidence/oracle-part-3-v3-attempt.md
+    allowed_files:
+      - README.md
+      - docs/evidence/oracle-part-3-adoption-decision.md
+    verify:
+      - "Trace every number exactly to v5 decision, scores, benchmarks, replay, and runs."
+      - "Link v5 summary, decision, benchmarks, replay, manifest, v4 audit, and v3 attempt report."
+      - "pnpm exec vp check"
+      - "Preserve exact v5 manifest/runs/scores/decision/replay/calibration hashes and all v3/v4 hashes."
+      - "Require no staging residue, model/network call, or sealed evidence/evaluator change."
+      - "Read back both publication files and require an explicit, consistent, scoped DO_NOT_ADOPT recommendation."
+    stop_if:
+      - "Any T020 publication stop condition occurs, claim exceeds sealed evidence, or required edit is outside allowed_files."
+      - "Any number is untraceable, recommendation is softened/generalized, material limitation is hidden, or any verification is red."
+    receipt:
+      result: done
+      changed_files:
+        - README.md
+        - docs/evidence/oracle-part-3-adoption-decision.md
+      commands:
+        - cmd: "Trace all published metrics against v5 sealed evidence and T020"
+          status: pass
+        - cmd: "pnpm exec vp check"
+          status: pass
+        - cmd: "Verify v5 and predecessor hashes"
+          status: pass
+        - cmd: "Require zero v5 staging residue"
+          status: pass
+        - cmd: "Read back both files and verify scoped recommendation and links"
+          status: pass
+      summary: "Published the explicit current recommendation not to integrate Guessless into Markless, Frameless, Versionless, or comparable siblings. The report records the 36-cell/18-pair v5 result, task correctness, 3/2/13 paired outcome, false-completeness and rename-regression basis, seven-pair efficiency statistics, aggregate usage, positive reach result, deletion convention, limitations, hashes, and immutable v3/v4 history. README replaces the obsolete inconclusive status and links all required artifacts. Formatting, hashes, staging absence, links, and readback pass; sealed evidence and evaluator files were untouched."
+      deviations: []
+      remaining_blockers: []
+      verification_attempts: 1
+      stopped_because: null
+  - id: T999
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "Audit whether the conclusive adoption benchmark goal is fully complete."
+    inputs:
+      - "All task receipts"
+      - "Current v3 evidence and adoption decision"
+      - "Fresh full verification"
+    constraints:
+      - "Read-only."
+      - "Reject completion without valid repeated paired evidence, sealed reproducibility, and an explicit sibling-repository decision."
+    expected_output:
+      - "complete or not_complete"
+      - "full_outcome_complete true or false"
+      - "Requirement-by-requirement evidence map"
+      - "Missing evidence and next package if incomplete"
+    receipt:
+      result: done
+      decision: complete
+      full_outcome_complete: true
+      rationale: "The original outcome is fully achieved. An independently specified 36-cell/18-pair benchmark sealed reproducible evidence and mechanically produced DO_NOT_ADOPT. Guessless added false completeness, regressed rename, and increased duration and tool use across every both-correct pair despite improving reach. README and the durable report explicitly advise against integrating Guessless into Markless, Frameless, Versionless, or comparable siblings now with accurate scope and limitations. Fresh verification, manifests, links, hashes, and state validation pass. No required Worker work remains."
+      worker_package: null
+      evidence:
+        - "All 36 cells completed exactly once, yielding 18 valid pairs and 68/0 treatment/control Guessless invocations with no retry, fatal suffix, or residue."
+        - "Correct control/treatment: rename 5/4, delete 0/0, reach 4/6; paired outcomes 3 wins, 2 losses, 13 ties; treatment p=0.5."
+        - "Treatment added false completeness and regressed rename, triggering frozen DO_NOT_ADOPT."
+        - "Seven both-correct pairs: duration median 1.258031 and all seven slower, p=0.015625; tokens median 1.598109; tools median +5 and all seven higher, p=0.015625."
+        - "V5 contains 82 files and 81 valid manifest members with all published hashes unchanged; v3/v4 history remains immutable."
+        - "README and durable report publish the explicit current sibling-repository recommendation and all required limitations/links."
+        - "Fresh 177 tests, typecheck, lint, formatting, links, hashes, and GoalBuddy state checks pass."
+      blocked_tasks: []
+      missing_evidence: []
+      required_board_updates:
+        - "Record T999 done, set goal complete, clear active_task, rerun stop gates, and never rerun v3/v4/v5."
+checks:
+  dirty_fingerprint: "Git metadata unavailable in this workspace"
+  last_verification:
+    result: unknown
+    task: null
+    commands: []

@@ -1,0 +1,18 @@
+{
+  "schema": "guessless.real-agent-benchmark.cell/v4",
+  "arm": "control",
+  "model": "gpt-5.6-sol",
+  "exitCode": 0,
+  "modelBacked": true,
+  "wallSeconds": 432.41,
+  "patch": {"path": "../control.patch", "sha256": "d61445f0c741308efffe40cc401d31f8a085ffbd680004b6de7158ad11c5fa1c", "completeAgentPatch": true},
+  "tests": {"state": "complete", "passed": ["25 focused bundler and web tests", "git diff --check"], "gaps": ["Full-workspace commands could not write through the read-only external node_modules link; focused tests used a temporary Vitest configuration."]},
+  "usage": {"inputTokens": 5257879, "cachedInputTokens": 5076992, "outputTokens": 15243},
+  "tools": {"commandExecutions": 43, "fileChanges": 13, "mcpCalls": 0, "totalCountedActions": 56},
+  "guessless": {"visible": false, "selected": false, "successfulPreEditResult": false, "materialPreEditUse": false, "postEditOnlyUse": false},
+  "outcomeBeforeJudge": "complete",
+  "semanticCorrectness": "pending-independent-judge",
+  "falseCompleteRisk": false,
+  "contamination": {"state": "clean"},
+  "raw": {"stdout": "../control.stdout.jsonl", "stderr": "../control.stderr.txt", "final": "../control.final.txt", "time": "../control.time.txt"}
+}

@@ -1,0 +1,35 @@
+{
+	"rename": {
+		"planted": [
+			"rename/direct.ts:2:37",
+			"rename/alias.ts:2:38",
+			"rename/namespace.ts:2:51",
+			"rename/higher-order.ts:2:42"
+		],
+		"unresolved": []
+	},
+	"delete": {
+		"planted": [
+			"delete/state.ts:3:2",
+			"delete/consumers.ts:2:39",
+			"delete/alias.ts:2:43",
+			"delete/dynamic.ts:3:55"
+		],
+		"reads": ["delete/consumers.ts:2:39", "delete/alias.ts:2:43"],
+		"writes": ["delete/state.ts:3:2"],
+		"unresolved": ["delete/dynamic.ts:3:55"]
+	},
+	"reach": {
+		"planted": [
+			"reach/boundaries.ts:1:45",
+			"reach/entry.ts:2:17",
+			"reach/middle.ts:4:17",
+			"reach/leaf.ts:2:17",
+			"reach/leaf.ts:1:14",
+			"reach/cycle.ts:1:17",
+			"reach/cycle.ts:4:17",
+			"reach/boundaries.ts:3:16"
+		],
+		"unresolved": ["reach/boundaries.ts:1:45", "reach/boundaries.ts:3:16"]
+	}
+}

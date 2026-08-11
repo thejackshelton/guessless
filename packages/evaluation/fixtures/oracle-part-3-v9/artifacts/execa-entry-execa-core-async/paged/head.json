@@ -1,0 +1,59 @@
+{
+	"counts": {
+		"classified": 5957,
+		"receiptResolved": 5419,
+		"receiptUnresolved": 656,
+		"resolved": 5419,
+		"sites": 3160,
+		"unresolved": 538
+	},
+	"factRoot": "4a84fdcd99cc5544acd2858dfdcb46cb0d548cfa2bd068c9cb78d4aa67f9fb47",
+	"integrity": "42325d7a5a4239486445788c8c9e129c0a568d50a20973adfdb5c6e06c96f7dc",
+	"proof": {
+		"bytes": 20762156,
+		"firstCursor": "eyJjYWNoZSI6IjA4NTM5NjI0NjY1NDFmZDAyZDhjZTA0MTBlZGVmMDllIiwiaGFuZGxlIjoiMDg5NGQyYWE1Yjc0MDdiOTA3ODEzMTk2MWRiNmM1NTEyYzQ4YTVkODhmNmZhNWEyZjk0ZGRjNjhkMjEyMzM0MCIsInN0cmVhbSI6InByb29mIiwiZmlsdGVyIjoiNzQyMzRlOThhZmU3NDk4ZmI1ZGFmMWYzNmFjMmQ3OGFjYzMzOTQ2NGY5NTA3MDNiOGMwMTk4OTJmOTgyYjkwYiIsImluZGV4IjowLCJkaWdlc3QiOiJkMzVmMjJlMjk4ZDk0MGI2ZjM5NzE2NGM5OGFlODQ1YmQ0ZDRlNmVmZGJiNWQ5MDc5ZTlhYjY4NDJjZThmNzU2In0.bc6d6f3f0a756c6048ee7e5cded038c896625a432ccd6deba2cd74b357185084",
+		"pages": 11535,
+		"sha256": "d35f22e298d940b6f397164c98ae845bd4d4e6efdbb5d9079e9ab6842ce8f756"
+	},
+	"proofHandle": "0894d2aa5b7407b9078131961db6c5512c48a5d88f6fa5a2f94ddc68d2123340",
+	"request": {
+		"intent": "entry-point",
+		"kind": "safeChangeImpact",
+		"snapshot": "cf08f46e0c4a47183ec232b940eb41c6d80121943314ab38117bb3032091f457",
+		"target": {
+			"file": "lib/methods/main-async.js",
+			"fingerprint": "e039b6e0f2e51e46582a6f45a5a3f873180b44dee6cb93ee005cbc60aa00266c",
+			"schema": "guessless.symbol-anchor/v1",
+			"semanticPath": [
+				"global:scope:Program",
+				"module:scope:Program",
+				"symbol:execaCoreAsync",
+				"declaration:VariableDeclarator"
+			]
+		}
+	},
+	"schema": "guessless.safe-change-paged/v1",
+	"semantic": {
+		"firstCursor": "eyJjYWNoZSI6IjA4NTM5NjI0NjY1NDFmZDAyZDhjZTA0MTBlZGVmMDllIiwiaGFuZGxlIjoiMDg5NGQyYWE1Yjc0MDdiOTA3ODEzMTk2MWRiNmM1NTEyYzQ4YTVkODhmNmZhNWEyZjk0ZGRjNjhkMjEyMzM0MCIsInN0cmVhbSI6InNlbWFudGljIiwiZmlsdGVyIjoiNzQyMzRlOThhZmU3NDk4ZmI1ZGFmMWYzNmFjMmQ3OGFjYzMzOTQ2NGY5NTA3MDNiOGMwMTk4OTJmOTgyYjkwYiIsImluZGV4IjowLCJkaWdlc3QiOiI0YTg0ZmRjZDk5Y2M1NTQ0YWNkMjg1OGRmZGNiNDZjYjBkNTQ4Y2ZhMmJkMDY4YzljYjc4ZDRhYTY3ZjlmYjQ3In0.f0d191f15439bf03fe2d6a5d6e5947294b82b4831060b065e9b9d5443bb5ca64",
+		"pages": 856
+	},
+	"snapshot": "cf08f46e0c4a47183ec232b940eb41c6d80121943314ab38117bb3032091f457",
+	"state": "partial",
+	"unresolvedReasonCounts": {
+		"ambiguous-definition": 0,
+		"builtin-module-boundary": 85,
+		"computed-property-key": 0,
+		"dynamic-member-access": 0,
+		"external-module-boundary": 33,
+		"higher-order-call-boundary": 0,
+		"linked-set-boundary": 0,
+		"property-alias-write-uncertain": 0,
+		"stale-snapshot": 0,
+		"string-keyed-lookup": 0,
+		"unparsed-file": 0,
+		"unresolved-specifier": 0,
+		"unresolved-symbol": 420,
+		"unsupported-language": 0,
+		"unsupported-syntax": 0
+	}
+}

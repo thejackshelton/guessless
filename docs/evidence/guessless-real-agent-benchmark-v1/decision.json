@@ -1,0 +1,7 @@
+{
+  "schema": "guessless.real-agent-benchmark.decision/v1",
+  "decision": "DO_NOT_ADOPT",
+  "reason": "The batch is invalid for an adoption claim: only 9 of 12 cells reached the model, no relevant repository test suite completed, and Guessless was selected in 0 of 5 model-backed treatment cells. Among the two semantically correct paired tasks, treatment was faster on both but token/tool effects were mixed and cannot be attributed to an unused MCP.",
+  "falseCompletenessAdded": false,
+  "requiredNextEvidence": "A fresh preregistered batch with dependencies present before launch, a validated Codex argv, twelve model-backed cells, and no retry of this sealed batch."
+}

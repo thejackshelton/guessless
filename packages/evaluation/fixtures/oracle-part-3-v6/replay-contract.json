@@ -1,0 +1,16 @@
+{
+	"cellCommand": [
+		"codex",
+		"exec",
+		"--model",
+		"gpt-5.6-sol",
+		"--json",
+		"--sandbox",
+		"read-only"
+	],
+	"liveExecutionAvailable": false,
+	"recorder": "Injected spawner -> ordered transcript -> delivery validation -> aggregate validation -> immutable seal.",
+	"replay": "Verify exact cell IDs/order, transcript event matching, accounting, aggregate budgets, and seal before scoring.",
+	"schema": "guessless.v6-replay-contract/v1",
+	"sealing": "No retry, replacement, prompt repair, rescore, or same-ID rerun path exists."
+}

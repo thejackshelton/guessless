@@ -1,0 +1,241 @@
+diff --git a/packages/frameworks/react/src/react-cra-vite-adapter.ts b/packages/frameworks/react/src/react-cra-vite-adapter.ts
+index c88724a..d7c4d0d 100644
+--- a/packages/frameworks/react/src/react-cra-vite-adapter.ts
++++ b/packages/frameworks/react/src/react-cra-vite-adapter.ts
+@@ -1,5 +1,15 @@
+ import { mkdir, readdir, readFile, writeFile } from 'node:fs/promises';
+-import { charIn, createRegExp, exactly, global, maybe, oneOrMore, whitespace, wordChar } from 'magic-regexp';
++import { analyze } from 'yuku-analyzer';
++import {
++	charIn,
++	createRegExp,
++	exactly,
++	global,
++	maybe,
++	oneOrMore,
++	whitespace,
++	wordChar,
++} from 'magic-regexp';
+ import * as path from 'pathe';
+ 
+ /**
+@@ -12,6 +22,7 @@ import * as path from 'pathe';
+  */
+ 
+ export type CraEnvironment = Readonly<Record<string, string>>;
++export type CraBrowserGlobals = Readonly<Record<string, string>>;
+ 
+ const templatePlaceholder = createRegExp(
+ 	exactly('%').and(oneOrMore(wordChar).groupedAs('key')).and('%'),
+@@ -31,6 +42,30 @@ const closingBodyTag = createRegExp(
+ 	exactly('<').and(maybe(whitespace)).and('/').and(maybe(whitespace)).and('body'),
+ );
+ 
++const identifierStart = charIn('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_$');
++const identifierContinue = charIn(
++	'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_$',
++);
++const javascriptIdentifier = createRegExp(
++	identifierStart.and(maybe(oneOrMore(identifierContinue))).at.lineStart().at.lineEnd(),
++);
++
++const browserGlobalExpression = createRegExp(
++	identifierStart
++		.and(maybe(oneOrMore(identifierContinue)))
++		.and(
++			maybe(
++				oneOrMore(
++					exactly('.').and(
++						identifierStart.and(maybe(oneOrMore(identifierContinue))),
++					),
++				),
++			),
++		)
++		.at.lineStart()
++		.at.lineEnd(),
++);
++
+ export function compareUtf16CodeUnits(left: string, right: string): number {
+ 	if (left === right) return 0;
+ 	return left < right ? -1 : 1;
+@@ -109,13 +144,89 @@ export type CraTransformPlugin = Readonly<{
+ 	transform(code: string, id: string): CraTransformResult | null;
+ }>;
+ 
+-export function createCraTildeCssImportPlugin(): CraTransformPlugin {
++export function createCraTildeCssImportPlugin(
++	browserGlobals: CraBrowserGlobals = {},
++): CraTransformPlugin {
++	validatedBrowserGlobals(browserGlobals);
+ 	return {
+ 		name: 'versionless-cra-tilde-css-import',
+ 		enforce: 'pre',
+ 		transform(code, id) {
+-			if (path.extname(pathWithoutQuery(id)) !== '.css') return null;
+-			const rewritten = rewriteWebpackTildeCssImports(code);
++			const rewritten = path.extname(pathWithoutQuery(id)) === '.css'
++				? rewriteWebpackTildeCssImports(code)
++				: sourceLanguage(id)
++					? rewriteCraBrowserGlobals(code, id, browserGlobals)
++					: code;
++			return rewritten === code ? null : { code: rewritten, map: null };
++		},
++	};
++}
++
++function sourceLanguage(id: string): 'js' | 'jsx' | 'ts' | 'tsx' | null {
++	switch (path.extname(pathWithoutQuery(id))) {
++		case '.js':
++			return 'js';
++		case '.jsx':
++			return 'jsx';
++		case '.ts':
++			return 'ts';
++		case '.tsx':
++			return 'tsx';
++		default:
++			return null;
++	}
++}
++
++function validatedBrowserGlobals(globals: CraBrowserGlobals): readonly (readonly [string, string])[] {
++	return Object.entries(globals)
++		.sort(([left], [right]) => compareUtf16CodeUnits(left, right))
++		.map(([name, expression]) => {
++			if (!javascriptIdentifier.test(name) || !browserGlobalExpression.test(expression))
++				throw new Error(`Refused: unsupported CRA browser global configuration for ${name}`);
++			return [name, expression] as const;
++		});
++}
++
++/** Replace only free value references to explicitly configured browser globals. */
++export function rewriteCraBrowserGlobals(
++	code: string,
++	id: string,
++	globals: CraBrowserGlobals,
++): string {
++	const lang = sourceLanguage(id);
++	if (!lang) throw new Error(`Refused: unsupported CRA browser global source ${id}`);
++	const configured = new Map(validatedBrowserGlobals(globals));
++	if (configured.size === 0) return code;
++	const module = analyze(code, { lang, path: pathWithoutQuery(id) });
++	if (module.diagnostics.length)
++		throw new Error(`Refused: CRA browser global analysis diagnostics for ${id}`);
++	const edits = module.unresolvedReferences.flatMap((reference) => {
++		const expression = configured.get(reference.name);
++		if (!expression || reference.space !== 'value') return [];
++		const node = reference.node as typeof reference.node & { start: number; end: number };
++		const parent = module.parentOf(reference.node) as
++			| { type?: string; shorthand?: boolean; key?: unknown; value?: unknown }
++			| null;
++		const replacement = parent?.type === 'Property' && parent.shorthand && parent.value === reference.node
++			? `${reference.name}: ${expression}`
++			: expression;
++		return [{ start: node.start, end: node.end, replacement }];
++	});
++	let output = code;
++	for (const edit of edits.sort((left, right) => right.start - left.start))
++		output = `${output.slice(0, edit.start)}${edit.replacement}${output.slice(edit.end)}`;
++	return output;
++}
++
++export function createCraBrowserGlobalsPlugin(globals: CraBrowserGlobals): CraTransformPlugin {
++	validatedBrowserGlobals(globals);
++	return {
++		name: 'versionless-cra-browser-globals',
++		enforce: 'pre',
++		transform(code, id) {
++			const lang = sourceLanguage(id);
++			if (!lang) return null;
++			const rewritten = rewriteCraBrowserGlobals(code, id, globals);
+ 			return rewritten === code ? null : { code: rewritten, map: null };
+ 		},
+ 	};
+@@ -193,6 +304,7 @@ export function createCraPublicDirectoryPlugin(
+ export type CraViteAdapterOptions = Readonly<{
+ 	publicDirectory: string;
+ 	templateFile?: string;
++	browserGlobals?: CraBrowserGlobals;
+ }>;
+ 
+ export type CraViteAdapterPlugins = readonly [CraTransformPlugin, CraOutputPlugin];
+@@ -203,7 +315,7 @@ export type CraViteAdapterPlugins = readonly [CraTransformPlugin, CraOutputPlugi
+  */
+ export function createCraViteAdapter(options: CraViteAdapterOptions): CraViteAdapterPlugins {
+ 	return [
+-		createCraTildeCssImportPlugin(),
++		createCraTildeCssImportPlugin(options.browserGlobals),
+ 		createCraPublicDirectoryPlugin({
+ 			directory: options.publicDirectory,
+ 			exclude: [options.templateFile ?? 'index.html'],
+diff --git a/packages/frameworks/react/test/react-cra-vite-adapter.test.ts b/packages/frameworks/react/test/react-cra-vite-adapter.test.ts
+index 6eae3ae..bd71447 100644
+--- a/packages/frameworks/react/test/react-cra-vite-adapter.test.ts
++++ b/packages/frameworks/react/test/react-cra-vite-adapter.test.ts
+@@ -6,9 +6,11 @@ import {
+ 	craEntryDocument,
+ 	craProcessEnvironmentDefines,
+ 	craPublicAssetPaths,
++	createCraBrowserGlobalsPlugin,
+ 	createCraPublicDirectoryPlugin,
+ 	createCraTildeCssImportPlugin,
+ 	createCraViteAdapter,
++	rewriteCraBrowserGlobals,
+ 	rewriteWebpackTildeCssImports,
+ 	substituteCraTemplatePlaceholders,
+ } from '../src/react-cra-vite-adapter.ts';
+@@ -60,6 +62,39 @@ describe('create-react-app template placeholders', () => {
+ 	});
+ });
+ 
++describe('configured browser globals', () => {
++	test('rewrites only free references, including shorthand values', () => {
++		const source = [
++			'// process in a comment',
++			'const text = "process";',
++			'const object = { process: 1, process };',
++			'const version = process.env.NODE_ENV;',
++			'function local(process: unknown) { return process; }',
++		].join('\n');
++		expect(rewriteCraBrowserGlobals(source, '/src/App.tsx', { process: 'globalThis.process' })).toBe(
++			[
++				'// process in a comment',
++				'const text = "process";',
++				'const object = { process: 1, process: globalThis.process };',
++				'const version = globalThis.process.env.NODE_ENV;',
++				'function local(process: unknown) { return process; }',
++			].join('\n'),
++		);
++	});
++
++	test('provides a Vite transform and refuses unsupported configuration', () => {
++		const plugin = createCraBrowserGlobalsPlugin({ process: 'globalThis.process' });
++		expect(plugin.transform('console.log(process);', '/src/App.js')).toEqual({
++			code: 'console.log(globalThis.process);',
++			map: null,
++		});
++		expect(plugin.transform('process', '/src/style.css')).toBeNull();
++		expect(() => createCraBrowserGlobalsPlugin({ process: 'makeProcess()' })).toThrow(
++			'unsupported CRA browser global configuration',
++		);
++	});
++});
++
+ describe('create-react-app process environment defines', () => {
+ 	test('inlines each key and the whole environment in sorted order', () => {
+ 		const defines = craProcessEnvironmentDefines({
+@@ -142,4 +177,14 @@ describe('create-react-app public directory', () => {
+ 		expect(output.name).toBe('versionless-cra-public-directory');
+ 		expect(output.closeBundle.order).toBe('post');
+ 	});
++	test('the composed adapter provides configured browser globals', () => {
++		const [transform] = createCraViteAdapter({
++			publicDirectory: tmpdir(),
++			browserGlobals: { process: 'globalThis.process' },
++		});
++		expect(transform.transform('process.env.NODE_ENV', '/src/App.tsx')).toEqual({
++			code: 'globalThis.process.env.NODE_ENV',
++			map: null,
++		});
++	});
+ });

@@ -1,0 +1,7 @@
+{
+  "kind": "resolveBinding",
+  "file": "containers/App/actions.js",
+  "name": "reposLoaded",
+  "space": "value",
+  "scope": null
+}

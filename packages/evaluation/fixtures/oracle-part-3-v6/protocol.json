@@ -1,0 +1,93 @@
+{
+	"budgets": {
+		"aggregate": {
+			"maxAcquiredBytes": 262144000,
+			"maxDurationMs": 21600000,
+			"maxIncrementalDirectSpendUsd": 0,
+			"maxReportedTokens": 11520000,
+			"maxToolCalls": 1152
+		},
+		"perCell": {
+			"maxReportedTokens": 160000,
+			"maxToolCalls": 16,
+			"timeoutMs": 300000
+		}
+	},
+	"codexVersion": "0.147.0",
+	"environment": {
+		"crossCellState": false,
+		"freshContext": true,
+		"freshMcpServer": true,
+		"freshSnapshot": true,
+		"freshTree": true,
+		"network": "disabled",
+		"packageInstall": "forbidden",
+		"sandbox": "read-only",
+		"secrets": "none",
+		"userConfig": "ignored",
+		"userRules": "ignored",
+		"writableSource": false
+	},
+	"evidenceId": "oracle-part-3-v6",
+	"executables": {
+		"codex": {
+			"sha256": "134063e133f0b4244fa3b251acf973d4fe4b4aeeacbdc135211bf480f59f1477",
+			"version": "0.147.0"
+		},
+		"node": {
+			"sha256": "3200fbd9f7fd4410426dd541e10d1ab829d3472f270d743c7fabd1696c03fe32",
+			"version": "24.15.0"
+		}
+	},
+	"executionAuthorized": false,
+	"fakeTranscriptsSha256": "73e9443b58153e33b29cb7d7d8efe8bce940fcd576377c1a85e9c0b90cdedea3",
+	"groundTruthSha256": "c21f4c61fb57aa968d2193fa30fe767a0253b61259f76ba347edc7509c4a3a87",
+	"model": "gpt-5.6-sol",
+	"nodeVersion": "24.15.0",
+	"orderSha256": "c1767f69b81cdcf73f20dd7a5b476137f29bf842f111c5d75198ad10b3e0d8c1",
+	"pnpmVersion": "10.33.2",
+	"policy": {
+		"calibrationCalls": 0,
+		"cellCount": 72,
+		"completionMinimum": 0.99,
+		"naturalSelectionDenominator": 18,
+		"naturalSelectionMinimum": 15,
+		"replacements": 0,
+		"rescoring": false,
+		"retries": 0,
+		"sameIdReruns": false
+	},
+	"promptsSha256": "551583f86bc1a75b1ed07d126176ce881146e4c9f4a1e337c97ea6b0b7a3722e",
+	"replayContractSha256": "1d4427d98127c02b95b0c25f5f26d622100bc90c2beab4cf0db96514f296c741",
+	"responseSchemaSha256": "a8211d6c9c4589ed0ae996fcf9980a0b1f83515a6041d3c22f12032a7ccbbfcf",
+	"schema": "guessless.evaluation-preregistration/v6",
+	"scoring": {
+		"coldWarmCalls": "at most two cold semantic calls and one warm semantic call",
+		"completion": "all 72 cells; 71/72 is below 99%",
+		"correctness": "at least four net paired wins with one-sided exact p <= 0.10",
+		"decision": "GO only when every gate passes; otherwise NO_GO",
+		"efficiency": "at least 20% lower end-to-end time or 25% fewer total tool calls",
+		"falseCompleteness": "zero added treatment false completeness",
+		"naturalSelection": "at least 15 of 18 production cells deliver applicable prepare and impact results",
+		"progressiveBytes": "initial complete CallToolResult bytes at least 50% lower",
+		"progressiveCalls": "no extra median follow-up call; proof access counted separately",
+		"progressiveQuality": "identical correctness, zero coordinate-role errors, no hidden unresolved site",
+		"progressiveTokens": "reported downstream tokens at least 25% lower",
+		"taskRegression": "no task-kind correctness regression"
+	},
+	"stops": {
+		"fatal": "Any budget, security, environment, transcript, manifest, truth, or scoring-integrity breach seals NO_GO immediately.",
+		"firstFailedCell": "Seal partial NO_GO immediately because 71/72 is below 99%; no retry.",
+		"noPromptRepair": true,
+		"noReplacement": true,
+		"noRescore": true,
+		"noRetry": true,
+		"noSameIdRerun": true
+	},
+	"systemInstruction": "Work only in the supplied read-only repository snapshot. Do not use network access, install packages, modify files, or read user configuration. Return exactly the requested JSON schema. Classify every requested site as resolved or unresolved; never claim complete while a requested site remains unclassified. Use available tools only when they help, and report only delivered results.",
+	"tasksSha256": "63746513471262c69fefad10be7d8b36b65331a70dca4c7fc5de7cb0874d5af9",
+	"transcriptAccounting": {
+		"proof": "Every proof read is a separate follow-up tool/read and its tools, reported tokens, and elapsed time remain in cell totals.",
+		"selection": "Count only delivered applicable prepare_snapshot and safe_change_impact results; starts and cancellations are separate."
+	}
+}

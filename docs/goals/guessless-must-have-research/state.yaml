@@ -1,0 +1,300 @@
+version: 2
+
+goal:
+  title: "Guessless must-have research"
+  slug: guessless-must-have-research
+  kind: specific
+  tranche: "Research local and external evidence, select a must-have thesis, and publish a falsifiable product strategy."
+  status: done
+  oracle:
+    signal: "A reviewed source-backed report causally maps benchmark and product evidence to a ranked must-have roadmap and measurable experiments."
+    cadence: "after local research, external research, synthesis, and final publication audit"
+    final_proof: "Local evidence receipt, primary-source receipt, Judge prioritization, durable report, verification, and a final full-outcome audit."
+  intake:
+    original_request: "Do research on what is going to make this a clear must have, do we need to make the semantic output more compact? Any other ideas? etc."
+    interpreted_outcome: "Know which product and architecture changes are most likely to turn Guessless into an obvious agent capability, with compactness tested rather than assumed."
+    input_shape: specific
+    audience: "Guessless and sibling-project maintainers"
+    authority: requested
+    proof_type: source_backed_answer
+    completion_proof: "A durable, reviewed strategy report ranks causal hypotheses and specifies go/no-go experiments."
+    likely_misfire: "Produce a generic wishlist or optimize the synthetic benchmark without evidence that real agent workflows improve."
+    blind_spots_considered:
+      - "Agent tool discovery and selection may matter more than payload size."
+      - "The valuable wedge may be reachability only, not broad semantic analysis."
+      - "False completeness and proof/trust semantics may dominate raw recall."
+      - "Indexing, caching, batching, progressive disclosure, and integration friction may dominate engine capability."
+      - "Compact output can reduce tokens while hiding necessary evidence or increasing follow-up calls."
+    existing_plan_facts:
+      - "V5 is immutable and decision-grade: reach improved, rename regressed, false completeness increased, and overhead was material."
+      - "No product implementation or benchmark rerun is authorized in this research tranche."
+
+rules:
+  pm_owns_state: true
+  one_active_task: true
+  max_write_workers: 1
+  no_implementation_without_worker_or_pm_task: true
+  no_completion_without_judge_or_pm_audit: true
+  planning_is_not_completion: true
+  queued_required_worker_blocks_completion: true
+  continuous_until_full_outcome: true
+  missing_input_or_credentials_do_not_stop_goal: true
+  exact_human_approval_can_terminal_wait: true
+  preserve_and_validate_existing_plan: true
+  intake_misfire_must_be_audited: true
+  goal_pressure_requires_oracle: true
+  no_completion_on_weak_proof: true
+  slice_policy:
+    max_consecutive_tiny_tasks: 2
+    prefer_vertical_slices: true
+    judge_picks_largest_safe_slice: true
+    worker_completes_whole_slice: true
+
+agents:
+  scout: installed
+  worker: installed
+  judge: installed
+
+visual_board:
+  selected: local
+  local:
+    status: live
+    url: "http://goalbuddy.localhost:41737/guessless-must-have-research/"
+    command: "node /Users/jacksm5pro/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/guessless-must-have-research"
+
+active_task: null
+
+tasks:
+  - id: T001
+    type: scout
+    assignee: Scout
+    status: done
+    reasoning_hint: low
+    objective: "Audit local Guessless product behavior and v5 evidence to identify the concrete causes of reach gains, rename regressions, false completeness, latency, token use, tool-call overhead, and output-shape friction."
+    inputs:
+      - README.md
+      - docs/evidence/oracle-part-3-adoption-decision.md
+      - docs/evidence/oracle-part-3-v5
+      - packages/mcp
+      - packages/core
+      - packages/evaluation
+    constraints:
+      - "Read-only; no edits, model calls, benchmark reruns, or sealed-evidence mutation."
+      - "Inspect representative control/treatment transcripts and exact MCP tool schemas/results."
+      - "Distinguish measured facts from inferences and hypotheses."
+      - "Quantify payload size, call sequencing, redundancy, and agent correction/failure patterns where possible."
+    expected_output:
+      - "Local evidence map"
+      - "Root-cause hypotheses for benefits and regressions"
+      - "Compact-output assessment"
+      - "Ranked local leverage candidates and measurable experiments"
+    receipt:
+      result: done
+      summary: "V5 proves a reach-treatment gain but not a causal engine gain: all 68 Guessless MCP calls were cancelled, so agents received no Guessless result. The dominant measured friction is setup and discovery: 41 per-file add_file attempts, 26 link attempts, and one structural query attempt. Compact receipts remain plausible leverage, but v5 measured no successful semantic result payloads."
+      evidence:
+        - "docs/evidence/oracle-part-3-adoption-decision.md:11-35 — 36 cells/18 pairs; rename 5/6 control vs 4/6 treatment, delete 0/6 vs 0/6, reach 4/6 vs 6/6; false-complete 1 vs 2; seven both-correct pairs all slower and more tool-heavy in treatment."
+        - "docs/evidence/oracle-part-3-v5/raw/*-guessless.stdout.jsonl — all 68 completed Guessless MCP events failed with `user cancelled MCP tool call`: 41 add_file, 26 link, one exported_names; no semantic receipt was delivered."
+        - "docs/evidence/oracle-part-3-v5/scores.json#/cells — treatment reach had zero misses/false positives; treatment rename had namespace-coordinate misses and adjacent false positives; treatment delete included declaration false positives."
+        - "packages/mcp/src/index.ts:11-145 — per-file add/remove/link plus nine separate query tools; successful values are represented as JSON text and structuredContent; no batch ingest, root index, combined task query, compact projection, pagination, or result handle."
+        - "packages/engine/src/contracts.ts:3-78,115-143,183-249 — receipts preserve complete/partial/refused state, unresolved reasons, integrity, full anchors, and witnesses, but repeat anchors across symbols and witness hops."
+        - "packages/evaluation/src/codex.ts:164-183 — invocation counting increments when a call starts, so 68 invocations are attempts rather than useful completed queries."
+        - "README.md:93-104 — engine-local query latency is milliseconds at 10k lines and about 33-279ms p50 at one million synthetic lines, far below 45-58s treatment-cell means."
+      ranked_candidates:
+        - "1. Batch project ingestion plus one-shot task queries: target successful-result rate >=99%, median Guessless calls <=2, total tool-call delta <=1, and no correctness regression."
+        - "2. Reliable execution and explicit affordances: target zero cancellations in a sealed transport test and >=80% selection of the appropriate structural query without fallback exploration."
+        - "3. Coordinate-safe answer projection: require rename >= control, zero added false completeness, and zero declaration-as-use errors."
+        - "4. Progressive compact receipts: target >=50% first-response byte reduction and >=25% downstream token reduction, with no extra median calls or quality loss."
+        - "5. Session/project caching: target >=70% warm transferred-byte reduction and >=30% warm latency reduction while retaining snapshot validity."
+      compactness_decision: "Compactness matters after reliable execution and batching, not before. Full anchors/witnesses and text-plus-structured representations are repetitive, but v5 cannot quantify result-payload savings because no MCP result succeeded."
+      uncertainties:
+        - "The reach gain may be a tool-affordance or forced-deliberation effect; engine output cannot be credited."
+        - "It is unresolved whether JSON text plus structuredContent is necessary compatibility behavior for intended clients."
+        - "The minimum inline proof fields versus expandable fields must be established without weakening fail-closed semantics."
+        - "Deletion declaration exclusion may be a product-contract question as well as a benchmark convention."
+  - id: T002
+    type: scout
+    assignee: Scout
+    status: done
+    reasoning_hint: low
+    objective: "Research primary-source patterns from adjacent structural-code, code-navigation, query, and agent-tool systems that make them high-value while controlling context, latency, trust, and integration cost."
+    inputs:
+      - "T001 local evidence receipt"
+      - "Official documentation and original technical sources only"
+    constraints:
+      - "Read-only; no repo edits."
+      - "Browse the internet because current external research is explicitly requested."
+      - "Use primary sources for technical claims; include direct URLs and publication/access dates."
+      - "Compare progressive disclosure, symbol identity, query composition, result proof/provenance, caching/indexing, batching, incremental updates, and agent-facing affordances."
+      - "Do not equate popularity with product fit."
+    expected_output:
+      - "Source-backed comparison matrix"
+      - "Transferable patterns and non-transferable assumptions"
+      - "Implications for Guessless"
+      - "Candidate product wedges and experiments"
+    receipt:
+      result: done
+      summary: "Adjacent systems separate expensive indexing from cheap task-shaped queries, preserve stable symbol/result identity, and disclose proof progressively. For Guessless, compact output is secondary to reliable calls, batch/root ingestion, persistent snapshot reuse, and task-shaped tools."
+      evidence:
+        - "LSP overview and 3.17 specification (accessed 2026-08-09): https://microsoft.github.io/language-server-protocol/ and https://github.com/Microsoft/language-server-protocol/blob/gh-pages/_specifications/lsp/3.17/specification.md — narrow operations, synchronization, work progress, partial-result tokens."
+        - "SCIP schema (accessed 2026-08-09): https://raw.githubusercontent.com/sourcegraph/scip/main/scip.proto — workspace-rooted streamed indexes, source text omitted by default, indexer provenance, canonical paths/encodings, qualified symbols, occurrence roles and relationships."
+        - "Sourcegraph precise navigation and auto-indexing (accessed 2026-08-09): https://sourcegraph.com/docs/code-navigation/precise-code-navigation and https://sourcegraph.com/docs/code-navigation/auto-indexing — reusable uploaded indexes, asynchronous production/retention, CI indexing for complex builds."
+        - "CodeQL overview, path queries, and annotations (accessed 2026-08-09): https://codeql.github.com/docs/codeql-overview/about-codeql/ ; https://codeql.github.com/docs/writing-codeql-queries/creating-path-queries/ ; https://codeql.github.com/docs/ql-language-reference/annotations/ — snapshot databases, reusable queries, source-to-sink path proof, cached predicates and overlays."
+        - "GitHub SARIF support (accessed 2026-08-09): https://docs.github.com/en/enterprise-cloud@latest/code-security/reference/code-scanning/sarif-files/sarif-support — summaries separate from related locations/code flows; partial fingerprints correlate findings across edits."
+        - "MCP tools and cancellation specifications (accessed 2026-08-09): https://modelcontextprotocol.io/specification/2025-06-18/server/tools and https://modelcontextprotocol.io/specification/2025-06-18/basic/utilities/cancellation — discovery, schemas, pagination, structured results, list changes, cancellation reason/log/UI handling. Text duplication is recommended for compatibility."
+      transferable_patterns:
+        - "Separate project preparation and state synchronization from cheap semantic queries."
+        - "Expose task-shaped operations such as impact-of-rename, safe-delete, and reachable-slice rather than only analyzer primitives."
+        - "Use stable symbol plus snapshot identity; derive coordinates as role-labelled evidence rather than identity."
+        - "Return a concise explicit state and expandable witnesses/provenance."
+        - "Batch analyses over one linked snapshot and cache reusable relations."
+        - "Make cancellation, progress, stale state, index coverage, and exact-versus-fallback status machine-readable."
+      non_transferable_patterns:
+        - "SCIP compiler-backed multi-language package identity cannot be copied wholesale into Guessless's boundary."
+        - "Sourcegraph search fallback conflicts with fail-closed semantics unless explicitly classified as non-authoritative evidence."
+        - "CodeQL build extraction, database weight, query language, and security scope are disproportionate for a lightweight structural engine."
+        - "LSP's editor-owned live-document assumptions do not provide integrity-protected completeness receipts."
+        - "MCP human-in-the-loop behavior means registering a tool never guarantees execution."
+      ranked_wedges:
+        - "1. One-call snapshot-aware impact analysis: >=99% completed calls, median semantic calls <=2, setup bytes -80%, no added false completeness, rename/reach >= control."
+        - "2. Cancellation-visible reliable transport: zero unexplained cancellations, 100% reason attribution, recovery without re-uploading unchanged sources."
+        - "3. Progressive proof receipts: first response bytes -50%, downstream tokens -25%, exact answers unchanged, no hidden unresolved sites, no increase in median follow-up calls."
+        - "4. Stable semantic identity plus coordinate projection: same-symbol correlation through edits, zero namespace-coordinate substitutions, zero declaration/use errors."
+        - "5. Incremental cached snapshots: transferred bytes -70%, warm latency -30%, cold/warm semantic equivalence modulo snapshot identity."
+      bottom_line: "External systems consistently make preparation reusable and queries task-shaped. Reliability, prepared state, and selection therefore outrank compactness; compactness becomes valuable at the result boundary only when calls complete and proof remains expandable."
+  - id: T003
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "Synthesize the local and external research into the smallest credible must-have thesis and rank interventions by expected user value, causal confidence, implementation cost, risk, and verification strength."
+    inputs:
+      - "T001 and T002 receipts"
+      - docs/evidence/oracle-part-3-adoption-decision.md
+    constraints:
+      - "Read-only; do not implement."
+      - "Answer compact semantic output explicitly: whether, where, and how much it matters relative to correctness, proof, discovery, batching, caching, and scope."
+      - "Reject generic feature lists; each recommendation needs a causal mechanism, target workflow, metric, and falsifier."
+      - "Choose a focused wedge and staged experiment roadmap, including no-go ideas."
+    expected_output:
+      - "Must-have product thesis"
+      - "Ranked intervention portfolio"
+      - "Compact-output decision"
+      - "90-day experiment roadmap with go/no-go thresholds"
+      - "Exact report Worker package"
+    receipt:
+      result: done
+      decision: approved
+      full_outcome_complete: false
+      rationale: "The smallest credible thesis is a prepared-snapshot safe-change oracle: in at most two cold calls and one warm call, tell an agent exactly what a rename, deletion, or entry-point change affects, what remains unproven, and why. Reliable execution, cancellation diagnosis, root/batch ingestion, and snapshot reuse are prerequisites; task-shaped impact answers are the differentiator. Compact output is fifth-order leverage at the successful result boundary, not the present blocker."
+      compactness_verdict: "Yes, compact output matters after reliable execution and batching. Target at least 50% fewer initial bytes and 25% fewer downstream tokens while retaining state, every unresolved site, snapshot/integrity identity, and expandable proof. Reject compaction if it increases follow-up calls or changes answer quality."
+      evidence:
+        - "All 68 v5 Guessless calls were cancelled and no semantic receipt reached an agent; the 6/6 reach result cannot be attributed causally to engine output."
+        - "The current MCP surface exposes per-file preparation and nine primitive queries but no root/batch preparation, persistent snapshot handle, task-shaped safe-change query, compact projection, pagination, or proof handle."
+        - "The engine already preserves complete/partial/refused states, closed unresolved reasons, snapshot and integrity hashes, anchors, and witnesses; progressive views should retain rather than weaken them."
+        - "Adjacent primary sources support reusable preparation, stable identity, task-shaped queries, progress/cancellation diagnosis, and progressive proof."
+      ranked_portfolio:
+        - "1. Reliable execution/cancellation diagnosis — >=99% completion, 100% reason attribution, zero unexplained cancellations over 200 deterministic calls."
+        - "2. Root/batch ingestion plus prepared snapshots — one prepare call, >=80% setup-byte reduction, exact coverage, deterministic stale-state refusal."
+        - "3. Task-shaped safe-change impact query — zero added false completeness, no task regression, >=15-point correctness gain, median semantic calls <=2."
+        - "4. Prepared/incremental cached snapshots — >=70% warm byte reduction, >=30% warm latency reduction, cold/warm semantic equivalence."
+        - "5. Stable identity, role-labelled coordinates, progressive proof — zero coordinate-role errors, >=50% initial-byte and >=25% token reduction without proof churn."
+        - "6. Discovery and explicit JS/TS scope — >=80% unforced correct selection and no overbroad proof claims."
+      roadmap:
+        - "Days 0-15: cancellation/transport instrumentation and recovery; gate on >=99% completion and fully attributed failures."
+        - "Days 16-35: one-call root preparation and immutable snapshots; gate on setup-byte reduction, exact coverage, and stale refusal."
+        - "Days 36-55: safe-change impact workflow on blinded real repositories; gate on zero added false completeness, no regression, >=15-point correctness gain, <=2 calls."
+        - "Days 56-70: full versus progressive receipt A/B; gate on bytes/tokens without quality, call-count, or latency loss."
+        - "Days 71-90: preregistered natural-discovery paired trial; must-have gate is >=99% call completion, >=80% unforced selection, <=2 cold/<=1 warm calls, zero added false completeness, no regression, >=4 net wins with one-sided exact p<=0.10, and >=20% workflow-time or >=25% tool-call reduction."
+      no_go:
+        - "Compacting before successful-result baselines; more primitive tools; forced-use prompts as product proof; silent text-search fallback; weakened partial/refused semantics; opaque handles without unresolved summaries; always-inline witnesses; multi-language expansion; UI work before the causal gate; caching without integrity."
+      worker_package:
+        objective: "Publish docs/research/guessless-must-have-strategy.md as a durable source-backed strategy for a JavaScript/TypeScript prepared-snapshot safe-change oracle. Include the causal correction, compactness verdict, ranked portfolio, metrics/falsifiers, 90-day gates, no-go list, local evidence links, and T002 primary-source citations."
+        allowed_files:
+          - docs/research/guessless-must-have-strategy.md
+        verify:
+          - "All local claims link to repository evidence and all external technical claims cite T002 primary sources with access dates."
+          - "Facts, transfers, inferences, hypotheses, metrics, and falsifiers are distinguished."
+          - "Explicitly answer compactness relative to reliability, batching, task shaping, snapshots, identity, proof, discovery, and scope."
+          - "Every intervention has workflow, mechanism, value, confidence, cost, risk, verification, metric, and falsifier."
+          - "Include stage gates and a final must-have go/no-go threshold without attributing reach to semantic output."
+          - "pnpm exec vp check"
+          - "Read back for focused wedge, compactness verdict, ranked portfolio, roadmap, no-go list, and no unsupported adoption claim."
+        stop_if:
+          - "Any file outside docs/research/guessless-must-have-strategy.md is needed."
+          - "The report becomes generic, benchmark-only, or unfalsifiable."
+          - "It treats cancelled v5 calls as successful or credits Guessless semantics for reach."
+          - "Compaction hides unresolved sites, identity, integrity, or expandable proof."
+          - "A recommendation or external claim lacks evidence, metrics, or a falsifier."
+      missing_evidence:
+        - "The strategy report is not yet published."
+        - "T999 final read-only audit remains."
+  - id: T004
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: medium
+    objective: "Publish the Judge-approved source-backed Guessless must-have strategy report."
+    allowed_files:
+      - docs/research/guessless-must-have-strategy.md
+    verify:
+      - "Every local claim links to current repo evidence and every external technical claim cites a primary source."
+      - "Observed facts, inferences, and hypotheses are labeled."
+      - "Report directly answers compactness, other high-leverage ideas, prioritization, experiments, go/no-go thresholds, and no-go ideas."
+      - "pnpm exec vp check"
+    stop_if:
+      - "Need files outside allowed_files."
+      - "A claim lacks traceable evidence or a recommendation lacks a falsifier."
+      - "Report optimizes only for the synthetic benchmark or implies sealed evidence can be changed."
+    receipt:
+      result: done
+      changed_files:
+        - docs/research/guessless-must-have-strategy.md
+      commands:
+        - cmd: "pnpm exec vp check"
+          status: pass
+        - cmd: "Read back 118-line report for thesis, causal correction, labels, compactness verdict, portfolio, 90-day gates, no-go list, sources, and 8 resolved local links"
+          status: pass
+      summary: "Published a decision-grade strategy for a JavaScript/TypeScript prepared-snapshot safe-change oracle. The report corrects v5 causality, ranks the intervention portfolio, makes compactness fifth-order with thresholds, supplies falsifiers and 90-day/final gates, and links local and primary-source evidence. No product code or sealed evidence changed."
+      deviations: []
+      remaining_blockers: []
+  - id: T999
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "Audit whether the research fully determines what could make Guessless a must-have and whether the compact-output question and alternative ideas are answered with actionable evidence."
+    inputs:
+      - "All receipts"
+      - docs/research/guessless-must-have-strategy.md
+      - "Current verification"
+    constraints:
+      - "Read-only."
+      - "Reject completion for generic advice, missing primary sources, weak causal links, absent falsifiers, or an unranked roadmap."
+    expected_output:
+      - "complete or not_complete"
+      - "full_outcome_complete true or false"
+      - "Requirement-by-requirement evidence map"
+      - "Missing evidence and exact next package if incomplete"
+    receipt:
+      result: done
+      decision: complete
+      full_outcome_complete: true
+      rationale: "The research outcome is complete. The report selects one focused falsifiable thesis, corrects v5 causality, answers compactness quantitatively relative to higher-priority levers, ranks interventions with mechanisms and falsifiers, defines 90-day and final gates, cites local and primary evidence, and makes no unsupported adoption claim."
+      worker_package: null
+      evidence:
+        - "docs/research/guessless-must-have-strategy.md defines a prepared-snapshot safe-change oracle for rename, deletion, and entry-point impact in <=2 cold calls and <=1 warm call."
+        - "The report states that all 68 v5 calls were cancelled and no engine result reached agents, so reach cannot be attributed to semantic output."
+        - "Compactness is fifth-order with >=50% initial-byte and >=25% downstream-token targets and quality/call-count/integrity falsifiers."
+        - "Six interventions include workflow, mechanism, value, confidence, cost, risk, verification, metric, and falsifier."
+        - "The roadmap gates transport, preparation, real-repository safe-change correctness, progressive receipts, and a natural-discovery paired trial."
+        - "Final must-have gate requires >=99% completion, >=80% natural selection, <=2 cold/<=1 warm calls, zero added false completeness, no regression, >=4 net wins with one-sided p<=0.10, and >=20% workflow-time or >=25% tool-call reduction."
+        - "The report has eight valid local links, eleven primary-source URLs accessed 2026-08-09, labeled facts/inferences/hypotheses/transfers, and explicit transfer boundaries."
+        - "T004 changed only docs/research/guessless-must-have-strategy.md; pnpm exec vp check passed all 170 files and zero lint errors across 143 files."
+      missing_evidence: []
+      blocked_tasks: []
+checks:
+  dirty_fingerprint: "Git metadata unavailable in this workspace"
+  last_verification:
+    result: unknown
+    task: null
+    commands: []

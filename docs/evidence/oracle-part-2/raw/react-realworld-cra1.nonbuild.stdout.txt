@@ -1,0 +1,6 @@
+
+> react-redux-realworld-example-app@0.1.0 build /private/var/folders/pt/xbq_fv915rx9wtnmww8npc0w0000gn/T/guessless-react-realworld-cra1-ykZOXY/react-realworld-cra1
+> react-scripts build
+
+ ELIFECYCLE  Command failed.
+ WARN   Local package.json exists, but node_modules missing, did you mean to install?

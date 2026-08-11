@@ -1,0 +1,506 @@
+[
+	{
+		"arm": "full",
+		"id": "v8-01-ufo-rename-encode-query-item-full",
+		"kind": "consumption",
+		"ordinal": 1,
+		"taskId": "ufo-rename-encode-query-item"
+	},
+	{
+		"arm": "paged",
+		"id": "v8-02-ufo-rename-encode-query-item-paged",
+		"kind": "consumption",
+		"ordinal": 2,
+		"taskId": "ufo-rename-encode-query-item"
+	},
+	{
+		"arm": "control",
+		"id": "v8-03-ufo-rename-encode-query-item-control",
+		"kind": "discovery",
+		"ordinal": 3,
+		"taskId": "ufo-rename-encode-query-item"
+	},
+	{
+		"arm": "production",
+		"id": "v8-04-ufo-rename-encode-query-item-production",
+		"kind": "discovery",
+		"ordinal": 4,
+		"taskId": "ufo-rename-encode-query-item"
+	},
+	{
+		"arm": "paged",
+		"id": "v8-05-ufo-rename-with-trailing-slash-paged",
+		"kind": "consumption",
+		"ordinal": 5,
+		"taskId": "ufo-rename-with-trailing-slash"
+	},
+	{
+		"arm": "full",
+		"id": "v8-06-ufo-rename-with-trailing-slash-full",
+		"kind": "consumption",
+		"ordinal": 6,
+		"taskId": "ufo-rename-with-trailing-slash"
+	},
+	{
+		"arm": "production",
+		"id": "v8-07-ufo-rename-with-trailing-slash-production",
+		"kind": "discovery",
+		"ordinal": 7,
+		"taskId": "ufo-rename-with-trailing-slash"
+	},
+	{
+		"arm": "control",
+		"id": "v8-08-ufo-rename-with-trailing-slash-control",
+		"kind": "discovery",
+		"ordinal": 8,
+		"taskId": "ufo-rename-with-trailing-slash"
+	},
+	{
+		"arm": "full",
+		"id": "v8-09-ufo-delete-create-url-full",
+		"kind": "consumption",
+		"ordinal": 9,
+		"taskId": "ufo-delete-create-url"
+	},
+	{
+		"arm": "paged",
+		"id": "v8-10-ufo-delete-create-url-paged",
+		"kind": "consumption",
+		"ordinal": 10,
+		"taskId": "ufo-delete-create-url"
+	},
+	{
+		"arm": "control",
+		"id": "v8-11-ufo-delete-create-url-control",
+		"kind": "discovery",
+		"ordinal": 11,
+		"taskId": "ufo-delete-create-url"
+	},
+	{
+		"arm": "production",
+		"id": "v8-12-ufo-delete-create-url-production",
+		"kind": "discovery",
+		"ordinal": 12,
+		"taskId": "ufo-delete-create-url"
+	},
+	{
+		"arm": "paged",
+		"id": "v8-13-ufo-delete-parse-url-paged",
+		"kind": "consumption",
+		"ordinal": 13,
+		"taskId": "ufo-delete-parse-url"
+	},
+	{
+		"arm": "full",
+		"id": "v8-14-ufo-delete-parse-url-full",
+		"kind": "consumption",
+		"ordinal": 14,
+		"taskId": "ufo-delete-parse-url"
+	},
+	{
+		"arm": "production",
+		"id": "v8-15-ufo-delete-parse-url-production",
+		"kind": "discovery",
+		"ordinal": 15,
+		"taskId": "ufo-delete-parse-url"
+	},
+	{
+		"arm": "control",
+		"id": "v8-16-ufo-delete-parse-url-control",
+		"kind": "discovery",
+		"ordinal": 16,
+		"taskId": "ufo-delete-parse-url"
+	},
+	{
+		"arm": "full",
+		"id": "v8-17-ufo-entry-stringify-query-full",
+		"kind": "consumption",
+		"ordinal": 17,
+		"taskId": "ufo-entry-stringify-query"
+	},
+	{
+		"arm": "paged",
+		"id": "v8-18-ufo-entry-stringify-query-paged",
+		"kind": "consumption",
+		"ordinal": 18,
+		"taskId": "ufo-entry-stringify-query"
+	},
+	{
+		"arm": "control",
+		"id": "v8-19-ufo-entry-stringify-query-control",
+		"kind": "discovery",
+		"ordinal": 19,
+		"taskId": "ufo-entry-stringify-query"
+	},
+	{
+		"arm": "production",
+		"id": "v8-20-ufo-entry-stringify-query-production",
+		"kind": "discovery",
+		"ordinal": 20,
+		"taskId": "ufo-entry-stringify-query"
+	},
+	{
+		"arm": "paged",
+		"id": "v8-21-ufo-entry-normalize-url-paged",
+		"kind": "consumption",
+		"ordinal": 21,
+		"taskId": "ufo-entry-normalize-url"
+	},
+	{
+		"arm": "full",
+		"id": "v8-22-ufo-entry-normalize-url-full",
+		"kind": "consumption",
+		"ordinal": 22,
+		"taskId": "ufo-entry-normalize-url"
+	},
+	{
+		"arm": "production",
+		"id": "v8-23-ufo-entry-normalize-url-production",
+		"kind": "discovery",
+		"ordinal": 23,
+		"taskId": "ufo-entry-normalize-url"
+	},
+	{
+		"arm": "control",
+		"id": "v8-24-ufo-entry-normalize-url-control",
+		"kind": "discovery",
+		"ordinal": 24,
+		"taskId": "ufo-entry-normalize-url"
+	},
+	{
+		"arm": "full",
+		"id": "v8-25-execa-rename-normalize-options-full",
+		"kind": "consumption",
+		"ordinal": 25,
+		"taskId": "execa-rename-normalize-options"
+	},
+	{
+		"arm": "paged",
+		"id": "v8-26-execa-rename-normalize-options-paged",
+		"kind": "consumption",
+		"ordinal": 26,
+		"taskId": "execa-rename-normalize-options"
+	},
+	{
+		"arm": "control",
+		"id": "v8-27-execa-rename-normalize-options-control",
+		"kind": "discovery",
+		"ordinal": 27,
+		"taskId": "execa-rename-normalize-options"
+	},
+	{
+		"arm": "production",
+		"id": "v8-28-execa-rename-normalize-options-production",
+		"kind": "discovery",
+		"ordinal": 28,
+		"taskId": "execa-rename-normalize-options"
+	},
+	{
+		"arm": "paged",
+		"id": "v8-29-execa-rename-wait-subprocess-result-paged",
+		"kind": "consumption",
+		"ordinal": 29,
+		"taskId": "execa-rename-wait-subprocess-result"
+	},
+	{
+		"arm": "full",
+		"id": "v8-30-execa-rename-wait-subprocess-result-full",
+		"kind": "consumption",
+		"ordinal": 30,
+		"taskId": "execa-rename-wait-subprocess-result"
+	},
+	{
+		"arm": "production",
+		"id": "v8-31-execa-rename-wait-subprocess-result-production",
+		"kind": "discovery",
+		"ordinal": 31,
+		"taskId": "execa-rename-wait-subprocess-result"
+	},
+	{
+		"arm": "control",
+		"id": "v8-32-execa-rename-wait-subprocess-result-control",
+		"kind": "discovery",
+		"ordinal": 32,
+		"taskId": "execa-rename-wait-subprocess-result"
+	},
+	{
+		"arm": "full",
+		"id": "v8-33-execa-delete-parse-command-string-full",
+		"kind": "consumption",
+		"ordinal": 33,
+		"taskId": "execa-delete-parse-command-string"
+	},
+	{
+		"arm": "paged",
+		"id": "v8-34-execa-delete-parse-command-string-paged",
+		"kind": "consumption",
+		"ordinal": 34,
+		"taskId": "execa-delete-parse-command-string"
+	},
+	{
+		"arm": "control",
+		"id": "v8-35-execa-delete-parse-command-string-control",
+		"kind": "discovery",
+		"ordinal": 35,
+		"taskId": "execa-delete-parse-command-string"
+	},
+	{
+		"arm": "production",
+		"id": "v8-36-execa-delete-parse-command-string-production",
+		"kind": "discovery",
+		"ordinal": 36,
+		"taskId": "execa-delete-parse-command-string"
+	},
+	{
+		"arm": "paged",
+		"id": "v8-37-execa-delete-normalize-cwd-paged",
+		"kind": "consumption",
+		"ordinal": 37,
+		"taskId": "execa-delete-normalize-cwd"
+	},
+	{
+		"arm": "full",
+		"id": "v8-38-execa-delete-normalize-cwd-full",
+		"kind": "consumption",
+		"ordinal": 38,
+		"taskId": "execa-delete-normalize-cwd"
+	},
+	{
+		"arm": "production",
+		"id": "v8-39-execa-delete-normalize-cwd-production",
+		"kind": "discovery",
+		"ordinal": 39,
+		"taskId": "execa-delete-normalize-cwd"
+	},
+	{
+		"arm": "control",
+		"id": "v8-40-execa-delete-normalize-cwd-control",
+		"kind": "discovery",
+		"ordinal": 40,
+		"taskId": "execa-delete-normalize-cwd"
+	},
+	{
+		"arm": "full",
+		"id": "v8-41-execa-entry-execa-core-async-full",
+		"kind": "consumption",
+		"ordinal": 41,
+		"taskId": "execa-entry-execa-core-async"
+	},
+	{
+		"arm": "paged",
+		"id": "v8-42-execa-entry-execa-core-async-paged",
+		"kind": "consumption",
+		"ordinal": 42,
+		"taskId": "execa-entry-execa-core-async"
+	},
+	{
+		"arm": "control",
+		"id": "v8-43-execa-entry-execa-core-async-control",
+		"kind": "discovery",
+		"ordinal": 43,
+		"taskId": "execa-entry-execa-core-async"
+	},
+	{
+		"arm": "production",
+		"id": "v8-44-execa-entry-execa-core-async-production",
+		"kind": "discovery",
+		"ordinal": 44,
+		"taskId": "execa-entry-execa-core-async"
+	},
+	{
+		"arm": "paged",
+		"id": "v8-45-execa-entry-create-execa-paged",
+		"kind": "consumption",
+		"ordinal": 45,
+		"taskId": "execa-entry-create-execa"
+	},
+	{
+		"arm": "full",
+		"id": "v8-46-execa-entry-create-execa-full",
+		"kind": "consumption",
+		"ordinal": 46,
+		"taskId": "execa-entry-create-execa"
+	},
+	{
+		"arm": "production",
+		"id": "v8-47-execa-entry-create-execa-production",
+		"kind": "discovery",
+		"ordinal": 47,
+		"taskId": "execa-entry-create-execa"
+	},
+	{
+		"arm": "control",
+		"id": "v8-48-execa-entry-create-execa-control",
+		"kind": "discovery",
+		"ordinal": 48,
+		"taskId": "execa-entry-create-execa"
+	},
+	{
+		"arm": "full",
+		"id": "v8-49-uvu-rename-runner-full",
+		"kind": "consumption",
+		"ordinal": 49,
+		"taskId": "uvu-rename-runner"
+	},
+	{
+		"arm": "paged",
+		"id": "v8-50-uvu-rename-runner-paged",
+		"kind": "consumption",
+		"ordinal": 50,
+		"taskId": "uvu-rename-runner"
+	},
+	{
+		"arm": "control",
+		"id": "v8-51-uvu-rename-runner-control",
+		"kind": "discovery",
+		"ordinal": 51,
+		"taskId": "uvu-rename-runner"
+	},
+	{
+		"arm": "production",
+		"id": "v8-52-uvu-rename-runner-production",
+		"kind": "discovery",
+		"ordinal": 52,
+		"taskId": "uvu-rename-runner"
+	},
+	{
+		"arm": "paged",
+		"id": "v8-53-uvu-rename-stringify-paged",
+		"kind": "consumption",
+		"ordinal": 53,
+		"taskId": "uvu-rename-stringify"
+	},
+	{
+		"arm": "full",
+		"id": "v8-54-uvu-rename-stringify-full",
+		"kind": "consumption",
+		"ordinal": 54,
+		"taskId": "uvu-rename-stringify"
+	},
+	{
+		"arm": "production",
+		"id": "v8-55-uvu-rename-stringify-production",
+		"kind": "discovery",
+		"ordinal": 55,
+		"taskId": "uvu-rename-stringify"
+	},
+	{
+		"arm": "control",
+		"id": "v8-56-uvu-rename-stringify-control",
+		"kind": "discovery",
+		"ordinal": 56,
+		"taskId": "uvu-rename-stringify"
+	},
+	{
+		"arm": "full",
+		"id": "v8-57-uvu-delete-fixture-full",
+		"kind": "consumption",
+		"ordinal": 57,
+		"taskId": "uvu-delete-fixture"
+	},
+	{
+		"arm": "paged",
+		"id": "v8-58-uvu-delete-fixture-paged",
+		"kind": "consumption",
+		"ordinal": 58,
+		"taskId": "uvu-delete-fixture"
+	},
+	{
+		"arm": "control",
+		"id": "v8-59-uvu-delete-fixture-control",
+		"kind": "discovery",
+		"ordinal": 59,
+		"taskId": "uvu-delete-fixture"
+	},
+	{
+		"arm": "production",
+		"id": "v8-60-uvu-delete-fixture-production",
+		"kind": "discovery",
+		"ordinal": 60,
+		"taskId": "uvu-delete-fixture"
+	},
+	{
+		"arm": "paged",
+		"id": "v8-61-uvu-delete-direct-paged",
+		"kind": "consumption",
+		"ordinal": 61,
+		"taskId": "uvu-delete-direct"
+	},
+	{
+		"arm": "full",
+		"id": "v8-62-uvu-delete-direct-full",
+		"kind": "consumption",
+		"ordinal": 62,
+		"taskId": "uvu-delete-direct"
+	},
+	{
+		"arm": "production",
+		"id": "v8-63-uvu-delete-direct-production",
+		"kind": "discovery",
+		"ordinal": 63,
+		"taskId": "uvu-delete-direct"
+	},
+	{
+		"arm": "control",
+		"id": "v8-64-uvu-delete-direct-control",
+		"kind": "discovery",
+		"ordinal": 64,
+		"taskId": "uvu-delete-direct"
+	},
+	{
+		"arm": "full",
+		"id": "v8-65-uvu-entry-exec-full",
+		"kind": "consumption",
+		"ordinal": 65,
+		"taskId": "uvu-entry-exec"
+	},
+	{
+		"arm": "paged",
+		"id": "v8-66-uvu-entry-exec-paged",
+		"kind": "consumption",
+		"ordinal": 66,
+		"taskId": "uvu-entry-exec"
+	},
+	{
+		"arm": "control",
+		"id": "v8-67-uvu-entry-exec-control",
+		"kind": "discovery",
+		"ordinal": 67,
+		"taskId": "uvu-entry-exec"
+	},
+	{
+		"arm": "production",
+		"id": "v8-68-uvu-entry-exec-production",
+		"kind": "discovery",
+		"ordinal": 68,
+		"taskId": "uvu-entry-exec"
+	},
+	{
+		"arm": "paged",
+		"id": "v8-69-uvu-entry-equal-paged",
+		"kind": "consumption",
+		"ordinal": 69,
+		"taskId": "uvu-entry-equal"
+	},
+	{
+		"arm": "full",
+		"id": "v8-70-uvu-entry-equal-full",
+		"kind": "consumption",
+		"ordinal": 70,
+		"taskId": "uvu-entry-equal"
+	},
+	{
+		"arm": "production",
+		"id": "v8-71-uvu-entry-equal-production",
+		"kind": "discovery",
+		"ordinal": 71,
+		"taskId": "uvu-entry-equal"
+	},
+	{
+		"arm": "control",
+		"id": "v8-72-uvu-entry-equal-control",
+		"kind": "discovery",
+		"ordinal": 72,
+		"taskId": "uvu-entry-equal"
+	}
+]

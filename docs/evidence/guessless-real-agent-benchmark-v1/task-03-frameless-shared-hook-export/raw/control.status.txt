@@ -1,0 +1,13 @@
+ M packages/frameworks/react/generated-composition/C2-shared.tsx
+ M packages/frameworks/react/generated-composition/C6-scalar-context.tsx
+ M packages/frameworks/react/generated-composition/C7-object-context.tsx
+ M packages/frameworks/react/generated-composition/C8-page-store.tsx
+ M packages/frameworks/react/src/emitter/index.ts
+ M packages/frameworks/solid/generated-composition/C2-shared.tsx
+ M packages/frameworks/solid/generated-composition/C5-props.tsx
+ M packages/frameworks/solid/generated-composition/C6-scalar-context.tsx
+ M packages/frameworks/solid/generated-composition/C7-object-context.tsx
+ M packages/frameworks/solid/generated-composition/C8-page-store.tsx
+ M packages/frameworks/solid/src/emitter/index.ts
+?? packages/frameworks/react/test/shared-hook-export.test.ts
+?? packages/frameworks/solid/test/shared-hook-export.test.ts

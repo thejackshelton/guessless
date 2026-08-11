@@ -1,0 +1,14 @@
+{
+	"kind": "writesOf",
+	"target": {
+		"schema": "guessless.symbol-anchor/v1",
+		"file": "packages/serializer/src/storage-key.ts",
+		"semanticPath": [
+			"global:scope:Program",
+			"module:scope:Program",
+			"symbol:isValidStorageKey",
+			"declaration:FunctionDeclaration"
+		],
+		"fingerprint": "787c1c2403e78b75dc208759fa3d30b66f17c8a0f973d2005c96fe104ea4babb"
+	}
+}

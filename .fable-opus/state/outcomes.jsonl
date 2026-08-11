@@ -1,0 +1,4 @@
+{"ts":"2026-08-11T20:24:30.956Z","unitId":"markless-receipts","runId":"adoption-eval-20260811","attempt":1,"agentId":"ae148cd76743d66a1","outcome":"completed"}
+{"ts":"2026-08-11T20:41:21.825Z","unitId":"versionless-receipts","runId":"adoption-eval-20260811","attempt":1,"agentId":"a6318d100cb9f439c","outcome":"completed"}
+{"ts":"2026-08-11T20:45:13.002Z","unitId":"ab-control","runId":"adoption-eval-20260811","attempt":1,"agentId":"afb3920028ca7987e","outcome":"completed"}
+{"ts":"2026-08-11T20:51:02.216Z","unitId":"ab-treatment","runId":"adoption-eval-20260811","attempt":1,"agentId":"ad32850ae52bd222c","outcome":"completed"}

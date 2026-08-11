@@ -1,0 +1,128 @@
+[
+	{
+		"file": "src/query.ts",
+		"id": "ufo-rename-encode-query-item",
+		"intent": "rename",
+		"repository": "ufo",
+		"symbol": "encodeQueryItem"
+	},
+	{
+		"file": "src/utils.ts",
+		"id": "ufo-rename-with-trailing-slash",
+		"intent": "rename",
+		"repository": "ufo",
+		"symbol": "withTrailingSlash"
+	},
+	{
+		"file": "src/url.ts",
+		"id": "ufo-delete-create-url",
+		"intent": "delete",
+		"repository": "ufo",
+		"symbol": "createURL"
+	},
+	{
+		"file": "src/parse.ts",
+		"id": "ufo-delete-parse-url",
+		"intent": "delete",
+		"repository": "ufo",
+		"symbol": "parseURL"
+	},
+	{
+		"file": "src/query.ts",
+		"id": "ufo-entry-stringify-query",
+		"intent": "entry-point",
+		"repository": "ufo",
+		"symbol": "stringifyQuery"
+	},
+	{
+		"file": "src/utils.ts",
+		"id": "ufo-entry-normalize-url",
+		"intent": "entry-point",
+		"repository": "ufo",
+		"symbol": "normalizeURL"
+	},
+	{
+		"file": "lib/arguments/options.js",
+		"id": "execa-rename-normalize-options",
+		"intent": "rename",
+		"repository": "execa",
+		"symbol": "normalizeOptions"
+	},
+	{
+		"file": "lib/resolve/wait-subprocess.js",
+		"id": "execa-rename-wait-subprocess-result",
+		"intent": "rename",
+		"repository": "execa",
+		"symbol": "waitForSubprocessResult"
+	},
+	{
+		"file": "lib/methods/command.js",
+		"id": "execa-delete-parse-command-string",
+		"intent": "delete",
+		"repository": "execa",
+		"symbol": "parseCommandString"
+	},
+	{
+		"file": "lib/arguments/cwd.js",
+		"id": "execa-delete-normalize-cwd",
+		"intent": "delete",
+		"repository": "execa",
+		"symbol": "normalizeCwd"
+	},
+	{
+		"file": "lib/methods/main-async.js",
+		"id": "execa-entry-execa-core-async",
+		"intent": "entry-point",
+		"repository": "execa",
+		"symbol": "execaCoreAsync"
+	},
+	{
+		"file": "lib/methods/create.js",
+		"id": "execa-entry-create-execa",
+		"intent": "entry-point",
+		"repository": "execa",
+		"symbol": "createExeca"
+	},
+	{
+		"file": "src/index.js",
+		"id": "uvu-rename-runner",
+		"intent": "rename",
+		"repository": "uvu",
+		"symbol": "runner"
+	},
+	{
+		"file": "src/diff.js",
+		"id": "uvu-rename-stringify",
+		"intent": "rename",
+		"repository": "uvu",
+		"symbol": "stringify"
+	},
+	{
+		"file": "src/assert.js",
+		"id": "uvu-delete-fixture",
+		"intent": "delete",
+		"repository": "uvu",
+		"symbol": "fixture"
+	},
+	{
+		"file": "src/diff.js",
+		"id": "uvu-delete-direct",
+		"intent": "delete",
+		"repository": "uvu",
+		"symbol": "direct"
+	},
+	{
+		"file": "src/index.js",
+		"id": "uvu-entry-exec",
+		"intent": "entry-point",
+		"repository": "uvu",
+		"symbol": "exec"
+	},
+	{
+		"file": "src/assert.js",
+		"id": "uvu-entry-equal",
+		"intent": "entry-point",
+		"repository": "uvu",
+		"symbol": "equal"
+	}
+]

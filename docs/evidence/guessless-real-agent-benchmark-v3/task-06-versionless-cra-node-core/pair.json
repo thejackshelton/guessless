@@ -1,0 +1,16 @@
+{
+  "schema": "guessless.real-agent-benchmark.pair/v3",
+  "id": "task-06-versionless-cra-node-core",
+  "repository": "versionless",
+  "historicalParent": "ce2fbb80a56797a60ec21b6d1cb32d6b4e3eb207",
+  "historicalSolution": "736c6387e3df308675752bde0a8f6a7f615a6e07",
+  "startingTree": "1c9acd065ebc233a78cec565fd803f5d272c5c4b",
+  "sourceTreeSanitization": "Identically removed solution-bearing docs/goals planning artifacts from both historical-parent trees, created fresh root commits, expired reflogs, pruned unreachable objects, and verified both original parent and solution objects absent.",
+  "basePromptSha256": "56c3ede99041de71e6eaa9d1f1ee9cb508aa87cfdb3802f2874630e7c78600f6",
+  "treatmentPromptSha256": "57dab6549439ad03a9cd3ca8613bb8ae401d1e98fdab2a87d87933cf02ad362e",
+  "order": "treatment-first",
+  "solutionAbsentBeforeLaunch": true,
+  "parity": "Identical sanitized starting tree, base prompt, model, workspace-write sandbox, inherited environment, no timeout, never approval policy, and synthetic dependency link. Treatment deltas were onboarding-v3c context and Guessless MCP configuration.",
+  "score": "pending-independent-judge",
+  "cells": ["cells/control.json", "cells/treatment.json"]
+}

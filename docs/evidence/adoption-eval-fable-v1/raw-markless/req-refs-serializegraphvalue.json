@@ -1,0 +1,14 @@
+{
+	"kind": "referencesOf",
+	"target": {
+		"schema": "guessless.symbol-anchor/v1",
+		"file": "packages/serializer/src/value.ts",
+		"semanticPath": [
+			"global:scope:Program",
+			"module:scope:Program",
+			"symbol:serializeGraphValue",
+			"declaration:FunctionDeclaration"
+		],
+		"fingerprint": "b066a828d20aad1c8b26396365eb5dad0201c84abe0f3cdfe6d00174786a0a09"
+	}
+}

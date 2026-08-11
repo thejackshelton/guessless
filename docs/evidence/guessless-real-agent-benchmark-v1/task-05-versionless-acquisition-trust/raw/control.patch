@@ -1,0 +1,181 @@
+diff --git a/evidence/runs/aggregate.json b/evidence/runs/aggregate.json
+index 97eae2f..f763e49 100644
+--- a/evidence/runs/aggregate.json
++++ b/evidence/runs/aggregate.json
+@@ -133,5 +133,24 @@
+       "digest": "da376ad77386a9f48c9be076fbe2131ebc249338df8f38f415e5830659a3f2ef"
+     }
+   ],
+-  "unsupported": []
++  "unsupported": [
++    {
++      "fixture": "react-dashboard",
++      "state": "excluded-acquisition-failed",
++      "reason": "T190 npm-lock acquisition is not ready: 1,498 required URLs are uncached.",
++      "evidence": {
++        "path": "evidence/dependencies/dashboard-contacts/t190-preflight.json",
++        "sha256": "262abe9b19a10804808eadd5ae2dfcbc1fd9ac4119f9dc9571cb3df89df1d351"
++      }
++    },
++    {
++      "fixture": "angular-contacts",
++      "state": "excluded-acquisition-failed",
++      "reason": "T190 npm-lock acquisition is not ready: 1,498 required URLs are uncached.",
++      "evidence": {
++        "path": "evidence/dependencies/dashboard-contacts/t190-preflight.json",
++        "sha256": "262abe9b19a10804808eadd5ae2dfcbc1fd9ac4119f9dc9571cb3df89df1d351"
++      }
++    }
++  ]
+ }
+diff --git a/packages/trust/src/generate.ts b/packages/trust/src/generate.ts
+index 05c09d0..a53dd43 100644
+--- a/packages/trust/src/generate.ts
++++ b/packages/trust/src/generate.ts
+@@ -118,6 +118,31 @@ export const NPM_LOCK_ACQUISITION_PREFLIGHT = {
+ 	sha256: '262abe9b19a10804808eadd5ae2dfcbc1fd9ac4119f9dc9571cb3df89df1d351',
+ 	canonicalDigest: 'a14e94d4729f50cf6260431d5dea53e0ac72fa77668e9612ea17cc216c9ed044',
+ } as const;
++export const NPM_LOCK_ACQUISITION_EXCLUSIONS = [
++	{
++		fixture: 'react-dashboard',
++		state: 'excluded-acquisition-failed',
++		reason: 'T190 npm-lock acquisition is not ready: 1,498 required URLs are uncached.',
++		evidence: {
++			path: NPM_LOCK_ACQUISITION_PREFLIGHT.path,
++			sha256: NPM_LOCK_ACQUISITION_PREFLIGHT.sha256,
++		},
++	},
++	{
++		fixture: 'angular-contacts',
++		state: 'excluded-acquisition-failed',
++		reason: 'T190 npm-lock acquisition is not ready: 1,498 required URLs are uncached.',
++		evidence: {
++			path: NPM_LOCK_ACQUISITION_PREFLIGHT.path,
++			sha256: NPM_LOCK_ACQUISITION_PREFLIGHT.sha256,
++		},
++	},
++] as const;
++
++export function validateNpmLockAcquisitionExclusions(value: unknown): void {
++	if (canonicalize(value) !== canonicalize(NPM_LOCK_ACQUISITION_EXCLUSIONS))
++		throw new Error('T190 npm lock acquisition exclusions differ from failed acquisition evidence');
++}
+ const workspaceReference = createRegExp(
+ 	exactly('workspace:')
+ 		.at.lineStart()
+@@ -932,6 +957,7 @@ export async function generateTrustPackage(options: GenerateTrustOptions): Promi
+ 	const aggregateRecord = asRecord(aggregate, 'aggregate evidence');
+ 	if (!Array.isArray(aggregateRecord.fixtures))
+ 		throw new Error('Aggregate fixtures must be an array');
++	validateNpmLockAcquisitionExclusions(aggregateRecord.unsupported);
+ 	const aggregateFixtures = aggregateRecord.fixtures;
+ 	const transaction = deriveCorpusTransactionState(aggregateFixtures);
+ 	const hasMaintainedReceipt =
+@@ -1113,7 +1139,11 @@ export async function generateTrustPackage(options: GenerateTrustOptions): Promi
+ 		predicate: {
+ 			buildDefinition: {
+ 				buildType: 'https://versionless.dev/trust/local-v1',
+-				externalParameters: { policy: options.policyPath, networkMode: 'offline' },
++				externalParameters: {
++					policy: options.policyPath,
++					networkMode: 'offline',
++					acquisitionExclusions: NPM_LOCK_ACQUISITION_EXCLUSIONS,
++				},
+ 				internalParameters: {
+ 					state: 'not-applicable',
+ 					reason: 'No hidden parameters are asserted.',
+diff --git a/packages/trust/src/verify.ts b/packages/trust/src/verify.ts
+index 00eb6ae..7467274 100644
+--- a/packages/trust/src/verify.ts
++++ b/packages/trust/src/verify.ts
+@@ -41,6 +41,7 @@ import {
+ } from '../../core/src/enterprise/runtime-script-observation.ts';
+ import {
+ 	NPM_LOCK_ACQUISITION_PREFLIGHT,
++	validateNpmLockAcquisitionExclusions,
+ 	validateCycloneDx17,
+ 	validateNpmLockAcquisitionPreflight,
+ 	workspaceManifestPaths,
+@@ -115,6 +116,7 @@ export async function verifyTrustPackage(options: VerifyTrustOptions): Promise<{
+ 		'aggregate evidence',
+ 	);
+ 	const transaction = deriveCorpusTransactionState(aggregate.fixtures);
++	validateNpmLockAcquisitionExclusions(aggregate.unsupported);
+ 	const manifest = parseManifest(await readJson(path.join(output, 'manifest.json')));
+ 	assertSyntheticEvidence(manifest);
+ 	assertPortableEvidence(manifest);
+@@ -294,6 +296,11 @@ export async function verifyTrustPackage(options: VerifyTrustOptions): Promise<{
+ 		throw new Error('Provenance must attest exactly eleven generated package artifacts');
+ 	const predicate = asRecord(provenance.predicate, 'provenance predicate');
+ 	const buildDefinition = asRecord(predicate.buildDefinition, 'provenance build definition');
++	const externalParameters = asRecord(
++		buildDefinition.externalParameters,
++		'provenance external parameters',
++	);
++	validateNpmLockAcquisitionExclusions(externalParameters.acquisitionExclusions);
+ 	if (!Array.isArray(buildDefinition.resolvedDependencies))
+ 		throw new Error('Provenance resolved dependencies are absent');
+ 	const resolvedDependencies = buildDefinition.resolvedDependencies.map((value) =>
+diff --git a/packages/trust/test/trust-package.test.ts b/packages/trust/test/trust-package.test.ts
+index 828d432..c53e515 100644
+--- a/packages/trust/test/trust-package.test.ts
++++ b/packages/trust/test/trust-package.test.ts
+@@ -20,7 +20,9 @@ import {
+ 	generateTrustPackage,
+ 	licenseInventory,
+ 	NPM_LOCK_ACQUISITION_PREFLIGHT,
++	NPM_LOCK_ACQUISITION_EXCLUSIONS,
+ 	validateCycloneDx17,
++	validateNpmLockAcquisitionExclusions,
+ 	validateNpmLockAcquisitionPreflight,
+ } from '../src/generate.ts';
+ import { ingestTrustInputs, lockPackages, osvRequest } from '../src/ingest.ts';
+@@ -938,6 +940,23 @@ snapshots:
+ 	it('rejects T190 safety-fact and single-provenance-boundary tampering', async () => {
+ 		const source = await readFile(path.join(root, NPM_LOCK_ACQUISITION_PREFLIGHT.path));
+ 		expect(() => validateNpmLockAcquisitionPreflight(source)).not.toThrow();
++		expect(() =>
++			validateNpmLockAcquisitionExclusions(NPM_LOCK_ACQUISITION_EXCLUSIONS),
++		).not.toThrow();
++		for (const exclusions of [
++			NPM_LOCK_ACQUISITION_EXCLUSIONS.slice(1),
++			NPM_LOCK_ACQUISITION_EXCLUSIONS.map((item, index) =>
++				index === 0 ? { ...item, state: 'verified' } : item,
++			),
++			NPM_LOCK_ACQUISITION_EXCLUSIONS.map((item, index) =>
++				index === 0
++					? { ...item, evidence: { ...item.evidence, sha256: '0'.repeat(64) } }
++					: item,
++			),
++		])
++			expect(() => validateNpmLockAcquisitionExclusions(exclusions)).toThrow(
++				'acquisition exclusions differ',
++			);
+ 		for (const mutate of [
+ 			(value: Record<string, unknown>) => {
+ 				value.result = 'ready';
+@@ -966,6 +985,23 @@ snapshots:
+ 
+ 		const fixture = await setup();
+ 		try {
++			const inconsistentExclusions = path.join(fixture.directory, 't190-exclusions');
++			await cp(fixture.current, inconsistentExclusions, { recursive: true });
++			await rewriteArtifact(inconsistentExclusions, 'provenance.json', (value) => {
++				const predicate = value.predicate as Record<string, unknown>;
++				const definition = predicate.buildDefinition as Record<string, unknown>;
++				const parameters = definition.externalParameters as Record<string, unknown>;
++				parameters.acquisitionExclusions = [];
++			});
++			await expect(
++				verifyTrustPackage({
++					rootDir: root,
++					outputDir: inconsistentExclusions,
++					environment: offline,
++					now: observedAt,
++				}),
++			).rejects.toThrow('acquisition exclusions differ');
++
+ 			for (const [label, mutate] of [
+ 				[
+ 					'missing',

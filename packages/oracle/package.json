@@ -1,0 +1,23 @@
+{
+	"name": "@guessless/oracle",
+	"version": "0.0.1",
+	"private": true,
+	"bin": {
+		"guessless-oracle": "./dist/cli.js"
+	},
+	"type": "module",
+	"scripts": {
+		"oracle:acquire": "node ./dist/cli.js acquire",
+		"oracle:record": "node ./dist/cli.js record",
+		"oracle:repair": "node ./dist/cli.js repair",
+		"oracle:verify": "node ./dist/cli.js verify",
+		"oracle:calibrate": "node ./dist/cli.js calibrate"
+	},
+	"dependencies": {
+		"@guessless/engine": "workspace:*",
+		"pathe": "catalog:",
+		"typescript": "catalog:",
+		"typescript-language-server": "catalog:",
+		"ufo": "catalog:"
+	}
+}

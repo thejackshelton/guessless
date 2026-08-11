@@ -1,0 +1,17 @@
+Implemented the demo tooling fixes.
+
+- Replaced the emitter’s raw NUL byte with the equivalent `\0` escape in [index.ts](/private/tmp/guessless-real-agent-benchmark-v4/task-04-frameless-demo-tooling/treatment/packages/frameworks/react/src/emitter/index.ts:2261). Generated output remains byte-identical.
+- Updated [demo.mjs](/private/tmp/guessless-real-agent-benchmark-v4/task-04-frameless-demo-tooling/treatment/scripts/demo.mjs) for all six framework lanes.
+- Added occupied-port preflight with holder reporting and no termination of existing processes.
+- Readiness now requires both the expected response-body marker and listener ownership by the spawned process group.
+- Added correct Qwik trailing-slash URLs, application routes, and Angular refusal routes.
+- Added focused, non-vacuous regression tests in [demo.test.ts](/private/tmp/guessless-real-agent-benchmark-v4/task-04-frameless-demo-tooling/treatment/scripts/demo.test.ts).
+
+Verification:
+
+- Focused launcher/NUL tests: **4 passed**
+- React package suite: **201 passed**, including generated-output byte freshness
+- JavaScript syntax and `git diff --check`: **passed**
+- Raw NUL scan: **0 bytes**
+- Workspace `pnpm check`: **failed on pre-existing generated React, Solid, and Qwik TypeScript errors**
+- Live launcher execution: **unrun**, because the sandbox prohibits opening loopback listeners (`EPERM`)

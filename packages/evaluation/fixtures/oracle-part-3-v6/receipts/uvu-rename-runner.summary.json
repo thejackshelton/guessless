@@ -1,0 +1,76 @@
+{
+	"schema": "guessless.safe-change-summary/v1",
+	"state": "partial",
+	"request": {
+		"kind": "safeChangeImpact",
+		"snapshot": "30b81ee5778c917ff35c89777e41eb23c6d6b792b310e7655060642dbe770fdc",
+		"intent": "rename",
+		"target": {
+			"schema": "guessless.symbol-anchor/v1",
+			"file": "src/index.js",
+			"semanticPath": [
+				"global:scope:Program",
+				"module:scope:Program",
+				"symbol:runner",
+				"declaration:FunctionDeclaration"
+			],
+			"fingerprint": "6ed1596de0fdf69329edead3f2935d49dd3e2b1c732d5d32d68586af3197456d"
+		}
+	},
+	"snapshot": "30b81ee5778c917ff35c89777e41eb23c6d6b792b310e7655060642dbe770fdc",
+	"sites": [
+		{
+			"id": "e0e1a70c54fa98993c7cfb798736afdbe6935825e8607fffa7e42009ad6e1eb2",
+			"file": "src/index.js",
+			"label": "symbol:runner"
+		},
+		{
+			"id": "7569e01e913511579ac031ac04b97eba404fabe2e281afa41403312b577b0f82",
+			"file": "src/index.js",
+			"label": "site:reference"
+		},
+		{
+			"id": "4c9535204c76bca6fa331e4c8eb4de87478036600c2738459bd96ee082b5a7e9",
+			"file": "src/index.js",
+			"label": "site:import-boundary"
+		},
+		{
+			"id": "9f8e1b462225fc4196ca638a18ad481afac4c5fc495fb537dad3a2d567d5d352",
+			"file": "src/index.js",
+			"label": "site:import-boundary"
+		}
+	],
+	"results": [
+		{
+			"site": 0,
+			"roles": [
+				"declaration"
+			]
+		},
+		{
+			"site": 1,
+			"roles": [
+				"reference",
+				"read",
+				"call"
+			]
+		}
+	],
+	"unresolved": [
+		{
+			"site": 2,
+			"reason": "external-module-boundary"
+		},
+		{
+			"site": 3,
+			"reason": "external-module-boundary"
+		}
+	],
+	"proofHandle": "d76dc7766ef03d860490ac09e46614079fd72530cf7ba96d5fdae0d65d1b0d14",
+	"counts": {
+		"sites": 4,
+		"results": 2,
+		"unresolved": 2
+	},
+	"integrity": "512be91727d0b1a649488c59e8924c657557e594288462be60cdb98ae93b7f8a"
+}

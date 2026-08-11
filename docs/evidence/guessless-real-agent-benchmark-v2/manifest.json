@@ -1,0 +1,25 @@
+{
+  "schema": "guessless.real-agent-benchmark.manifest/v2",
+  "task": "T003",
+  "status": "blocked",
+  "model": "gpt-5.6-sol",
+  "firstTask": {
+    "id": "task-01-markless-style-guard",
+    "repository": "markless",
+    "parent": "b4b94de6",
+    "solution": "46a9fb51",
+    "order": "control-first",
+    "solutionAbsentBeforeLaunch": true
+  },
+  "sharedArgv": ["codex", "exec", "--ignore-user-config", "--ignore-rules", "--ephemeral", "-m", "gpt-5.6-sol", "-s", "workspace-write", "--json", "-C", "<arm-tree>", "-o", "<arm-final-path>", "-"],
+  "treatmentOnlyArgv": ["-c", "mcp_servers.guessless.command=\"node\"", "-c", "mcp_servers.guessless.args=[\"/Users/jacksm5pro/dev/open-source/guessless/packages/mcp/dist/server.js\"]"],
+  "attemptedCells": 1,
+  "modelBackedCells": 0,
+  "closedOutcome": {
+    "task": "task-01-markless-style-guard",
+    "arm": "control",
+    "outcome": "invalid",
+    "reason": "parent-only archive was not a Git repository and argv omitted --skip-git-repo-check; Codex exited before model initialization"
+  },
+  "stoppedBecause": "The first new real agent could not launch; no retry or parity-breaking argv repair is permitted."
+}

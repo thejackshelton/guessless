@@ -1,0 +1,514 @@
+{
+	"schema": "guessless.safe-change-summary/v1",
+	"state": "partial",
+	"request": {
+		"kind": "safeChangeImpact",
+		"snapshot": "cf08f46e0c4a47183ec232b940eb41c6d80121943314ab38117bb3032091f457",
+		"intent": "rename",
+		"target": {
+			"schema": "guessless.symbol-anchor/v1",
+			"file": "lib/resolve/wait-subprocess.js",
+			"semanticPath": [
+				"global:scope:Program",
+				"module:scope:Program",
+				"symbol:waitForSubprocessResult",
+				"declaration:VariableDeclarator"
+			],
+			"fingerprint": "9ef6dc0088cec4c3e68578b222dc21a89603b42809d5b119c56cd24da343361c"
+		}
+	},
+	"snapshot": "cf08f46e0c4a47183ec232b940eb41c6d80121943314ab38117bb3032091f457",
+	"sites": [
+		{
+			"id": "db5bb6b958b15666f7106b4d02166750e7283c844217cb24ebc347f7bc65ee1a",
+			"file": "lib/methods/main-async.js",
+			"label": "site:safe-change-import"
+		},
+		{
+			"id": "7d6906f56f39ffd173a9bad904867a90bcb4a8b3fbd1c774cb1506773dd3ca3a",
+			"file": "lib/methods/main-async.js",
+			"label": "site:reference"
+		},
+		{
+			"id": "2df9786bf12812f2048fe638969a66d76b53193e64ea6698250e66a8b5f6b50e",
+			"file": "lib/resolve/wait-subprocess.js",
+			"label": "symbol:waitForSubprocessResult"
+		},
+		{
+			"id": "708f7d5bbceb2394a0029bcaa274602026f586cb3a0daf0a6660ee1286fac32c",
+			"file": "lib/arguments/escape.js",
+			"label": "site:import-boundary"
+		},
+		{
+			"id": "fd1ed3232bc1c02301a543c6b324863089e252e984f91dc94e48669b2ac60d93",
+			"file": "lib/arguments/escape.js",
+			"label": "site:import-boundary"
+		},
+		{
+			"id": "61c5208cdfbba9b1d8d5de02038348348cffbe0802b5984b317c07b4ea4e1be0",
+			"file": "lib/arguments/specific.js",
+			"label": "site:import-boundary"
+		},
+		{
+			"id": "cc003204ddd7870349378d6da342f8a04ec0a49ab87cdc523d519008ebf4a742",
+			"file": "lib/arguments/specific.js",
+			"label": "site:import-boundary"
+		},
+		{
+			"id": "537b76d25d7285b5f0eb95db5581d686c8df648b264c336269774cacc78a7392",
+			"file": "lib/io/contents.js",
+			"label": "site:import-boundary"
+		},
+		{
+			"id": "999454170a6daa790a3dec8c9d96e38742d9f5d61a94eb43519fd503080dd5f0",
+			"file": "lib/io/contents.js",
+			"label": "site:import-boundary"
+		},
+		{
+			"id": "d6c52bb1406eb43ab752411e2cae7aaf26f29ae8c7902099d91f759acd09a6e5",
+			"file": "lib/io/contents.js",
+			"label": "site:import-boundary"
+		},
+		{
+			"id": "c5e4ee839272bbd85fd7115099b88f5267f6ee0df501b5b44bb60053545caa17",
+			"file": "lib/io/contents.js",
+			"label": "site:import-boundary"
+		},
+		{
+			"id": "e44d9618182222ca66f77850804469da656f4c39800044cd2ae858d908dcc90b",
+			"file": "lib/io/iterate.js",
+			"label": "site:import-boundary"
+		},
+		{
+			"id": "7d00e126cfd1cca869db75da34a5b1c9b040ddfa063ef07e39ea71e69eaa89f8",
+			"file": "lib/io/iterate.js",
+			"label": "site:import-boundary"
+		},
+		{
+			"id": "bf51753c9ed95366610bddc1aab27981d42cf51dc10ed4dc8e34971fb1ee5870",
+			"file": "lib/io/max-buffer.js",
+			"label": "site:import-boundary"
+		},
+		{
+			"id": "12ccf1623315fe2fb61fa3bec9fdbc9a42b561266f0b36d852697713cb82583f",
+			"file": "lib/io/strip-newline.js",
+			"label": "site:import-boundary"
+		},
+		{
+			"id": "682481d7c1f593e6e75ea0da3a4a5f67fb56b37e6ec12e70e7397aadb7216980",
+			"file": "lib/ipc/forward.js",
+			"label": "site:import-boundary"
+		},
+		{
+			"id": "436af6b69a861c6bc89293d34baf20da2525a18a6a06fe56fe3f9b54ff825475",
+			"file": "lib/ipc/get-each.js",
+			"label": "site:import-boundary"
+		},
+		{
+			"id": "4b85400b26c3bb483ea6baa7d05677d2ff3566426ab324d1eb2c4317a3dd96f0",
+			"file": "lib/ipc/get-each.js",
+			"label": "site:import-boundary"
+		},
+		{
+			"id": "144a8a856243e2f0931884e6b4d695be5221eeb173f62134bc439831f4e6fd04",
+			"file": "lib/ipc/graceful.js",
+			"label": "site:import-boundary"
+		},
+		{
+			"id": "8f095f315f0c8a2f0f0885fedb1c6ee1fab49b72e3643a4625c8e385c364c9e8",
+			"file": "lib/ipc/incoming.js",
+			"label": "site:import-boundary"
+		},
+		{
+			"id": "4c27eabadc65b11bae5ebac44c01cf753b08cfcc5a312cca3613641798a77427",
+			"file": "lib/ipc/incoming.js",
+			"label": "site:import-boundary"
+		},
+		{
+			"id": "bc9eeeb628a88966e835784f3eef5289d38bbeb76a1687e30db121d2c38a1b4b",
+			"file": "lib/ipc/ipc-input.js",
+			"label": "site:import-boundary"
+		},
+		{
+			"id": "0b2f6190d49600dc63981b1f02210621bcd25dd1241b7c8ae2aede553d9b1561",
+			"file": "lib/ipc/send.js",
+			"label": "site:import-boundary"
+		},
+		{
+			"id": "d8776b919ea04a1b98c6f5cade6a806e8c2a1cb3734157a025a0277640b69177",
+			"file": "lib/ipc/strict.js",
+			"label": "site:import-boundary"
+		},
+		{
+			"id": "f49d4ce7779d11e74ac6b7159a8322985c49bf0c711d79a10015cbdcb1d574b7",
+			"file": "lib/methods/create.js",
+			"label": "site:import-boundary"
+		},
+		{
+			"id": "e61b4a7c1ff9741d8c79b41b241776376ee49aae6e1b867558fd7f225d15e8c0",
+			"file": "lib/methods/main-async.js",
+			"label": "site:import-boundary"
+		},
+		{
+			"id": "12403875fe7a5dd11ea6976fcf9b647c41345f40f072f089b550216b95556c16",
+			"file": "lib/methods/main-async.js",
+			"label": "site:import-boundary"
+		},
+		{
+			"id": "022bc119058009471acb1813e124895d4fe326315d431b84bdfbb3de973d27dd",
+			"file": "lib/methods/main-async.js",
+			"label": "site:import-boundary"
+		},
+		{
+			"id": "13f11483f801d2096d31106d43f135d8657e8844a946f02962ac1853b7934a27",
+			"file": "lib/resolve/all-async.js",
+			"label": "site:import-boundary"
+		},
+		{
+			"id": "f09ce16eb48cd81a35d88c76210420c3001e822c65029b4949e989887383dd45",
+			"file": "lib/resolve/exit-async.js",
+			"label": "site:import-boundary"
+		},
+		{
+			"id": "2c22e2a6bcd6d6de9073d4320957848bed1c995f9f2eae59ee815e1cd29aa199",
+			"file": "lib/resolve/wait-stream.js",
+			"label": "site:import-boundary"
+		},
+		{
+			"id": "5d630c4e8f5640fbcac8a13543a97e2498bc0b5ad45ba0009f94802f671c4790",
+			"file": "lib/resolve/wait-subprocess.js",
+			"label": "site:import-boundary"
+		},
+		{
+			"id": "32e721b2802530cabbf52bf34acbfa7e9658731f99a7010bbd663c05e92024af",
+			"file": "lib/resolve/wait-subprocess.js",
+			"label": "site:import-boundary"
+		},
+		{
+			"id": "7ca3952b0191fb22b42246b231250e7e246d178913079e911e81d0c5450458ce",
+			"file": "lib/stdio/type.js",
+			"label": "site:import-boundary"
+		},
+		{
+			"id": "8b47314021bb86fec3d9d4a14a3ec2b71026d1175f8591490db21ed147aabadf",
+			"file": "lib/stdio/type.js",
+			"label": "site:import-boundary"
+		},
+		{
+			"id": "e34f1e86bbb691a8a0eab534f6d86b21923d525694560b00b8961044b877b1b4",
+			"file": "lib/stdio/type.js",
+			"label": "site:import-boundary"
+		},
+		{
+			"id": "7eb872037f6ca9e8d85608079c1e8d211726d53a6f84f61d4cd8ff37be3fd344",
+			"file": "lib/terminate/kill.js",
+			"label": "site:import-boundary"
+		},
+		{
+			"id": "f96e85edb9261db7fa79f67a2d8eeae083bad8d6971799f88f36a0481748a3bd",
+			"file": "lib/terminate/signal.js",
+			"label": "site:import-boundary"
+		},
+		{
+			"id": "d46f0482da629a27c1c212dfc14308ad4cc6df9a290e9c90de85d9eaa6484b40",
+			"file": "lib/terminate/signal.js",
+			"label": "site:import-boundary"
+		},
+		{
+			"id": "03d4cf23b61f09341965611274fd808c96de66339a9dd5de7105e99435161ab5",
+			"file": "lib/terminate/timeout.js",
+			"label": "site:import-boundary"
+		},
+		{
+			"id": "b764c811e7a24f2cfbfe06520d5719c2973c387f94563907c11eb8f608b0d4a5",
+			"file": "lib/transform/encoding-transform.js",
+			"label": "site:import-boundary"
+		},
+		{
+			"id": "dbe6b226a77297ce87bc935cfd7a576604d2247ca7247626641a0ef220864dc6",
+			"file": "lib/transform/encoding-transform.js",
+			"label": "site:import-boundary"
+		},
+		{
+			"id": "efa2785a3c2fbd668fd1a18e7bebdbe6123103e8226739e6dfe7d2d35f58a2aa",
+			"file": "lib/utils/abort-signal.js",
+			"label": "site:import-boundary"
+		},
+		{
+			"id": "ea4e9e80359adc42901b1748159966d8556f3af19fe656d4417c6b00f4714ea4",
+			"file": "lib/utils/max-listeners.js",
+			"label": "site:import-boundary"
+		},
+		{
+			"id": "403c9114f316c46a44e6081452826e151c711901f615107f08e2798b9f1c7e03",
+			"file": "lib/utils/standard-stream.js",
+			"label": "site:import-boundary"
+		},
+		{
+			"id": "1fa2558a0e39ac9de090bffae0ec07a840eadb96d20be857b6e2154c962c2225",
+			"file": "lib/utils/uint-array.js",
+			"label": "site:import-boundary"
+		},
+		{
+			"id": "cf1274eb55c179920d1dc257a993d7f22c1c67a8f818765fc5f537904ddb8811",
+			"file": "lib/verbose/default.js",
+			"label": "site:import-boundary"
+		},
+		{
+			"id": "98f2ade0bf04f3277b3c4b6b9ea33cee24f6066eec29dfe81d07582048497800",
+			"file": "lib/verbose/default.js",
+			"label": "site:import-boundary"
+		},
+		{
+			"id": "58ebdf33d4fc2b17057cf9928238106a581b2259f5c5e814ef2eeb995453c0de",
+			"file": "lib/verbose/default.js",
+			"label": "site:import-boundary"
+		},
+		{
+			"id": "6da31c4bdc86985b2f4e813543da89cb2bbac135d5a89fd8823a1c7b5df15286",
+			"file": "lib/verbose/default.js",
+			"label": "site:import-boundary"
+		},
+		{
+			"id": "f3ec79fc4f3633483bc3606711cf6fd111dfbd7b0ddcf7b57324a8d9aecaa469",
+			"file": "lib/verbose/default.js",
+			"label": "site:import-boundary"
+		},
+		{
+			"id": "54bda9a1a5198f41074e99365f66f18255949582342c82d95e2794d86d424724",
+			"file": "lib/verbose/log.js",
+			"label": "site:import-boundary"
+		}
+	],
+	"results": [
+		{
+			"site": 0,
+			"roles": [
+				"reference",
+				"import"
+			]
+		},
+		{
+			"site": 1,
+			"roles": [
+				"reference",
+				"read",
+				"call",
+				"import"
+			]
+		},
+		{
+			"site": 2,
+			"roles": [
+				"declaration",
+				"reference",
+				"export"
+			]
+		}
+	],
+	"unresolved": [
+		{
+			"site": 3,
+			"reason": "builtin-module-boundary"
+		},
+		{
+			"site": 4,
+			"reason": "builtin-module-boundary"
+		},
+		{
+			"site": 5,
+			"reason": "builtin-module-boundary"
+		},
+		{
+			"site": 6,
+			"reason": "external-module-boundary"
+		},
+		{
+			"site": 7,
+			"reason": "external-module-boundary"
+		},
+		{
+			"site": 8,
+			"reason": "external-module-boundary"
+		},
+		{
+			"site": 9,
+			"reason": "builtin-module-boundary"
+		},
+		{
+			"site": 10,
+			"reason": "external-module-boundary"
+		},
+		{
+			"site": 11,
+			"reason": "builtin-module-boundary"
+		},
+		{
+			"site": 12,
+			"reason": "builtin-module-boundary"
+		},
+		{
+			"site": 13,
+			"reason": "external-module-boundary"
+		},
+		{
+			"site": 14,
+			"reason": "external-module-boundary"
+		},
+		{
+			"site": 15,
+			"reason": "builtin-module-boundary"
+		},
+		{
+			"site": 16,
+			"reason": "builtin-module-boundary"
+		},
+		{
+			"site": 17,
+			"reason": "builtin-module-boundary"
+		},
+		{
+			"site": 18,
+			"reason": "builtin-module-boundary"
+		},
+		{
+			"site": 19,
+			"reason": "builtin-module-boundary"
+		},
+		{
+			"site": 20,
+			"reason": "builtin-module-boundary"
+		},
+		{
+			"site": 21,
+			"reason": "builtin-module-boundary"
+		},
+		{
+			"site": 22,
+			"reason": "builtin-module-boundary"
+		},
+		{
+			"site": 23,
+			"reason": "builtin-module-boundary"
+		},
+		{
+			"site": 24,
+			"reason": "external-module-boundary"
+		},
+		{
+			"site": 25,
+			"reason": "external-module-boundary"
+		},
+		{
+			"site": 26,
+			"reason": "builtin-module-boundary"
+		},
+		{
+			"site": 27,
+			"reason": "builtin-module-boundary"
+		},
+		{
+			"site": 28,
+			"reason": "external-module-boundary"
+		},
+		{
+			"site": 29,
+			"reason": "builtin-module-boundary"
+		},
+		{
+			"site": 30,
+			"reason": "builtin-module-boundary"
+		},
+		{
+			"site": 31,
+			"reason": "builtin-module-boundary"
+		},
+		{
+			"site": 32,
+			"reason": "external-module-boundary"
+		},
+		{
+			"site": 33,
+			"reason": "external-module-boundary"
+		},
+		{
+			"site": 34,
+			"reason": "external-module-boundary"
+		},
+		{
+			"site": 35,
+			"reason": "external-module-boundary"
+		},
+		{
+			"site": 36,
+			"reason": "builtin-module-boundary"
+		},
+		{
+			"site": 37,
+			"reason": "builtin-module-boundary"
+		},
+		{
+			"site": 38,
+			"reason": "external-module-boundary"
+		},
+		{
+			"site": 39,
+			"reason": "builtin-module-boundary"
+		},
+		{
+			"site": 40,
+			"reason": "builtin-module-boundary"
+		},
+		{
+			"site": 41,
+			"reason": "builtin-module-boundary"
+		},
+		{
+			"site": 42,
+			"reason": "builtin-module-boundary"
+		},
+		{
+			"site": 43,
+			"reason": "builtin-module-boundary"
+		},
+		{
+			"site": 44,
+			"reason": "builtin-module-boundary"
+		},
+		{
+			"site": 45,
+			"reason": "builtin-module-boundary"
+		},
+		{
+			"site": 46,
+			"reason": "external-module-boundary"
+		},
+		{
+			"site": 47,
+			"reason": "external-module-boundary"
+		},
+		{
+			"site": 48,
+			"reason": "external-module-boundary"
+		},
+		{
+			"site": 49,
+			"reason": "external-module-boundary"
+		},
+		{
+			"site": 50,
+			"reason": "external-module-boundary"
+		},
+		{
+			"site": 51,
+			"reason": "builtin-module-boundary"
+		}
+	],
+	"proofHandle": "f089aa33cd7c555c85e5b30a42103780183c26ae9227e1dfabe0cf32629f6a29",
+	"counts": {
+		"sites": 52,
+		"results": 3,
+		"unresolved": 49
+	},
+	"integrity": "3c93dd7071ab228ce5c8c6c11b5bfe81b98b60426254598931b4c20c9bd2c82f"
+}

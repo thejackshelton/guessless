@@ -1,0 +1,1 @@
+Fix TypeScript plugin completions so @ construct snippets are not offered while typing CSS inside local <style> blocks, including incomplete CSS such as a lone selector dot or unclosed rule. Preserve normal completion behavior outside CSS. Add focused regression tests and run the relevant tests.

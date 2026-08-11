@@ -1,0 +1,18 @@
+{
+  "schema": "guessless.real-agent-benchmark.cell/v4",
+  "arm": "treatment",
+  "model": "gpt-5.6-sol",
+  "exitCode": 0,
+  "modelBacked": true,
+  "wallSeconds": 140.28,
+  "patch": {"path": "../treatment.patch", "sha256": "7c1481e7a4a0be29fee6305cec32ece67902064f6517c7e98fc6507ab186d284", "completeAgentPatch": true},
+  "tests": {"state": "partial", "passed": ["git diff --check"], "gaps": ["Focused tests could not start because the local pnpm cache lacked the TypeScript and Vite+ executable targets; no test pass was claimed."]},
+  "usage": {"inputTokens": 515695, "cachedInputTokens": 457216, "outputTokens": 6167},
+  "tools": {"commandExecutions": 8, "fileChanges": 3, "mcpCalls": 2, "totalCountedActions": 13},
+  "guessless": {"visible": true, "selected": true, "prepareSnapshotBeforeFirstEdit": true, "snapshotState": "complete", "snapshotFiles": 156, "successfulPreEditResult": true, "materialPreEditUse": false, "postEditOnlyUse": true, "postEditReceipts": [{"tool": "guessless_exported_names", "state": "partial", "resolvedSites": 9, "unresolvedSites": 18}]},
+  "outcomeBeforeJudge": "partial",
+  "semanticCorrectness": "pending-independent-judge",
+  "falseCompleteRisk": false,
+  "contamination": {"state": "clean"},
+  "raw": {"stdout": "../treatment.stdout.jsonl", "stderr": "../treatment.stderr.txt", "final": "../treatment.final.txt", "time": "../treatment.time.txt"}
+}

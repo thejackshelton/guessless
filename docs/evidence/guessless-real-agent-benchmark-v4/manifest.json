@@ -1,0 +1,72 @@
+{
+  "schema": "guessless.real-agent-benchmark.manifest/v4",
+  "task": "T008",
+  "status": "sealed-pending-independent-judge",
+  "model": "gpt-5.6-sol",
+  "repositories": ["markless", "frameless", "versionless"],
+  "selectedTasks": 6,
+  "attemptedPairs": 6,
+  "attemptedCells": 12,
+  "modelBackedCells": 12,
+  "contaminatedModelBackedCells": 1,
+  "excludedPairs": 1,
+  "blindedEligiblePairs": 5,
+  "blindedEligibleModelBackedCells": 10,
+  "counterbalancedOrder": {"controlFirst": 3, "treatmentFirst": 3},
+  "frozenOnboardingTemplate": {"path": "onboarding-card-template.txt", "sha256": "fb5d103116be512e22544c340f3d227f78845ba79b252e5b45a547caf6e32f43", "onlyPerCellSubstitution": "absolute symlink-free structural root"},
+  "pairs": [
+    "task-01-markless-prerender-live-state/pair.json",
+    "task-02-markless-browser-runtime-regressions/pair.json",
+    "task-03-frameless-composition-emitters/pair.json",
+    "task-04-frameless-demo-tooling/pair.json",
+    "task-05-versionless-loopback-api/pair.json",
+    "task-06-versionless-papercups-append/pair.json"
+  ],
+  "cellOutcomeCountsBeforeJudge": {
+    "control": {"complete": 3, "partial": 3, "invalidContaminated": 0},
+    "treatment": {"complete": 2, "partial": 3, "invalidContaminated": 1}
+  },
+  "informedSelection": {
+    "allTreatmentCells": 6,
+    "visible": 6,
+    "selected": 4,
+    "unselected": 2,
+    "completeSnapshotBeforeFirstEdit": 4,
+    "partialPostEditQueryCells": 4,
+    "materialPreEditStructuralUse": 0,
+    "blindedEligibleTreatmentCells": 5,
+    "blindedEligibleSelected": 3
+  },
+  "protocolHistory": [
+    "All twelve cells reached gpt-5.6-sol and completed one fresh, ephemeral turn; no cell was retried, resumed, substituted, or selectively omitted.",
+    "Every treatment received the same explicit explanation that Guessless is a deterministic fail-closed JavaScript/TypeScript structural-analysis tool, with only its absolute structural root substituted. Every treatment launched with default_tools_approval_mode=approve.",
+    "All six disposable repositories had the historical parent and solution objects absent before launch. Task 02 nevertheless became contaminated after launch because its dependency path exposed the original Markless checkout and the treatment agent deliberately read the solution commit. The pair remains in the denominator and is excluded from blinded scoring.",
+    "Before tasks 03-06, dependency trees were changed uniformly to copy-on-write copies to prevent original-repository history access. Task 03 retained a same-parity synthetic untracked website directory created during that correction; both agents left it untouched and it is excluded from their patches.",
+    "Tasks 05-06 exposed a symmetric test-environment defect: copied Versionless virtual-store executable targets were missing. Both arms attempted the focused checks and honestly reported that no tests ran.",
+    "All implementation and test changes, including untracked files, were staged only inside disposable repositories and captured with git diff --binary --cached. No agent patch was committed or published."
+  ],
+  "verification": {
+    "exactlySixTasks": true,
+    "exactlyTwelveModelBackedCells": true,
+    "twoTasksPerRepository": true,
+    "counterbalancedThreeThree": true,
+    "allTreatmentPromptsEndWithByteIdenticalBasePrompt": true,
+    "historicalParentAndSolutionObjectsAbsentBeforeLaunch": true,
+    "rawTranscriptFinalPatchTimingUsageAndToolRecordsPresentForEveryCell": true,
+    "contaminationPreservedAndExcluded": true,
+    "focusedTestsExecutedInEveryCell": false,
+    "focusedTestGapNamed": true,
+    "patchReproductionVerified": true,
+    "sealVerified": true,
+    "independentSemanticScoringComplete": false,
+    "adoptionDecisionComplete": false
+  },
+  "judgeRequired": {
+    "semanticCorrectness": "Compare each eligible arm patch with the historical solution behavior; exact text matching is not required.",
+    "testedCompletion": "Treat task 02 as excluded and preserve environment-only test gaps without converting them into passes.",
+    "falseCompleteness": "Check final claims against raw output and Guessless receipt states.",
+    "informedUse": "Do not count invocation or a coverage snapshot alone as material implementation use; all narrower queries were post-edit.",
+    "efficiency": "Condition duration and tool deltas on semantically correct comparable pairs.",
+    "decision": "Apply T009's locked SHIP_PILOT, DO_NOT_SHIP, or INCONCLUSIVE thresholds."
+  }
+}

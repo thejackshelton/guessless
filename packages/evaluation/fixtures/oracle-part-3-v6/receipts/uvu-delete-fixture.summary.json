@@ -1,0 +1,74 @@
+{
+	"schema": "guessless.safe-change-summary/v1",
+	"state": "partial",
+	"request": {
+		"kind": "safeChangeImpact",
+		"snapshot": "30b81ee5778c917ff35c89777e41eb23c6d6b792b310e7655060642dbe770fdc",
+		"intent": "delete",
+		"target": {
+			"schema": "guessless.symbol-anchor/v1",
+			"file": "src/assert.js",
+			"semanticPath": [
+				"global:scope:Program",
+				"module:scope:Program",
+				"symbol:fixture",
+				"declaration:FunctionDeclaration"
+			],
+			"fingerprint": "c3d663b02345dbea3ef16f83dd1292cd4458818bdfad1886a961a3b4226ec5ba"
+		}
+	},
+	"snapshot": "30b81ee5778c917ff35c89777e41eb23c6d6b792b310e7655060642dbe770fdc",
+	"sites": [
+		{
+			"id": "35424919b08a87c15505747dd0a562e275debe26b01d7844db6874ac2f80c2ac",
+			"file": "src/assert.js",
+			"label": "symbol:fixture"
+		},
+		{
+			"id": "dab8c9245c6f4e1bbe8685d444f133945130e321bdd333a4c847e44a22786807",
+			"file": "src/assert.js",
+			"label": "site:import-boundary"
+		},
+		{
+			"id": "3edcb2fa2980043e0efafb45461503eac0173015db0a63893187d53a7fdd20c7",
+			"file": "src/assert.js",
+			"label": "site:import-boundary"
+		},
+		{
+			"id": "3d970a4ee53d2b9f5fb45e0f42c46db4205519b7b94086ec6ca799b1fe7ed357",
+			"file": "src/assert.js",
+			"label": "site:import-boundary"
+		}
+	],
+	"results": [
+		{
+			"site": 0,
+			"roles": [
+				"declaration",
+				"reference",
+				"export"
+			]
+		}
+	],
+	"unresolved": [
+		{
+			"site": 1,
+			"reason": "external-module-boundary"
+		},
+		{
+			"site": 2,
+			"reason": "external-module-boundary"
+		},
+		{
+			"site": 3,
+			"reason": "external-module-boundary"
+		}
+	],
+	"proofHandle": "0106ffd5096e17480495eca5fba0381173611e641996f729b4aae33d7553ad9b",
+	"counts": {
+		"sites": 4,
+		"results": 1,
+		"unresolved": 3
+	},
+	"integrity": "447eabca39f1dde8758eef7709c5567520e5abc09e51fb1dcb4c6f04ad8ecd5e"
+}

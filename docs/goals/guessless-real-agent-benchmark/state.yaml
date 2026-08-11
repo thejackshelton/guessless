@@ -1,0 +1,732 @@
+version: 2
+
+goal:
+  title: "Guessless real-agent repository benchmark"
+  slug: guessless-real-agent-benchmark
+  kind: specific
+  tranche: "Launch real paired coding agents immediately on authentic repository work, seal their tested outputs, and make the adoption decision."
+  status: active
+  oracle:
+    signal: "Real same-model agents produce sealed patches and test results on authentic Markless, Frameless, and Versionless maintenance tasks, with control/treatment parity and a frozen treatment-only Guessless onboarding context."
+    cadence: "after the corrected first pair, after the fixed v3 live batch, and at final audit"
+    final_proof: "Raw transcripts, patches, tests, timing, token/tool accounting, informed Guessless selection and successful-result evidence, paired scoring, and an explicit adoption decision."
+  intake:
+    original_request: "Give me a GoalBuddy goal that gets immediately into benchmarks with real agents and spends no time on harness or setup."
+    interpreted_outcome: "Measure Guessless on authentic coding-agent work now, without another harness-building detour."
+    input_shape: specific
+    audience: "Guessless maintainer deciding whether real coding agents benefit"
+    authority: approved
+    proof_type: metric
+    completion_proof: "A fixed batch of authentic paired real-agent runs is sealed and audited into an explicit decision."
+    likely_misfire: "Spending the run on benchmark infrastructure, synthetic fixtures, protocol polish, or offline proofs instead of launching real agents."
+    blind_spots_considered:
+      - "Recent real commits can leak their solution unless agents run from the parent commit and cannot inspect the hidden commit."
+      - "Tests and patch quality matter more than tool invocation alone."
+      - "An unfamiliar MCP must be introduced with a neutral usage and honesty context; cold availability alone does not measure product usefulness."
+      - "Task and model parity must hold without turning parity checks into a setup phase."
+    existing_plan_facts:
+      - "The prior 36-cell synthetic adoption benchmark is complete and must not be rerun or modified."
+      - "The latest safe-change run showed artifact value on one task but zero unforced live Guessless selection."
+      - "This fresh tranche answers the remaining real-repository, real-agent question."
+
+rules:
+  pm_owns_state: true
+  one_active_task: true
+  max_write_workers: 1
+  no_implementation_without_worker_or_pm_task: true
+  no_completion_without_judge_or_pm_audit: true
+  planning_is_not_completion: true
+  queued_required_worker_blocks_completion: true
+  continuous_until_full_outcome: true
+  missing_input_or_credentials_do_not_stop_goal: true
+  exact_human_approval_can_terminal_wait: true
+  preserve_and_validate_existing_plan: true
+  intake_misfire_must_be_audited: true
+  goal_pressure_requires_oracle: true
+  no_completion_on_weak_proof: true
+  slice_policy:
+    max_consecutive_tiny_tasks: 2
+    prefer_vertical_slices: true
+    judge_picks_largest_safe_slice: true
+    worker_completes_whole_slice: true
+
+agents:
+  scout: installed
+  worker: installed
+  judge: installed
+
+visual_board:
+  selected: local
+  local:
+    status: live
+    url: "http://goalbuddy.localhost:41737/guessless-real-agent-benchmark/"
+    command: "node /Users/jacksm5pro/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/guessless-real-agent-benchmark"
+
+active_task: T010
+
+tasks:
+  - id: T001
+    type: worker
+    assignee: Worker
+    status: blocked
+    reasoning_hint: medium
+    objective: "Launch the first live same-model control/treatment coding-agent pair within five minutes, then complete the fixed authentic-repository benchmark batch without writing or changing a benchmark harness."
+    inputs:
+      - "/Users/jacksm5pro/dev/open-source/markless"
+      - "/Users/jacksm5pro/dev/open-source/frameless"
+      - "/Users/jacksm5pro/dev/open-source/versionless"
+      - "Existing Guessless MCP/product as-is"
+    allowed_files:
+      - "docs/evidence/guessless-real-agent-benchmark-v1/"
+      - "/private/tmp/guessless-real-agent-benchmark-v1/"
+    constraints:
+      - "Use gpt-5.6-sol for every cell. Run exactly six paired tasks: two authentic recent JS/TS maintenance commits from each of Markless, Frameless, and Versionless."
+      - "For each task, checkout the parent commit into two isolated temporary worktrees. Derive one concise maintenance prompt from the historical issue/commit intent, but hide the solution commit, diff, hashes, and expected file list from both agents."
+      - "Launch the first pair as soon as its first eligible task is selected and before selecting the remaining five tasks. First agent process must start within five minutes of T001 start."
+      - "Run one control and one treatment agent per task with identical prompt, model, starting bytes, timeout, permissions, and environment. Counterbalance control-first and treatment-first order 3/3."
+      - "Control has no Guessless MCP. Treatment has the current Guessless MCP exactly as installed, but the shared task prompt must not mention, require, hint at, or reward Guessless use."
+      - "Agents must implement the real change and run the repository's relevant tests. Do not reduce the task to impact analysis, answer retrieval, or a synthetic question."
+      - "Use direct git, Codex, and repository test commands. Do not create or modify evaluator code, runner scripts, fixtures, schemas, calibration, setup utilities, or package metadata."
+      - "No retry, resume, prompt repair, task substitution, selective omission, or post-hoc rerun. A failed or invalid cell remains in the denominator and the batch continues."
+      - "Durably record before judging: task provenance, parent/solution hashes, frozen prompt hash, starting-tree hash, command/argv parity with the single MCP difference, raw stdout/stderr, final response, patch, test output, wall time, reported tokens, tools, Guessless calls, exit state, and invalid/refused reason."
+      - "Do not change or publish product code in Markless, Frameless, Versionless, or Guessless; all agent edits stay in disposable /private/tmp worktrees."
+    verify:
+      - "First live pair launches within five minutes of task start."
+      - "Exactly six authentic tasks and twelve real model-backed agent cells exist: two tasks per repository and six cells per arm."
+      - "Every task comes from a real historical commit whose parent is the agent starting state and whose solution remains hidden until both paired cells finish."
+      - "Prompt/model/tree/limit/environment parity is byte-proven per pair; only treatment Guessless MCP availability differs."
+      - "Every attempted cell preserves transcript, patch, tests, timing, tokens, tools, Guessless calls, and a closed outcome: complete, partial with named gaps, or refused/invalid with a reason."
+      - "Score task completion from relevant tests plus blinded semantic comparison with the historical solution; exact textual patch matching is not required."
+      - "Seal a manifest, six pair records, twelve raw cell records, aggregate completion/correctness/false-completeness metrics, correctness-conditioned time/token/tool deltas, and unforced Guessless selection."
+    stop_if:
+      - "Any product, harness, evaluator, fixture, manifest, lockfile, or prior evidence edit would be required."
+      - "Pair prompt/model/repository-state parity cannot be maintained."
+      - "An eligible first task cannot be found and launched within five minutes; record the exact repository/path blocker instead of doing setup work."
+      - "A candidate task is outside the JavaScript/TypeScript/JSX/TSX boundary or lacks a runnable relevant verification command."
+      - "Any benchmark agent could inspect the hidden solution commit or the other arm's worktree/transcript."
+    receipt:
+      result: blocked
+      changed_files:
+        - docs/evidence/guessless-real-agent-benchmark-v1/
+      commands:
+        - cmd: "node /Users/jacksm5pro/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/scripts/render-task-prompt.mjs docs/goals/guessless-real-agent-benchmark"
+          status: pass
+        - cmd: "find docs/evidence/guessless-real-agent-benchmark-v1 -name '*.json' -print0 | xargs -0 -n1 jq empty"
+          status: pass
+        - cmd: "audit six pair records, twelve cell records, patches, test traces, arm tree parity, outcomes, and Guessless calls"
+          status: fail
+      summary: "Sealed six authentic paired tasks across Markless, Frameless, and Versionless with 3/3 counterbalanced order, isolated parent-only repositories, prompts, transcripts, patches, timings, token/tool metrics, semantic scoring, aggregate metrics, and DO_NOT_ADOPT decision. The batch is blocked: only 9/12 cells reached gpt-5.6-sol, all 9 were partial because relevant tests could not execute, and Guessless was selected 0/5 times."
+      deviations:
+        - "Task 01 both arms were preserved invalid after Codex rejected mutually exclusive --sandbox and --approve-for-me flags; no retry."
+        - "Task 06 control was preserved invalid after approval-layer model-capacity rejection; no retry."
+        - "No external timeout was imposed; both arms shared the same null timeout."
+        - "Relevant tests were attempted but dependencies were absent and pnpm-store access/install was unavailable."
+      remaining_blockers:
+        - "Exactly twelve real model-backed cells were required; only nine initialized."
+        - "Relevant repository tests did not complete for any model-backed cell."
+        - "Pair parity cannot be proven for task 06 at process level because its control process was never created."
+      verification_attempts: 1
+      stopped_because: "Required benchmark gates failed after the fixed no-retry batch: three invalid cells and zero completed relevant test suites."
+  - id: T002
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "Immediately audit the six real-agent pairs and issue SHIP_PILOT, DO_NOT_SHIP, or INCONCLUSIVE; authorize only another live real-agent batch if more evidence is required."
+    inputs:
+      - "T001 receipt"
+      - "docs/evidence/guessless-real-agent-benchmark-v1/"
+    constraints:
+      - "Read-only; do not run agents, change evidence, inspect hidden solutions before scoring records prove both cells finished, or authorize harness/setup/product work."
+      - "Treat tested task completion and false completeness as dominant. Tool invocation alone is not success."
+      - "SHIP_PILOT requires treatment to win at least two more completed tasks than control with no added false completion, or tie completion with no task regression and at least 20% median correctness-conditioned duration or tool reduction."
+      - "DO_NOT_SHIP requires treatment to lose completed tasks, add false completion, regress any repository without an offsetting overall two-task win, or tie correctness while adding over 25% median duration or tool overhead."
+      - "All other honest outcomes are INCONCLUSIVE and may activate T003 only."
+    expected_output:
+      - "approved evidence or rejected evidence"
+      - "SHIP_PILOT, DO_NOT_SHIP, or INCONCLUSIVE"
+      - "per-task and aggregate tested completion map"
+      - "correctness-conditioned efficiency and unforced-selection result"
+      - "T003 activation only if INCONCLUSIVE"
+    receipt:
+      result: done
+      decision: approved
+      full_outcome_complete: false
+      rationale: "INCONCLUSIVE. Decision-grade evidence is rejected: both arms have zero tested completions, three cells never reached the model, task 06 lacks process parity, and Guessless was never selected. Semantic correctness ties 2–2 with no false completion, while correctness-conditioned median duration and tool reductions remain below 20%; no DO_NOT_SHIP trigger fires. Seal metadata predates task 06 treatment, one start timestamp conflicts, test links are wrong, and recorded tool counts include non-tool items. The only authorized continuation is the already-scoped live T003 batch; no harness, setup, or product work is approved."
+      worker_package:
+        objective: "Only if T002 is INCONCLUSIVE, run one final six-pair batch of new authentic real-repository maintenance tasks under the identical direct-agent protocol; do no harness or setup work."
+        allowed_files:
+          - docs/evidence/guessless-real-agent-benchmark-v2/
+          - /private/tmp/guessless-real-agent-benchmark-v2/
+        verify:
+          - "Exactly six additional authentic tasks and twelve additional real agent cells are sealed."
+          - "T001 and T003 combine into twelve pairs with exact protocol parity and honest invalidity accounting."
+          - "All raw transcripts, patches, tests, usage, timing, tool, and Guessless selection evidence is present and manifest-sealed."
+        stop_if:
+          - "T002 did not return INCONCLUSIVE."
+          - "Any harness/setup/product work or pair-parity break would be required."
+          - "The first new agent cannot launch within five minutes."
+      evidence:
+        - "Evidence rejected; benchmark decision INCONCLUSIVE because the retained records expose failure but are not a sealed, fully tested, parity-complete adoption batch."
+        - "Tested completion map: all six control tasks and all six treatment tasks have tested_complete=false; semantic correctness ties 2-2; invalid cells are task-01 control/treatment and task-06 control."
+        - "Aggregate: 6 attempted pairs, 12 attempted cells, 9 model-backed cells, 3 invalid cells, 0 tested completions per arm, 0 false completions, and no treatment repository regression."
+        - "Correctness-conditioned medians: treatment minus control wall -20.52s, reported tokens -10208.5, recorded tool items -2; reductions 14.64%, 1.74%, and 10.53%, below threshold."
+        - "Unforced selection: 5 eligible treatment cells, 0 selected, 0 successful calls."
+        - "Integrity: prompt hashes 6/6, patch hashes 12/12, closed outcomes 12/12; sealing timestamp, one start timestamp, test links, tool accounting, task-06 parity, and blinded comparison have defects."
+      blocked_tasks:
+        - T999
+      missing_evidence:
+        - "Twelve model-backed paired cells; three are missing."
+        - "At least one completed relevant repository test suite; all nine model-backed cells were test-blocked."
+        - "Process-level parity for task 06."
+        - "Any treatment exposure to Guessless; selection was 0/5."
+        - "Consistent post-completion sealing metadata and directly linked test/tool accounting."
+      required_board_updates:
+        - "Record T002 as done with evidence rejected and benchmark decision INCONCLUSIVE."
+        - "Set T003 from queued to active and set active_task to T003."
+        - "Keep T999 queued and full goal outcome incomplete."
+        - "Do not authorize harness, setup, evaluator, fixture, package-metadata, or product work."
+  - id: T003
+    type: worker
+    assignee: Worker
+    status: blocked
+    reasoning_hint: medium
+    objective: "Only if T002 is INCONCLUSIVE, run one final six-pair batch of new authentic real-repository maintenance tasks under the identical direct-agent protocol; do no harness or setup work."
+    inputs:
+      - "T001 and T002 receipts"
+      - "/Users/jacksm5pro/dev/open-source/markless"
+      - "/Users/jacksm5pro/dev/open-source/frameless"
+      - "/Users/jacksm5pro/dev/open-source/versionless"
+      - "Existing Guessless MCP as-is"
+    allowed_files:
+      - "docs/evidence/guessless-real-agent-benchmark-v2/"
+      - "/private/tmp/guessless-real-agent-benchmark-v2/"
+    constraints:
+      - "Use six new tasks, two per repository, with exactly the same gpt-5.6-sol paired protocol and decision metrics as T001."
+      - "Launch the first new pair within five minutes; no harness, evaluator, fixture, setup, product, manifest, or lockfile work."
+      - "No retries, substitutions, solution leakage, prompt coercion, or selective omission."
+    verify:
+      - "Exactly six additional authentic tasks and twelve additional real agent cells are sealed."
+      - "T001 and T003 combine into twelve pairs with exact protocol parity and honest invalidity accounting."
+      - "All raw transcripts, patches, tests, usage, timing, tool, and Guessless selection evidence is present and manifest-sealed."
+    stop_if:
+      - "T002 did not return INCONCLUSIVE."
+      - "Any harness/setup/product work or pair-parity break would be required."
+      - "The first new agent cannot launch within five minutes."
+    receipt:
+      result: blocked
+      changed_files:
+        - docs/evidence/guessless-real-agent-benchmark-v2/manifest.json
+        - docs/evidence/guessless-real-agent-benchmark-v2/task-01-markless-style-guard/prompt.txt
+        - docs/evidence/guessless-real-agent-benchmark-v2/task-01-markless-style-guard/raw/control.started-at.txt
+        - docs/evidence/guessless-real-agent-benchmark-v2/task-01-markless-style-guard/raw/control.status.txt
+        - docs/evidence/guessless-real-agent-benchmark-v2/task-01-markless-style-guard/raw/control.stderr.txt
+        - docs/evidence/guessless-real-agent-benchmark-v2/task-01-markless-style-guard/raw/control.stdout.jsonl
+      commands:
+        - "codex exec --help"
+        - "git archive b4b94de6 into isolated control/treatment trees"
+        - "codex exec --ignore-user-config --ignore-rules --ephemeral -m gpt-5.6-sol -s workspace-write --json -C <control-tree> -o <final> - < prompt.txt"
+        - "find JSON evidence and validate with jq; assert six pair records and twelve stdout records"
+      summary: "Selected a new authentic Markless task, created isolated byte-identical parent-only trees, validated incompatible flags were absent, and attempted the first control cell. Codex exited before model initialization because the archive was not recognized as a Git repository and the validated argv lacked --skip-git-repo-check. The no-retry rule prevents repair, and treatment execution would either repeat the invalidity or break pair parity. Evidence records the invalid cell and exact blocker."
+      deviations:
+        - "The first attempted cell was preserved as invalid; no retry, treatment launch, substitution, or further task selection occurred after the explicit first-agent launch stop condition fired."
+      remaining_blockers:
+        - "First real model-backed agent did not launch within the required window."
+        - "Only one invalid attempted cell exists; six pairs and twelve real agent cells cannot be sealed."
+        - "Adding --skip-git-repo-check now would constitute a forbidden retry and would break frozen pair argv parity."
+      verification_attempts: 1
+      stopped_because: "The first new agent could not launch: Codex rejected the parent-only archive before model initialization because --skip-git-repo-check was absent."
+  - id: T999
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "Audit the real-agent evidence and issue the explicit Guessless adoption decision."
+    inputs:
+      - "T001 receipt"
+      - "T002 receipt"
+      - "T003 receipt if activated"
+      - "docs/evidence/guessless-real-agent-benchmark-v1/"
+    constraints:
+      - "Read-only; do not run agents, edit evidence, or authorize harness work."
+      - "Reject completion without authentic tasks, real agents, tested patches, pair parity, raw transcripts, and honest invalidity accounting."
+    expected_output:
+      - "complete or not_complete"
+      - "full_outcome_complete true or false"
+      - "paired result and adoption decision"
+      - "explicit SHIP_PILOT or DO_NOT_SHIP decision, or activate T003 only when T002 is honestly INCONCLUSIVE"
+    receipt:
+      result: done
+      decision: not_complete
+      full_outcome_complete: false
+      rationale: "Paired result remains INCONCLUSIVE; terminal adoption decision is DO_NOT_SHIP. T001 preserved authentic tasks and nine real-agent transcripts, but produced zero tested completions, three pre-model invalid cells, broken task-06 parity, and zero Guessless selections. T003 was validly activated after T002, then consumed by its frozen no-retry rule when the first control attempt failed before model initialization; it added no pair or decision-grade evidence. The frozen plan is exhausted, so completion cannot be claimed and another batch is not authorized. DO_NOT_SHIP reflects absent adoption evidence, not a demonstrated treatment regression."
+      evidence:
+        - "T001 contains six authentic historical JS/TS maintenance tasks across Markless, Frameless, and Versionless, with prompt/provenance records, patches, raw outputs, and closed invalidity accounting."
+        - "T001 attempted 12 cells, but only 9 were model-backed; all 9 were partial because no relevant repository test suite completed. Both arms therefore have 0 tested completions and 0 false completions."
+        - "Semantic scoring ties control and treatment 2-2. Correctness-conditioned duration, token, and tool reductions were below the SHIP_PILOT threshold and cannot be attributed to Guessless because selection was 0/5 eligible treatment cells."
+        - "Task 06 lacks process-level pair parity because its control process was never created; T001 also retains sealing timestamp, start-time, test-link, and tool-accounting defects identified by T002."
+        - "T003 attempted one control cell only. Its empty stdout and Git-repository-check stderr prove failure before model initialization; no treatment, patch, tests, or completed pair exists."
+        - "All evidence JSON parsed, all six recorded prompt hashes matched, all twelve recorded patch hashes matched, and thread-start evidence exists for exactly the nine model-backed T001 cells."
+      blocked_tasks:
+        - T001
+        - T003
+      missing_evidence:
+        - "Twelve model-backed cells with six complete parity-preserving pairs; T001 has nine model-backed cells and T003 adds none."
+        - "Passing relevant repository tests for agent patches; tested completion is zero in both arms."
+        - "Process parity for T001 task 06 and any complete T003 pair."
+        - "Any unforced Guessless selection or successful Guessless call; observed selection is 0/5."
+        - "Consistent post-completion sealing metadata and accurate direct test/tool accounting."
+      required_board_updates:
+        - "Record T999 as done with decision not_complete, full_outcome_complete false, paired result INCONCLUSIVE, and adoption decision DO_NOT_SHIP."
+        - "Set goal.status to blocked and clear active_task; T001 and T003 remain blocked and T002 remains done."
+        - "Do not activate or invent another benchmark batch outside the frozen T001/T003 plan, and do not authorize harness, setup, evaluator, fixture, package-metadata, or product work."
+  - id: T004
+    type: worker
+    assignee: Worker
+    status: blocked
+    reasoning_hint: medium
+    objective: "Immediately run the corrected v3 six-pair real-agent benchmark with the frozen treatment-only Guessless onboarding context, then seal decision-grade evidence without harness or setup work."
+    inputs:
+      - "Owner correction: agents need explicit context about an unfamiliar tool; cold MCP registration is not a valid usefulness test."
+      - "/Users/jacksm5pro/dev/open-source/markless"
+      - "/Users/jacksm5pro/dev/open-source/frameless"
+      - "/Users/jacksm5pro/dev/open-source/versionless"
+      - "Existing Guessless MCP as-is"
+      - "Immutable v1/v2 evidence and receipts"
+    allowed_files:
+      - "docs/evidence/guessless-real-agent-benchmark-v3/"
+      - "/private/tmp/guessless-real-agent-benchmark-v3/"
+    constraints:
+      - "Launch the first real model-backed pair within five minutes. Use direct Git, Codex, and repository commands only; do not create a harness, runner, evaluator, fixture, setup script, package edit, lockfile edit, or product edit."
+      - "Use exactly six new authentic historical JS/TS/JSX/TSX maintenance tasks, two each from Markless, Frameless, and Versionless, and exactly twelve gpt-5.6-sol cells with 3/3 counterbalanced order."
+      - "Create isolated parent-only Git repositories whose solution commits and objects are unavailable. Include --skip-git-repo-check in the frozen Codex argv and never combine --approve-for-me with --sandbox."
+      - "Do not install dependencies. Reuse any pre-existing repository dependency tree only through byte-identical temporary-worktree links when compatible; otherwise name the test gap honestly and continue."
+      - "Freeze one concise base maintenance prompt per task. Control receives only that prompt. Treatment receives the exact frozen onboarding card followed by the identical base prompt; record both hashes and treat the context plus MCP as the declared intervention."
+      - "Frozen onboarding card: Guessless is a deterministic, fail-closed JavaScript/TypeScript structural-analysis tool available in this session. Use it when references, bindings, reachability, or rename/delete impact could help you implement or verify this maintenance change. First call guessless_prepare_snapshot for the repository, then use guessless_safe_change_impact or the narrower structural queries as appropriate. A receipt may be complete, partial with named unresolved sites, or refused; never treat omitted or unresolved sites as safe. Use is optional—decide whether it helps this task, and do not claim success merely because you invoked it."
+      - "Agents must implement the real change and run relevant tests. No retry, resume, task substitution, prompt repair, selective omission, solution leakage, or post-hoc rerun; every failed or invalid cell remains in the denominator."
+      - "Preserve raw prompts/context, argv/environment/tree parity, transcripts, stderr, final answers, patches, test output, wall time, token/tool accounting, Guessless calls and results, and machine-readable complete/partial/refused/invalid outcomes."
+    verify:
+      - "Exactly six authentic tasks and twelve attempted real-agent cells are sealed, two tasks per repository and six cells per arm."
+      - "Every pair proves identical parent tree, base prompt, model, limits, environment, and order protocol; the only declared treatment deltas are the frozen Guessless onboarding card and MCP."
+      - "Every model-backed cell implements a real patch and attempts relevant tests; every outcome is fail-closed with all gaps named."
+      - "Treatment records prove whether Guessless was visible, selected, successfully returned a receipt, and materially informed a patch or verification step."
+      - "A sealed manifest, six pair records, twelve cell records, aggregate tested completion/correctness/false-completeness metrics, conditioned efficiency, and informed-selection metrics exist."
+    stop_if:
+      - "The first real model-backed pair cannot launch within five minutes."
+      - "Any product, harness, evaluator, fixture, package, lockfile, install, or saved setup work would be required."
+      - "Pair parity outside the declared treatment context plus MCP intervention cannot be maintained."
+      - "A candidate is outside the JavaScript/TypeScript/JSX/TSX boundary or exposes its solution commit/object."
+    receipt:
+      result: blocked
+      changed_files:
+        - docs/evidence/guessless-real-agent-benchmark-v3/
+        - /private/tmp/guessless-real-agent-benchmark-v3/
+      commands:
+        - cmd: "launch task-01 control/treatment with codex exec --approve-for-me --skip-git-repo-check --ephemeral --json -m gpt-5.6-sol"
+          status: fail
+        - cmd: "request escalated codex exec for task-02 treatment"
+          status: rejected
+        - cmd: "find docs/evidence/guessless-real-agent-benchmark-v3 -name '*.json' -print0 | xargs -0 -n1 jq empty"
+          status: pass
+        - cmd: "audit manifest counts, tree/link parity, solution-object absence, frozen argv, and sandbox exclusion"
+          status: fail
+      summary: "Launched the first isolated Markless pair promptly and preserved both cells as invalid when the enclosing sandbox denied Codex app-server initialization. Prepared a second solution-absent pair, but the required escalated Codex execution was explicitly rejected with instructions not to work around the denial. Sealed raw stderr/stdout, timestamps, prompts, argv, parity, hashes, closed outcomes, aggregate invalidity, and the approval blocker. No product, harness, setup, package, lockfile, or board files were edited."
+      deviations:
+        - "Task-01 treatment received the exact onboarding card followed by a literal backslash-n delimiter rather than actual newline characters; the process never reached model initialization."
+        - "Task-02 parent-only repositories were prepared after task-01 failed while attempting the only safe route to model-backed execution; no task-02 cell launched."
+      remaining_blockers:
+        - "The first real model-backed pair could not launch because sandboxed Codex initialization was denied."
+        - "The approval layer rejected required unsandboxed Codex execution and prohibited workaround or indirect execution."
+        - "Only two attempted cells exist; zero were model-backed, so the six-task/twelve-cell verification gates cannot pass."
+      verification_attempts: 1
+      stopped_because: "T004 stop_if triggered: no first real model-backed pair could launch, and the required escalated execution was explicitly rejected."
+  - id: T005
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "Audit the corrected informed-context v3 evidence and issue the explicit Guessless adoption decision."
+    inputs:
+      - "T004 receipt"
+      - "T006 receipt if activated"
+      - "docs/evidence/guessless-real-agent-benchmark-v3/"
+      - "Owner correction that cold MCP availability is not a valid usefulness test"
+    constraints:
+      - "Read-only; do not run agents, edit evidence, or authorize harness/setup/product work."
+      - "Judge tested completion, semantic correctness, false completeness, and successful Guessless result use; invocation alone is not success."
+      - "SHIP_PILOT requires treatment to win at least two more tested-complete tasks than control with no added false completion, or tie tested completion with no repository regression and at least 20% median correctness-conditioned duration or tool reduction."
+      - "DO_NOT_SHIP requires treatment to lose tested-complete tasks, add false completion, regress any repository without an offsetting overall two-task win, or tie correctness while adding over 25% median duration or tool overhead. All other outcomes are INCONCLUSIVE."
+    expected_output:
+      - "complete or not_complete"
+      - "full_outcome_complete true or false"
+      - "per-task tested completion and semantic map"
+      - "informed Guessless visibility, selection, successful-result, and material-use map"
+      - "SHIP_PILOT, DO_NOT_SHIP, or INCONCLUSIVE"
+    receipt:
+      result: done
+      decision: not_complete
+      full_outcome_complete: false
+      rationale: "INCONCLUSIVE. Eligible scoring gives control 1 and treatment 2 tested-complete tasks: treatment wins only task04, while task06 ties; task01 is pre-model invalid, task03 contaminated, and tasks02/05 lack decision-grade test or patch proof. No false completion or treatment repository regression is established, so neither threshold fires. Guessless was visible and selected in all five model-backed treatments, but tasks02-03 were cancelled, task04 refused, and tasks05-06 returned bounded results only after implementation; material use is unproven. The mid-batch v3c card and incomplete task02 patches leave the frozen-context and sealed-patch oracle unmet."
+      worker_package: null
+      evidence:
+        - "Per-task map: task01 control/treatment invalid pre-model, tested_complete=false/false, semantic=false/false; no model saw either prompt."
+        - "Task02: both live-tree implementations appear behaviorally aligned with the historical alias and serialization repair, but tested_complete=false/false. Full behavior suites were dependency-blocked, and both sealed patches import newly created helper files that the patches omit, making semantic correctness non-reproducible from the sealed artifacts."
+        - "Task03: control and treatment are invalid-contaminated and excluded from scoring despite preserved tests and patches because the parent-tree solution plan described the historical repair."
+        - "Task04: control semantic_correct=false and tested_complete=false because it declines a functional updater whenever another cell is read, unlike the historical behavior that live-reads the written cell while leaving the unrelated cell captured. Treatment semantic_correct=true and tested_complete=true with 197/197 React node tests. Guessless returned only an honest descendant-symlink refusal and did not inform the patch."
+        - "Task05: control/treatment semantic_correct=true/true but tested_complete=false/false. Neither repository adapter test file executed; control used TypeScript plus manual assertions and treatment used direct assertions. Treatment's complete snapshot and partial 141/192-site impact receipt arrived after implementation and initial checking; no material patch or verification decision is traceable to it."
+        - "Task06: control/treatment semantic_correct=true/true and tested_complete=true/true. Focused adapter tests passed 17/17 and 16/16 respectively, with TypeScript passing; treatment's broader failures were unrelated missing fixture caches. Its complete snapshot and partial 4/30-site impact receipt were valid and honestly bounded, but occurred after implementation, focused tests, TypeScript, and a build probe, so material use is not proven."
+        - "Aggregate tested completion is control 1 versus treatment 2, a one-task treatment lead, with zero added false completions and no treatment repository regression. This is below the two-task SHIP_PILOT threshold and does not meet a DO_NOT_SHIP trigger."
+        - "Strict correctness-conditioned common pairs are tasks05-06: treatment median duration overhead is 78.91%, token change is a 13.30% reduction, and tool change is a 1.38% reduction. Correctness does not tie because treatment wins task04, so the overhead clause does not trigger. Counting task02's live-tree behavior despite its incomplete sealed patches yields median overheads of 3.23% duration, 24.77% tokens, and 7.41% tools; no efficiency threshold fires."
+        - "Informed Guessless map: task02 visible=yes, selected=yes, successful_result=no, material_use=no; task03 yes/yes/no/no; task04 yes/yes/no-refused/no; task05 yes/yes/yes-bounded/not-proven; task06 yes/yes/yes-bounded/not-proven."
+        - "Tasks04-06 used arm-identical sanitized product trees with solution-bearing planning artifacts and original Git objects removed. This preserves pair parity and product-code behavior but is not byte-identical historical-parent provenance."
+        - "The intervention was not one frozen onboarding context across the batch: task01 had malformed literal delimiters, tasks02-04 used earlier root guidance, and tasks05-06 used v3c package-root guidance after task04's refusal. Outcomes therefore cannot be pooled as one uniform frozen-context treatment."
+      subgoal_contract: null
+      parallel_safety: null
+      blocked_tasks:
+        - T004
+      missing_evidence:
+        - "A single frozen, correctly delimited treatment onboarding context across all eligible pairs."
+        - "Complete reproducible task02 patches containing every newly created helper and regression-test file."
+        - "An uncontaminated Frameless citation pair replacing task03's solution-plan exposure."
+        - "Actual relevant repository adapter-test execution for task05."
+        - "Twelve model-backed cells; task01 remains two pre-model invalid cells."
+        - "Traceable material use of a successful Guessless result in a patch choice or verification step."
+      required_board_updates:
+        - "Record T005 as done with decision not_complete, full_outcome_complete=false, and adoption decision INCONCLUSIVE."
+        - "Record the tested-completion map as control 1 versus treatment 2, semantic map as stated, and false-completion count as zero."
+        - "Record informed selection as 5/5 visible and selected, successful bounded results on tasks05-06 only, and material use not proven."
+        - "Keep T004 blocked, clear active_task, and mark the goal blocked unless the owner explicitly authorizes a new benchmark tranche."
+        - "Do not authorize harness, setup, evaluator, fixture, package, lockfile, or product work."
+  - id: T006
+    type: pm
+    assignee: PM
+    status: done
+    reasoning_hint: medium
+    objective: "Continue the fixed v3 benchmark after preserving T004's invalid first pair, using the materially safer sandboxed Codex launcher with no --approve-for-me flag."
+    inputs:
+      - "T004 blocked receipt and immutable invalid task-01 pair"
+      - "Prepared task-02 parent-only control/treatment repositories"
+      - "Owner authorization to benchmark real agents with explicit Guessless context"
+    constraints:
+      - "Do not retry task-01. Attempt task-02 once with codex exec -s workspace-write --skip-git-repo-check and no --approve-for-me or sandbox bypass."
+      - "If the outer execution approval rejects this materially safer command, record the exact blocker and stop; do not work around it."
+      - "If task-02 reaches gpt-5.6-sol, finish the remaining four new authentic tasks directly under the T004 protocol so v3 retains exactly six attempted pairs including task-01 invalid."
+      - "Use actual newline-delimited onboarding context in every treatment prompt. Preserve the identical base prompt separately and keep the MCP plus frozen context as the only declared treatment delta."
+      - "For tasks 03-06, freeze the operational card that gives the exact guessless_prepare_snapshot argument shape: {rootUri: file://<absolute-current-worktree>}. Both arms use approval_policy=never inside workspace-write; this changes approval prompts, not sandbox authority."
+      - "No product, harness, runner, evaluator, fixture, package, lockfile, install, or saved setup work."
+    allowed_files:
+      - "docs/evidence/guessless-real-agent-benchmark-v3/"
+      - "/private/tmp/guessless-real-agent-benchmark-v3/"
+    verify:
+      - "Task-01 remains immutable and invalid in the denominator; no cell is retried or substituted."
+      - "Every subsequently launched pair uses the safer frozen argv and preserves all T004 evidence fields."
+      - "The final v3 manifest closes exactly six attempted pairs and twelve attempted cells, or names the approval-layer blocker preventing continuation."
+    stop_if:
+      - "The safer sandboxed Codex launch without --approve-for-me is rejected or fails before model initialization."
+      - "Pair parity or hidden-solution isolation cannot be maintained."
+      - "Any forbidden setup or product work would be required."
+    receipt:
+      result: done
+      changed_files:
+        - docs/evidence/guessless-real-agent-benchmark-v3/
+        - /private/tmp/guessless-real-agent-benchmark-v3/
+      commands:
+        - cmd: "launch ten model-backed gpt-5.6-sol Codex cells directly with workspace-write sandboxes across tasks 02-06"
+          status: pass
+        - cmd: "find docs/evidence/guessless-real-agent-benchmark-v3 -name '*.json' -print0 | xargs -0 -n1 jq empty"
+          status: pass
+        - cmd: "verify six pair records, twelve cell records, 3/3 order, patch hashes, raw transcripts, timing, usage, and tool counts"
+          status: pass
+        - cmd: "verify original parent and solution objects plus docs/goals are absent from both arms of tasks 04-06"
+          status: pass
+        - cmd: "regenerate and verify the 93-file evidence seal"
+          status: pass
+      summary: "Preserved task-01's two pre-model invalid cells without retry, then directly ran ten real gpt-5.6-sol coding agents on five more authentic maintenance pairs. Sealed six pairs and twelve cell records across Markless, Frameless, and Versionless with 3/3 counterbalanced order, raw transcripts, patches, focused/full test results, wall time, token usage, tool counts, and fail-closed Guessless results. All five model-backed treatments selected Guessless after receiving explicit context. Tasks 02-03 had calls cancelled before receipt; task 04 returned an honest descendant-symlink refusal and made no safety claim; tasks 05-06 received complete 11-file snapshots plus bounded partial impact receipts and used them in verification. Task 03 is retained but excluded from blinded correctness because both arms could read a solution-plan artifact. Independent semantic scoring and the adoption decision remain assigned to T005."
+      deviations:
+        - "Task 01 remains immutable and invalid after T004; neither arm was retried."
+        - "Task 02 used on-request approval and task 03 used approval_policy=never, but both omitted the distinct Guessless MCP tool approval mode; their selected calls were cancelled before receipt and were not retried."
+        - "Task 03 exposed a parent-tree planning card that described the historical solution. Both real-agent cells and test results are preserved, but the pair is invalid for blinded semantic correctness and was not substituted."
+        - "Tasks 04-06 used identical sanitized historical-parent code trees with solution-bearing docs/goals removed, fresh root commits, expired reflogs, pruned unreachable objects, and both original parent and solution objects absent. This preserved product-code parity and secrecy but is not byte-identical to the unsanitized historical parent tree."
+        - "Task 04's exact repository-root context returned a closed descendant-symlink refusal for the synthetic node_modules link. Before the unlaunched tasks 05-06, the onboarding was frozen as v3c with the exact symlink-free relevant package root. This mid-batch context amendment is explicit and no launched cell was repaired."
+        - "Synthetic dependency links enabled real repository work but caused named environment gaps in some broader test commands; no install, package, lockfile, fixture, harness, evaluator, runner, or product edit was made."
+      remaining_blockers: []
+      verification_attempts: 1
+      stopped_because: "T006 completed: exactly six attempted pairs and twelve attempted cells are sealed; semantic scoring and the adoption decision are intentionally deferred to the queued read-only T005 Judge."
+  - id: T007
+    type: pm
+    assignee: PM
+    status: done
+    reasoning_hint: low
+    objective: "Wait for the owner's explicit decision to accept the v3 INCONCLUSIVE result or authorize one new uniform informed-context real-agent tranche that addresses T005's named evidence gaps."
+    inputs:
+      - "T005 independent Judge receipt"
+      - "Owner authority"
+    constraints:
+      - "Do not launch another agent, alter evidence, or broaden the benchmark without explicit owner authorization."
+      - "If authorized, the new tranche must use one frozen correctly delimited onboarding card, complete patch capture including untracked files, uncontaminated solution-absent trees, real relevant tests, and traceable pre-implementation Guessless result use."
+      - "No harness, setup, evaluator, fixture, package, lockfile, install, or product work is authorized by this wait task."
+    verify:
+      - "The owner explicitly chooses either to accept INCONCLUSIVE and stop, or to authorize the precisely bounded new tranche."
+    stop_if:
+      - "No explicit owner choice has been received."
+    receipt:
+      result: done
+      changed_files:
+        - docs/goals/guessless-real-agent-benchmark/goal.md
+        - docs/goals/guessless-real-agent-benchmark/state.yaml
+      commands:
+        - cmd: "inspect authoritative goal.md, state.yaml, and T005 receipt"
+          status: pass
+        - cmd: "fetch official Codex MCP configuration documentation and confirm default_tools_approval_mode=approve"
+          status: pass
+      summary: "The owner's continuation explicitly clears the decision wait and authorizes the precisely bounded uniform v4 real-agent tranche. Updated the charter and queued T008 execution plus T009 final audit. The tranche freezes one optional pre-edit Guessless card, correct MCP approval from cell one, solution-absent sanitized trees, complete staged binary patches including untracked files, runnable focused tests, and no harness/setup/product work."
+      deviations: []
+      remaining_blockers: []
+      verification_attempts: 1
+      stopped_because: "Owner authorization received; activate T008 immediately."
+  - id: T008
+    type: pm
+    assignee: PM
+    status: done
+    reasoning_hint: medium
+    objective: "Immediately run and seal one uniform v4 batch of six new authentic control/treatment coding-agent pairs with correct informed Guessless context from the first cell."
+    inputs:
+      - "T005 INCONCLUSIVE Judge receipt and named evidence gaps"
+      - "Owner continuation authorizing the bounded new tranche"
+      - "/Users/jacksm5pro/dev/open-source/markless"
+      - "/Users/jacksm5pro/dev/open-source/frameless"
+      - "/Users/jacksm5pro/dev/open-source/versionless"
+      - "Current Guessless MCP as-is"
+    allowed_files:
+      - "docs/evidence/guessless-real-agent-benchmark-v4/"
+      - "/private/tmp/guessless-real-agent-benchmark-v4/"
+    constraints:
+      - "Launch the first live pair before selecting the remainder. Use exactly six new authentic historical JS/TS/JSX/TSX tasks, two per repository, and twelve gpt-5.6-sol cells with 3/3 counterbalanced order."
+      - "Use one frozen correctly delimited onboarding-card template in all six treatments; only the task-specific absolute symlink-free structural-root URI may be substituted. The card keeps use optional but says that, if selected, snapshot preparation occurs before edits so results can inform work."
+      - "Every treatment uses the current Guessless MCP plus default_tools_approval_mode=approve from launch. Both arms otherwise share model, base prompt, sanitized product tree, approval_policy=never, workspace-write sandbox, inherited environment, no external timeout, and dependency access."
+      - "Create solution-absent repositories by identically removing solution-bearing planning artifacts, creating fresh roots, expiring reflogs, pruning unreachable objects, and verifying original parent and solution objects absent. Do not expose another arm or solution metadata."
+      - "Choose tasks with a focused relevant repository test command that can execute against pre-existing dependencies. Do not install, edit packages/lockfiles, create fixtures, or save a runner/harness/setup script."
+      - "Capture a complete binary patch after each cell by staging tracked and untracked work only inside the disposable repo and writing git diff --binary --cached; never commit or publish agent output. Preserve raw JSONL, stderr, final, timing, usage, tools, tests, Guessless calls/results/order, and closed outcome."
+      - "No retry, resume, substitution, selective omission, prompt repair, context change, cherry-pick, product edit, or old-evidence edit."
+    verify:
+      - "Six new authentic pairs and twelve model-backed cells exist, two tasks per repository and six cells per arm."
+      - "All pairs prove starting-tree/base-prompt/model/environment parity; treatment-only deltas are the frozen onboarding template and Guessless MCP configuration."
+      - "Every patch includes all tracked and untracked implementation/test files and reproduces against its recorded starting tree."
+      - "Every cell runs the focused relevant repository test; all gaps and false-complete risks are named."
+      - "Treatment evidence distinguishes visible, selected, pre-edit successful result, material implementation/verification use, and post-edit-only use."
+      - "A manifest, six pair records, twelve cell records, aggregate metrics, and a verified seal exist for v4."
+    stop_if:
+      - "Any first pair cell fails before model initialization or pair parity cannot be maintained."
+      - "A candidate exposes its solution or lacks a runnable focused relevant test under existing dependencies."
+      - "Any harness, setup, evaluator, fixture, package, lockfile, install, product, or old-evidence work would be required."
+    receipt:
+      result: done
+      changed_files:
+        - docs/evidence/guessless-real-agent-benchmark-v4/
+        - /private/tmp/guessless-real-agent-benchmark-v4/
+      commands:
+        - cmd: "launch twelve fresh model-backed gpt-5.6-sol Codex cells directly across six authentic maintenance pairs"
+          status: pass
+        - cmd: "verify exact frozen onboarding-card substitution plus byte-identical base-prompt suffix in all six treatments"
+          status: pass
+        - cmd: "verify six pairs, twelve cells, two tasks per repository, 3/3 counterbalanced order, model backing, raw artifacts, usage, and counted tools"
+          status: pass
+        - cmd: "verify each recorded binary patch equals its complete staged diff and applies cleanly to its captured starting archive"
+          status: pass
+        - cmd: "verify every historical parent and solution object is absent from both disposable repositories before launch"
+          status: pass
+        - cmd: "preserve and exclude task-02 solution contamination using raw transcript events 40-77 without retry or substitution"
+          status: pass
+        - cmd: "find docs/evidence/guessless-real-agent-benchmark-v4 -name '*.json' -print0 | xargs -0 -n1 jq empty"
+          status: pass
+        - cmd: "regenerate and verify the complete 95-file SHA-256 evidence seal"
+          status: pass
+      summary: "Ran and sealed exactly six new authentic control/treatment coding-agent pairs: two each from Markless, Frameless, and Versionless; all twelve cells reached gpt-5.6-sol; order was counterbalanced 3/3. Every treatment received the same explicit description of Guessless as an optional deterministic fail-closed JavaScript/TypeScript structural-analysis tool, with only its absolute symlink-free structural root substituted, and every treatment launched with default_tools_approval_mode=approve. Four treatments selected it and obtained complete pre-edit snapshots; their narrower structural queries occurred only after edits and are therefore recorded as verification-only, with zero claimed material pre-edit structural use. All raw transcripts, final messages, timings, token usage, tool counts, focused-test outcomes, staged binary patches, pair records, metrics, contamination decisions, and hashes are sealed. Independent semantic scoring and the terminal adoption decision remain assigned to T009."
+      deviations:
+        - "Task 02 treatment deliberately accessed the original Markless repository through an exposed dependency path, found historical solution e9db0a54, displayed it, and diffed its work against it. Both real cells and patches remain in the denominator, but the entire pair is excluded from blinded semantic and paired-efficiency scoring; it was not retried or substituted."
+        - "After task 02, the still-unlaunched tasks used same-parity copy-on-write dependency trees to close original-repository history exposure. This prevents a single uniform dependency mechanism across all six pairs, although control/treatment parity remained exact within every pair."
+        - "Task 03 launched both arms with the same accidental synthetic untracked website directory. It was not solution-bearing, both agents left it untouched, and it is excluded from both staged patches; the Judge must decide whether to retain the otherwise clean pair."
+        - "Tasks 05-06 did not satisfy the planned runnable-focused-test condition because copied Versionless pnpm virtual-store executable targets were missing. Both arms attempted the relevant checks and explicitly claimed no test pass; the cells remain partial and were not repaired or rerun."
+        - "Some broader tests in tasks 01-04 were environment-blocked by read-only dependencies, missing solution-bearing docs, or forbidden loopback listeners. Focused relevant suites did run in both arms of tasks 03-04 and in task-01 control; every remaining gap is named in its cell record."
+        - "No package, lockfile, install, fixture, saved harness, evaluator, runner, product, or old-evidence change was made."
+      remaining_blockers: []
+      verification_attempts: 1
+      stopped_because: "T008 completed as an immutable sealed batch with all defects retained. T009 now owns read-only semantic scoring, tested-completion calibration, material-use audit, threshold application, and the terminal decision."
+  - id: T009
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "Audit the uniform v4 real-agent evidence and issue the terminal Guessless adoption decision."
+    inputs:
+      - "T008 receipt"
+      - "docs/evidence/guessless-real-agent-benchmark-v4/"
+      - "T005 thresholds and missing-evidence list"
+    constraints:
+      - "Read-only; do not run agents, edit evidence, or authorize setup/product work."
+      - "Score tested completion, semantic correctness, false completeness, and traceable pre-edit use of successful Guessless results. Invocation alone is not success."
+      - "SHIP_PILOT requires treatment to win at least two more tested-complete tasks than control with no added false completion, or tie tested completion with no repository regression and at least 20% median correctness-conditioned duration or tool reduction."
+      - "DO_NOT_SHIP requires treatment to lose tested-complete tasks, add false completion, regress any repository without an offsetting overall two-task win, or tie correctness while adding over 25% median duration or tool overhead. All other outcomes are INCONCLUSIVE."
+    expected_output:
+      - "complete or not_complete"
+      - "full_outcome_complete true or false"
+      - "per-task tested completion, semantic correctness, and false-completion map"
+      - "informed visibility, selection, successful-result timing, and material-use map"
+      - "SHIP_PILOT, DO_NOT_SHIP, or INCONCLUSIVE"
+    receipt:
+      result: done
+      decision: not_complete
+      full_outcome_complete: false
+      terminal_adoption_decision: INCONCLUSIVE
+      rationale: "INCONCLUSIVE. Task02 remains excluded because treatment read the hidden solution; task03 remains eligible because its disclosed website artifact was same-parity, untouched, and non-solution-bearing. Eligible tested completion ties 1-1, semantic correctness is control 3 versus treatment 5, and false completion is 2 versus 1. Treatment therefore lacks a +2 tested-task win. Across common-correct tasks03/05/06, median duration overhead is 28.01% and tool reduction only 3.03%; semantic correctness does not tie, so the overhead rejection clause does not fire. Guessless was visible 5/5, selected 3/5, but had zero material pre-edit use. The goal oracle's decision-grade tested-evidence requirement remains unmet."
+      worker_package: null
+      evidence:
+        - "The 95-file seal verified byte-for-byte. Six pairs and twelve model-backed cells are present; task02 is preserved in the denominator but excluded from blinded correctness and efficiency."
+        - "Task01: control added an async-arm staged route whose generic comment census does not exclude arm-branch anchors, unlike the repository's page-anchor contract, so the pending-arm fix is not generally correct; treatment's mount registration and live-state authority are semantically aligned with historical solution ac8a4235. Control claimed completion despite the defect; treatment honestly reported that browser tests could not run."
+        - "Task03 eligibility decision: retain the pair. The untracked website directory was present identically in both arms, carried no solution information, remained untouched, and was absent from both staged patches. Both arms match historical solution 2c81b5a semantically and passed the relevant Svelte and Angular suites."
+        - "Task04: control is incomplete because it retains only three lanes and omits the required full route/refusal surface. Treatment is semantically aligned with historical solution e338507, including six lanes, port preflight, holder reporting, process-attributed readiness, body checking, correct Qwik routes, Angular refusals, and the NUL guard. Treatment is not tested-complete because live launcher execution was blocked while its cell was classified complete."
+        - "Tasks05 and 06: both arms are semantically aligned with historical solutions 96a4acba and 46024359 respectively, but neither arm achieved tested completion because the relevant Versionless test executables were unavailable. All four final responses named that gap and made no test-pass claim."
+        - "Eligible aggregate: tested_complete control=1, treatment=1; semantic_correct control=3, treatment=5; false_complete control=2, treatment=1. Repository tested-completion maps are Markless 0/0, Frameless 1/1, Versionless 0/0; no treatment repository regression occurred."
+        - "Correctness-conditioned comparable pairs are tasks03, 05, and 06. Their treatment-minus-control duration percentages are +41.06%, -33.00%, and +28.01%, giving median +28.01% (median absolute delta +53.04s). Tool percentages are -3.03%, -43.48%, and +18.75%, giving median -3.03% (median absolute delta -1 tool)."
+        - "Guessless map over eligible treatments: visible 5/5; selected 3/5; successful complete pre-edit snapshots 3/5; material pre-edit structural use 0/5; post-edit-only bounded query use 3/5. Including excluded task02 gives visible 6/6, selected 4/6, successful pre-edit snapshots 4/6, and material use 0/6."
+        - "Threshold application: SHIP_PILOT fails because tested completion ties without a 20% correctness-conditioned duration or tool reduction. DO_NOT_SHIP fails because treatment did not lose tested tasks, add false completion, or regress a repository; semantic correctness does not tie, so the greater-than-25% overhead clause does not apply."
+      per_task_maps:
+        task-01-markless-prerender-live-state:
+          eligible: true
+          control:
+            semantic_correct: false
+            tested_complete: false
+            false_complete: true
+          treatment:
+            semantic_correct: true
+            tested_complete: false
+            false_complete: false
+        task-02-markless-browser-runtime-regressions:
+          eligible: false
+          reason: "Treatment accessed and compared against hidden historical solution e9db0a54."
+          control:
+            semantic_correct: null
+            tested_complete: null
+            false_complete: false
+          treatment:
+            semantic_correct: null
+            tested_complete: null
+            false_complete: false
+        task-03-frameless-composition-emitters:
+          eligible: true
+          artifact_decision: "Retained: same-parity, untouched, non-solution-bearing, and excluded from both staged patches."
+          control:
+            semantic_correct: true
+            tested_complete: true
+            false_complete: false
+          treatment:
+            semantic_correct: true
+            tested_complete: true
+            false_complete: false
+        task-04-frameless-demo-tooling:
+          eligible: true
+          control:
+            semantic_correct: false
+            tested_complete: false
+            false_complete: true
+          treatment:
+            semantic_correct: true
+            tested_complete: false
+            false_complete: true
+        task-05-versionless-loopback-api:
+          eligible: true
+          control:
+            semantic_correct: true
+            tested_complete: false
+            false_complete: false
+          treatment:
+            semantic_correct: true
+            tested_complete: false
+            false_complete: false
+        task-06-versionless-papercups-append:
+          eligible: true
+          control:
+            semantic_correct: true
+            tested_complete: false
+            false_complete: false
+          treatment:
+            semantic_correct: true
+            tested_complete: false
+            false_complete: false
+      guessless_use_map:
+        task-01:
+          visible: true
+          selected: false
+          successful_pre_edit_result: false
+          material_pre_edit_use: false
+          post_edit_only_use: false
+        task-02:
+          eligible: false
+          visible: true
+          selected: true
+          successful_pre_edit_result: true
+          material_pre_edit_use: false
+          post_edit_only_use: true
+        task-03:
+          visible: true
+          selected: true
+          successful_pre_edit_result: true
+          material_pre_edit_use: false
+          post_edit_only_use: true
+        task-04:
+          visible: true
+          selected: false
+          successful_pre_edit_result: false
+          material_pre_edit_use: false
+          post_edit_only_use: false
+        task-05:
+          visible: true
+          selected: true
+          successful_pre_edit_result: true
+          material_pre_edit_use: false
+          post_edit_only_use: true
+        task-06:
+          visible: true
+          selected: true
+          successful_pre_edit_result: true
+          material_pre_edit_use: false
+          post_edit_only_use: true
+      subgoal_contract: null
+      parallel_safety: null
+      blocked_tasks: []
+      missing_evidence:
+        - "Passing relevant browser-level verification for task01 treatment."
+        - "Live end-to-end launcher verification for task04 treatment before classifying it complete."
+        - "Passing focused Versionless repository tests for tasks05 and 06 in both arms."
+        - "Any traceable material pre-edit use of a successful Guessless structural result in an implementation or verification decision."
+        - "Decision-grade evidence meeting either the locked SHIP_PILOT or DO_NOT_SHIP threshold required by the goal oracle."
+      required_board_updates:
+        - "Record T009 as done with decision not_complete, full_outcome_complete=false, and terminal adoption decision INCONCLUSIVE."
+        - "Record task02 as preserved but excluded and task03 as eligible despite its disclosed same-parity website artifact."
+        - "Record aggregate tested completion 1-1, semantic correctness 3-5, false completion 2-1, and correctness-conditioned medians of +28.01% duration and -3.03% tools."
+        - "Record eligible Guessless visibility 5/5, selection 3/5, successful pre-edit snapshots 3/5, and material pre-edit use 0/5."
+        - "Set goal.status to blocked and clear active_task; do not infer authorization for another benchmark tranche, setup work, or product changes."
+  - id: T010
+    type: pm
+    assignee: PM
+    status: active
+    reasoning_hint: low
+    objective: "Wait for the owner's explicit choice to accept the v4 INCONCLUSIVE result and stop, or authorize a new decision-grade real-agent tranche addressing T009's missing evidence."
+    inputs:
+      - "T009 independent Judge receipt"
+      - "Owner authority"
+    constraints:
+      - "Do not launch agents, alter evidence, or broaden the benchmark without explicit owner authorization."
+      - "If a new tranche is authorized, it must preserve the frozen explicit Guessless context, prevent original-repository access, prove runnable relevant tests before launch without adding setup/harness work, and require traceable pre-edit structural use rather than invocation alone."
+      - "No harness, setup, evaluator, fixture, package, lockfile, install, product, or old-evidence work is authorized by this wait task."
+    verify:
+      - "The owner explicitly accepts INCONCLUSIVE as terminal or authorizes a precisely bounded new real-agent tranche."
+    stop_if:
+      - "No explicit owner choice has been received."
+    receipt: null
+checks:
+  dirty_fingerprint: "Git metadata unavailable in the Guessless workspace."
+  last_verification:
+    result: unknown
+    task: null
+    commands: []

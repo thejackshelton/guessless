@@ -1,0 +1,16 @@
+{
+	"name": "@guessless/evaluation",
+	"version": "0.0.1",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"evaluation:record": "node ./dist/cli.js record",
+		"evaluation:verify": "node ./dist/cli.js verify",
+		"evaluation:calibrate": "node ./dist/cli.js calibrate",
+		"evaluation:v6-verify-prereg": "node ./dist/cli.js v6-verify-prereg",
+		"evaluation:v6-preflight": "node ./dist/cli.js v6-preflight --fake"
+	},
+	"dependencies": {
+		"@guessless/engine": "workspace:*"
+	}
+}

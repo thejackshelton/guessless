@@ -1,0 +1,93 @@
+{
+	"schema": "guessless.safe-change-summary/v1",
+	"state": "partial",
+	"request": {
+		"kind": "safeChangeImpact",
+		"snapshot": "30b81ee5778c917ff35c89777e41eb23c6d6b792b310e7655060642dbe770fdc",
+		"intent": "delete",
+		"target": {
+			"schema": "guessless.symbol-anchor/v1",
+			"file": "src/diff.js",
+			"semanticPath": [
+				"global:scope:Program",
+				"module:scope:Program",
+				"symbol:direct",
+				"declaration:FunctionDeclaration"
+			],
+			"fingerprint": "77907d3da8526537c33ebfd4c7a036373d7e1af8db294ed4184d5afca0bb4a8c"
+		}
+	},
+	"snapshot": "30b81ee5778c917ff35c89777e41eb23c6d6b792b310e7655060642dbe770fdc",
+	"sites": [
+		{
+			"id": "23e7373f1354689699f90edde41e3accbc1483addd969de7be845efbbb2d8841",
+			"file": "src/diff.js",
+			"label": "symbol:direct"
+		},
+		{
+			"id": "bf8681545e1155b071c5b724fd1451c990ce6126c6eb68148fa610a180753926",
+			"file": "src/diff.js",
+			"label": "site:reference"
+		},
+		{
+			"id": "1dd2118974ce46f78394c3fa25034f520d75e9549f80e2c8dd8a1c692830c5fa",
+			"file": "src/diff.js",
+			"label": "site:reference"
+		},
+		{
+			"id": "86d7898f7f3da5e6e75928d4f8c3456ce76b1a51ed5e0cb0a44ae5d2897cad47",
+			"file": "src/diff.js",
+			"label": "site:import-boundary"
+		},
+		{
+			"id": "182b8a9f064d634dd6971159d8aa2613c29721c0ec926076fac136130467e31e",
+			"file": "src/diff.js",
+			"label": "site:import-boundary"
+		}
+	],
+	"results": [
+		{
+			"site": 0,
+			"roles": [
+				"declaration",
+				"reference",
+				"export"
+			]
+		},
+		{
+			"site": 1,
+			"roles": [
+				"reference",
+				"read",
+				"call",
+				"export"
+			]
+		},
+		{
+			"site": 2,
+			"roles": [
+				"reference",
+				"read",
+				"call",
+				"export"
+			]
+		}
+	],
+	"unresolved": [
+		{
+			"site": 3,
+			"reason": "external-module-boundary"
+		},
+		{
+			"site": 4,
+			"reason": "external-module-boundary"
+		}
+	],
+	"proofHandle": "18458ee2e3cba060f85c42375c81583b72a28eecfd237a725d13b03e876d2705",
+	"counts": {
+		"sites": 5,
+		"results": 3,
+		"unresolved": 2
+	},
+	"integrity": "3e3c65c86c643b54f07ddee44bc0f2f686db46232992c30f6673e2f1c1899bd4"
+}

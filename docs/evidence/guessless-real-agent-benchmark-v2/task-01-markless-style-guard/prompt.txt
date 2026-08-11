@@ -1,0 +1,1 @@
+Fix the TypeScript plugin so editor @-construct completions are not offered while the cursor is inside a local <style> block. Handle embedded-style identity robustly across URI transport and keep recovery safe for incomplete CSS being typed. Add focused regression coverage, implement the change, and run the most relevant available tests. Do not merely describe the fix.

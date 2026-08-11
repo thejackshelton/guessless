@@ -1,0 +1,263 @@
+{
+	"schema": "guessless.safe-change-summary/v1",
+	"state": "partial",
+	"request": {
+		"kind": "safeChangeImpact",
+		"snapshot": "cf08f46e0c4a47183ec232b940eb41c6d80121943314ab38117bb3032091f457",
+		"intent": "delete",
+		"target": {
+			"schema": "guessless.symbol-anchor/v1",
+			"file": "lib/arguments/cwd.js",
+			"semanticPath": [
+				"global:scope:Program",
+				"module:scope:Program",
+				"symbol:normalizeCwd",
+				"declaration:VariableDeclarator"
+			],
+			"fingerprint": "d56429a8f9f3cf773ea849e63619ac68ca8aaee8df02975c027c46eb4cf86fab"
+		}
+	},
+	"snapshot": "cf08f46e0c4a47183ec232b940eb41c6d80121943314ab38117bb3032091f457",
+	"sites": [
+		{
+			"id": "97a59bd5f7e98fa85659a9893d1354c257d3d188468b5758e3722b873f4e51b8",
+			"file": "lib/arguments/cwd.js",
+			"label": "symbol:normalizeCwd"
+		},
+		{
+			"id": "7d1d3815502c361b3772884892f8d3c1f6b491342fe9b407b6935a17ba030401",
+			"file": "lib/arguments/options.js",
+			"label": "site:safe-change-import"
+		},
+		{
+			"id": "f6e80e3c3c52103ca0979d0fee5230ddaa60057e7c8c7fdd867faae7c87443fb",
+			"file": "lib/arguments/options.js",
+			"label": "site:reference"
+		},
+		{
+			"id": "d3e92e45a699e74231f2572a0f127334151f7e84dd31485a04c9728bf30a6d16",
+			"file": "lib/arguments/cwd.js",
+			"label": "site:import-boundary"
+		},
+		{
+			"id": "04d67316f6dd1fd7d8f86dec9f0930525321774ef15b0c45afdcbcc5a1f1d473",
+			"file": "lib/arguments/cwd.js",
+			"label": "site:import-boundary"
+		},
+		{
+			"id": "c76d0a317720c17970d1e2238305ffdb927b80cbf1020a45b38a6a8263c731ad",
+			"file": "lib/arguments/cwd.js",
+			"label": "site:import-boundary"
+		},
+		{
+			"id": "10f63c6a909f44a08f6d833507b344ee05b625022a813db48ae0423a2c01f394",
+			"file": "lib/arguments/file-url.js",
+			"label": "site:import-boundary"
+		},
+		{
+			"id": "9dce44c480b50df71e8c3d21cf6f24bee8ac50eae015343a32159245f99b18c1",
+			"file": "lib/arguments/options.js",
+			"label": "site:import-boundary"
+		},
+		{
+			"id": "fa9d6a51741bc27b349eb618686504f5cf96973b651a39cd320e750dadab6056",
+			"file": "lib/arguments/options.js",
+			"label": "site:import-boundary"
+		},
+		{
+			"id": "771d54665a917dffb825ead64c23400e7b578ed5bf91b0052e7a37eee5d58bfc",
+			"file": "lib/arguments/options.js",
+			"label": "site:import-boundary"
+		},
+		{
+			"id": "f49d4ce7779d11e74ac6b7159a8322985c49bf0c711d79a10015cbdcb1d574b7",
+			"file": "lib/methods/create.js",
+			"label": "site:import-boundary"
+		},
+		{
+			"id": "e61b4a7c1ff9741d8c79b41b241776376ee49aae6e1b867558fd7f225d15e8c0",
+			"file": "lib/methods/main-async.js",
+			"label": "site:import-boundary"
+		},
+		{
+			"id": "12403875fe7a5dd11ea6976fcf9b647c41345f40f072f089b550216b95556c16",
+			"file": "lib/methods/main-async.js",
+			"label": "site:import-boundary"
+		},
+		{
+			"id": "022bc119058009471acb1813e124895d4fe326315d431b84bdfbb3de973d27dd",
+			"file": "lib/methods/main-async.js",
+			"label": "site:import-boundary"
+		},
+		{
+			"id": "4c6b3f91eefe91ddeac18dce25b9dc252b63660abfdbc8a74a471362e0f87b35",
+			"file": "lib/methods/main-sync.js",
+			"label": "site:import-boundary"
+		},
+		{
+			"id": "6b5a384bfc5b538a12ec86d2bc80a057620cd4dc6d977881f4348221db3df887",
+			"file": "lib/pipe/abort.js",
+			"label": "site:import-boundary"
+		},
+		{
+			"id": "132a3e67874278cbe2bad7408ec1eaa2e619a939c1ccef44936b0ac2dc4b0d91",
+			"file": "lib/pipe/setup.js",
+			"label": "site:import-boundary"
+		},
+		{
+			"id": "2e1bd5fd71363597028b56eff361a7e57c795602e2248398bed10525fb4cc700",
+			"file": "lib/return/early-error.js",
+			"label": "site:import-boundary"
+		},
+		{
+			"id": "960ec40a69217b8dff440fc4094e02bbf1b157c02e13f4f9f2bd094cdf191dd2",
+			"file": "lib/return/early-error.js",
+			"label": "site:import-boundary"
+		},
+		{
+			"id": "661e8e433554495603eb94cc24ba75798ab8cddb585b94f8daf6271c72cb521d",
+			"file": "lib/return/early-error.js",
+			"label": "site:import-boundary"
+		},
+		{
+			"id": "dd22ff450cc07f7880d1d332e33269ceb8a83b4f6a53c98a1b7c2908e78f11ca",
+			"file": "lib/return/early-error.js",
+			"label": "site:import-boundary"
+		},
+		{
+			"id": "34f201faa8aa32656d9fb389534a83780722834722763999e126f96981c666d9",
+			"file": "lib/return/early-error.js",
+			"label": "site:import-boundary"
+		},
+		{
+			"id": "da2f5c1aa43fbca9c81e23bb4de98959d9e11d19345d91594adf6aa3796e08d0",
+			"file": "lib/return/message.js",
+			"label": "site:import-boundary"
+		},
+		{
+			"id": "98e6dcb5e3a927d44863121fef382ad9b7e96de9c9359e331401a4973619f742",
+			"file": "lib/return/message.js",
+			"label": "site:import-boundary"
+		}
+	],
+	"results": [
+		{
+			"site": 0,
+			"roles": [
+				"declaration",
+				"reference",
+				"export"
+			]
+		},
+		{
+			"site": 1,
+			"roles": [
+				"reference",
+				"import"
+			]
+		},
+		{
+			"site": 2,
+			"roles": [
+				"reference",
+				"read",
+				"call",
+				"import",
+				"export"
+			]
+		}
+	],
+	"unresolved": [
+		{
+			"site": 3,
+			"reason": "builtin-module-boundary"
+		},
+		{
+			"site": 4,
+			"reason": "builtin-module-boundary"
+		},
+		{
+			"site": 5,
+			"reason": "builtin-module-boundary"
+		},
+		{
+			"site": 6,
+			"reason": "builtin-module-boundary"
+		},
+		{
+			"site": 7,
+			"reason": "builtin-module-boundary"
+		},
+		{
+			"site": 8,
+			"reason": "builtin-module-boundary"
+		},
+		{
+			"site": 9,
+			"reason": "external-module-boundary"
+		},
+		{
+			"site": 10,
+			"reason": "external-module-boundary"
+		},
+		{
+			"site": 11,
+			"reason": "external-module-boundary"
+		},
+		{
+			"site": 12,
+			"reason": "builtin-module-boundary"
+		},
+		{
+			"site": 13,
+			"reason": "builtin-module-boundary"
+		},
+		{
+			"site": 14,
+			"reason": "builtin-module-boundary"
+		},
+		{
+			"site": 15,
+			"reason": "builtin-module-boundary"
+		},
+		{
+			"site": 16,
+			"reason": "external-module-boundary"
+		},
+		{
+			"site": 17,
+			"reason": "builtin-module-boundary"
+		},
+		{
+			"site": 18,
+			"reason": "builtin-module-boundary"
+		},
+		{
+			"site": 19,
+			"reason": "builtin-module-boundary"
+		},
+		{
+			"site": 20,
+			"reason": "builtin-module-boundary"
+		},
+		{
+			"site": 21,
+			"reason": "builtin-module-boundary"
+		},
+		{
+			"site": 22,
+			"reason": "external-module-boundary"
+		},
+		{
+			"site": 23,
+			"reason": "builtin-module-boundary"
+		}
+	],
+	"proofHandle": "1dfe72adedc9793acc748c5e4583d190c5d15ca141fa9da60e8c7a202c60dfd4",
+	"counts": {
+		"sites": 24,
+		"results": 3,
+		"unresolved": 21
+	},
+	"integrity": "975692428ee23b6431e849b237b5e1a6f30f6f64346ace028da35a4ff0df8a6a"
+}

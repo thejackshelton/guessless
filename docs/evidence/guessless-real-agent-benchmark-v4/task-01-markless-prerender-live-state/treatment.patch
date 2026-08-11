@@ -1,0 +1,254 @@
+diff --git a/packages/vitest-browser/browser/arm-commit.test.ts b/packages/vitest-browser/browser/arm-commit.test.ts
+index 85b8d41..787d16a 100644
+--- a/packages/vitest-browser/browser/arm-commit.test.ts
++++ b/packages/vitest-browser/browser/arm-commit.test.ts
+@@ -58,6 +58,9 @@ test('CSR: a settled arm re-commits on computed re-run and stays interactive; ou
+ 	await expect
+ 		.poll(() => container.querySelector('em[data-badge]')?.textContent)
+ 		.toBe('Report beta');
++	// The arm renderer must read authored cells from the live graph. Before this
++	// regression fix the fresh arm showed the compile-time seed, "alpha".
++	expect(container.querySelector('output[data-query]')?.textContent).toBe('beta');
+ 
+ 	// The re-committed arm's button still fires (fresh registration)…
+ 	requireElement<HTMLButtonElement>(container, 'button[data-pick]').click();
+diff --git a/packages/vitest-browser/browser/fixtures/arm-commit-refresh.tsrx b/packages/vitest-browser/browser/fixtures/arm-commit-refresh.tsrx
+index accebf6..a0063a5 100644
+--- a/packages/vitest-browser/browser/fixtures/arm-commit-refresh.tsrx
++++ b/packages/vitest-browser/browser/fixtures/arm-commit-refresh.tsrx
+@@ -22,6 +22,7 @@ export function App() @{
+ 		@try {
+ 			<>
+ 				<ReportBadge label={report.title} />
++				<output data-query>{query}</output>
+ 				<button type="button" data-pick onClick={() => picked = 'picked:' + report.title}>Pick</button>
+ 			</>
+ 		} @pending {
+diff --git a/packages/web/src/prerender/evaluator.ts b/packages/web/src/prerender/evaluator.ts
+index cd4ab30..bd32247 100644
+--- a/packages/web/src/prerender/evaluator.ts
++++ b/packages/web/src/prerender/evaluator.ts
+@@ -307,6 +307,9 @@ async function evaluatePrerenderDataComponent(input: {
+ 		throw new Error(`MARKLESS_PRERENDER_DATA_COMPONENT_MISSING: ${input.componentName}`);
+ 	}
+ 	const values = new Map<string, unknown>([['prop:props', input.props]]);
++	const authoredStateCellIds = new Set(
++		definition.state.cells.map((cell) => cell.graphNodeId),
++	);
+ 	for (const initial of definition.initialValues ?? []) {
+ 		if (initial.value.kind === 'constant') {
+ 			values.set(initial.graphNodeId, structuredClone(initial.value.value));
+@@ -319,6 +322,13 @@ async function evaluatePrerenderDataComponent(input: {
+ 		if (graphNodeId.startsWith('prop:')) {
+ 			return readPath(input.props[graphNodeId.slice(5)], path);
+ 		}
++		// A browser re-settle runs after authored state may have changed. Those
++		// cells are owned by the live graph; their compiler initializers are only
++		// the seed used before resume. Props retain their explicit authority above,
++		// while locally evaluated computed values retain theirs below.
++		if (input.graph && authoredStateCellIds.has(graphNodeId)) {
++			return input.graph.read(graphNodeId, path);
++		}
+ 		// A settled child can introduce a sync computed that did not exist in the
+ 		// pending group's graph. Its derived value is already known here and must
+ 		// render from this component's evaluation before registration publishes it
+@@ -378,8 +388,10 @@ async function evaluatePrerenderDataComponent(input: {
+ 		cells: definition.state.cells
+ 			.filter((cell) => owned.size === 0 || owned.has(cell.graphNodeId))
+ 			.map((cell) =>
+-				values.has(cell.graphNodeId)
+-					? { ...cell, value: undefined, directValue: values.get(cell.graphNodeId) }
++				input.graph && authoredStateCellIds.has(cell.graphNodeId)
++					? { ...cell, value: undefined, directValue: input.graph.read(cell.graphNodeId, []) }
++					: values.has(cell.graphNodeId)
++						? { ...cell, value: undefined, directValue: values.get(cell.graphNodeId) }
+ 					: { ...cell },
+ 			),
+ 		computed: definition.state.computed
+diff --git a/packages/web/src/render-canonical.ts b/packages/web/src/render-canonical.ts
+index a96e9cb..51b42df 100644
+--- a/packages/web/src/render-canonical.ts
++++ b/packages/web/src/render-canonical.ts
+@@ -1,6 +1,9 @@
+ import type { ResumeDomElement } from './resume.ts';
+ import type { CsrRenderArtifact, CsrRenderOutput, RenderTarget } from './render.ts';
+ import { materializeDomLocators } from './resume-locators.ts';
++import { materializeArmRecords } from './resume-arm-records.ts';
++import { isArmBranchAnchorComment } from './resume-anchor-census.ts';
++import type { ResumeDomComment, ResumeDomNode } from './resume-types.ts';
+ 
+ export async function renderCanonicalClientOutput(
+ 	component: CsrRenderArtifact,
+@@ -50,18 +53,49 @@ function clientOutputFromHtml(
+ 			? template.content.firstChild
+ 			: template.content;
+ 	if (!root) throw new Error('MARKLESS_CANONICAL_CLIENT_ROOT_MISSING');
++	const liveHostNodes = records.view
++		? materializeCanonicalHostNodes(root as unknown as ResumeDomElement, records.view)
++		: undefined;
+ 	return {
+ 		root: root as unknown as ResumeDomElement,
+ 		...records,
+-		liveHostNodes: records.view
+-			? materializeDomLocators(
+-					root as unknown as ResumeDomElement,
+-					records.view.locators,
+-				)
+-			: undefined,
++		liveHostNodes,
+ 	};
+ }
+ 
++// Canonical CSR installs delegated triggers before the deferred resume runtime
++// starts. Include hosts from the arm that is already in the DOM so a pending-arm
++// interaction is live from the instant the mount becomes visible.
++function materializeCanonicalHostNodes(
++	root: ResumeDomElement,
++	view: NonNullable<CsrRenderOutput['view']>,
++) {
++	let elements = materializeDomLocators(root, view.locators);
++	const comments: ResumeDomComment[] = [];
++	(function visit(node: ResumeDomNode): void {
++		if (node.nodeType === 8 && !isArmBranchAnchorComment(node as ResumeDomComment))
++			comments.push(node as ResumeDomComment);
++		for (const child of node.childNodes ?? []) visit(child);
++	})(root);
++	for (const boundary of view.asyncBoundaries) {
++		const armRecords = boundary.armRecords;
++		if (!armRecords || Array.isArray(armRecords)) continue;
++		const startAnchor = comments[boundary.startAnchor.index];
++		const endAnchor = comments[boundary.endAnchor.index];
++		if (!startAnchor || !endAnchor) {
++			throw new Error(`MARKLESS_CANONICAL_ASYNC_ANCHOR_MISSING: ${boundary.id}`);
++		}
++		elements = materializeArmRecords({
++			root,
++			startAnchor,
++			endAnchor,
++			armRecords,
++			elementsByHostId: elements,
++		}).elementsByHostId;
++	}
++	return elements;
++}
++
+ function missingCanonicalSymbol(symbolId: string): never {
+ 	throw new Error(`MARKLESS_CANONICAL_SYMBOL_MISSING: ${symbolId}`);
+ }
+diff --git a/packages/web/src/render-csr.ts b/packages/web/src/render-csr.ts
+index 1d7c971..3329128 100644
+--- a/packages/web/src/render-csr.ts
++++ b/packages/web/src/render-csr.ts
+@@ -169,7 +169,7 @@ async function registerDelegatedTriggerDebug(
+ ): Promise<void> {
+ 	const debug = await import('./debug-channel.ts');
+ 	debug.__marklessDebugStartContainer(output.root as unknown as Element, 'csr', false);
+-	for (const record of view.events) {
++	for (const record of servedAsyncArmEvents(view, view.events)) {
+ 		if (record.eventName === 'visible') continue;
+ 		const element =
+ 			output.liveHostNodes?.get(record.hostNodeId) ??
+@@ -289,7 +289,7 @@ function installDelegatedTriggers(
+ 		recordsByElement.set(element, records);
+ 		installEventListener(record.eventName);
+ 	};
+-	for (const record of view.events) {
++	for (const record of servedAsyncArmEvents(view, view.events)) {
+ 		if (record.eventName === 'visible') continue;
+ 		const element =
+ 			output.liveHostNodes?.get(record.hostNodeId) ??
+@@ -308,6 +308,20 @@ function installDelegatedTriggers(
+ 	};
+ }
+ 
++function servedAsyncArmEvents(
++	view: ProtocolViewPayload,
++	pageEvents: ReadonlyArray<ProtocolEventRecord> = [],
++): ReadonlyArray<ProtocolEventRecord> {
++	return [
++		...pageEvents,
++		...view.asyncBoundaries.flatMap((boundary) =>
++			boundary.armRecords && !Array.isArray(boundary.armRecords)
++				? boundary.armRecords.events
++				: [],
++		),
++	];
++}
++
+ type CsrDomJournalTarget = {
+ 	textContent?: string | null;
+ 	setAttribute?: (name: string, value: string) => void;
+diff --git a/packages/web/src/settle-kernel.ts b/packages/web/src/settle-kernel.ts
+index 5cf9c44..517687d 100644
+--- a/packages/web/src/settle-kernel.ts
++++ b/packages/web/src/settle-kernel.ts
+@@ -164,8 +164,15 @@ export function renderSettledArm(input: SettleKernelInput): SettleKernelOutput {
+ 	const constants = new Map<string, unknown>();
+ 	for (const initial of definition.initialValues ?? [])
+ 		constants.set(initial.graphNodeId, initial.value.value);
++	const authoredStateCellIds = new Set(
++		(definition.state?.cells ?? []).flatMap((cell) =>
++			typeof cell.graphNodeId === 'string' ? [cell.graphNodeId] : [],
++		),
++	);
+ 	const read: SettleKernelRead = (graphNodeId, path = []) =>
+-		constants.has(graphNodeId)
++		authoredStateCellIds.has(graphNodeId)
++			? input.read(graphNodeId, path)
++			: constants.has(graphNodeId)
+ 			? readPath(constants.get(graphNodeId), path)
+ 			: input.read(graphNodeId, path);
+ 
+diff --git a/packages/web/test/settle-kernel.test.ts b/packages/web/test/settle-kernel.test.ts
+index cd97e91..37651bc 100644
+--- a/packages/web/test/settle-kernel.test.ts
++++ b/packages/web/test/settle-kernel.test.ts
+@@ -329,6 +329,48 @@ test('record parity: attribute hole', async () => {
+ 	expect(kernel.armRecords).toEqual(full.armRecords);
+ });
+ 
++test('interaction re-settle reads authored state cells from the live graph', async () => {
++	const surface = feedSurface() as any;
++	const definition = surface.components.Feed;
++	definition.state.cells.push({
++		graphNodeId: 'state:label',
++		name: 'label',
++		valueKind: 'scalar',
++		value: 'initial',
++	});
++	definition.stateGraphNodeIds.push('state:label');
++	definition.initialValues.push({
++		graphNodeId: 'state:label',
++		value: { kind: 'constant', value: 'initial' },
++	});
++	const tryChunk = surface.renderData.chunks.find(
++		(chunk: { readonly id: string }) => chunk.id === 'arm:try',
++	);
++	tryChunk.statics = ['<p data-live-state><!--markless-slot:0-->', '</p>'];
++	tryChunk.hosts = [
++		{ hostNodeId: 'h4', tagName: 'p', coordinate: { kind: 'child-index', path: [0] } },
++	];
++	tryChunk.slots = [
++		{
++			kind: 'text',
++			staticIndex: 0,
++			coordinate: { kind: 'comment-anchor', path: [0, 0] },
++			residue: { kind: 'graph-read', graphNodeId: 'state:label', path: [] },
++		},
++	];
++	const graph = {
++		read(graphNodeId: string, path: ReadonlyArray<string> = []) {
++			if (graphNodeId === 'state:label') return 'after-click';
++			return fulfilledGraph({ source: 'live', updates: [] }).read(graphNodeId, path);
++		},
++	};
++
++	const { kernel, full } = await bothPaths(surface, graph);
++
++	expect(kernel.html).toContain('after-click');
++	expect(kernel.html).toBe(full.html);
++});
++
+ test('record parity: a value carrying markup characters survives as text', async () => {
+ 	const graph = fulfilledGraph({
+ 		source: 'live',

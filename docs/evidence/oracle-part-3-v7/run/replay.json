@@ -1,0 +1,439 @@
+{
+	"integrity": "25c940a96128391eaf70f9c9693ecfd33095608c8e7955ec17ecf0a5726497bf",
+	"outcome": "partial-NO_GO",
+	"records": [
+		{
+			"accounting": null,
+			"cellId": "v7-01-ufo-rename-encode-query-item-full",
+			"reason": "v7 JSONL event follows terminal turn",
+			"status": "completed"
+		},
+		{
+			"accounting": null,
+			"cellId": "v7-02-ufo-rename-encode-query-item-paged",
+			"reason": "completion-impossible",
+			"status": "unrun"
+		},
+		{
+			"accounting": null,
+			"cellId": "v7-03-ufo-rename-encode-query-item-control",
+			"reason": "completion-impossible",
+			"status": "unrun"
+		},
+		{
+			"accounting": null,
+			"cellId": "v7-04-ufo-rename-encode-query-item-production",
+			"reason": "completion-impossible",
+			"status": "unrun"
+		},
+		{
+			"accounting": null,
+			"cellId": "v7-05-ufo-rename-with-trailing-slash-paged",
+			"reason": "completion-impossible",
+			"status": "unrun"
+		},
+		{
+			"accounting": null,
+			"cellId": "v7-06-ufo-rename-with-trailing-slash-full",
+			"reason": "completion-impossible",
+			"status": "unrun"
+		},
+		{
+			"accounting": null,
+			"cellId": "v7-07-ufo-rename-with-trailing-slash-production",
+			"reason": "completion-impossible",
+			"status": "unrun"
+		},
+		{
+			"accounting": null,
+			"cellId": "v7-08-ufo-rename-with-trailing-slash-control",
+			"reason": "completion-impossible",
+			"status": "unrun"
+		},
+		{
+			"accounting": null,
+			"cellId": "v7-09-ufo-delete-create-url-full",
+			"reason": "completion-impossible",
+			"status": "unrun"
+		},
+		{
+			"accounting": null,
+			"cellId": "v7-10-ufo-delete-create-url-paged",
+			"reason": "completion-impossible",
+			"status": "unrun"
+		},
+		{
+			"accounting": null,
+			"cellId": "v7-11-ufo-delete-create-url-control",
+			"reason": "completion-impossible",
+			"status": "unrun"
+		},
+		{
+			"accounting": null,
+			"cellId": "v7-12-ufo-delete-create-url-production",
+			"reason": "completion-impossible",
+			"status": "unrun"
+		},
+		{
+			"accounting": null,
+			"cellId": "v7-13-ufo-delete-parse-url-paged",
+			"reason": "completion-impossible",
+			"status": "unrun"
+		},
+		{
+			"accounting": null,
+			"cellId": "v7-14-ufo-delete-parse-url-full",
+			"reason": "completion-impossible",
+			"status": "unrun"
+		},
+		{
+			"accounting": null,
+			"cellId": "v7-15-ufo-delete-parse-url-production",
+			"reason": "completion-impossible",
+			"status": "unrun"
+		},
+		{
+			"accounting": null,
+			"cellId": "v7-16-ufo-delete-parse-url-control",
+			"reason": "completion-impossible",
+			"status": "unrun"
+		},
+		{
+			"accounting": null,
+			"cellId": "v7-17-ufo-entry-stringify-query-full",
+			"reason": "completion-impossible",
+			"status": "unrun"
+		},
+		{
+			"accounting": null,
+			"cellId": "v7-18-ufo-entry-stringify-query-paged",
+			"reason": "completion-impossible",
+			"status": "unrun"
+		},
+		{
+			"accounting": null,
+			"cellId": "v7-19-ufo-entry-stringify-query-control",
+			"reason": "completion-impossible",
+			"status": "unrun"
+		},
+		{
+			"accounting": null,
+			"cellId": "v7-20-ufo-entry-stringify-query-production",
+			"reason": "completion-impossible",
+			"status": "unrun"
+		},
+		{
+			"accounting": null,
+			"cellId": "v7-21-ufo-entry-normalize-url-paged",
+			"reason": "completion-impossible",
+			"status": "unrun"
+		},
+		{
+			"accounting": null,
+			"cellId": "v7-22-ufo-entry-normalize-url-full",
+			"reason": "completion-impossible",
+			"status": "unrun"
+		},
+		{
+			"accounting": null,
+			"cellId": "v7-23-ufo-entry-normalize-url-production",
+			"reason": "completion-impossible",
+			"status": "unrun"
+		},
+		{
+			"accounting": null,
+			"cellId": "v7-24-ufo-entry-normalize-url-control",
+			"reason": "completion-impossible",
+			"status": "unrun"
+		},
+		{
+			"accounting": null,
+			"cellId": "v7-25-execa-rename-normalize-options-full",
+			"reason": "completion-impossible",
+			"status": "unrun"
+		},
+		{
+			"accounting": null,
+			"cellId": "v7-26-execa-rename-normalize-options-paged",
+			"reason": "completion-impossible",
+			"status": "unrun"
+		},
+		{
+			"accounting": null,
+			"cellId": "v7-27-execa-rename-normalize-options-control",
+			"reason": "completion-impossible",
+			"status": "unrun"
+		},
+		{
+			"accounting": null,
+			"cellId": "v7-28-execa-rename-normalize-options-production",
+			"reason": "completion-impossible",
+			"status": "unrun"
+		},
+		{
+			"accounting": null,
+			"cellId": "v7-29-execa-rename-wait-subprocess-result-paged",
+			"reason": "completion-impossible",
+			"status": "unrun"
+		},
+		{
+			"accounting": null,
+			"cellId": "v7-30-execa-rename-wait-subprocess-result-full",
+			"reason": "completion-impossible",
+			"status": "unrun"
+		},
+		{
+			"accounting": null,
+			"cellId": "v7-31-execa-rename-wait-subprocess-result-production",
+			"reason": "completion-impossible",
+			"status": "unrun"
+		},
+		{
+			"accounting": null,
+			"cellId": "v7-32-execa-rename-wait-subprocess-result-control",
+			"reason": "completion-impossible",
+			"status": "unrun"
+		},
+		{
+			"accounting": null,
+			"cellId": "v7-33-execa-delete-parse-command-string-full",
+			"reason": "completion-impossible",
+			"status": "unrun"
+		},
+		{
+			"accounting": null,
+			"cellId": "v7-34-execa-delete-parse-command-string-paged",
+			"reason": "completion-impossible",
+			"status": "unrun"
+		},
+		{
+			"accounting": null,
+			"cellId": "v7-35-execa-delete-parse-command-string-control",
+			"reason": "completion-impossible",
+			"status": "unrun"
+		},
+		{
+			"accounting": null,
+			"cellId": "v7-36-execa-delete-parse-command-string-production",
+			"reason": "completion-impossible",
+			"status": "unrun"
+		},
+		{
+			"accounting": null,
+			"cellId": "v7-37-execa-delete-normalize-cwd-paged",
+			"reason": "completion-impossible",
+			"status": "unrun"
+		},
+		{
+			"accounting": null,
+			"cellId": "v7-38-execa-delete-normalize-cwd-full",
+			"reason": "completion-impossible",
+			"status": "unrun"
+		},
+		{
+			"accounting": null,
+			"cellId": "v7-39-execa-delete-normalize-cwd-production",
+			"reason": "completion-impossible",
+			"status": "unrun"
+		},
+		{
+			"accounting": null,
+			"cellId": "v7-40-execa-delete-normalize-cwd-control",
+			"reason": "completion-impossible",
+			"status": "unrun"
+		},
+		{
+			"accounting": null,
+			"cellId": "v7-41-execa-entry-execa-core-async-full",
+			"reason": "completion-impossible",
+			"status": "unrun"
+		},
+		{
+			"accounting": null,
+			"cellId": "v7-42-execa-entry-execa-core-async-paged",
+			"reason": "completion-impossible",
+			"status": "unrun"
+		},
+		{
+			"accounting": null,
+			"cellId": "v7-43-execa-entry-execa-core-async-control",
+			"reason": "completion-impossible",
+			"status": "unrun"
+		},
+		{
+			"accounting": null,
+			"cellId": "v7-44-execa-entry-execa-core-async-production",
+			"reason": "completion-impossible",
+			"status": "unrun"
+		},
+		{
+			"accounting": null,
+			"cellId": "v7-45-execa-entry-create-execa-paged",
+			"reason": "completion-impossible",
+			"status": "unrun"
+		},
+		{
+			"accounting": null,
+			"cellId": "v7-46-execa-entry-create-execa-full",
+			"reason": "completion-impossible",
+			"status": "unrun"
+		},
+		{
+			"accounting": null,
+			"cellId": "v7-47-execa-entry-create-execa-production",
+			"reason": "completion-impossible",
+			"status": "unrun"
+		},
+		{
+			"accounting": null,
+			"cellId": "v7-48-execa-entry-create-execa-control",
+			"reason": "completion-impossible",
+			"status": "unrun"
+		},
+		{
+			"accounting": null,
+			"cellId": "v7-49-uvu-rename-runner-full",
+			"reason": "completion-impossible",
+			"status": "unrun"
+		},
+		{
+			"accounting": null,
+			"cellId": "v7-50-uvu-rename-runner-paged",
+			"reason": "completion-impossible",
+			"status": "unrun"
+		},
+		{
+			"accounting": null,
+			"cellId": "v7-51-uvu-rename-runner-control",
+			"reason": "completion-impossible",
+			"status": "unrun"
+		},
+		{
+			"accounting": null,
+			"cellId": "v7-52-uvu-rename-runner-production",
+			"reason": "completion-impossible",
+			"status": "unrun"
+		},
+		{
+			"accounting": null,
+			"cellId": "v7-53-uvu-rename-stringify-paged",
+			"reason": "completion-impossible",
+			"status": "unrun"
+		},
+		{
+			"accounting": null,
+			"cellId": "v7-54-uvu-rename-stringify-full",
+			"reason": "completion-impossible",
+			"status": "unrun"
+		},
+		{
+			"accounting": null,
+			"cellId": "v7-55-uvu-rename-stringify-production",
+			"reason": "completion-impossible",
+			"status": "unrun"
+		},
+		{
+			"accounting": null,
+			"cellId": "v7-56-uvu-rename-stringify-control",
+			"reason": "completion-impossible",
+			"status": "unrun"
+		},
+		{
+			"accounting": null,
+			"cellId": "v7-57-uvu-delete-fixture-full",
+			"reason": "completion-impossible",
+			"status": "unrun"
+		},
+		{
+			"accounting": null,
+			"cellId": "v7-58-uvu-delete-fixture-paged",
+			"reason": "completion-impossible",
+			"status": "unrun"
+		},
+		{
+			"accounting": null,
+			"cellId": "v7-59-uvu-delete-fixture-control",
+			"reason": "completion-impossible",
+			"status": "unrun"
+		},
+		{
+			"accounting": null,
+			"cellId": "v7-60-uvu-delete-fixture-production",
+			"reason": "completion-impossible",
+			"status": "unrun"
+		},
+		{
+			"accounting": null,
+			"cellId": "v7-61-uvu-delete-direct-paged",
+			"reason": "completion-impossible",
+			"status": "unrun"
+		},
+		{
+			"accounting": null,
+			"cellId": "v7-62-uvu-delete-direct-full",
+			"reason": "completion-impossible",
+			"status": "unrun"
+		},
+		{
+			"accounting": null,
+			"cellId": "v7-63-uvu-delete-direct-production",
+			"reason": "completion-impossible",
+			"status": "unrun"
+		},
+		{
+			"accounting": null,
+			"cellId": "v7-64-uvu-delete-direct-control",
+			"reason": "completion-impossible",
+			"status": "unrun"
+		},
+		{
+			"accounting": null,
+			"cellId": "v7-65-uvu-entry-exec-full",
+			"reason": "completion-impossible",
+			"status": "unrun"
+		},
+		{
+			"accounting": null,
+			"cellId": "v7-66-uvu-entry-exec-paged",
+			"reason": "completion-impossible",
+			"status": "unrun"
+		},
+		{
+			"accounting": null,
+			"cellId": "v7-67-uvu-entry-exec-control",
+			"reason": "completion-impossible",
+			"status": "unrun"
+		},
+		{
+			"accounting": null,
+			"cellId": "v7-68-uvu-entry-exec-production",
+			"reason": "completion-impossible",
+			"status": "unrun"
+		},
+		{
+			"accounting": null,
+			"cellId": "v7-69-uvu-entry-equal-paged",
+			"reason": "completion-impossible",
+			"status": "unrun"
+		},
+		{
+			"accounting": null,
+			"cellId": "v7-70-uvu-entry-equal-full",
+			"reason": "completion-impossible",
+			"status": "unrun"
+		},
+		{
+			"accounting": null,
+			"cellId": "v7-71-uvu-entry-equal-production",
+			"reason": "completion-impossible",
+			"status": "unrun"
+		},
+		{
+			"accounting": null,
+			"cellId": "v7-72-uvu-entry-equal-control",
+			"reason": "completion-impossible",
+			"status": "unrun"
+		}
+	],
+	"schema": "guessless.v7-sealed-replay/v1"
+}

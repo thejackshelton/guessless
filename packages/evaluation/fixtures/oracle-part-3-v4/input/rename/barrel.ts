@@ -1,0 +1,1 @@
+export { sendTelemetry } from './api';

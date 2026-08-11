@@ -1,0 +1,51 @@
+{
+	"acquiredBytes": 637871,
+	"budgets": {
+		"aggregate": {
+			"maxAcquiredBytes": 262144000,
+			"maxDurationMs": 21600000,
+			"maxIncrementalDirectSpendUsd": 0,
+			"maxReportedTokens": 11520000,
+			"maxToolCalls": 1152
+		},
+		"perCell": {
+			"maxReportedTokens": 160000,
+			"maxToolCalls": 16,
+			"timeoutMs": 300000
+		}
+	},
+	"codexVersion": "0.147.0",
+	"executionAuthorized": true,
+	"incrementalDirectSpendUsd": 0,
+	"model": "gpt-5.6-sol",
+	"modelNetwork": "disabled",
+	"nodeVersion": "24.15.0",
+	"pnpmVersion": "10.33.2",
+	"policy": {
+		"calibrationCalls": 0,
+		"cellCount": 72,
+		"completionMinimum": 0.99,
+		"naturalSelectionDenominator": 18,
+		"naturalSelectionMinimum": 15,
+		"replacements": 0,
+		"rescoring": false,
+		"retries": 0,
+		"sameIdReruns": false
+	},
+	"providerAccess": "authorized",
+	"schema": "guessless.evaluation-preregistration/v8",
+	"scoring": {
+		"coldWarmCalls": "at most two cold semantic calls and one warm semantic call",
+		"completion": "all 72 cells; 71/72 is below 99%",
+		"correctness": "at least four net paired wins with one-sided exact p <= 0.10",
+		"decision": "GO only when every gate passes; otherwise NO_GO",
+		"efficiency": "at least 20% lower end-to-end time or 25% fewer total tool calls",
+		"falseCompleteness": "zero added treatment false completeness",
+		"naturalSelection": "at least 15 of 18 production cells deliver applicable prepare and impact results",
+		"progressiveBytes": "initial complete CallToolResult bytes at least 50% lower",
+		"progressiveCalls": "no extra median follow-up call; proof access counted separately",
+		"progressiveQuality": "identical correctness, zero coordinate-role errors, no hidden unresolved site",
+		"progressiveTokens": "reported downstream tokens at least 25% lower",
+		"taskRegression": "no task-kind correctness regression"
+	}
+}

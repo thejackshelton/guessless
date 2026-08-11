@@ -1,0 +1,17 @@
+{
+  "runId": "adoption-eval-20260811",
+  "unitId": "markless-receipts",
+  "attempt": 1,
+  "promptPath": "/Users/jacksm5pro/dev/open-source/guessless/.fable-opus/runs/adoption-eval-20260811/prompt-markless-receipts-attempt-1.md",
+  "subagentType": "opus-worker",
+  "toolUseId": "toolu_01BuL6aqhVNzCdvXAz7CtGTc",
+  "promptId": "9655d98a-48a6-4692-be69-739e5f174937",
+  "background": false,
+  "parallel": false,
+  "effort": null,
+  "contract": [
+    "docs/evidence/adoption-eval-fable-v1/**"
+  ],
+  "ts": "2026-08-11T20:08:19.383Z",
+  "pendingName": "00001786478899384739-63348775-markless-receipts.json"
+}

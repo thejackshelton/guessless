@@ -1,0 +1,576 @@
+{
+	"schema": "guessless.safe-change-summary/v1",
+	"state": "partial",
+	"request": {
+		"kind": "safeChangeImpact",
+		"snapshot": "30b81ee5778c917ff35c89777e41eb23c6d6b792b310e7655060642dbe770fdc",
+		"intent": "entry-point",
+		"target": {
+			"schema": "guessless.symbol-anchor/v1",
+			"file": "src/index.js",
+			"semanticPath": [
+				"global:scope:Program",
+				"module:scope:Program",
+				"symbol:exec",
+				"declaration:FunctionDeclaration"
+			],
+			"fingerprint": "6c6e2ea4f36c29db6a19cfdf2769dfb6f3eea3e81d7e1eff832529e0a97af444"
+		}
+	},
+	"snapshot": "30b81ee5778c917ff35c89777e41eb23c6d6b792b310e7655060642dbe770fdc",
+	"sites": [
+		{
+			"id": "aafbb3ec09d5b913c868ac160f1b6a4df788e0666a205dbf11893a71573ee982",
+			"file": "src/index.js",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "89968a9bf7b9b3a81e38e18392eb428488f68b2b886de7a0cfe875b94f8f88a0",
+			"file": "src/index.js",
+			"label": "symbol:group"
+		},
+		{
+			"id": "0cdc2c82ef721de9c280bf30b836bea39b07b6eb72dc43868b01736445ca7467",
+			"file": "src/index.js",
+			"label": "symbol:skips"
+		},
+		{
+			"id": "8608d8949cafd64ae60d132830e4bba8c2982ee8ea6d84c0bdbcbb5ccbc36f5e",
+			"file": "src/index.js",
+			"label": "symbol:now"
+		},
+		{
+			"id": "1c0a0bc13e0c2b2cd1120273580b277289c2ff14367e69d10e57a7cf39a5536d",
+			"file": "src/index.js",
+			"label": "symbol:hrtime"
+		},
+		{
+			"id": "f572760a4365db080bfc300654e062b96ccab57987b3a140a6aeff89a3e48ca6",
+			"file": "src/index.js",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "b39ef294af2fc66e5a13d0f3fcb7c42faf7584fe416ce2c9c61d5ad82f82ecc1",
+			"file": "src/index.js",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "620f4be9346afbc5f18e878f82c840c1cf1a294b28a66c92bce97f2492890adf",
+			"file": "src/index.js",
+			"label": "symbol:timer"
+		},
+		{
+			"id": "f41cc4c7ba8b82008ba781c0a5a92f6a413124c76fe5b800bfc331e2f542aad4",
+			"file": "src/index.js",
+			"label": "symbol:code"
+		},
+		{
+			"id": "00f054a672cae24f5da02d9191812e29c873f9422edcc4ffb2eba45bb73a164c",
+			"file": "src/index.js",
+			"label": "symbol:write"
+		},
+		{
+			"id": "06c0423d2cce66b3a6e95baaa33583dae06d31189eb11d6266ceb6ac6790a30c",
+			"file": "src/index.js",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "a357f086f9bf9635acdcbd3b25404552d10de9b68662b7f1e4dff7a2eadc0750",
+			"file": "src/index.js",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "1af0d4d5cdd84f1f36036b90983354b32e19bfbc0fdac75a94b22c7f9092a5be",
+			"file": "src/index.js",
+			"label": "symbol:isRunning"
+		},
+		{
+			"id": "52ae4466ad0be6e9ccaf93518ec2c753e17f90627631d7285df8344a428d2ecd",
+			"file": "src/index.js",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "4b16f8628c3f4294a3397462602708bf41a777dd4db1ac95c47578f24b9fb0c7",
+			"file": "src/index.js",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "855d07198f8564d15a138a26b07defec1918b76a74c97d4e94fe3d83cb1acc71",
+			"file": "src/index.js",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "0ce342dd3beab1453c6cc1055f33d070ee994dc6a153b04e4c353968c8c57c9f",
+			"file": "src/index.js",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "197d147d70165fbe6fcf37355695085b8f17dec8176107a1876c046052269c49",
+			"file": "src/index.js",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "585d9a03394cd281221ed0b1b6b8c0678267689adfe709c4e4d242d939324642",
+			"file": "src/index.js",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "d58d57b730320bf87728f469df3646576347d0603d8ded3c5211d139efb0a104",
+			"file": "src/index.js",
+			"label": "symbol:isNode"
+		},
+		{
+			"id": "e6b426f346c43c0f68c167106e349824cdecf37e8b75097b36fd06de59a0fac0",
+			"file": "src/index.js",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "ef4da55f58f04419e3ac111fb4b34af68249554e7b92fe63e0aa06e6bb9de4dc",
+			"file": "src/index.js",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "99f0f6998adb17cf9f93764364ff590dfc844d19946f83623c95e472c0799845",
+			"file": "src/index.js",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "bed60d2484243e0477ac63aff0caeced3c1a8805965e93791ce638dffd3f0f41",
+			"file": "src/index.js",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "832bede90df8785c9f0606a46e0cf849e50d9eb694ac2e7cbca3797619057570",
+			"file": "src/index.js",
+			"label": "symbol:name"
+		},
+		{
+			"id": "cd2ea656379bf40303bdf8fad8b88d3133e337169da93c383358ec4565aee8cc",
+			"file": "src/index.js",
+			"label": "symbol:bail"
+		},
+		{
+			"id": "310254cfff67fea2cff07fe8d6971f2651e6dd215d133afb20a60dff7fd1eb45",
+			"file": "src/index.js",
+			"label": "symbol:exec"
+		},
+		{
+			"id": "89df6bba2776dfe190083a568cf3e4978f62a416a1c179b0607c69f65529b4ff",
+			"file": "src/index.js",
+			"label": "symbol:errs"
+		},
+		{
+			"id": "eb8a5eea3fec7bb9e8779140b3fb8668d46b9018334a2810199e0a3283ae0528",
+			"file": "src/index.js",
+			"label": "symbol:max"
+		},
+		{
+			"id": "ac5fbfb1e974963d847eea064951530b03167ef67087b20935c07698d543c1df",
+			"file": "src/index.js",
+			"label": "symbol:ran"
+		},
+		{
+			"id": "d63da13897b6d5d6c5fb145d33e14571b80a452212bf4690abaf95fb81108b33",
+			"file": "src/index.js",
+			"label": "symbol:skip"
+		},
+		{
+			"id": "da4d36ce9482bf4657531edef5430ba1580ac303ca2c713d7f0c80bd5a893d3f",
+			"file": "src/index.js",
+			"label": "symbol:FILE"
+		},
+		{
+			"id": "c763cd34035d3e5edcefbca893f6e41e28a78ad1e77e757f152cff3b5fe6edbb",
+			"file": "src/index.js",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "b1654c210728f5c5a3c538a3b3dacb73e0025a0096e5dbbdf9b33221c14d3543",
+			"file": "src/index.js",
+			"label": "symbol:total"
+		},
+		{
+			"id": "7ef34761f82cd705acafc1f91c2b41bc6ebf85db019418e388a5483c1a0be0da",
+			"file": "src/index.js",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "22605a482a79df4b24227987a220ae8046dfdb7bdb368d798a3706258d5200c7",
+			"file": "src/index.js",
+			"label": "symbol:kleur"
+		},
+		{
+			"id": "67f3ee27f9edd97139c44a27f1567f722f9951be90c2cf3865d25ac656099772",
+			"file": "src/index.js",
+			"label": "symbol:done"
+		},
+		{
+			"id": "354805cb9f97307823ba5913c896ec1816cebb246386378944886062fab3bbcc",
+			"file": "src/index.js",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "6c2bfdacd05611ed447b4b150fdf871824652eb6ec3a090b26b62d9b81631502",
+			"file": "src/index.js",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "29274082de115fd9d9d2f1bd052f86b81e467a0bcb3ae7b6d724bd5c9879a7c1",
+			"file": "src/index.js",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "e222d96fa904dad7a943edf10b9ade854c66e935f8b1699c4116ca2188fcfd50",
+			"file": "src/index.js",
+			"label": "symbol:test"
+		},
+		{
+			"id": "98eb920cd6ecd61621a304b5aec524a89f6601b16a3ff1953c73bfea1edb30bb",
+			"file": "src/index.js",
+			"label": "site:reachable-unresolved-reference"
+		},
+		{
+			"id": "67ece1f8cf4faf6b0c254116e8b2396ad2455c90bbcc6c96970303f8eec34bd5",
+			"file": "src/index.js",
+			"label": "site:reachable-unresolved-reference"
+		},
+		{
+			"id": "4c9535204c76bca6fa331e4c8eb4de87478036600c2738459bd96ee082b5a7e9",
+			"file": "src/index.js",
+			"label": "site:import-boundary"
+		},
+		{
+			"id": "5dd5ea4c937f02fbb78d1f9a573c73be1caf9c4909e2694edce5015598faf1f1",
+			"file": "src/index.js",
+			"label": "site:reachability-import-boundary"
+		},
+		{
+			"id": "4a58c90e2bed66f2acdbb357ae078b28a00bacf22568c1240be15fa046dc9d25",
+			"file": "src/index.js",
+			"label": "site:reachable-unresolved-reference"
+		},
+		{
+			"id": "818a441b0a3dc33fb6f451e1b0b115cfa9a849b12c0e09135c6d5e8a0f93339e",
+			"file": "src/index.js",
+			"label": "site:reachable-unresolved-reference"
+		},
+		{
+			"id": "e316ae003245ee28c67af7fbc2f9e4432f1c6922a37c55d46624c4eb1ff6e232",
+			"file": "src/index.js",
+			"label": "site:reachable-unresolved-reference"
+		},
+		{
+			"id": "ab8cabc63f095aa3b0d0886e9b378d89a1ff010b2436d104dd3bfdad1a155b1c",
+			"file": "src/index.js",
+			"label": "site:reachable-unresolved-reference"
+		},
+		{
+			"id": "9f8e1b462225fc4196ca638a18ad481afac4c5fc495fb537dad3a2d567d5d352",
+			"file": "src/index.js",
+			"label": "site:import-boundary"
+		},
+		{
+			"id": "1d5290625f91155dd3f6655765d2b9cafa6037cc0f13b1e839a89abe4f20f47e",
+			"file": "src/index.js",
+			"label": "site:reachability-import-boundary"
+		}
+	],
+	"results": [
+		{
+			"site": 0,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 1,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 2,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 3,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 4,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 5,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 6,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 7,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 8,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 9,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 10,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 11,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 12,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 13,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 14,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 15,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 16,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 17,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 18,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 19,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 20,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 21,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 22,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 23,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 24,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 25,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 26,
+			"roles": [
+				"declaration",
+				"export"
+			]
+		},
+		{
+			"site": 27,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 28,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 29,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 30,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 31,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 32,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 33,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 34,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 35,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 36,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 37,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 38,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 39,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 40,
+			"roles": [
+				"witness"
+			]
+		}
+	],
+	"unresolved": [
+		{
+			"site": 41,
+			"reason": "unresolved-symbol"
+		},
+		{
+			"site": 42,
+			"reason": "unresolved-symbol"
+		},
+		{
+			"site": 43,
+			"reason": "external-module-boundary"
+		},
+		{
+			"site": 44,
+			"reason": "external-module-boundary"
+		},
+		{
+			"site": 45,
+			"reason": "unresolved-symbol"
+		},
+		{
+			"site": 46,
+			"reason": "unresolved-symbol"
+		},
+		{
+			"site": 47,
+			"reason": "unresolved-symbol"
+		},
+		{
+			"site": 48,
+			"reason": "unresolved-symbol"
+		},
+		{
+			"site": 49,
+			"reason": "external-module-boundary"
+		},
+		{
+			"site": 50,
+			"reason": "external-module-boundary"
+		}
+	],
+	"proofHandle": "cdcb396a667b0caef6d21a2e2d7b20da12efde8e1c0d87b49672b4b840220805",
+	"counts": {
+		"sites": 51,
+		"results": 41,
+		"unresolved": 10
+	},
+	"integrity": "da40d315d858ed20fe2286cecf7929ff5bc70e3f7582648f43cf8eb2440ec43c"
+}

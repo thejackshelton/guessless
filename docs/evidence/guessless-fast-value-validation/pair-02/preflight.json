@@ -1,0 +1,69 @@
+{
+  "schema": "guessless-fast-value-validation/preflight-v1",
+  "pair": "pair-02",
+  "started_at": "2026-08-11T16:54:13Z",
+  "stopped_at": "2026-08-11T16:58:41Z",
+  "duration_seconds": 268,
+  "result": "refused",
+  "reason": "no_candidate_passed_all_four_gates_within_five_minutes",
+  "agents_launched": 0,
+  "repairs_or_installs": 0,
+  "candidates": [
+    {
+      "repository": "frameless",
+      "historical_solution": "2c81b5afd3d279fbb80f36d78e275e7cf8f4e0f8",
+      "task": "composition emitters",
+      "result": "discarded",
+      "failed_gate": "exact_focused_test_pass",
+      "detail": "Angular focused suites started with zero tests because @markless/compiler could not be resolved."
+    },
+    {
+      "repository": "frameless",
+      "historical_solution": "61a677995f09e13b8535409f20618e410946a575",
+      "task": "React async state updates",
+      "result": "discarded",
+      "failed_gate": "exact_focused_test_pass",
+      "detail": "React focused suite started with zero tests because @markless/compiler could not be resolved."
+    },
+    {
+      "repository": "frameless",
+      "historical_solution": "3e3b6157c0292b1268dfb829c656c94bc04c35bc",
+      "task": "React handler-local const declarations",
+      "result": "discarded",
+      "failed_gate": "exact_focused_test_pass",
+      "detail": "The available current dependency snapshot was behaviorally incompatible with this older parent: 72 tests passed and 51 failed."
+    },
+    {
+      "repository": "versionless",
+      "historical_solution": "6d7672d30385ef670a3e366795dd9bd8c8bda5d9",
+      "task": "LinkFree CRA5 JS/JSX capability",
+      "result": "discarded",
+      "failed_gate": "candidate_creation",
+      "detail": "The parent archive command named a nonexistent root vitest config, so no candidate tree or test run was accepted."
+    },
+    {
+      "repository": "versionless",
+      "historical_solution": "6f90ed772ce2ef1d05860cbe0820bf8ee779c456",
+      "task": "non-UTF-8 module source decoding",
+      "result": "discarded",
+      "failed_gate": "solution_absence_and_exact_focused_test_pass",
+      "detail": "Task-bearing terms were already present in the parent product tree, and the focused test executable resolved to an uncopied relative virtual store."
+    },
+    {
+      "repository": "versionless",
+      "historical_solution": "fcb783892f7caf5becaa938de64de3385da4fe0f",
+      "task": "reusable Vite-origin adapter",
+      "result": "discarded",
+      "failed_gate": "exact_focused_test_pass",
+      "detail": "The focused Vitest command could not resolve its package-local vitest.node.config.ts entry."
+    }
+  ],
+  "closed_outcome": {
+    "state": "refused",
+    "unresolved_sites": [
+      "pair-02 control cell",
+      "pair-02 treatment cell"
+    ],
+    "machine_reason": "preflight_timebox_exhausted"
+  }
+}

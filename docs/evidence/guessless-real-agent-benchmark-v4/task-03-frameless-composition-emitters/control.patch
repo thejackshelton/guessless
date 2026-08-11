@@ -1,0 +1,353 @@
+diff --git a/packages/frameworks/angular/src/gate/index.ts b/packages/frameworks/angular/src/gate/index.ts
+index 9ed77b5..3f06f9a 100644
+--- a/packages/frameworks/angular/src/gate/index.ts
++++ b/packages/frameworks/angular/src/gate/index.ts
+@@ -447,7 +447,7 @@ function decoratorNamed(node: Node, name: string): Node | undefined {
+ 	);
+ }
+ 
+-function parseEmitted(file: string, source: string): Parsed | null {
++function parseEmitted(file: string, source: string): Parsed[] | null {
+ 	let module: Node;
+ 	try {
+ 		module = tsParser.parse(source, {
+@@ -458,31 +458,33 @@ function parseEmitted(file: string, source: string): Parsed | null {
+ 	} catch {
+ 		return null;
+ 	}
+-	let component: Node | null = null;
++	const components: Node[] = [];
+ 	walkTs(module, (node) => {
+-		if (node.type === 'ClassDeclaration' && decoratorNamed(node, 'Component')) component = node;
++		if (node.type === 'ClassDeclaration' && decoratorNamed(node, 'Component')) components.push(node);
++	});
++	return components.map((component) => {
++		const decorator = decoratorNamed(component, 'Component');
++		const metadata = (decorator?.expression?.arguments?.[0] as Node | undefined) ?? null;
++		const templateProperty = ((metadata?.properties ?? []) as Node[]).find(
++			(property) => property.type === 'Property' && property.key?.name === 'template',
++		);
++		const literal = templateProperty?.value as Node | undefined;
++		const template =
++			literal?.type === 'TemplateLiteral' && literal.quasis?.length === 1
++				? String(literal.quasis[0].value?.cooked ?? '')
++				: null;
++		const parsedTemplate =
++			template === null ? null : parseTemplate(template, file.replace(/\.ts$/, '.html'));
++		return {
++			module,
++			component,
++			metadata: metadata?.type === 'ObjectExpression' ? metadata : null,
++			template,
++			templateLine: literal ? (lineOfTs(literal) ?? 1) : 1,
++			templateNodes: (parsedTemplate?.nodes ?? []) as Node[],
++			templateErrors: (parsedTemplate?.errors ?? []).map((error) => String(error.msg ?? error)),
++		};
+ 	});
+-	const decorator = component ? decoratorNamed(component, 'Component') : undefined;
+-	const metadata = (decorator?.expression?.arguments?.[0] as Node | undefined) ?? null;
+-	const templateProperty = ((metadata?.properties ?? []) as Node[]).find(
+-		(property) => property.type === 'Property' && property.key?.name === 'template',
+-	);
+-	const literal = templateProperty?.value as Node | undefined;
+-	const template =
+-		literal?.type === 'TemplateLiteral' && literal.quasis?.length === 1
+-			? String(literal.quasis[0].value?.cooked ?? '')
+-			: null;
+-	const parsedTemplate =
+-		template === null ? null : parseTemplate(template, file.replace(/\.ts$/, '.html'));
+-	return {
+-		module,
+-		component,
+-		metadata: metadata?.type === 'ObjectExpression' ? metadata : null,
+-		template,
+-		templateLine: literal ? (lineOfTs(literal) ?? 1) : 1,
+-		templateNodes: (parsedTemplate?.nodes ?? []) as Node[],
+-		templateErrors: (parsedTemplate?.errors ?? []).map((error) => String(error.msg ?? error)),
+-	};
+ }
+ 
+ // ---------------------------------------------------------------------------
+@@ -933,32 +935,36 @@ export function collectEmittedForms(source: string): ReadonlyArray<{
+ 	if (!parsed) throw new Error('collectEmittedForms received a source TypeScript could not parse');
+ 	const seen = new Set<string>();
+ 	const forms: Array<{ kind: BaselineFormKind; form: string }> = [];
+-	for (const observation of observeForms(parsed)) {
+-		const key = `${observation.kind}:${observation.form}`;
+-		if (seen.has(key)) continue;
+-		seen.add(key);
+-		forms.push({ kind: observation.kind, form: observation.form });
++	for (const component of parsed) {
++		for (const observation of observeForms(component)) {
++			const key = `${observation.kind}:${observation.form}`;
++			if (seen.has(key)) continue;
++			seen.add(key);
++			forms.push({ kind: observation.kind, form: observation.form });
++		}
+ 	}
+ 	return forms.sort((left, right) =>
+ 		`${left.kind}:${left.form}`.localeCompare(`${right.kind}:${right.form}`),
+ 	);
+ }
+ 
+-function inventoryViolations(file: string, parsed: Parsed): GateViolation[] {
++function inventoryViolations(file: string, parsed: readonly Parsed[]): GateViolation[] {
+ 	const violations: GateViolation[] = [];
+ 	const reported = new Set<string>();
+-	for (const observation of observeForms(parsed)) {
+-		const key = `${observation.kind}:${observation.form}`;
+-		if (INVENTORY.has(key) || reported.has(key)) continue;
+-		reported.add(key);
+-		violations.push(
+-			violation(
+-				file,
+-				'baseline-form-inventory',
+-				`Emitted Angular source uses the ${observation.kind} form ${JSON.stringify(observation.form)}, which is not in the baseline form inventory. IR-4 is DEFERRED, so this emitter's only discharge of the version corollary's second conjunct is an explicit allowlist with a recorded floor per entry; a new form has to be added to BASELINE_FORM_INVENTORY with a version floor and an honest floor-evidence status, and it may raise ANGULAR_BASELINE_FLOOR`,
+-				observation.line,
+-			),
+-		);
++	for (const component of parsed) {
++		for (const observation of observeForms(component)) {
++			const key = `${observation.kind}:${observation.form}`;
++			if (INVENTORY.has(key) || reported.has(key)) continue;
++			reported.add(key);
++			violations.push(
++				violation(
++					file,
++					'baseline-form-inventory',
++					`Emitted Angular source uses the ${observation.kind} form ${JSON.stringify(observation.form)}, which is not in the baseline form inventory. IR-4 is DEFERRED, so this emitter's only discharge of the version corollary's second conjunct is an explicit allowlist with a recorded floor per entry; a new form has to be added to BASELINE_FORM_INVENTORY with a version floor and an honest floor-evidence status, and it may raise ANGULAR_BASELINE_FLOOR`,
++					observation.line,
++				),
++			);
++		}
+ 	}
+ 	return violations;
+ }
+@@ -1283,7 +1289,7 @@ async function sourceViolations(file: string, source: string): Promise<GateViola
+ 			...violations,
+ 			violation(file, 'generated-header', 'TypeScript could not parse emitted source', 1),
+ 		];
+-	if (!parsed.component)
++	if (parsed.length === 0)
+ 		return [
+ 			...violations,
+ 			violation(
+@@ -1293,15 +1299,19 @@ async function sourceViolations(file: string, source: string): Promise<GateViola
+ 				1,
+ 			),
+ 		];
+-	violations.push(...templateParseViolations(file, parsed));
+ 	violations.push(...inventoryViolations(file, parsed));
+-	violations.push(...whitespaceViolations(file, parsed));
+-	violations.push(...signalViolations(file, parsed));
+-	violations.push(...twoWayViolations(file, parsed));
+-	violations.push(...outputViolations(file, parsed));
+-	violations.push(...changeDetectionViolations(file, parsed));
+-	violations.push(...stopPropagationViolations(file, parsed));
+-	violations.push(...getterViolations(file, parsed));
++	// These policies inspect the module AST and therefore run once. The remaining
++	// policies are component/template scoped and must inspect every declaration.
++	violations.push(...signalViolations(file, parsed[0]!));
++	violations.push(...outputViolations(file, parsed[0]!));
++	violations.push(...stopPropagationViolations(file, parsed[0]!));
++	for (const component of parsed) {
++		violations.push(...templateParseViolations(file, component));
++		violations.push(...whitespaceViolations(file, component));
++		violations.push(...twoWayViolations(file, component));
++		violations.push(...changeDetectionViolations(file, component));
++		violations.push(...getterViolations(file, component));
++	}
+ 	return violations;
+ }
+ 
+diff --git a/packages/frameworks/angular/test/gate.test.ts b/packages/frameworks/angular/test/gate.test.ts
+index e7f80cb..2f2bd66 100644
+--- a/packages/frameworks/angular/test/gate.test.ts
++++ b/packages/frameworks/angular/test/gate.test.ts
+@@ -343,14 +343,10 @@ describe('Angular dossier gate', () => {
+ 	 *   meaning, and Vue and Svelte carry the SAME form. That is an architecture
+ 	 *   ruling, not a floor.
+ 	 *
+-	 * AND ONE MORE BLINDNESS, MEASURED AND RECORDED HERE BECAUSE IT WOULD BE
+-	 * INVISIBLE IN THE GREEN ABOVE: `parseEmitted` in this gate keeps the LAST
+-	 * `@Component` class it walks. `C1-slot.ts` declares TWO - `Frame` then
+-	 * `SlotPage` - so `Frame` is never parsed and its own `<ng-content />` is
+-	 * never observed. That is why this file reports ZERO uninventoried forms while
+-	 * `M1-panel.ts` reports `Content` for the same construct. `C1-slot.ts` is the
+-	 * only multi-component emitted file in this package, so `generated/` is
+-	 * unaffected - the row below pins that fact so it stays true.
++	 * `C1-slot.ts` declares TWO components and the gate must inspect both. Its
++	 * nested `Frame` therefore reports the same uninventoried `<ng-content />`
++	 * form as M1-panel. No allowlist entry is added here: surfacing this existing
++	 * composition violation honestly is the regression this row protects.
+ 	 */
+ 	test('DEBT PIN: generated-composition/ is discovered, gated by hand, and STILL DRAWS violations', async () => {
+ 		const expected = compositionFixtures
+@@ -376,13 +372,15 @@ describe('Angular dossier gate', () => {
+ 			result.violations.map((entry) => ({ file: entry.file, policy: entry.policy })),
+ 			JSON.stringify(result.violations, null, 2),
+ 		).toEqual([
++			{ file: 'generated-composition/C1-slot.ts', policy: 'baseline-form-inventory' },
+ 			{ file: 'generated-composition/M1-panel.ts', policy: 'baseline-form-inventory' },
+ 			{ file: 'generated-composition/M2-page.ts', policy: 'baseline-form-inventory' },
+ 		]);
+ 		// The FORMS, not just the count - a count is satisfied by any two
+ 		// violations, including two the emitter never used to produce.
+ 		expect(result.violations[0]!.message).toContain('template-node form "Content"');
+-		expect(result.violations[1]!.message).toContain('import form "./M1-panel#Panel"');
++		expect(result.violations[1]!.message).toContain('template-node form "Content"');
++		expect(result.violations[2]!.message).toContain('import form "./M1-panel#Panel"');
+ 		// THE CONTRADICTION, ASSERTED RATHER THAN DESCRIBED. The construct the
+ 		// mutation row below plants as a REJECTED form is the construct this
+ 		// committed artifact SHIPS. Whichever way that is resolved, both sites move
+@@ -390,12 +388,9 @@ describe('Angular dossier gate', () => {
+ 		expect(
+ 			await readFile(resolve(packageRoot, 'generated-composition/M1-panel.ts'), 'utf8'),
+ 		).toContain('<ng-content />');
+-		// THE ANTI-VACUITY HALF. `C1-slot.ts` is clean, and it is clean for TWO
+-		// independent reasons that must not be allowed to collapse into one: the
+-		// `imports` form T014 admitted is genuinely inventoried now, and `Frame`'s
+-		// `<ng-content />` is genuinely NOT SEEN. Assert both, so a future
+-		// `parseEmitted` that starts walking every component turns this red rather
+-		// than silently widening what the lane claims to inspect.
++		// THE ANTI-VACUITY HALF. `C1-slot.ts` carries two independent facts: the
++		// `imports` form T014 admitted is inventoried, while Frame's `<ng-content />`
++		// is seen and rejected.
+ 		const slotPage = await readFile(
+ 			resolve(packageRoot, 'generated-composition/C1-slot.ts'),
+ 			'utf8',
+@@ -406,7 +401,7 @@ describe('Angular dossier gate', () => {
+ 			kind: 'component-metadata',
+ 			form: 'imports',
+ 		});
+-		expect(collectEmittedForms(slotPage)).not.toContainEqual({
++		expect(collectEmittedForms(slotPage)).toContainEqual({
+ 			kind: 'template-node',
+ 			form: 'Content',
+ 		});
+diff --git a/packages/frameworks/svelte/generated-composition/M2-page.svelte b/packages/frameworks/svelte/generated-composition/M2-page.svelte
+index 328815e..957d55e 100644
+--- a/packages/frameworks/svelte/generated-composition/M2-page.svelte
++++ b/packages/frameworks/svelte/generated-composition/M2-page.svelte
+@@ -3,6 +3,6 @@
+ 	import Panel from './M1-panel.svelte';
+ </script>
+ 
+-<Panel label={'Composed'}
++<Panel label="Composed"
+ 	><p data-panel-copy>Projected across the module boundary</p
+ ></Panel>
+diff --git a/packages/frameworks/svelte/src/emitter/index.ts b/packages/frameworks/svelte/src/emitter/index.ts
+index 12d9251..d569b09 100644
+--- a/packages/frameworks/svelte/src/emitter/index.ts
++++ b/packages/frameworks/svelte/src/emitter/index.ts
+@@ -1398,6 +1398,14 @@ function renderComponentReference(
+ 	const attributes = node.props.map((prop) => {
+ 		if (!/^[A-Za-z_$][A-Za-z0-9_$]*$/.test(prop.name))
+ 			throw new Error(`Svelte emitter rejects the component prop name ${prop.name}`);
++		const value = prop.value.expression as { readonly type?: unknown; readonly value?: unknown };
++		// A quoted component attribute and a string-valued mustache are equivalent in
++		// Svelte, but the quoted form preserves the source language's static intent.
++		// Escape the semantic literal value rather than reusing its source spelling:
++		// this is what keeps empty strings and strings containing entity text on a
++		// single decode round-trip through Svelte's compiler.
++		if (value.type === 'Literal' && typeof value.value === 'string')
++			return `${prop.name}="${escapeAttributeValue(value.value)}"`;
+ 		return `${prop.name}={${indentContinuation(printExpression(expression(prop.value.expression)), `${indent}\t`)}}`;
+ 	});
+ 	const singleLine = `<${name}${attributes.map((attribute) => ` ${attribute}`).join('')}`;
+diff --git a/packages/frameworks/svelte/test/composition.test.ts b/packages/frameworks/svelte/test/composition.test.ts
+index bc2b5b2..46b8189 100644
+--- a/packages/frameworks/svelte/test/composition.test.ts
++++ b/packages/frameworks/svelte/test/composition.test.ts
+@@ -75,10 +75,33 @@ describe('Svelte composition', () => {
+ 		// of the target format, and it is the same divergence this lane's `emit`
+ 		// header already records for the export side.
+ 		expect(page).toContain("import Panel from './M1-panel.svelte';");
+-		expect(page).toContain("<Panel label={'Composed'}");
++		expect(page).toContain('<Panel label="Composed"');
+ 		expect(page).toContain('</Panel>');
+ 	});
+ 
++	test('quotes literal component props without moving host bindings off mustaches', async () => {
++		const source = emit(
++			await irFrom(`import { Panel } from "./M1-panel.tsrx";
++
++export function PropPage() @{
++	<div title={"host &amp; value"}>
++		<Panel empty="" entity="&amp;amp; &amp; &lt; &gt; &quot;&gt;" />
++	</div>
++}`),
++		);
++		expect(source).toContain('title={\'host &amp; value\'}');
++		expect(source).toContain('empty=""');
++		expect(source).toContain('entity="&amp;amp; &amp; &lt; &gt; &quot;&gt;"');
++
++		// Svelte's real compiler decodes the quoted attributes back to their semantic
++		// string values. This catches both the empty-string and double-entity cases;
++		// source-shape assertions alone cannot prove the round-trip.
++		const compiled = compile(source, { filename: 'PropPage.svelte', generate: 'server' });
++		expect(compiled.warnings).toEqual([]);
++		expect(compiled.js.code).toContain("empty: ''");
++		expect(compiled.js.code).toContain(`entity: '&amp; & < > ">'`);
++	});
++
+ 	test('generated-composition is fresh from its fixtures', async () => {
+ 		for (const fixture of compositionFixtures)
+ 			expect(
+diff --git a/packages/frameworks/svelte/test/gate.test.ts b/packages/frameworks/svelte/test/gate.test.ts
+index 3e48168..da4d320 100644
+--- a/packages/frameworks/svelte/test/gate.test.ts
++++ b/packages/frameworks/svelte/test/gate.test.ts
+@@ -230,17 +230,13 @@ describe('Svelte dossier gate', () => {
+ 	 *   Angular and Vue carry the SAME form, so the fix is structural and
+ 	 *   cross-lane.
+ 	 *
+-	 * AND ONE THAT IS NOT ABOUT THE INVENTORY AT ALL, WHICH IS WHY THIS DIRECTORY
+-	 * BEING UNGATED MATTERED: `eslint:svelte/no-useless-mustaches` fires on
+-	 * `M2-page.svelte`, because the emitter prints `label={'Composed'}` for a
+-	 * static string prop where `label="Composed"` is the idiomatic spelling. THE
+-	 * THIRD-PARTY ARBITER HAS BEEN REPORTING THAT SINCE THE FILE WAS COMMITTED AND
+-	 * NOTHING WAS LISTENING. T015 did not touch the emitter - its card forbade
+-	 * modifying an emitter to satisfy a gate, and this is a genuine emitter finding
+-	 * that needs its own card, not a silenced rule.
++	 * The former fourth violation, `eslint:svelte/no-useless-mustaches`, was fixed
++	 * at its source by quoting compiler-equivalent string-literal component props.
++	 * Keep the quoted spelling pinned below so this debt row cannot silently regain
++	 * the third-party finding while the remaining inventory violations stay red.
+ 	 *
+ 	 * The violation set is asserted as a LITERAL so this goes red the day any of
+-	 * the four is addressed, a fixture is added, or the emitter changes. Measured
++	 * the three is addressed, a fixture is added, or the emitter changes. Measured
+ 	 * in `docs/goals/frameless-app-axes-v1/notes/T015-composition-gate-hole.md`.
+ 	 */
+ 	test('DEBT PIN: generated-composition/ is discovered, gated by hand, and STILL DRAWS violations', async () => {
+@@ -270,10 +266,6 @@ describe('Svelte dossier gate', () => {
+ 			{ file: 'generated-composition/M1-panel.svelte', policy: 'baseline-form-inventory' },
+ 			{ file: 'generated-composition/M2-page.svelte', policy: 'baseline-form-inventory' },
+ 			{ file: 'generated-composition/M2-page.svelte', policy: 'baseline-form-inventory' },
+-			{
+-				file: 'generated-composition/M2-page.svelte',
+-				policy: 'eslint:svelte/no-useless-mustaches',
+-			},
+ 		]);
+ 		// The FORMS, not just the count.
+ 		expect(result.violations[0]!.message).toContain('template-node form "RenderTag"');
+@@ -281,15 +273,13 @@ describe('Svelte dossier gate', () => {
+ 		expect(result.violations[2]!.message).toContain(
+ 			'import form "./M1-panel.svelte#default"',
+ 		);
+-		// And the arbiter's finding is pinned to the SPELLING it is about, so a
+-		// future emitter that stops printing it turns this row red rather than
+-		// leaving a stale expectation nobody re-reads.
++		// Pin the repaired spelling alongside the absence of the arbiter finding.
+ 		expect(
+ 			await readFile(
+ 				resolve(packageRoot, `generated-composition/M2-page${COMPOSITION_EXTENSION}`),
+ 				'utf8',
+ 			),
+-		).toContain("label={'Composed'}");
++		).toContain('label="Composed"');
+ 	});
+ 
+ 	/**

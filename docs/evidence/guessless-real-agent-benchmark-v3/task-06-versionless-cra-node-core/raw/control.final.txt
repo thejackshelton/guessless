@@ -1,0 +1,17 @@
+Implemented generic CRA browser fallbacks for configured Node core modules.
+
+- Supports static imports, re-exports, dynamic imports, and ambient `require(...)`.
+- Handles both `path` and `node:path` forms from one configured mapping.
+- Uses semantic binding analysis to preserve shadowed `require` calls.
+- Leaves unrelated strings, unconfigured modules, and non-executable files unchanged.
+- Adds the capability to `createCraViteAdapter` only when `nodeCoreModules` is configured.
+- Added focused regression coverage.
+
+Verification passed:
+
+- TypeScript `--noEmit`
+- Lint: zero warnings/errors
+- Focused adapter tests: 17/17 passed
+- `git diff --check` passed
+
+The existing untracked `node_modules` symlink was left untouched.

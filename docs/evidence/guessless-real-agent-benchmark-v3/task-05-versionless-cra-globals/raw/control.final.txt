@@ -1,0 +1,15 @@
+Implemented the generic CRA browser-global capability.
+
+- Adds configurable default, namespace, and named imports.
+- Injects imports only for unresolved runtime identifiers.
+- Preserves strings, comments, property keys/accesses, and shadowed bindings.
+- Rejects invalid configuration, analyzer diagnostics, and writes to injected globals.
+- Integrates optional `browserGlobals` into `createCraViteAdapter`.
+- Adds focused `process` and `Buffer` regression coverage.
+
+Validation:
+
+- `tsc --noEmit`: passed using the installed TypeScript entry point.
+- Manual semantic regression assertions: passed.
+- `git diff --check`: passed.
+- Adapter Vitest command could not run because the existing `vp`/Vitest symlinks target a missing `.versionless/cache/pnpm-virtual-store` directory. No network reinstall was attempted.

@@ -1,0 +1,59 @@
+{
+	"schema": "guessless.safe-change-summary/v1",
+	"state": "complete",
+	"request": {
+		"kind": "safeChangeImpact",
+		"snapshot": "1d3cc31cd81f3af5d301fbe3711b88c46453206c7f6983bde00b1deb3440b2e3",
+		"intent": "delete",
+		"target": {
+			"schema": "guessless.symbol-anchor/v1",
+			"file": "src/url.ts",
+			"semanticPath": [
+				"global:scope:Program",
+				"module:scope:Program",
+				"symbol:createURL",
+				"declaration:FunctionDeclaration"
+			],
+			"fingerprint": "e0c6f91cb696d9b85fe561a59b11f8349d70449d8bf7a3441367d6600a2f1946"
+		}
+	},
+	"snapshot": "1d3cc31cd81f3af5d301fbe3711b88c46453206c7f6983bde00b1deb3440b2e3",
+	"sites": [
+		{
+			"id": "038cede7f6cd6841e05fb64eea67bce743b00f5487dbb370670a1b74ed9ea421",
+			"file": "src/index.ts",
+			"label": "site:safe-change-export"
+		},
+		{
+			"id": "ab1da0d9e8db165b95d1d2b612b5e3a627058a0c845c308474b8a544191eb736",
+			"file": "src/url.ts",
+			"label": "symbol:createURL"
+		}
+	],
+	"results": [
+		{
+			"site": 0,
+			"roles": [
+				"reference",
+				"export",
+				"barrel"
+			]
+		},
+		{
+			"site": 1,
+			"roles": [
+				"declaration",
+				"reference",
+				"export"
+			]
+		}
+	],
+	"unresolved": [],
+	"proofHandle": "c131eabb1cd0724d2f625ad5f5a1b8cdc9d8640a3b92b1df40986b66b020f268",
+	"counts": {
+		"sites": 2,
+		"results": 2,
+		"unresolved": 0
+	},
+	"integrity": "57ee9ff1f93af78e841fa63ce5cfb1455911cc4fd0d115d5f467d40e11f4ee65"
+}

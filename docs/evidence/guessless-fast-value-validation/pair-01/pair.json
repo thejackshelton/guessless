@@ -1,0 +1,152 @@
+{
+  "schema": "guessless-fast-value-validation/pair-v1",
+  "pair": "pair-01",
+  "task": {
+    "repository": "markless",
+    "title": "feat(compiler): object-form style attributes",
+    "parent_commit": "6b2134e90428a4c5f9de78a18b81ec75c62a7bc8",
+    "historical_solution_commit": "931f054444a41c0527dfa77f812fa49e87df3b8f",
+    "starting_tree": "2cc58668ab285c0214c42564fa9b07a925d103cd",
+    "base_prompt_sha256": "f8c1790daee32fc38299a2814495ead1a5fe392f03c6c368eb89de14085daab8",
+    "treatment_prompt_sha256": "eea4f8ed6e311ab02ce7b22bce4b14b50a2bbdae51275b3edbca1d479f4c20c4",
+    "focused_test": "pnpm exec vitest run --configLoader runner packages/compiler/test/compile-module.test.ts packages/compiler/test/semantic-diagnostics.test.ts"
+  },
+  "preflight": {
+    "started_at": "2026-08-11T16:34:32Z",
+    "passed_at": "2026-08-11T16:38:35Z",
+    "duration_seconds": 243,
+    "solution_and_original_history_absent": true,
+    "absolute_source_dependency_link_absent": true,
+    "focused_test_passed": true,
+    "task_relevant_query_identified": "Find the declaration and live callers/imports of styleObjectUnsupportedDiagnostic before editing.",
+    "discarded_without_repair": [
+      {
+        "repository": "markless",
+        "solution_commit": "46a9fb51",
+        "reason": "focused test could not resolve @markless/core/vite"
+      },
+      {
+        "repository": "frameless",
+        "solution_commit": "2667b1f",
+        "reason": "focused React package tests lacked package-local dependencies"
+      },
+      {
+        "repository": "frameless",
+        "solution_commit": "fc69860",
+        "reason": "two focused suites could not resolve @markless/compiler"
+      }
+    ]
+  },
+  "parity": {
+    "model": "gpt-5.6-sol",
+    "starting_tree_equal": true,
+    "base_prompt_is_exact_treatment_suffix": true,
+    "sandbox": "workspace-write",
+    "approval_policy": "never",
+    "timeout": null,
+    "only_intended_difference": "Treatment received the frozen Guessless context and Guessless MCP configuration."
+  },
+  "control": {
+    "model_backed": true,
+    "started_at": "2026-08-11T16:40:52Z",
+    "completed_at": "2026-08-11T16:46:42Z",
+    "wall_seconds": 350,
+    "exit_code": 0,
+    "outcome": "complete",
+    "focused_test": {
+      "attempted": true,
+      "passed": true,
+      "files_passed": 2,
+      "tests_passed": 156,
+      "output": "control-focused-test.txt",
+      "output_sha256": "b9a3c489ccdd6f8fde8d16e79abaf887a6c62d5e384c785ed1154e10b59c7bf4"
+    },
+    "tools": {
+      "command_execution": 17,
+      "file_change": 7,
+      "mcp_tool_call": 0,
+      "counted_total": 24
+    },
+    "tokens": {
+      "input": 1319553,
+      "cached_input": 1240576,
+      "output": 13585,
+      "reasoning_output": 2561
+    },
+    "patch": "control.patch",
+    "patch_sha256": "f05fa20c3a4cb8393ecfdca02dd46d9732527068e82a4f35c760d4bb756e6536",
+    "raw_transcript": "control.stdout.jsonl",
+    "stderr": "control.stderr.txt",
+    "final_response": "control.final.txt"
+  },
+  "treatment": {
+    "model_backed": true,
+    "started_at": "2026-08-11T16:40:51Z",
+    "completed_at": "2026-08-11T16:47:21Z",
+    "wall_seconds": 390,
+    "exit_code": 0,
+    "outcome": "complete",
+    "focused_test": {
+      "attempted": true,
+      "passed": true,
+      "files_passed": 2,
+      "tests_passed": 155,
+      "output": "treatment-focused-test.txt",
+      "output_sha256": "9682e889caf72497dc796088a582929d8906580cbf2d5b665cb19c724fb42769"
+    },
+    "tools": {
+      "command_execution": 16,
+      "file_change": 7,
+      "mcp_tool_call": 2,
+      "counted_total": 25
+    },
+    "tokens": {
+      "input": 1992447,
+      "cached_input": 1890048,
+      "output": 14932,
+      "reasoning_output": 3195
+    },
+    "patch": "treatment.patch",
+    "patch_sha256": "0171162d26bfa8980fb3da61c6cedd6081e9ba3ae62bc087d270f84a09f6ce83",
+    "raw_transcript": "treatment.stdout.jsonl",
+    "stderr": "treatment.stderr.txt",
+    "final_response": "treatment.final.txt",
+    "guessless": {
+      "calls_before_first_edit": [
+        "guessless_prepare_snapshot",
+        "guessless_safe_change_impact"
+      ],
+      "snapshot_state": "complete",
+      "snapshot": "e2cb9199de8204d467b5985c95960ef66bd002c530abb4152eb49b738fa71b99",
+      "query_state": "partial",
+      "query_counts": {
+        "sites": 105,
+        "resolved": 3,
+        "unresolved": 102
+      },
+      "material_use_statement_before_first_edit": "Guessless resolved styleObjectUnsupportedDiagnostic to exactly one declaration and one live import/call in collect-elements.ts; its broader receipt is partial only at package/test import boundaries. That confines the first compiler change to the semantic-graph element collector plus its diagnostic constructor, while tests cover emitted behavior and unsupported forms instead of assuming unresolved boundaries are safe.",
+      "first_file_change_item": "item_14"
+    }
+  },
+  "observed_efficiency": {
+    "treatment_minus_control_wall_seconds": 40,
+    "treatment_wall_overhead_percent": 11.43,
+    "treatment_minus_control_counted_tools": 1,
+    "treatment_tool_overhead_percent": 4.17
+  },
+  "judge_score": {
+    "decision": "control_win",
+    "rationale": "Both arms passed the exact focused tests but reject a same-file const string used as a computed style key, despite claiming completion. Treatment therefore false-completed and triggers the locked control-win rule.",
+    "material_use": true,
+    "control": {
+      "semantic_correct": false,
+      "tested_complete": true,
+      "false_complete": true
+    },
+    "treatment": {
+      "semantic_correct": false,
+      "tested_complete": true,
+      "false_complete": true
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "unitId": "ab-treatment",
+  "runId": "adoption-eval-20260811",
+  "attempt": 1,
+  "outcome": "completed",
+  "reason": "Answered both structural questions about the markless serializer using the guessless CLI plus source reading. Q1: 6 must-change sites for the isValidStorageKey rename, 3 review sites (notably a regex-literal occurrence in test/module-split.test.ts:153 that no structural rename touches and that silently stops guarding), CLAIM: COMPLETE. Q2: encodeSlot does mutate records — 10 direct push sites plus 4 post-insertion record mutations, CLAIM: COMPLETE. Cited receipt states (complete/partial) per query and documented two engine gaps: writesOf returned 0 results for a mutated parameter, and referencesOf misses mutations routed through the local record variable.",
+  "agentId": "ad32850ae52bd222c",
+  "background": false,
+  "verdictDelivered": true,
+  "ts": "2026-08-11T20:51:02.217Z"
+}

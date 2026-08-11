@@ -1,0 +1,6009 @@
+{
+	"schema": "guessless.safe-change-summary/v1",
+	"state": "partial",
+	"request": {
+		"kind": "safeChangeImpact",
+		"snapshot": "1d3cc31cd81f3af5d301fbe3711b88c46453206c7f6983bde00b1deb3440b2e3",
+		"intent": "entry-point",
+		"target": {
+			"schema": "guessless.symbol-anchor/v1",
+			"file": "src/utils.ts",
+			"semanticPath": [
+				"global:scope:Program",
+				"module:scope:Program",
+				"symbol:normalizeURL",
+				"declaration:FunctionDeclaration"
+			],
+			"fingerprint": "5a3e9060f46b8aab892ab572b745365182a8e91838b32d137124e5efcf98553d"
+		}
+	},
+	"snapshot": "1d3cc31cd81f3af5d301fbe3711b88c46453206c7f6983bde00b1deb3440b2e3",
+	"sites": [
+		{
+			"id": "e05fd5aee77b56bef2f567cd5ddd8c6c143e2ee840f37f143436829d38b96e23",
+			"file": "src/encoding.ts",
+			"label": "symbol:text"
+		},
+		{
+			"id": "60045c2a4ee9c75b470509370c6933c52cf57ead5e287cb9c91113c1071fadb1",
+			"file": "src/encoding.ts",
+			"label": "symbol:encodeQueryKey"
+		},
+		{
+			"id": "1c3072b22a090dbc99d84bad87e4ef3465d766e1eb9269d32b1cdcf36e5ed724",
+			"file": "src/encoding.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "4a8131aa6ffb61eba87a030ea260ce99e7a07e7b574cf9f504da9775b634251f",
+			"file": "src/encoding.ts",
+			"label": "symbol:input"
+		},
+		{
+			"id": "9913f0c95c9cade2ad18d505e3df915df4b7241a834f5ccf90aec523b081b2d3",
+			"file": "src/encoding.ts",
+			"label": "symbol:encodeQueryValue"
+		},
+		{
+			"id": "b3a0ac74b61aa623259aef12c1cd73f72173487573063b445ec239659e230d7a",
+			"file": "src/encoding.ts",
+			"label": "symbol:text"
+		},
+		{
+			"id": "e21fa8d750ca472fd0d329c50afb8947994d930d0be22587de04692aa6566afe",
+			"file": "src/encoding.ts",
+			"label": "symbol:decodeQueryValue"
+		},
+		{
+			"id": "39f2df72ec4c8910e4710860c1992e591a2c8a176d1942e654fd1f1d64add916",
+			"file": "src/encoding.ts",
+			"label": "symbol:ENC_ENC_SLASH_RE"
+		},
+		{
+			"id": "80282f54c09598f8eebd3d919ddaa7b285e5b893baccff6c4cfcbd332305ba52",
+			"file": "src/encoding.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "956c383a8df9f96cf53ae00eaba0bb548a57f28b8ef090b044f1895a17d9fc2f",
+			"file": "src/encoding.ts",
+			"label": "symbol:text"
+		},
+		{
+			"id": "d65a2a02f32563be9e445b3b9ab9c8551de686b1f60dce49e1ce3ec2aaa5537c",
+			"file": "src/encoding.ts",
+			"label": "symbol:encodeHash"
+		},
+		{
+			"id": "37e808eeae1f9e0b285e5900b75f3b90ba19547548b04b03e6dbddfeef79b56b",
+			"file": "src/encoding.ts",
+			"label": "symbol:text"
+		},
+		{
+			"id": "b6298e75a68f8d00ec890066760a429ebb1a712c4ea1d4ae0689cedba4f4c5ee",
+			"file": "src/encoding.ts",
+			"label": "symbol:decodePath"
+		},
+		{
+			"id": "c230debc7f440f09d672f8d2f22e402cc9eaee1b7cbd65c92634198c5d653611",
+			"file": "src/encoding.ts",
+			"label": "symbol:EQUAL_RE"
+		},
+		{
+			"id": "0e2ffd9a190ee1705869031e4d1df468a7386a446c9a00fe9210e664dbc0e47b",
+			"file": "src/encoding.ts",
+			"label": "symbol:ENC_SLASH_RE"
+		},
+		{
+			"id": "b745996b31e25b71082883d63ad1f56e5f7cc414f05a254d49f90b97a2b5a878",
+			"file": "src/encoding.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "6d7c0519932e9ed1f732c58534a1d5691eeb1109ae74db1c323f87af7257ca16",
+			"file": "src/encoding.ts",
+			"label": "symbol:text"
+		},
+		{
+			"id": "bb3f22d2f70043239ca1e196bf0617e25be2202875c28e44a5087248f1786d7c",
+			"file": "src/encoding.ts",
+			"label": "symbol:decodeQueryKey"
+		},
+		{
+			"id": "5c8c66a531c3dc62b800015c068c3a1a368ee6563d3dc01a7da196e3b25de827",
+			"file": "src/encoding.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "7c845512aaa95708dd7ebf3cdf75b58ba65aba2b784c6c2666a64fe8df065539",
+			"file": "src/encoding.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "9fe7a80e5b187a5236d56405dd918785ef3ee4fe6e5e637ff9930c019508016d",
+			"file": "src/encoding.ts",
+			"label": "symbol:text"
+		},
+		{
+			"id": "a36b5c3772edbdd1aace07aaf248a493d88b0ef38595e8b10a6f37e516998820",
+			"file": "src/encoding.ts",
+			"label": "symbol:encode"
+		},
+		{
+			"id": "5613782d6dac53513da6d51c254eff82a833483ae9b3edbd94354a0f066984d4",
+			"file": "src/encoding.ts",
+			"label": "symbol:text"
+		},
+		{
+			"id": "0949dbf7851f090e2473d537cbe6023945cc58ea036450c1ffbe40dd011e6f10",
+			"file": "src/encoding.ts",
+			"label": "symbol:encodePath"
+		},
+		{
+			"id": "2d0ebd95c962332ebc56bc5ecf8e7b1f75307c0421d0966e308515abaa7aa913",
+			"file": "src/encoding.ts",
+			"label": "symbol:text"
+		},
+		{
+			"id": "74dc796b889d63fbf994417ec96a65634f3756602fb08d4ceb281806601c41f5",
+			"file": "src/encoding.ts",
+			"label": "symbol:decode"
+		},
+		{
+			"id": "52f4f226d016b76e82b4c53733b0ec11ee77aefaaf5fb2f91712afbe899a5031",
+			"file": "src/encoding.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "f7a6d048a294623c7dc416062d6613be136c64626e83aa6cbc2600c2de187f39",
+			"file": "src/encoding.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "d6f28788c6468da7befb5082e5f1f413ea3789f586b4adca721b337fa16012d9",
+			"file": "src/encoding.ts",
+			"label": "symbol:ENC_CURLY_CLOSE_RE"
+		},
+		{
+			"id": "caed7e615a56b41bd8d329cd8afb7f9db38c24c0f421d9e5d09d33811567e99e",
+			"file": "src/encoding.ts",
+			"label": "symbol:ENC_BACKTICK_RE"
+		},
+		{
+			"id": "7d5aae8b3f73ffad3c1fab5342654a364cda6a461fa6a8ecaf658704288d7b07",
+			"file": "src/encoding.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "afab7da7d064dc83d9e5f90068c3f91f9201e871d0bcab7b1eb63e1e45b2920f",
+			"file": "src/encoding.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "ec1bfd4079fc4defdc8740604cfabf5f059bda6a55adad54d26db749176f302e",
+			"file": "src/encoding.ts",
+			"label": "symbol:ENC_CARET_RE"
+		},
+		{
+			"id": "cded1209e885fbfa78f57de039c5ac7a42a82fbd4d8a12d9e5d1158d01f1d3e9",
+			"file": "src/encoding.ts",
+			"label": "symbol:ENC_SPACE_RE"
+		},
+		{
+			"id": "4589b304c240d5cc3b002d3ad4afedaf46132fe7baca921142465a9e89231c3b",
+			"file": "src/encoding.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "76a494301a938ff33108904df5a4318bfdb7e56ec51e3bd3051a1de7616232f8",
+			"file": "src/encoding.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "b92a7bd3aaae305908003924e929e041078d1ac8c2c2a8041b1563335dafabf2",
+			"file": "src/encoding.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "a76d73eb3b0f830ba5f2c66fb566ed486072529145b4edfbfd1822db9f9ee998",
+			"file": "src/encoding.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "d5bc0110845d1e8824000181c46aaba86d9c89fd13b501863543025d4b08f9db",
+			"file": "src/encoding.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "4e2c7a50561536957aa44580b8127a5e1562e18d98354d17952973eedae50a6f",
+			"file": "src/encoding.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "b2e3dccb2483d4fe39d63315894366ae386fd66d1f67f7a6f288b6ab50f4cbb2",
+			"file": "src/encoding.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "e34513d0ca82045ed26035669a059b4cf86e8f1ccd2915a90d88854ed28721f6",
+			"file": "src/encoding.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "5c13c7fd6d98c18016e51c60576d9362af0554808c7f535ce56ef965f48915a0",
+			"file": "src/encoding.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "f929cd00c417c26bbd12dc31896f84b3d888cc611a4d6cb346cdeeb154c9b864",
+			"file": "src/encoding.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "880f6aa200df0dc5620129ab092ebcf590426453bc9b91e9ab6c89334bc49578",
+			"file": "src/encoding.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "d398397e50905bce2381b9d5aaed219882e337d39b1e47f6046d01ffb0d99c6c",
+			"file": "src/encoding.ts",
+			"label": "symbol:ENC_CURLY_OPEN_RE"
+		},
+		{
+			"id": "73abdf675dded15ee858cdafb7942676eac65bc45031d2fb39b7b55f76166d92",
+			"file": "src/encoding.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "3dacdcdba17a83da9cdcf58c45ed7098cc875f69d49f5a5e27d9650093ecc655",
+			"file": "src/encoding.ts",
+			"label": "symbol:IM_RE"
+		},
+		{
+			"id": "2505b55fd527d6679fa6b829ef9362087bc7e168c3ffcda102f50949476cfa1b",
+			"file": "src/encoding.ts",
+			"label": "symbol:AMPERSAND_RE"
+		},
+		{
+			"id": "5195e1e7256c6368c146a1aab45a501e21afbb801d838cbbb3823d01dc1f6b2d",
+			"file": "src/encoding.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "4d3e44d02a2ff868e5c5bf5595dcace1fb7eb73aca1706b6001adb071a4b3b18",
+			"file": "src/encoding.ts",
+			"label": "symbol:ENC_PIPE_RE"
+		},
+		{
+			"id": "cbbc1198f4f89213c15956a5d30c398be2a7bfd67bf77427d09f5d75af96b34d",
+			"file": "src/encoding.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "aeec766e663f4db68d7fa5f67e3cd62a39d05a1cd2648106523b135b0e54570c",
+			"file": "src/encoding.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "c3b3190340c8038c29bdb69da385b993c8f3ba2542eff2320da3f6787bf710ae",
+			"file": "src/encoding.ts",
+			"label": "symbol:SLASH_RE"
+		},
+		{
+			"id": "ccbcc6b1970c8b4f47957daa3b6e23842943ca4f1576cf0044622d0b1ecf4e2a",
+			"file": "src/encoding.ts",
+			"label": "symbol:HASH_RE"
+		},
+		{
+			"id": "b311abbe715fb956308ea68648625c6e8a11c9362c7608a054cbe86a3e9a5eda",
+			"file": "src/encoding.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "da28db3e87c2909aa72cb0a99ce0cb578125ee2c6ee4190312f22c5991877b96",
+			"file": "src/encoding.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "2be679b57e9df7829b4f38dde212899fad1bfd0b04782affcd315ed5af96de32",
+			"file": "src/encoding.ts",
+			"label": "symbol:PLUS_RE"
+		},
+		{
+			"id": "1c590e034514130085de838f8b1cffb48d152b19d73cf68d3ac71e2b8c56d8aa",
+			"file": "src/encoding.ts",
+			"label": "symbol:name"
+		},
+		{
+			"id": "de27a3ba5bf80045f8874a929a81c8973aae8984ffac7f8118a976cfd4eca496",
+			"file": "src/encoding.ts",
+			"label": "symbol:encodeHost"
+		},
+		{
+			"id": "d12971e32e1403a47c4f068c6075a35df1514bc180d54f0e9c518fb4dbe7e979",
+			"file": "src/parse.ts",
+			"label": "symbol:search"
+		},
+		{
+			"id": "4efca18961e2db74d6725809ed670d3885f2067d3d9cfc125bb9ec3e801609ce",
+			"file": "src/parse.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "9c5fb323db3a4ca467558086ee72eccde557dd3e93548940588b843202d1911c",
+			"file": "src/parse.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "65797756f8f8c602408e6afe1e4c4f6dd5fd479a07ecd1b8e1bfd946b1b87f5c",
+			"file": "src/parse.ts",
+			"label": "symbol:parsed"
+		},
+		{
+			"id": "77d34c997a8f56404c19054e470650771902c7d13d34f9f86dab4e272cfd3804",
+			"file": "src/parse.ts",
+			"label": "symbol:stringifyParsedURL"
+		},
+		{
+			"id": "e4434ef110709aae7bc5eec2c477752f6ea231dd42c0e7febfff363a4dc46e58",
+			"file": "src/parse.ts",
+			"label": "symbol:FILENAME_STRICT_REGEX"
+		},
+		{
+			"id": "25b024634061fa7c041190b230445f3160aef7128ab3286b85fdddb3f0e9591b",
+			"file": "src/parse.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "d712e679124e6b182f06e7eef5a54963557c8889289a1241a0567d992891c698",
+			"file": "src/parse.ts",
+			"label": "symbol:host"
+		},
+		{
+			"id": "76ec93c29431c021fd67d08de0fea7dc0e1b05fc65bd56558572c7bf5e8ea5cf",
+			"file": "src/parse.ts",
+			"label": "symbol:hostname"
+		},
+		{
+			"id": "cf64c8f38b8c9445fa47087aa5a0d004f6bbfd4f96fd29f4af320cceff3ac15a",
+			"file": "src/parse.ts",
+			"label": "symbol:port"
+		},
+		{
+			"id": "ece039dbaa11db6d99abb42de80362a9e2e950e71ff5d58b5f44e17f58b3f715",
+			"file": "src/parse.ts",
+			"label": "symbol:hash"
+		},
+		{
+			"id": "05609779e3b74bfc5e2586e8c6150c4432caecec3cc90ef307e0abb6c625abf2",
+			"file": "src/parse.ts",
+			"label": "symbol:ParsedPath"
+		},
+		{
+			"id": "194fc585bd1ee953cedacb9f9e965bc380e2974152ac7b382e850978c6f950d5",
+			"file": "src/parse.ts",
+			"label": "symbol:input"
+		},
+		{
+			"id": "49c237dabf71539d67d59e57582ace85da1ddd2786ebe59eb2e62a11279bc824",
+			"file": "src/parse.ts",
+			"label": "symbol:parsePath"
+		},
+		{
+			"id": "cd4332e6f7b39a4b781fb788683074fb8f4012158c0d9c68436f0b81a826a598",
+			"file": "src/parse.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "77621190798447a192e9cf2fb0dfba27f4cc99af2e5bead901aefa7ba03bcb9d",
+			"file": "src/parse.ts",
+			"label": "symbol:defaultProto"
+		},
+		{
+			"id": "a73b9a2f6c8c4c30c20df989fbaab791c1b7927d60bbb5d9f3697afea40680d3",
+			"file": "src/parse.ts",
+			"label": "symbol:input"
+		},
+		{
+			"id": "550d163a90a21444063568b2fba35d4e83ff00875e9eeb3ce226ae8df17678d6",
+			"file": "src/parse.ts",
+			"label": "symbol:parseURL"
+		},
+		{
+			"id": "391ec2f6dd716464f16fe34a8ecb302ae6a0005b3074ea5cbe3139a7a4ccfffa",
+			"file": "src/parse.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "abe8bf77d841fd603baed48f219c91ee4b6cab4d36839f7ba341249fd3434c34",
+			"file": "src/parse.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "e08640aa618e8c324cd6d6bc2c3cdde58c13b04a191aa91890a882ec44a462d2",
+			"file": "src/parse.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "9fc37f0b236dab7182007ee3bb3692ad2310b8d881a229ef966197276571d410",
+			"file": "src/parse.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "3571d57051bea953f47efad09fd2917d34e6b3efdec2746311d99bc6b902dc07",
+			"file": "src/parse.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "fd22838539019f4ef7dbe51b03709f1582673e40c5f5257a0cef72029ac45bd8",
+			"file": "src/parse.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "4ef452ba66d9fbc2b463d5663f0dbebc494511f5541d989ccfc9fe2c44d8a48b",
+			"file": "src/parse.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "be5740c6a1aabb26a5c581d8754286658ab3c4eee24b566a2e5980679603c3e2",
+			"file": "src/parse.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "9f718e7f70b7d48f15d52444c954d64a0ed22f7a1d9b90b020d155e4880066a8",
+			"file": "src/parse.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "4e31b0da1934dbe581641463ab2f2a9c4a352f535a574df3fb8be396814f98a8",
+			"file": "src/parse.ts",
+			"label": "symbol:matches"
+		},
+		{
+			"id": "72432e8bdf0562150a50bfcef59635a622c7733ddcd8443cb6d11dcd0f085401",
+			"file": "src/parse.ts",
+			"label": "symbol:host"
+		},
+		{
+			"id": "3e30189e3ddd50916fd76ce9c2c95d697c49d91d08fc6dc35dd01911dc701f35",
+			"file": "src/parse.ts",
+			"label": "symbol:path"
+		},
+		{
+			"id": "079a50d7988d3487f5041216306ebf15e0d26f5db7c0f70d40399904dc4246f9",
+			"file": "src/parse.ts",
+			"label": "symbol:ParsedHost"
+		},
+		{
+			"id": "963b6b1245828a1b1216796325cbbadc58476c360dace1ea2676764c7558f960",
+			"file": "src/parse.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "6e2c2e1bb8ca1cb9a6e11af74cfb33f326d2c39100977b1a24916d349920c92b",
+			"file": "src/parse.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "e06463cd2902fcff9c74506220f84fe092710128a1b75626ed260c433eb444ee",
+			"file": "src/parse.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "4c67dfa36d1abc20b58b7903ff866018b05c8cc581f0fbb0d0b8f04c08b3690a",
+			"file": "src/parse.ts",
+			"label": "symbol:auth"
+		},
+		{
+			"id": "427ccf7ba805bdd3a226752f580145d0a9d5c8a95f823f5e296a122b6f8f472a",
+			"file": "src/parse.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "13f6f6371c23e88d083203313d8bdb54b126ccd0a8af802b2a0fcf07fe73dd4f",
+			"file": "src/parse.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "9dc0de4da755b7c79ac7e20a09075127a984ad8ea0916224144cf89afc0313d1",
+			"file": "src/parse.ts",
+			"label": "symbol:ParsedAuth"
+		},
+		{
+			"id": "cd0638dbce5c67395b8036e15417594524391bba366b3f12c2d711ef8bf57d9e",
+			"file": "src/parse.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "f1d1ced7243c5d44d1a751f42d090f48755fa89098fc68047c10886376c82b30",
+			"file": "src/parse.ts",
+			"label": "symbol:auth"
+		},
+		{
+			"id": "9a1600a00dcf01ad900ce7247bdedd3e41b61a3a6ae3d6d6f8cf3f9b9c696d19",
+			"file": "src/parse.ts",
+			"label": "symbol:hostAndPath"
+		},
+		{
+			"id": "536ef797424e11dc42f510cc694b59f834d971f665018db57f451bff3162e8df",
+			"file": "src/parse.ts",
+			"label": "symbol:protocol"
+		},
+		{
+			"id": "eee6b595c7cd348146418615368917201ac35235f16ff4fd55cfd5e039180326",
+			"file": "src/parse.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "21ddf37675b5042e211d17d032e65603adc48dd0aca5240d9eecd38bad6d6a38",
+			"file": "src/parse.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "c6def5ef77d18e37cea86ee19339240324587087c31a682cd778f17094e6a442",
+			"file": "src/parse.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "04d1dec1d668af63fa43c66b18cd2f5c185dda0cf85640766e62cea00aa58fd7",
+			"file": "src/parse.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "897b7548a7b8347463352363786578867e1e24447e5bf7f8108080a164b036eb",
+			"file": "src/parse.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "f8e8618e15fe62a74c2869b783ac2bd3dc02f80574b163036e243f5bcafbbaab",
+			"file": "src/parse.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "37a9673b4d288504905d63da6861a8516ada6b4dea257e3b4236744d7b4b2145",
+			"file": "src/parse.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "49d2ec42f55c7e1b39687f5baf2c3693aea5c36f1ba2ecc25f34d837151155b5",
+			"file": "src/parse.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "178b80821e3687ab825529b1b16d519cd3bbc7d5be05c4e38990258a8af23f7c",
+			"file": "src/parse.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "e16b7ff2987b62a76b1ed2d1452b52154c78627323b210b60899af6179999f48",
+			"file": "src/parse.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "72c65889a7da38d82ef2d2dabc685b15d7b802f3f4aea046e9f20031d38e05c0",
+			"file": "src/parse.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "9c39c74bc280c13b28a4f2ffd466f7f908ea6261b29b9a513197257f7621cc66",
+			"file": "src/parse.ts",
+			"label": "symbol:ParsedURL"
+		},
+		{
+			"id": "f697c0216382917689d4a5c9e87c514b48cf5bbd23ebeab8b815debb8517edfe",
+			"file": "src/parse.ts",
+			"label": "symbol:pathname"
+		},
+		{
+			"id": "c9268e07c0d77e496921e1a98801ae69f2e6385bd3c2c3ffaa7d07ed220de806",
+			"file": "src/parse.ts",
+			"label": "symbol:input"
+		},
+		{
+			"id": "dec8f6b254dd42bcae2532579667070e76809d4a3611b0106f46f75e04a631c7",
+			"file": "src/parse.ts",
+			"label": "symbol:opts"
+		},
+		{
+			"id": "4aaf67edf801ddd4a586f8303db33756ea9f8294f3c27418f97c1dad1c5d7b58",
+			"file": "src/parse.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "3f758e3d0e01e0f0bbfc59492260dfb7c740581df02dc4f85a33b8f050871617",
+			"file": "src/parse.ts",
+			"label": "symbol:_pathname"
+		},
+		{
+			"id": "b4e87cf223d2aa583253a4618d305514e9c0ec3b7f6b844678b593c80dd8721a",
+			"file": "src/parse.ts",
+			"label": "symbol:_proto"
+		},
+		{
+			"id": "26a796d386c6136fe8f9796cd4af96d0929e40e99c9b5b16637660d2b47b678a",
+			"file": "src/parse.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "f3bc8e55d2d6d46ff76c1c19629447003fa40a6df764f28e78660bd203c8d688",
+			"file": "src/parse.ts",
+			"label": "symbol:pathname"
+		},
+		{
+			"id": "f0671271dcd1b4b6a017e5c219d53df2fc125d154bb958ae85715b61b2d4e0ae",
+			"file": "src/parse.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "a72c106f81c064b8891fb2f854b6b49d55724bac78b3617cee601a98aee168c9",
+			"file": "src/parse.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "a7034d4a16c2b5a4e9e31bacdb97336d7e72bcf5d1b4c8002d4ec94a301f5fc7",
+			"file": "src/parse.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "833a056707f7ad79dd9b8df00490f916a9c9e987efcbc25b00b808b5f375a3fd",
+			"file": "src/parse.ts",
+			"label": "symbol:input"
+		},
+		{
+			"id": "d0b6879f1b7da1ad3c6cef47512dd0cff95306cedbbeb721ea77bc817c2f8bd6",
+			"file": "src/parse.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "f30c1bbceb98ff0e4b869180b1de13d1b516fd3f2090b2989a2592f61508e093",
+			"file": "src/parse.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "70570bff62fe1dbde3a42e5dfb109582cda20762a91667620a0934fdbf898bb4",
+			"file": "src/parse.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "ce8b7568e18f2d319cea14ee594939196a92c787afa3edbaeff5db039e12eddf",
+			"file": "src/parse.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "3ff03e2e815da2cf9e7f66f7de5352c2c9d2d2a0c237b733ceaf8c0927320cfd",
+			"file": "src/parse.ts",
+			"label": "symbol:hash"
+		},
+		{
+			"id": "5d5ee912f5c3fe87cafe40b6959037f0f1c77c9b1c5c78a8a8603c9ec3ea449b",
+			"file": "src/parse.ts",
+			"label": "symbol:pathname"
+		},
+		{
+			"id": "b2efedf63fb5edd884b51908dee21bb28279cc0a78f4fcb601582f310a9e205e",
+			"file": "src/parse.ts",
+			"label": "symbol:search"
+		},
+		{
+			"id": "bdd85b6006743a14c4fb546122c65fa68dfa02a1969c7a3d6074719722722101",
+			"file": "src/parse.ts",
+			"label": "symbol:protocolRelative"
+		},
+		{
+			"id": "392d5d9a0d891e88b964aac2afa0594302963570a09a6dc886f372f48ce15a9e",
+			"file": "src/parse.ts",
+			"label": "symbol:password"
+		},
+		{
+			"id": "0e06c5af3c2ff280ec3aa0b57b0f01bb68d9eac3cba83e32c85cb29882047aab",
+			"file": "src/parse.ts",
+			"label": "symbol:username"
+		},
+		{
+			"id": "3869bf697d7d8e8d36fea7e79f877960bea8f8fda7a51a3c58d22adb40e1d8d9",
+			"file": "src/parse.ts",
+			"label": "symbol:hash"
+		},
+		{
+			"id": "33bcc1b60bf8811c6ea2e58da6ae2660c1a88d57574f6178bfad10997074c54c",
+			"file": "src/parse.ts",
+			"label": "symbol:pathname"
+		},
+		{
+			"id": "5e06756bc34a7c699ced324af031c34e6eee18ab1953560c9ae063dcf3941ca7",
+			"file": "src/parse.ts",
+			"label": "symbol:search"
+		},
+		{
+			"id": "65271e928d8b7e239f31fa3332ce7e0d9a486011fd421972e263e4341a665e47",
+			"file": "src/parse.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "a090ed941257a8dc407c44501d724b5577c6365bf65f2fc908c5e0897d299a5b",
+			"file": "src/parse.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "ab0bad6b9344ee2bd7db6619c1fabf5a0d56ee338292e12f1aef69ea3aef5515",
+			"file": "src/parse.ts",
+			"label": "symbol:input"
+		},
+		{
+			"id": "228c094d08ed4afa76bff85ed96555e29fa24aca245cca160f58109aaa5a6712",
+			"file": "src/parse.ts",
+			"label": "symbol:_specialProtoMatch"
+		},
+		{
+			"id": "6855a8f63e26803e61954f6ea6d197d59396f4470aa13ae5d63ea6861cff97a4",
+			"file": "src/parse.ts",
+			"label": "symbol:proto"
+		},
+		{
+			"id": "b877d2de5a97cf1d8cc5f2e5b28594901b97931ee456113d1a6cafa9e4701ae0",
+			"file": "src/parse.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "c5ba4c28604a0f5c0c04d7c27629660cb10204ffcd01a4a7815f3c85e7717554",
+			"file": "src/parse.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "2c6b7c2579efc21305243a2270d1663137285272c382d9540a4bc99bae48842c",
+			"file": "src/parse.ts",
+			"label": "symbol:FILENAME_REGEX"
+		},
+		{
+			"id": "ce7359b2330e8c0b738d25a77eb5c22645f43505647ad0bf511ff4ef5a4e131e",
+			"file": "src/punycode.ts",
+			"label": "symbol:o"
+		},
+		{
+			"id": "3d3fff815e2ab505a6ae947c5eb6efc4917cd98661da14c6e4dac499e587de33",
+			"file": "src/punycode.ts",
+			"label": "symbol:n"
+		},
+		{
+			"id": "d456cd9ae55d7ea598c99a099b1ae51f23550662791f932825ad57c5f0f59721",
+			"file": "src/punycode.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "a7e150a7b4ce3f809fbd7e82eaa0ae16b9e03c868edb0b53314f25822a0cdd16",
+			"file": "src/punycode.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "719c3c15dc716653b67b4a6ed870147cb23956d86c146e30ef07faeac69d6a26",
+			"file": "src/punycode.ts",
+			"label": "symbol:t"
+		},
+		{
+			"id": "ebd904bfa9f178785f0bc5a372185eb72f51c40e06d32fcf4bb70840b78bc1fd",
+			"file": "src/punycode.ts",
+			"label": "symbol:f"
+		},
+		{
+			"id": "89fb745ded968a8636ad4736aa1fb64094306576f730301e01edfa695981a8b9",
+			"file": "src/punycode.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "0b826655d0fdf93858b67b320f354843dff43183131a3ae5dc79f9779bb7c985",
+			"file": "src/punycode.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "c3f81b6632b5ec55b5976373938647a577225cf7e8ce70672389944f70a0824b",
+			"file": "src/punycode.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "44ca0a478cb8fa04354fe0236881b623ad0e18748beb079fb876072bd5ecd5de",
+			"file": "src/punycode.ts",
+			"label": "symbol:r"
+		},
+		{
+			"id": "45a4c24bf7930e3aa2f45b42bf4e5e17e57daa685279a407ca447e4ce68d6f38",
+			"file": "src/punycode.ts",
+			"label": "symbol:p"
+		},
+		{
+			"id": "9eebcfdda456a2bb05ff455b0ada1adcfc554cf287067ac00fd38550453b869e",
+			"file": "src/punycode.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "31d45446882b0de245958ea12da0a32b847c06b7053533d7a37baa200d6f1b93",
+			"file": "src/punycode.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "c57a2b025c14b038cd535e380b942294b6a1bd31f28c157643702087c1c3e769",
+			"file": "src/punycode.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "fc32c7caadbb996011bb268e9c411cacab6353548d76e4a3b1ad9b036cdc1a7b",
+			"file": "src/punycode.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "5d928565251e36298734e0b270984cc30573cceef5ff8eca79d27e9c27fe75ff",
+			"file": "src/punycode.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "661d65e2703af9615577aaa3051d370048f4665119bcb608ae3fc190612d4e0b",
+			"file": "src/punycode.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "29026aec9102e57babbb03f243b1431201ecd2fa7d81c66672c7a181fe234038",
+			"file": "src/punycode.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "9749bddabdddedae23c8981ed3d0f325d3a013f72375366f5b04c1bbc9477857",
+			"file": "src/punycode.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "8c9291a17ee44e097d6aa42b644e6ed539470dc545f5203746022cd4fe60e684",
+			"file": "src/punycode.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "ae3f3126dc1cedbe72ab3dd956e51029a8d719698b9aa4efa0604912c48a0fe8",
+			"file": "src/punycode.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "cc441cc07fc7bda5eb5b283991a5f5f66061d89b94292116a515a028aaed8a29",
+			"file": "src/punycode.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "6220c0ba584d09972a09d922b14a0bf8365170ecb64a92003c3305dc222cfc23",
+			"file": "src/punycode.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "ae701a6302d902883cdf018f375bfffe5ce5549fccd7dda4a4769295b7c69530",
+			"file": "src/punycode.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "afdd0d05fc7f6aac1aef52e4d3e9531a8bcdf43b04c5a14254f8491e95fcc47f",
+			"file": "src/punycode.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "9bc36765e4e1f908ca0d5041539aa7e51268a96b3354a70664a5894bc1af193b",
+			"file": "src/punycode.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "cd7f3981a9093eb79dd95baf01cf7073a870fa41800646ea60417b6f5cd901df",
+			"file": "src/punycode.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "8b577d07ab487025fde26060bdd579acd6a9bed7bce345fffbf0c610b97ab3fa",
+			"file": "src/punycode.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "76b2ea00932967989cf37b56d5764e5f7cd13d8783e549239a19cf2cd6359e4d",
+			"file": "src/punycode.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "d3cc73ca364830d7f99be8e240c00f6e9af8f4adcfb2a7ec72da3b003aade1d7",
+			"file": "src/punycode.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "a9f4be7691d7bc69fa710f4046138d65a31efc07a55a7083ea4f802a3f6b9ec2",
+			"file": "src/punycode.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "ae71a7e0f726639010b40a5af116d2290f5a5d36a6dbad6a42b664b8c8dceaec",
+			"file": "src/punycode.ts",
+			"label": "symbol:r"
+		},
+		{
+			"id": "759f8ca056b837b807b77b00e8a2f165db691526896a56f2bac78a29ca4d34a7",
+			"file": "src/punycode.ts",
+			"label": "symbol:n"
+		},
+		{
+			"id": "33700d70bcef175e74d07a5ee0d5be59e37b0052219ade503d5831ab74fc65f2",
+			"file": "src/punycode.ts",
+			"label": "symbol:t"
+		},
+		{
+			"id": "7d6a35978966d35607ced71fed11486dbfd1c458ffbdff3c469acefd7353560a",
+			"file": "src/punycode.ts",
+			"label": "symbol:n"
+		},
+		{
+			"id": "de98d96a8d97e7520a32d0f7fc3813decc35c36b9a513499191cd6955ae44af0",
+			"file": "src/punycode.ts",
+			"label": "symbol:o"
+		},
+		{
+			"id": "271d7877c8d8720062d08943ff52d884952f84b3111006ea483cb706eb03f5f2",
+			"file": "src/punycode.ts",
+			"label": "symbol:o"
+		},
+		{
+			"id": "1e1e19e87fd8c05245b0450fdff70b9e2957093970beea05bd4f960d4515bca8",
+			"file": "src/punycode.ts",
+			"label": "symbol:toASCII"
+		},
+		{
+			"id": "fcd2df7dd195b619c0253209906630fc03bc77ae6bf54d6838af4d4e7e16a0e7",
+			"file": "src/punycode.ts",
+			"label": "symbol:e"
+		},
+		{
+			"id": "a803824c47aa858dd77ef6f6dda2352b97bedc04bee711987de6ab496d0c6f3b",
+			"file": "src/punycode.ts",
+			"label": "symbol:t"
+		},
+		{
+			"id": "359e48adfd519943b155db5c5d362f569cf0ca3148eb8e009a71a4966ddbb3f6",
+			"file": "src/punycode.ts",
+			"label": "symbol:r"
+		},
+		{
+			"id": "1da3f2d6645cf13db69d2699e3575614703b30d964ac38b498ba58ce2dba009c",
+			"file": "src/punycode.ts",
+			"label": "symbol:a"
+		},
+		{
+			"id": "cc72c1b29ac53e093513605dc42715c9221c2c5ab38131500cebc4e9437d9137",
+			"file": "src/punycode.ts",
+			"label": "symbol:e"
+		},
+		{
+			"id": "29d72d96e965dc3bb3512f82469e94982831c061614c898f9475c90cb77bb84c",
+			"file": "src/punycode.ts",
+			"label": "symbol:o"
+		},
+		{
+			"id": "e96f629812d219ddef91e3972f90f7f5dae6592bca695f3d8820ff29d2238b1b",
+			"file": "src/punycode.ts",
+			"label": "symbol:n"
+		},
+		{
+			"id": "0b6bbf2cfb8d85adb4772dd368e00bb43b8cbd16b4f75e4790284639bb4013b7",
+			"file": "src/punycode.ts",
+			"label": "symbol:t"
+		},
+		{
+			"id": "ebdef8bfeed0b29bec08d84b7e661c93f624548c9be883c21be8c676d1a2b1a7",
+			"file": "src/punycode.ts",
+			"label": "symbol:c"
+		},
+		{
+			"id": "d17789ef97092a4131cecda55841c8456b69fa91e12e8ce02beb94bbbf7b59c4",
+			"file": "src/punycode.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "7e9b843d5e092a1b19f849482a88df7eee1f33e766a5c3ac58cf4183c090cc64",
+			"file": "src/punycode.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "54a8b748fb0af632401fd46384cdca8e3f3dc4fd145b73f0977cd26f6e556b60",
+			"file": "src/punycode.ts",
+			"label": "symbol:o"
+		},
+		{
+			"id": "efad8dfa9234f2a57bb4589db32c4199a4ca41d7f6f89ab02c895847477b3137",
+			"file": "src/punycode.ts",
+			"label": "symbol:o"
+		},
+		{
+			"id": "16f8191e1b08debcc3d4b3f8eaa38f49005aac7b0b2fad681ae8d33cea2ab282",
+			"file": "src/punycode.ts",
+			"label": "symbol:n"
+		},
+		{
+			"id": "b2213b7ce251e221f0b82781c4cf63e6f184f77f7d5cff2d99d931f53e537a90",
+			"file": "src/punycode.ts",
+			"label": "symbol:o"
+		},
+		{
+			"id": "8501fbc18e46680c4eb743be04cc403a2687605a642b7a1f9f3d0410f1e6268e",
+			"file": "src/punycode.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "409243273fe1ab9f5fb5a33fdb186470a2bff626f59e9415588a775701a0d2a5",
+			"file": "src/punycode.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "55fbb9990f6955330013c1d3efbb5994ec72f47b52c4e691472ac4a15e503170",
+			"file": "src/punycode.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "25937661a793635285228d23cc322012e011be8ba3d789c17133693b05f277c1",
+			"file": "src/punycode.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "26cfecbf9cec8eb257f4f1a8e03eebdba7ec9117ab7e16edb270a55bec39d3f8",
+			"file": "src/punycode.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "b99ce5441cde9fba0df2977927b9a94cce44a9bee3574bc43e35419b227739c2",
+			"file": "src/punycode.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "d2b56aaf9c71234d6548cbf9fa3e1c1af7db87eafd6e7f9af7b801014aad2a0a",
+			"file": "src/punycode.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "59bb1e3e97089328ff79c5e41e53e2db968952f5db233a4ca9634121846cb477",
+			"file": "src/punycode.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "3ac5df7a3abedd19baca9bce4bfa2475afb25ebadb63df1224e92d795d029370",
+			"file": "src/punycode.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "ab6bce86b28beb0c31adaf42600cc817f56115636ac56b7da5c5b014346a1826",
+			"file": "src/punycode.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "e7162d860abf0e29991c2104b4cd9fc15cdada9df54d6e83c6e7b4d69e64f3d7",
+			"file": "src/punycode.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "6d265dd01dbedcdf2146951d1e83bf39386010856a330e1966c43b771b83944c",
+			"file": "src/punycode.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "c92921cbf6be9232dd610fb93ec149f01856485eeb98f0c811b121a37f046415",
+			"file": "src/punycode.ts",
+			"label": "symbol:o"
+		},
+		{
+			"id": "a63f069791c6d7f87fc7ccdd04e79fb9c196c8059b042337ae8258f9035d19b3",
+			"file": "src/punycode.ts",
+			"label": "symbol:o"
+		},
+		{
+			"id": "9c9ef56b4dfa3a2407c04103f14081bcbd76425840bb2bbb32d39d128af36d94",
+			"file": "src/punycode.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "fc667fb5dfaff6dfcbe60e35a7c00dc02cd7ff46cc6a7a25788daec24b87106d",
+			"file": "src/punycode.ts",
+			"label": "symbol:f"
+		},
+		{
+			"id": "5221a9545d22c15a468a1a8fafb1c01a5532db8dcbacb9c4a7fedc4ec7314d36",
+			"file": "src/punycode.ts",
+			"label": "symbol:e"
+		},
+		{
+			"id": "f5f4aa7042531c47d7fe2c9151f33f0d70a98add33a8899ec09e711d5a1af5ce",
+			"file": "src/punycode.ts",
+			"label": "symbol:h"
+		},
+		{
+			"id": "cdcef7a775c958669452ed3cfaae5beeb6e8258e1b6e0e7e5e0b6a8b62c095e1",
+			"file": "src/punycode.ts",
+			"label": "symbol:t"
+		},
+		{
+			"id": "b810df04ffcf67314b9512a89b9f5dae91569f783b73e2f58c4b22b2aa79481b",
+			"file": "src/punycode.ts",
+			"label": "symbol:t"
+		},
+		{
+			"id": "a199878a40871a0da947e7cf791881e51687d47d4638fded895df52fb0bdb9a8",
+			"file": "src/punycode.ts",
+			"label": "symbol:n"
+		},
+		{
+			"id": "061f6a247af2e9fcf1116dc0f03f83b41919c15a6dc256cd86dd10334478b609",
+			"file": "src/punycode.ts",
+			"label": "symbol:t"
+		},
+		{
+			"id": "5b6cdb23c566c0c886f5b89d832ff375fc4b0915fc4c7db66fcaddeefab963c9",
+			"file": "src/punycode.ts",
+			"label": "symbol:s"
+		},
+		{
+			"id": "8ebbfd200ef190589644c07b33b6340f3b152aac9e6f4decb10081f4da0d1d52",
+			"file": "src/punycode.ts",
+			"label": "symbol:r"
+		},
+		{
+			"id": "94af3cf2881e369f79cf823b99d80887ce4dfd9664d9024cfaa13455e44a9795",
+			"file": "src/punycode.ts",
+			"label": "symbol:u"
+		},
+		{
+			"id": "c69baba36f4ee424989bbea5c3ac5b8323f4346e1bec7216d8fd4d7f577d03cc",
+			"file": "src/punycode.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "783955770e6880b74d97c5e4eaa4c7ea843922afbdaf4d732c16ac5192971807",
+			"file": "src/punycode.ts",
+			"label": "symbol:n"
+		},
+		{
+			"id": "187f574dcccdafd6b1944384ffdd55094d2bd8588c7449b79b22aa49fb417782",
+			"file": "src/punycode.ts",
+			"label": "symbol:o"
+		},
+		{
+			"id": "886db42d4e7d6b032b27d18dc27a694b1b03c368aa47ef022c962f3d813b4453",
+			"file": "src/punycode.ts",
+			"label": "symbol:t"
+		},
+		{
+			"id": "9886a6d25b692af8bea0b4fff2d73bbb1416bf945c66adc749f30e139754e6e7",
+			"file": "src/punycode.ts",
+			"label": "symbol:u"
+		},
+		{
+			"id": "6a3c48ef063d6ba4c0e6bed8a36d5275a62e886493fa745432a701b069d90b00",
+			"file": "src/punycode.ts",
+			"label": "symbol:n"
+		},
+		{
+			"id": "77f860895ca0855153a9e39f2c95b15c65a8fd275fc20ff1bd4f3514552c398c",
+			"file": "src/punycode.ts",
+			"label": "symbol:s"
+		},
+		{
+			"id": "bd406cbfd3d22104dfe7e70b7f265af0ac911f9aef36cbda1e8f8023476b9259",
+			"file": "src/punycode.ts",
+			"label": "symbol:n"
+		},
+		{
+			"id": "9f22d1cc96e9ae109e5112a8b7088f0f4348e57c0447614933820e63821388ac",
+			"file": "src/punycode.ts",
+			"label": "symbol:l"
+		},
+		{
+			"id": "27ab70a50e628c8af6cc67e5cb5c211ee90a0678953eeb27fd4a72d4a9769cb0",
+			"file": "src/punycode.ts",
+			"label": "symbol:s"
+		},
+		{
+			"id": "ceb8e683a1c6471ba87ac31053de4f209f3f19be614791f6eb139328ea4b9d82",
+			"file": "src/punycode.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "d307989b4d49fc4db3ef9e027bd2f288119bdeec2248fec94006e28df3b44d7d",
+			"file": "src/punycode.ts",
+			"label": "symbol:o"
+		},
+		{
+			"id": "e21bb64b827e8b232ff5b2e92e1c003ce2e4b31235d07ac2c3762753f734bcce",
+			"file": "src/punycode.ts",
+			"label": "symbol:i"
+		},
+		{
+			"id": "833287e19ed6d02e96cdc3c5f9385c039b1a65bd787dd1b56c7ff038edbcdb85",
+			"file": "src/punycode.ts",
+			"label": "symbol:e"
+		},
+		{
+			"id": "202ce15286a3566c8075a5fdbc74a314d13b17205732e3a44c67cd97fce317ba",
+			"file": "src/punycode.ts",
+			"label": "symbol:e"
+		},
+		{
+			"id": "8149d6188251a588bed88086ac0fbda3148f7d0347120ace488ae887ee4a455d",
+			"file": "src/punycode.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "9cc5348820d4e82628dd0e31c261d39d6d032456ca8b441241983fb079123c8d",
+			"file": "src/punycode.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "c39f017afd93eaaa50bef4119841104a0dd462f2d8be5b9250b7db068653b044",
+			"file": "src/punycode.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "1aa6dac563c9af017f3468481924421cbeef8b1034b8d7d638c00bca582247c6",
+			"file": "src/punycode.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "09bb2b9199cd58f4d9a9aaef669a65f2feed611736f9ddfb395c2a1e5ea1a553",
+			"file": "src/punycode.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "b9fe45c9228bc3dc9f17fef9609a8a38108878f7cf32232c1d4d8e240467545f",
+			"file": "src/punycode.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "358648fa63c61b9257ca733744ca1b6a925c3e674b57118e61a12ee311d6e3db",
+			"file": "src/punycode.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "494c34688234ce5a0e25d86190167afc43e5ab8700cdba3345b3a778bbfe1e90",
+			"file": "src/punycode.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "fe48524dc4b4ec2265b3e3d4f6da74f40549231547f3d35f55f53d840f287473",
+			"file": "src/query.ts",
+			"label": "symbol:QueryValue"
+		},
+		{
+			"id": "6945589e8c174abd465e8585b5ee4595de8f8657df04dbafb07d70674133d509",
+			"file": "src/query.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "4918ad1b176b3d0f1881df212c908f03784d729c0273950cea4c5235b1949fa9",
+			"file": "src/query.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "1eaeeeb79d4f025ff2f1207d43f5e319cb4249c01dcd48d226f53e8b984b599b",
+			"file": "src/query.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "9094c90847a29a15bf41ffb7a9c2488d90f5ad3ea8636fdddf9f52d168d97bbe",
+			"file": "src/query.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "724f644bc16d28222cca8b07afef5d16ee76d808fc9a78a00c3011e5e9373adf",
+			"file": "src/query.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "ab263c905e84ed34c72f002acda1cf789615ea6c7f21cad5104c5590cdfbcffb",
+			"file": "src/query.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "46442d5c8193dfdf0a2a4c96bd89aab4b9ab4d498d8c7deba6e26dabc9925b04",
+			"file": "src/query.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "eebd54f4ec0aa87eadbf91ec0486b1e715ceb1ad4304f492b16763017132c782",
+			"file": "src/query.ts",
+			"label": "symbol:k"
+		},
+		{
+			"id": "423f2286e29d0576d2875619d809757f7eea9c12a879a24b6b15edaefc5fe285",
+			"file": "src/query.ts",
+			"label": "symbol:k"
+		},
+		{
+			"id": "8f0e415bdb916f1a97e664a2e99b0dcd363317472483c75f4e982db949775fd6",
+			"file": "src/query.ts",
+			"label": "symbol:query"
+		},
+		{
+			"id": "d2f2d5c2dce4d39e1dd4733811e770a6994f12f55708cfd58152305c540dcc4c",
+			"file": "src/query.ts",
+			"label": "symbol:stringifyQuery"
+		},
+		{
+			"id": "b78fd33866fe9232f3b04e8d46b412a37afc863f038bf4c06ead536406914d06",
+			"file": "src/query.ts",
+			"label": "symbol:parametersString"
+		},
+		{
+			"id": "386468e2ece198b98cde32ab2ed3d793fb777e7a8c1d58a91b0f66f73b30b194",
+			"file": "src/query.ts",
+			"label": "symbol:T"
+		},
+		{
+			"id": "a759b65732a53da844fd0b94656f246e6b1dbc10b11d743da66b6ba9f9387487",
+			"file": "src/query.ts",
+			"label": "symbol:parseQuery"
+		},
+		{
+			"id": "df2d7bbdd4439724fbf348bb26b02bdbdb628dc87f9378779037711a087b4a38",
+			"file": "src/query.ts",
+			"label": "symbol:QueryObject"
+		},
+		{
+			"id": "8eb551dc79f50de0fae0673f4be9dca283fb5bcb423fe42faa021d748bc2f4f5",
+			"file": "src/query.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "cb2fc09e2cf350dbaf538c8b1f17fa1a1f6fd3a5dd8c62938b920c6cd120e59a",
+			"file": "src/query.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "c11f01a8631c6b9f895e74c5db228e1d629a6fc2a76b50e2702ea932fd2a1828",
+			"file": "src/query.ts",
+			"label": "symbol:key"
+		},
+		{
+			"id": "6533683b9eead01331a0c32ac661ec377886f4b7c452fe4c0437ba8f2b1d9789",
+			"file": "src/query.ts",
+			"label": "symbol:value"
+		},
+		{
+			"id": "d6abb137d4d61fcfba8a52541f8aeee54f58cc478254d8a358bf031b69cb6e22",
+			"file": "src/query.ts",
+			"label": "symbol:_value"
+		},
+		{
+			"id": "05443b623fc25795bfc38375f84516b8299f5b4e33260f45102a243137917d9f",
+			"file": "src/query.ts",
+			"label": "symbol:key"
+		},
+		{
+			"id": "30c04a417c976eb7566085725c8a32ad94c1278cd749dc444f01e9edad22ff11",
+			"file": "src/query.ts",
+			"label": "symbol:value"
+		},
+		{
+			"id": "165f5fba9392d233c6a122cd73a9082ba31abee51a97108c8d0040c58522503c",
+			"file": "src/query.ts",
+			"label": "symbol:encodeQueryItem"
+		},
+		{
+			"id": "bd6a7ab8917694adafdb892fe4fc4248d69d28b344d3242d3105ad0651de5a45",
+			"file": "src/query.ts",
+			"label": "symbol:parameter"
+		},
+		{
+			"id": "b1b5eb6b6add8adae30d6c6221d9d50bb7f3a1520ca04d5444d0420820a95b43",
+			"file": "src/query.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "ce2345a9b781695446605a1e8613ea16649329dffb5f82f695165705b70ae27a",
+			"file": "src/query.ts",
+			"label": "symbol:ParsedQuery"
+		},
+		{
+			"id": "ec036ce5d64a2fd9198fd6bcf1da05315447ff83708bc2bd446cb6888b29df8c",
+			"file": "src/query.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "d7b8a88f4f9190b185aded28fbb7c21efa7c78f127fb9bf9a1c91c428ba26efc",
+			"file": "src/query.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "4e18d2a9123f0cdaf40ea80145d593ad06f736ac813d1d6da74b1855a65e8cdb",
+			"file": "src/query.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "a414c59bfc7ab1ce841f709d76208fe221cf1d53d9f1a3b4e6bf7fd896e26494",
+			"file": "src/query.ts",
+			"label": "symbol:s"
+		},
+		{
+			"id": "c2e45b32ff431943f9c3aeee048d1f06deec94585611f7fba98e0fc4f416b274",
+			"file": "src/query.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "866ba327e6fba603b0ba927825964b7147aa21b33485886ecb162b1fece6a268",
+			"file": "src/query.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "fecc1e2ed6786ccccd996ff7d5a52a3720514853db4c9502d1f92eeccb6537d8",
+			"file": "src/query.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "99a9e40514180d3e55e85663ea8a8919342270698e2bfc4e0d62a9bab69118a1",
+			"file": "src/query.ts",
+			"label": "symbol:object"
+		},
+		{
+			"id": "e360dfeea94c92662b51d433bfdcf91886a1fba392b11255377c364e6e683d70",
+			"file": "src/query.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "f477886149e1d670de564028956038ea96817a9f00ec346def5e7b464a63b25e",
+			"file": "src/query.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "cb9f0329f20e983228bd42bbf894f22bb72c7f7441d88626d0c2f4d62ce7b771",
+			"file": "src/query.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "1186c3ff06155c8077a45c9c872ca8e111b76b35af730e11d546cdf715fe5760",
+			"file": "src/query.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "b2545d42618f9388d3e86e0e2af04ec9b25b9cc5b84e50f5bca3f294b6626ab9",
+			"file": "src/query.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "440eaa5005421bad8056a1d1b40a19103899190295e536339361ef78ad47f0fd",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "1078cb7f06a20b60d0914342bc73d119d96aaebd8fb2cb7a77fcbe92894af175",
+			"file": "src/utils.ts",
+			"label": "symbol:HasProtocolOptions"
+		},
+		{
+			"id": "18968e7e58fc79132179ec326efcb77457c923e02a790956682d776985c48914",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "176da318ed3004a833f87a70387a85ed357f06984e9d7844e06daa77652e0868",
+			"file": "src/utils.ts",
+			"label": "symbol:base"
+		},
+		{
+			"id": "8e96a1c2d3de33e79f39f2cae37cf80cf2ad57a5a80d804203183c54215f1c90",
+			"file": "src/utils.ts",
+			"label": "symbol:inputs"
+		},
+		{
+			"id": "aeaec8c96d6677c9e59bc651d9cf06a8ffef585cbe82f7845f3813fec025aae5",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "cb6291a1de347f68c30b79a31e6bd0e7fa2b0452d54716dd433dd75c97029057",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "8b5ca26251fb8bed634d59e384f80d278ab6e15d02099ff0117862ed773a0b79",
+			"file": "src/utils.ts",
+			"label": "symbol:base"
+		},
+		{
+			"id": "23512e949bb87de9e834ee4fdcdf71b6890a48494fc17dbe1c75e1f078c7e012",
+			"file": "src/utils.ts",
+			"label": "symbol:input"
+		},
+		{
+			"id": "b93274ca43f6867d2b80ce3b8d9e987c851945de1a8d8b0b7adc171ba0138d6d",
+			"file": "src/utils.ts",
+			"label": "symbol:queryString"
+		},
+		{
+			"id": "0c397d76398a80b22cf0655a41c1d361fdbc2ca725ae81614ea2a0e20157b133",
+			"file": "src/utils.ts",
+			"label": "symbol:hash"
+		},
+		{
+			"id": "433641775601d5fd5712459e2f5319ca04d4d3090f02c059d3f52bc0988ef5dc",
+			"file": "src/utils.ts",
+			"label": "symbol:input"
+		},
+		{
+			"id": "0ab9f42d6ca5c22ae9991fab281632305b174724a37f9e36f7e1859a700f070d",
+			"file": "src/utils.ts",
+			"label": "symbol:protocol"
+		},
+		{
+			"id": "f44ee451d80e255df43cfbd56dbd8f5db3a0ebdb2cc04d75991af464620143a3",
+			"file": "src/utils.ts",
+			"label": "symbol:input"
+		},
+		{
+			"id": "3bbf4703d82377b8db168c4fa9c2e832b97a58f953b1b9071b11b6c0aeb0d9c1",
+			"file": "src/utils.ts",
+			"label": "symbol:filteredInputs"
+		},
+		{
+			"id": "ca844f5b71b43af9fa3734c5f5f14e6700ca1f28682458a99e831aca2b78ba20",
+			"file": "src/utils.ts",
+			"label": "symbol:input"
+		},
+		{
+			"id": "ec8061fd4873820aeb37d67c478811a84eebf6056c37acc76cfdecec6e2b37ce",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "d9dc1c12ce20db88544e942a9dac73cc7deb59f81edb887407f88707255c6e93",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "549b2fbbd88942dce8650b54c05b4d488fcf312dd658f5b717120661b8ec7ffa",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "b7d80cccebced4094916008629f7b2ba14943f94072101a6668b5b8ce2ca8daa",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "5ce6b32241e911235fa4d9a186c46ed91fd1c1055822256e60b1f488e82aa3a3",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "06c3e90fac56f88fbe6bef9606dbe7de3af122c0323966a3b2b1adaf49be1313",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "cafabe0f24f614329dd7c61f8cdec0594873badd5709b888d729af7d44729174",
+			"file": "src/utils.ts",
+			"label": "symbol:urlSegment"
+		},
+		{
+			"id": "921dd59a162840bf83d14d6a725a8c3e4647a26cf726ce34dbbb009d39ada041",
+			"file": "src/utils.ts",
+			"label": "symbol:input"
+		},
+		{
+			"id": "c3fa15a975e2b82259d64464e58831fe64c78d9de40d5675a6baa9854c802f5c",
+			"file": "src/utils.ts",
+			"label": "symbol:protocol"
+		},
+		{
+			"id": "5101122f3f2766c10ac285949f8834d8e1b328d1d36175ac7badbcf37f082137",
+			"file": "src/utils.ts",
+			"label": "symbol:withProtocol"
+		},
+		{
+			"id": "9b18887002727b18b365684628dfd03d2076d2f8f1fe465be29b9524cd8b1128",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "6088099a681699909de06749c2a8e0202339c681e41aa23276c6fef03f224b4d",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "4e5118dd32179d291ab4f8adf7f534ccd7c3e5e2cd7da54fc1acb79410d60677",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "5b16bdf8b06471990de07955266cd9ff16e957d9aab4b08e20d5dc44cf0b24fe",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "08be1baac11b5427110288e14671a026c2471787d234bd55b603f13e79f5b36f",
+			"file": "src/utils.ts",
+			"label": "symbol:match"
+		},
+		{
+			"id": "ba84b218fd1190e951748411f11dc6d007c27488c7c04298dda3f404526acd1d",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "ecc3b4cc71894f22ec9e98133d1a1795bd8f6f4881fef7bdbcc4691b60197b69",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "d287a19eb14b7aa6a068b413ad1f840d9dd77f30f1a9189a328b05c26ca528cd",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "73e84bb07c0d989a205a7ea52c15ccd948806e77f8315853368a171732ca4be3",
+			"file": "src/utils.ts",
+			"label": "symbol:mergedQuery"
+		},
+		{
+			"id": "fc4b9f8aba7b880aea03da0bbf6d03d84155d371895adf494e2653d55bb52c29",
+			"file": "src/utils.ts",
+			"label": "symbol:input"
+		},
+		{
+			"id": "c54a23fea53bef188b9d53e8ff7020024e89497f631b7d5f590218f530ea845f",
+			"file": "src/utils.ts",
+			"label": "symbol:predicate"
+		},
+		{
+			"id": "34afb111e8dcea2c5b005a5572810a9d02c549158e481d1f8b135a7aa3a9a594",
+			"file": "src/utils.ts",
+			"label": "symbol:base"
+		},
+		{
+			"id": "4106ffa9a19efb806a08346914db36d8890d8b230ceec65a3625abfe49a4fff2",
+			"file": "src/utils.ts",
+			"label": "symbol:input"
+		},
+		{
+			"id": "a6322e0dc090633c50ff47d37a096505e53c8bda0fc516db7820e2b3e3f3a80b",
+			"file": "src/utils.ts",
+			"label": "symbol:hasProtocol"
+		},
+		{
+			"id": "a6e23abadd07a9998b2e5c1dd45c5c2949dafda6f24f11a0ed4eacb08a4dd594",
+			"file": "src/utils.ts",
+			"label": "symbol:input"
+		},
+		{
+			"id": "0c03a5ed3f32442a89ba419b272a739450e35503392e1a013062a1464c2080f1",
+			"file": "src/utils.ts",
+			"label": "symbol:respectQueryAndFragment"
+		},
+		{
+			"id": "5eb3a4c088f13f4f4fa8750b52a6b68cdae11a98183e161d350080382ed7f7c9",
+			"file": "src/utils.ts",
+			"label": "symbol:hasTrailingSlash"
+		},
+		{
+			"id": "0a7e356e5b7873226cc2b7d3e5757b3b982cd784a3e801a1cb38dbd5f8332610",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "4e1c09f2f4bad6d5d0a6daf812936e2bed343ad6aed594a3d4ecb4d60bf297d9",
+			"file": "src/utils.ts",
+			"label": "symbol:PROTOCOL_REGEX"
+		},
+		{
+			"id": "dd7d5d53622d292dbe61eb5af083df9575953ca153e25ccc039707df931eec5a",
+			"file": "src/utils.ts",
+			"label": "symbol:a"
+		},
+		{
+			"id": "bf92a55e5c76f6da53af651c18477625e5145a6a9a027cc59b383217f83e54e7",
+			"file": "src/utils.ts",
+			"label": "symbol:b"
+		},
+		{
+			"id": "e7e74b4f546d71d21e5a87ae39f06f78e98a6630e557571ae13fd2e59ab2af27",
+			"file": "src/utils.ts",
+			"label": "symbol:options"
+		},
+		{
+			"id": "af566c60fab1f7a00f7d1a13c535769f19124fbb7d2978b9c5cd6bc594c6b675",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "58695c11fd037866cc7781dec17ab9fff8054f8c40309ebc76b86451e25c2615",
+			"file": "src/utils.ts",
+			"label": "symbol:PROTOCOL_SCRIPT_RE"
+		},
+		{
+			"id": "65b66add6d6accb6da8700ebee932c33e9a2385ad8232ae97042c27becb80a1c",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "d65b48c7173718ff2d3537c460d6ffa6af3e5b060c740d6c3f9b7fc709a8017d",
+			"file": "src/utils.ts",
+			"label": "symbol:input"
+		},
+		{
+			"id": "5b02ae08db9b70503b7965e284b7e11e6e300c6db2d8e28cf7f9704b4f1a3f31",
+			"file": "src/utils.ts",
+			"label": "symbol:respectQueryAndFragment"
+		},
+		{
+			"id": "1f332ca36155e247b8535e8e236be1a8e64b5ed8efe717fd58b7eb02a6cce944",
+			"file": "src/utils.ts",
+			"label": "symbol:withoutTrailingSlash"
+		},
+		{
+			"id": "b2f6abd4ba1d530da01d8887b0135bf6054582651c2b31da3f073484555a84a5",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "aaee2b4e31caf0ef04d946c9a16ad7a0100d699d03505cba3a84d86d1cf7581f",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "430fbce3b3af3a84c88ed23ad7aacaceba94f43440b856b937b968129e169a83",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "29a82a33fbd6a726daf084279f81a3fe84740a08e4ad41130ae36bf7e2ddfa1f",
+			"file": "src/utils.ts",
+			"label": "symbol:input"
+		},
+		{
+			"id": "0afc1339082c1c80646c7f9dd6230c36371277de9e07788fc77d279a0086aee4",
+			"file": "src/utils.ts",
+			"label": "symbol:hasLeadingSlash"
+		},
+		{
+			"id": "42166a1437a6920cd5aa3a8aad1e864fe5ef35af1167eb30a234f411df6f9a95",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "6b0bd88acd6f1c808495a1b43bbb077195db917987675ac1ca118a6bce1e4ea8",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "aa6ea5996020c42b095ef6664c87232ed2b2bbc2868111187b1df7301b13e3d6",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "25574ade1be0b4cd986311a9b1de166f3d6ad25fa930856c753b14b57501e638",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "c24d949563a3c0f42f4ddf48743369632113f03a197c2b62c708b2da87c675d4",
+			"file": "src/utils.ts",
+			"label": "symbol:_segment"
+		},
+		{
+			"id": "24e41800f74fc29d26be1efe78552bfe08f977e1571721ce7168e17171238291",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "178e2df896be1f3a48b5b2f16e4ea39aa6f5e177918e70cf2850ea1a16577440",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "9450e5cde393d09135d5a535555c6306e568601cbb43298ae054a8436694d281",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "cafd77ed97ab25776e44bf79b87c5300299cc0ec8a669134e1e5967b49e70234",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "9d1421120e36ee4e829fc9434ede20280ff448f70b75a8a63b75291891ee0907",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "a5a1f1e4a673d8146dcb463ce7a7f30aa58967c300d11955f98370a514c11211",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "ba720f19b0a4406cbc619e490aaedbe984852ac6bf2fd89b11109647b4e102d1",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "5a56a020005e9c84ca610942df8dbaa0f0c5717db4f348b7c1f888227af3411e",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "b888d7a6988f302061af673385831db375ec8678b2eb7bea64b249e60cf92eda",
+			"file": "src/utils.ts",
+			"label": "symbol:input"
+		},
+		{
+			"id": "348fe9e741e0e570abb5de3be352dad811fe235fbf6fa18226ed12fbed6e1d96",
+			"file": "src/utils.ts",
+			"label": "symbol:withLeadingSlash"
+		},
+		{
+			"id": "207ac4451b30fbff19d1c17a79c46aff359a28c9d7e72015f99c48f366a0e4cc",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "213e3d3a18a79e8978af8046212928c6269119ab071d9f54618b55ec0220e1a4",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "ddeadd7f53e7f1954773aebc925e9ab3bc44dc0169be1c49c4ba93e9f93b14c3",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "d17faa50957d3091dca33364851225c9a03aea02eea5cbea4a27a501d1f3ca5a",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "2f6aae6472113e78a4b1b5247cd5a8ff0692055c9e57ad6e06ec49d5aa98bfb7",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "fc7a6a3ece1d96eb19c641dbd829e256ed0692c77e6be391eb42866e6e7d4c3d",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "f5451d166ba8a22bff8431de9bd27428edba19bb86f20cf56f1c94f5764b5d0c",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "c2030d93f8b983b08e4038f30ea541e0cef8b422c52c4c58889b0b24074c9d02",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "90b7b4e5437d72dce7ed08085ca481037d946e969d1128d8a0e61adc16ef1314",
+			"file": "src/utils.ts",
+			"label": "symbol:input"
+		},
+		{
+			"id": "5d4dd725e77e9e3d15e95697418488fe3b10802ff5cb6736c8eeb9cacd401c85",
+			"file": "src/utils.ts",
+			"label": "symbol:normalizeURL"
+		},
+		{
+			"id": "ef19c06c77032be091225c8c7fefa710c0a3efe2d2f7861458ecb739f7ce41a3",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "177a3f583c9a1b6f61ec1edcf37868755994098a66aa7598f8a383f095ab4b1c",
+			"file": "src/utils.ts",
+			"label": "symbol:segment"
+		},
+		{
+			"id": "ad1bb673bb814d081dee2130c6efe4bc7ed2851d0aad8ba007c9ad19a87ce90d",
+			"file": "src/utils.ts",
+			"label": "symbol:string_"
+		},
+		{
+			"id": "1bf8d5216158fed9232307a3cc7bccf3a24061bd578af9a6d9c2f5c458da0a85",
+			"file": "src/utils.ts",
+			"label": "symbol:input"
+		},
+		{
+			"id": "1006ec4ceaab7d1c4ce78c13dee24efbe6914a8aeda8aeeacfee9236f62f4702",
+			"file": "src/utils.ts",
+			"label": "symbol:nextChar"
+		},
+		{
+			"id": "7bfc1edbd8fee8120b5b9b24beca1b274195f538985f57588e4de0b00357a79a",
+			"file": "src/utils.ts",
+			"label": "symbol:nextChar"
+		},
+		{
+			"id": "5843b052ff9113549deedea022e0c80dbeae5fdc188885205eb66d737994974f",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "e578dfea19a20cf8d25e231966f8cbafe422003706e865a11e53dd02158f9197",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "5a7ca1520733321f350ae519b8dfafcefd69ae40b26b5bda2e46b95005321726",
+			"file": "src/utils.ts",
+			"label": "symbol:JOIN_LEADING_SLASH_RE"
+		},
+		{
+			"id": "597bb321d5ae4699b12f3f155632c41063330ab650da16b00404b46673e6ba4f",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "8c61081ae840989e5861761d3915f09870453969636000ff95f6d310e68c51cc",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "fdc236e591799a3fdc33da4d2ee1c87b5e0f1f802e8e673b86c03bdd58f3f965",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "3db519da1dd261eee0bd35c147f1203d1bcb5c14ded03dd22423dec682efafd2",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "28b21ce12baa9b6ca9c7ad1acbd36964a21ed8279e9e48a4fd721165b00fee5d",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "3c66acc00fa1db0204645a0619fbe4e0187f01dc8f53ac1136ea84acb8752268",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "527a16efb514f7bd27fa14b7bf6280a2644b2982ecd9b56044f2469a54f24d9c",
+			"file": "src/utils.ts",
+			"label": "symbol:url"
+		},
+		{
+			"id": "0c3d907b53d3f43707fe06840bd3a2efd6166a5d3424931a6274428c8b73b0b0",
+			"file": "src/utils.ts",
+			"label": "symbol:base"
+		},
+		{
+			"id": "cebb0697265c1d48a48f96894b26f9d32b1fa2feb75ccac450e5e83b8a2efc0b",
+			"file": "src/utils.ts",
+			"label": "symbol:input"
+		},
+		{
+			"id": "75850ad3799cc7e083cb143c492ce460e8acbad1a8292e41435fb9be7e74a9e3",
+			"file": "src/utils.ts",
+			"label": "symbol:joinURL"
+		},
+		{
+			"id": "5ff8cb55f6b12ffe1e07bfabeb24e22fc42931f07574db23e00393f250617c1f",
+			"file": "src/utils.ts",
+			"label": "symbol:input"
+		},
+		{
+			"id": "e55a6d7bbd92154ab763f5964cb186228026ae7fb8ad3984a7a05f79efc397f7",
+			"file": "src/utils.ts",
+			"label": "symbol:T"
+		},
+		{
+			"id": "10f8ed6c587f3b2cd8c9f3d77b37f647c38b84d818c37737aa883840c14c0fc0",
+			"file": "src/utils.ts",
+			"label": "symbol:p1"
+		},
+		{
+			"id": "41a7f6d489d53c362d54e9802e18ab9d9db69bd42fc1ee1a844e645e254bb55f",
+			"file": "src/utils.ts",
+			"label": "symbol:p2"
+		},
+		{
+			"id": "3257288cc8d04a08cd5c2b2dbb0d181b43834f183c6c0b1e080927056b712ccd",
+			"file": "src/utils.ts",
+			"label": "symbol:fragmentIndex"
+		},
+		{
+			"id": "74db26f9486a2659a6ec1c8ca066920488c9a894686753aa6af9e0e162fb23ed",
+			"file": "src/utils.ts",
+			"label": "symbol:fragmentIndex"
+		},
+		{
+			"id": "c6c8a28da39e0ff4f608a4a76fc09be292f9b8119aa89f4ff8cfdbfee9e307ba",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "f75b49f52213ccbcf36a6eb3b8a8f4d7c6e62940ba0af2a60315c388bf034107",
+			"file": "src/utils.ts",
+			"label": "symbol:key"
+		},
+		{
+			"id": "8fef800c31979fa79ef0dbf447a349cc4e23ea6abf50f9ecf29e0c0d6ee7e951",
+			"file": "src/utils.ts",
+			"label": "symbol:value"
+		},
+		{
+			"id": "256524a7d2f84f9938ba0d680a93a8a3b40704bfc19eb740eb950f96ea071f46",
+			"file": "src/utils.ts",
+			"label": "symbol:filteredQuery"
+		},
+		{
+			"id": "94208bbcfe929fece807c907235483b9628001c677f6192e8342be94ef10d762",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "9a14a6011bcb5da0e3b0012b8c887e0a308e9c4083e77f1781f1733077885b7d",
+			"file": "src/utils.ts",
+			"label": "symbol:string_"
+		},
+		{
+			"id": "175598b91f0c0ad2787e67e85b610d9cfbdf0217b59892345a619891c78eca4f",
+			"file": "src/utils.ts",
+			"label": "symbol:inputString"
+		},
+		{
+			"id": "fe0d5ecc3821e46acdccfdd51923b224e86b761ce8d89a1ce9a20370483ae5f7",
+			"file": "src/utils.ts",
+			"label": "symbol:segmentsDepth"
+		},
+		{
+			"id": "bb1c22f3d0455f59e73b3e72dabc0cd59b1cc0d6e08b3eeb5b1da49d4f33e7c8",
+			"file": "src/utils.ts",
+			"label": "symbol:url"
+		},
+		{
+			"id": "524db6db740a28ac9bbdd36e3e4932186f6088d1dd4cce62f3c9f87003fcd7ee",
+			"file": "src/utils.ts",
+			"label": "symbol:isNonEmptyURL"
+		},
+		{
+			"id": "98e54206efc4e4304caf2700435fbdcee01870eb45143e4d195a86b2bfc4c023",
+			"file": "src/utils.ts",
+			"label": "symbol:s"
+		},
+		{
+			"id": "fb4fb92f63d3b0e8e03386f7a071fdae95f227917253906f55c67cf213d514e6",
+			"file": "src/utils.ts",
+			"label": "symbol:sindex"
+		},
+		{
+			"id": "4d165545d32899cfc6b71394776057e7ac4ae639015e17eb00bf75db6b410996",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "32bbe5125f6e9e2f2bdee75d26db9ff287794bf5fe228e3db92c90cf81b34100",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "664ca5d61a4f181d310aa196a7860b3d9585def703128fa272fdaff9d778f5d4",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "d34d945c615f482659315965b47b0c30d606bbe055576603234c814fd33f9f72",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "5e1f50020f2c3c69439051710c76a87cbc6c762b7bb1409ec142bc7b8dd50028",
+			"file": "src/utils.ts",
+			"label": "symbol:url"
+		},
+		{
+			"id": "bfae5689bbe992d1a45567774cbd2d2184ad128095fc1f238728a7330f8bf591",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "2c6c8911cc777ba47484f3e345e0b3d222c6c20aed2a38a249abe4b4afc81709",
+			"file": "src/utils.ts",
+			"label": "symbol:url"
+		},
+		{
+			"id": "90d6eeec5105b37547217b4c54471d5d3353b3d5ae2d4eb852b3ec23015b6892",
+			"file": "src/utils.ts",
+			"label": "symbol:url"
+		},
+		{
+			"id": "6aa0725f142b990efdc145ce461cc6f7887fe4674fe0db8df50421ef0f995688",
+			"file": "src/utils.ts",
+			"label": "symbol:isEmptyURL"
+		},
+		{
+			"id": "8a2629705c8111afcb5e6b12640d3db0da2e5e4874fbc8b8a8e7a995f49757c9",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "90f659025bf8d5500296ce3266c14e2113c5c78beff71c7c218e539aaba29e5a",
+			"file": "src/utils.ts",
+			"label": "symbol:fragment"
+		},
+		{
+			"id": "7e80eef7868ed74131c241f1f94fa184e697994a73f66c27d41869602b59194b",
+			"file": "src/utils.ts",
+			"label": "symbol:fragment"
+		},
+		{
+			"id": "2e44845bc5e7bf8e054071ac404978d25d23f73debc4a645f339e48cc428ac17",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "7b15cda6ae59f4a9e0d106f78e7ad12ed5e334594633ce709c7546743642a007",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "609c4b4a4471715984aa00e4bb0828442c2fb16eefafcadd6d34dfe4b4e66fdc",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "5ff7bf72bf00f89b63c385a99fc88283a2a15559a45848b375c7a266586ae712",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "d7356859f0c3506afabb0b16f63b7fa3e73065461735848b3afd8dbf6b0ff7b9",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "8c3c1d6daaf620a200a2a96f9bd9edc15695a78e1752b4f8c060c69be8691bc3",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "eb337db3b3dfe2d994423700995ee9b366b6b1395464d8da632cbc78fa008442",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "8a298c1c44387ea125e79a601e29791b25fd9b1144a868166f07ebe5abafa838",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "13d87769033036dc0a4abaebbb966e70b59c756c2e7eaac8c5aafc351ed4bafb",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "f9fecf4e594dc6a9e6e9bc71b1ef779a602204b189bdea93aad92d6f49c2fe4a",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "e02f75356e39728dda42f5c8b847c7ac64dd3a5c8cc929752f316b3f7f6ca1f1",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "c0a338bd090ad0d7396eda5380dd132e2e0f7002e784fce91d4a089ee2a9c187",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "448ae99f9d9738e06aea4bda0dc04fc454b23847ad0e1d47733a04c200449f85",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "a304b90487e7fd5244f930888322bfc003515ba26893bbd839779ddc614bc501",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "090f3b876b0cf1251121a26bc2d48b901e49918b086337dd528d015b291ceb95",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "dbee8fe138c1082f7d4a97613e6d51b43e5945c70ca808f8d883945a97dd2e29",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "b71ba51310d218dbc7ee90ae95972e3372287d6a2e013403155d66ed2d53eb75",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "c802c572625672e24391c2af870e5163bdd1765c6794326e6c4b3d61dcab5efb",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "836246c144223105050ad1ed0b1ea81703e4fc943c8507b6845f15d994190712",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "a4c1f2398cfd525021714fdbd08c0c16f6839127beaa281f56b250a84ccaf87a",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "d0aaf1dada0ee646d8b4ec5e4ebe7080610c91fb6bb5fc4cdd9b93b356aa7964",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "29c09f3910aae2eebc0e36024c03972f63ba80d0aa17ed884818326a244883eb",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "b6a5bd51af32412324cfa46a1227bce7959bd76f33d1557dc154d3565e02cdbb",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "8418e87b1e260c24099186a4ca5397a8a90dcda04c092a6060be82c49c609099",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "1e7969184b47a74cc09dba41dd303ac35ebf2f019afc3d4352b5eb7e2d48c233",
+			"file": "src/utils.ts",
+			"label": "symbol:segments"
+		},
+		{
+			"id": "2d80c0ec31e82433dd7dfb83f814d17ce458ab7c9d228a9fd78876e6f5b28fd3",
+			"file": "src/utils.ts",
+			"label": "symbol:input"
+		},
+		{
+			"id": "90fce882151b5235840f675c36a78d546f0e476ad88f749eba720eb73612ea1b",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "384f8797d09c77d492b2e4f14527e17bf4dff2d5b70a3c4bbc9241e35a17c421",
+			"file": "src/utils.ts",
+			"label": "symbol:i"
+		},
+		{
+			"id": "92e14830b212942fe2b039d43d5ded08842cf8e5008d8f1bb5aeb438cab60c63",
+			"file": "src/utils.ts",
+			"label": "symbol:input"
+		},
+		{
+			"id": "91459c501a3dfeb6add4aa6e343d0e8e457d682ee1020a28a838406e397161da",
+			"file": "src/utils.ts",
+			"label": "symbol:respectQueryAndFragment"
+		},
+		{
+			"id": "9af6104197a04256511e74987261394460472ea0be2d29550226e6ef8e152cc7",
+			"file": "src/utils.ts",
+			"label": "symbol:withTrailingSlash"
+		},
+		{
+			"id": "952011032922f2086ddde930dabfdf3cdcff1fbfb38d2de498563a729d6f8ae6",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "a685403a63eb7ac6ce2f7de6fc41d516377db4a84ff2e1b126dc0d2e3b3729d5",
+			"file": "src/utils.ts",
+			"label": "symbol:url"
+		},
+		{
+			"id": "f1b4497fb1776dce136b58ed4142ce1237eb872e54d38dfe330b31791ac8d283",
+			"file": "src/utils.ts",
+			"label": "symbol:parsed"
+		},
+		{
+			"id": "c6a4a884304811f3d251e170d57d7f2e1946cf98fb7663772756f594afbe730f",
+			"file": "src/utils.ts",
+			"label": "symbol:parsed"
+		},
+		{
+			"id": "1f2aca98f96b5f150472160a93daa8a7aa8b3c5349e0d8cf8b5db98c4211b8da",
+			"file": "src/utils.ts",
+			"label": "symbol:parsed"
+		},
+		{
+			"id": "771c1728921e8557cb75170b886c0934029685ecf5e8866ca5747b6f30e83ab4",
+			"file": "src/utils.ts",
+			"label": "symbol:parsed"
+		},
+		{
+			"id": "1dd36f86396bb21a61136613ac6e8aa8760c8b813957862636aa0fb1b88f69a4",
+			"file": "src/utils.ts",
+			"label": "symbol:parsed"
+		},
+		{
+			"id": "42fb022f77fa56b5614cda371cc270711d1435a270fb26e63f5621147a111fe4",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "f54ee6cfbf1f8d96dc73765811bc08e1d97c0effcd3fc4ff3475150e3c4df377",
+			"file": "src/utils.ts",
+			"label": "symbol:input"
+		},
+		{
+			"id": "074d6b33a54980af49920039208cf15707026344d4095065069c03caff9fa102",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "a3747c18b92155eef75bb76182d0b5c6c4cada374bb266a9cf7e12d8dff25e0a",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "8a98b2f517f183316196b5e6a54b5d4b465805c1befe9441bc22e4738221f9f5",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "fd6a0a52621df3899e318acdfd83cacd4333a5d8880e68bfd9d1a33d8ce88072",
+			"file": "src/utils.ts",
+			"label": "symbol:path"
+		},
+		{
+			"id": "950a9dbbfd3ec8a8911b3a5c0bfa5aa8b4f6b67be0de3c5a701fe81c097e82f2",
+			"file": "src/utils.ts",
+			"label": "symbol:path"
+		},
+		{
+			"id": "12a75d23332c255b7aa18a540e6d01f4cb52aaf82241313ffb3902769f020f6f",
+			"file": "src/utils.ts",
+			"label": "symbol:input"
+		},
+		{
+			"id": "c8cdab71f48500c3067b59d9357fbc9dcd49ba46586448d408f5d79bcc92c2cc",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "375e6095c13bd71cf9e8b0a33a1d996fb8cd3d03b36aef29744690b9731dca45",
+			"file": "src/utils.ts",
+			"label": "symbol:CompareURLOptions"
+		},
+		{
+			"id": "252c4a3ceaa44b8f74eba16f00adcd5fac88c0cee2da7c97e66ef4840bb109e8",
+			"file": "src/utils.ts",
+			"label": "symbol:input"
+		},
+		{
+			"id": "3536e4adb8e138342fa5dc7ccbe14ee496560546856e52e100067ce36f40196c",
+			"file": "src/utils.ts",
+			"label": "symbol:query"
+		},
+		{
+			"id": "ed2610a1a9e560a066830db3677543a3d7eed3f33a35ab0ecaf714d45ca58253",
+			"file": "src/utils.ts",
+			"label": "symbol:input"
+		},
+		{
+			"id": "35779c223611b8ed71022ffae514498007ff0d13795e7b65382b41877b2ef96a",
+			"file": "src/utils.ts",
+			"label": "symbol:s"
+		},
+		{
+			"id": "00a472a770fed40a4871c8feab0f4bcfcc303c8b962dd2e939978344287e3a56",
+			"file": "src/utils.ts",
+			"label": "symbol:s0"
+		},
+		{
+			"id": "34f9469c559869bfffdb3705c1988c456c64e844e52c5892d59811c2f4e8274d",
+			"file": "src/utils.ts",
+			"label": "symbol:s"
+		},
+		{
+			"id": "3864f3a70b5b8efd18b31f03043c76cb5fedb8eb5dbc2029483e5e199c2e5dbb",
+			"file": "src/utils.ts",
+			"label": "symbol:s0"
+		},
+		{
+			"id": "9eae6e5ed46fd147e28184ff5100f58d60557ff1e331532adb6eabf689e8d67d",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "519bf9ebdc0c417b84c66a9d352a3da42e74545922a30002bad8a90312945562",
+			"file": "src/utils.ts",
+			"label": "symbol:input"
+		},
+		{
+			"id": "80ecde3ff5e79a3d5102bf5bdf1be2aede0853d563ed65eae71da23a7d820972",
+			"file": "src/utils.ts",
+			"label": "symbol:withoutLeadingSlash"
+		},
+		{
+			"id": "8f8c120417a3d35331beaafb680776ce4a39cdee2035787fb4393a2bc5e6c03b",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "7de21d35580359a8c24be1f3393db9ccf9ad412506543936122009a2999e1eec",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "36213fb958b77b489db65178a402e0f86592c78667e7d65f7bf459a6a025897f",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "4254ebca247ef5c06f8035e2b4d6df6c872199bce5c92fee0ea0e5cff0311e5d",
+			"file": "src/utils.ts",
+			"label": "symbol:input"
+		},
+		{
+			"id": "dabc0be2384c1f923d087e739de045e78c33d0406a889dbe7b48b208e15d3eb2",
+			"file": "src/utils.ts",
+			"label": "symbol:inputSegment"
+		},
+		{
+			"id": "2680ab9fa7050fc3c16e4fcfa1b5efc4b3e5dd51cb32dca70762a0395f3accbd",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "08bd4f8635add12ed28402a6d28102e6c41f69fceabe94e283c2eb4f455ad43d",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "4dca3bd95d49cd98044921826c7d57e3d3d99bd8332968006b7157069a001359",
+			"file": "src/utils.ts",
+			"label": "symbol:TRAILING_SLASH_RE"
+		},
+		{
+			"id": "000dcd409c52abaeeddecf21c88416c5d68bfe99ba1438da9b15bc7df46f6265",
+			"file": "src/utils.ts",
+			"label": "symbol:PROTOCOL_RELATIVE_REGEX"
+		},
+		{
+			"id": "0dcbf91487fac6e28b3a1ac1fb538cae0705023d2fb293444b2bdd676dc97d21",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "b58920415f6e2d3f39505e1d3506dee354db798435173dff5fee9815cf6b386a",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "6517cbfbb5023b01bb3c5199d1fa95e03e0550730ce91a2fee1e01f035f83cf2",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "680705bbf9333cd6872148cb777fa66c73b6974701b433a6515996b6344a331d",
+			"file": "src/utils.ts",
+			"label": "symbol:PROTOCOL_STRICT_REGEX"
+		},
+		{
+			"id": "fae51f0bb4fc4c73e706e79bc63687b435e2dceec04f81f0618feecb068f4884",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "c2422a096fcbf67eba26a414f97ac0300a6f22dbf5a513363629b635a7d0344f",
+			"file": "src/utils.ts",
+			"label": "symbol:cleanPath"
+		},
+		{
+			"id": "4f29766c5319cad864b3bc28275d907bc70094d354f98802295a6b94f230f954",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "931f64aee2daf4b74e5f97effd17639d2783bf78848b3b3a954078a3971b65cb",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "f2f4ab12f5f6fa859dbe9d85396e22e3685fb6f048890f4ba839bbce144aebe5",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "f325bab80e65684d9dfeaeffc14261b8002d51001a29c76f1ab048d357e0eb4f",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "96d098267b23e1e23a344c64c83b6cbda17707f1797f5629aed98883ee377b4d",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "26abb2105fb68d6a11394703d025c8c345705d6e9eebf4dade9f1e294eacf114",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "14aa650e9f02752c1e95bc5272b00a4626e58161104efc07480a5d00350b08e1",
+			"file": "src/utils.ts",
+			"label": "symbol:_base"
+		},
+		{
+			"id": "eed95a3452c1b12e7739452812bc6c3a69142e8efc1930865cbbd61d00a14d0e",
+			"file": "src/utils.ts",
+			"label": "symbol:_base"
+		},
+		{
+			"id": "78bd6d6c03f856db525ffed181c3312868409cd85ce3b4223e9121b812f3654a",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "128265a231f673dacde33950245af9dc9ceaed03e46f16e6553573b925340476",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "cc6888b9d93dcc063037eb451ee9f17022a206b967adc388b8ca0fcfa7f31e9e",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "4094a75057cb77c593be89f3539e44879d7b2a8454efc1c6428d367221b2282c",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "d0b396a39bf0c526b8051969bed49788a1c5af43af4aa730fd4ffd729a052abd",
+			"file": "src/utils.ts",
+			"label": "symbol:_input"
+		},
+		{
+			"id": "988d4a3f80f47c7889720f2092a4497ca7f0f8a3118d185e91efc20629185a95",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "10a71ec4028298bf77120d5d5f8507a7d1c0e39275c74c319c9e8e92b076d638",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "5c48fd6c2f58ef9270e99b84ad703c1f6f73d56fba5aadb8f5b3c6113af5a52d",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "88b4525e33533781641927d5f7e070ccac1be41dbb1f2dcd7acd13762ecaec81",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "4c4a341c8ac94721a79ad201c81ed77eb50538b20728f054e27a04e6a51e2118",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "415c983b7f63b9706fb9dee12a0279bd29a3144f5b3a6fa8254e3178ba792514",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "2351df7e1a7730e23556bcfaaeac01d96f87edb99b8252f470c7df88686d013f",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "0ef878d8b1036dd03cb4508cc03d343cde09d5a3a77a0d03f42cbb2bde9fac29",
+			"file": "src/utils.ts",
+			"label": "symbol:query"
+		},
+		{
+			"id": "d4f99a5fa90e89c4e99c99f26f46d8b709d6aa8d101756e139f2fea38f8ae011",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "4ae9130479cae0f6f513a95b9f5add4c3d3d815e602b1776170482cecc5e3c64",
+			"file": "src/utils.ts",
+			"label": "symbol:inputString"
+		},
+		{
+			"id": "8ed70456d79fec4a7c56708e45791ca217c978e8b46d6960285a3e95ce3320b6",
+			"file": "src/utils.ts",
+			"label": "symbol:opts"
+		},
+		{
+			"id": "d5309a95f6103be4f0f488fa4ca25d8141be3742dadb6a26f6a3e82e4e8052d3",
+			"file": "src/utils.ts",
+			"label": "symbol:JOIN_SEGMENT_SPLIT_RE"
+		},
+		{
+			"id": "e4f4ced469fc2383d3530f374667d69a821b8b8242e59da63d7700599028f1cc",
+			"file": "src/utils.ts",
+			"label": "site:reachable-reference"
+		},
+		{
+			"id": "fe04a18fc96faf50605b5389eed6311fb7c0c448433f726a23f80c80c9de5bc2",
+			"file": "src/utils.ts",
+			"label": "symbol:trimmed"
+		},
+		{
+			"id": "e284fc78bb01fd13f6d65d81c5138f2078574643be4b23f5ab7b476e28663240",
+			"file": "src/encoding.ts",
+			"label": "site:reachable-unresolved-reference"
+		},
+		{
+			"id": "788aa0dcdc6bc1857dff9d6d3b4b40a1b220fb48e76ac25bf93528aae7e609da",
+			"file": "src/encoding.ts",
+			"label": "site:reachable-unresolved-reference"
+		},
+		{
+			"id": "005ab88995ad927c33cc2660ff15369a0441d8ed46bd263ec27bf55d61426856",
+			"file": "src/encoding.ts",
+			"label": "site:reachable-unresolved-reference"
+		},
+		{
+			"id": "a3b0b01d2d3630df0943d43ab8f3a189b97e70cae20e87e29c1a6502cdee51c6",
+			"file": "src/parse.ts",
+			"label": "site:reachable-unresolved-reference"
+		},
+		{
+			"id": "2ed272e8fbbd38f0f0d21fd6f5fe1bd82322408daa1ec5070228724a267541ee",
+			"file": "src/parse.ts",
+			"label": "site:reachable-unresolved-reference"
+		},
+		{
+			"id": "d8f8be38849d7fb1974521fa7e6d31baf7013624bd232af4977edbb9879bf918",
+			"file": "src/parse.ts",
+			"label": "site:reachable-unresolved-reference"
+		},
+		{
+			"id": "58f501177a3e4b9a81b214aa85563563900d1ec639bcbd6574aea164b08fe0ec",
+			"file": "src/parse.ts",
+			"label": "site:reachable-unresolved-reference"
+		},
+		{
+			"id": "8dd5fdcb5980b6f73d3b3a38565b7475872867910ae6f2588e8ff2579b50a27e",
+			"file": "src/parse.ts",
+			"label": "site:reachable-unresolved-reference"
+		},
+		{
+			"id": "84736d60caa43191ec73b1ee0ab133e8cdeae331eec5c89d9d3ec3b14dbbd275",
+			"file": "src/punycode.ts",
+			"label": "site:reachable-unresolved-reference"
+		},
+		{
+			"id": "b231d0d428d47351002ac5eb398e1430843f60eaab4222cf9a09f70d40cca3d4",
+			"file": "src/punycode.ts",
+			"label": "site:reachable-unresolved-reference"
+		},
+		{
+			"id": "452980fbc9f686f04a6322aa60e316c69fd8c9e1010a5dfb7eab12c4625bab0b",
+			"file": "src/punycode.ts",
+			"label": "site:reachable-unresolved-reference"
+		},
+		{
+			"id": "7f6d35c2ad3732edbfa9a99c7021fd0d290a3ef62f0b6859f71a75fe36985cef",
+			"file": "src/query.ts",
+			"label": "site:reachable-unresolved-reference"
+		},
+		{
+			"id": "87a856d2f1a031dd536c03d9e10086e5d9fe0680e8dd60e6757c9820ac481229",
+			"file": "src/query.ts",
+			"label": "site:reachable-unresolved-reference"
+		},
+		{
+			"id": "7d37af78b46a9a05bc4a9f2d1d8b82a6f8500450edcb84480a7f2ebeb795d249",
+			"file": "src/query.ts",
+			"label": "site:reachable-unresolved-reference"
+		},
+		{
+			"id": "2ee7fb77ff7c5da0160c2cfda98efe62cba3ebd644e8d2f3c59e001d7f333b08",
+			"file": "src/query.ts",
+			"label": "site:reachable-unresolved-reference"
+		},
+		{
+			"id": "686ed36bb851edc7363f60fd926e999f78e4aa30a88c6df8c593cc8a76007100",
+			"file": "src/query.ts",
+			"label": "site:reachable-unresolved-reference"
+		},
+		{
+			"id": "f01c721e6db3210dc2cbeb1e4f0791142f397e338d60d51f48ba8771b8ff690c",
+			"file": "src/query.ts",
+			"label": "site:reachable-unresolved-reference"
+		},
+		{
+			"id": "391b729f407786cccfa7b01b0e3693123cd908d35ebd0146ee643528dd661622",
+			"file": "src/query.ts",
+			"label": "site:reachable-unresolved-reference"
+		},
+		{
+			"id": "7e76f46bc315c955b5f492fd28600e2e9a831ed26d57c270f8a210f8a66ef776",
+			"file": "src/query.ts",
+			"label": "site:reachable-unresolved-reference"
+		},
+		{
+			"id": "49d095d232783c80796c9655c8556053015edc4addef6c0485385747d8faf187",
+			"file": "src/query.ts",
+			"label": "site:reachable-unresolved-reference"
+		},
+		{
+			"id": "b4d9919104766e46041c849f6aa246f59e6dbbe0279527eb7dbd9a7f76b8c92b",
+			"file": "src/query.ts",
+			"label": "site:reachable-unresolved-reference"
+		},
+		{
+			"id": "7e04b38aabb13d688397b329ed16cf0a2c889b5daa5b289c0cdc12cd8a31b474",
+			"file": "src/query.ts",
+			"label": "site:reachable-unresolved-reference"
+		},
+		{
+			"id": "86b34fee43c382968bfb71318eb7952d1913c7493ca85b267685e989d76a3a04",
+			"file": "src/query.ts",
+			"label": "site:reachable-unresolved-reference"
+		},
+		{
+			"id": "bf454eaff12d80feddba248799ebc4bd619e77d11d49bd5a7c3ceb3fd5bf77ee",
+			"file": "src/utils.ts",
+			"label": "site:reachable-unresolved-reference"
+		},
+		{
+			"id": "09224429d10566f9b3586cac214a351a5f5390bd083e8bb4123387d05cfb30bd",
+			"file": "src/utils.ts",
+			"label": "site:reachable-unresolved-reference"
+		},
+		{
+			"id": "76d583d73b476907948c4be262eec2f313057bcb3a737b85653413eedf0bd3c1",
+			"file": "src/utils.ts",
+			"label": "site:reachable-unresolved-reference"
+		},
+		{
+			"id": "505adac59d3a9cb830badfb3972bbc52d17167aa6aed946d7648a126b13f5418",
+			"file": "src/utils.ts",
+			"label": "site:reachable-unresolved-reference"
+		}
+	],
+	"results": [
+		{
+			"site": 0,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 1,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 2,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 3,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 4,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 5,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 6,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 7,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 8,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 9,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 10,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 11,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 12,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 13,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 14,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 15,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 16,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 17,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 18,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 19,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 20,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 21,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 22,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 23,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 24,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 25,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 26,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 27,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 28,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 29,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 30,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 31,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 32,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 33,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 34,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 35,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 36,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 37,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 38,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 39,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 40,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 41,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 42,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 43,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 44,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 45,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 46,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 47,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 48,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 49,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 50,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 51,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 52,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 53,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 54,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 55,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 56,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 57,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 58,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 59,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 60,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 61,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 62,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 63,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 64,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 65,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 66,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 67,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 68,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 69,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 70,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 71,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 72,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 73,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 74,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 75,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 76,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 77,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 78,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 79,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 80,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 81,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 82,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 83,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 84,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 85,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 86,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 87,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 88,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 89,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 90,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 91,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 92,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 93,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 94,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 95,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 96,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 97,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 98,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 99,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 100,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 101,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 102,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 103,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 104,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 105,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 106,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 107,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 108,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 109,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 110,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 111,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 112,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 113,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 114,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 115,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 116,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 117,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 118,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 119,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 120,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 121,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 122,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 123,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 124,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 125,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 126,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 127,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 128,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 129,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 130,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 131,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 132,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 133,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 134,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 135,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 136,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 137,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 138,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 139,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 140,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 141,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 142,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 143,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 144,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 145,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 146,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 147,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 148,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 149,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 150,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 151,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 152,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 153,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 154,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 155,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 156,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 157,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 158,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 159,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 160,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 161,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 162,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 163,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 164,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 165,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 166,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 167,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 168,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 169,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 170,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 171,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 172,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 173,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 174,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 175,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 176,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 177,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 178,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 179,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 180,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 181,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 182,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 183,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 184,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 185,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 186,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 187,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 188,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 189,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 190,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 191,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 192,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 193,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 194,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 195,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 196,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 197,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 198,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 199,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 200,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 201,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 202,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 203,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 204,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 205,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 206,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 207,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 208,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 209,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 210,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 211,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 212,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 213,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 214,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 215,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 216,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 217,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 218,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 219,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 220,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 221,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 222,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 223,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 224,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 225,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 226,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 227,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 228,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 229,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 230,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 231,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 232,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 233,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 234,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 235,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 236,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 237,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 238,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 239,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 240,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 241,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 242,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 243,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 244,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 245,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 246,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 247,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 248,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 249,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 250,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 251,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 252,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 253,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 254,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 255,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 256,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 257,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 258,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 259,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 260,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 261,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 262,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 263,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 264,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 265,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 266,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 267,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 268,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 269,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 270,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 271,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 272,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 273,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 274,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 275,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 276,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 277,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 278,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 279,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 280,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 281,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 282,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 283,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 284,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 285,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 286,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 287,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 288,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 289,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 290,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 291,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 292,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 293,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 294,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 295,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 296,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 297,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 298,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 299,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 300,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 301,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 302,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 303,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 304,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 305,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 306,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 307,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 308,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 309,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 310,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 311,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 312,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 313,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 314,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 315,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 316,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 317,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 318,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 319,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 320,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 321,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 322,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 323,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 324,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 325,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 326,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 327,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 328,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 329,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 330,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 331,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 332,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 333,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 334,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 335,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 336,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 337,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 338,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 339,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 340,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 341,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 342,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 343,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 344,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 345,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 346,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 347,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 348,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 349,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 350,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 351,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 352,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 353,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 354,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 355,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 356,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 357,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 358,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 359,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 360,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 361,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 362,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 363,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 364,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 365,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 366,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 367,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 368,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 369,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 370,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 371,
+			"roles": [
+				"declaration",
+				"export"
+			]
+		},
+		{
+			"site": 372,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 373,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 374,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 375,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 376,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 377,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 378,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 379,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 380,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 381,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 382,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 383,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 384,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 385,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 386,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 387,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 388,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 389,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 390,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 391,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 392,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 393,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 394,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 395,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 396,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 397,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 398,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 399,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 400,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 401,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 402,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 403,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 404,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 405,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 406,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 407,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 408,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 409,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 410,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 411,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 412,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 413,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 414,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 415,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 416,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 417,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 418,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 419,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 420,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 421,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 422,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 423,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 424,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 425,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 426,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 427,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 428,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 429,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 430,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 431,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 432,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 433,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 434,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 435,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 436,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 437,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 438,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 439,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 440,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 441,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 442,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 443,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 444,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 445,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 446,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 447,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 448,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 449,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 450,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 451,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 452,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 453,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 454,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 455,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 456,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 457,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 458,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 459,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 460,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 461,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 462,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 463,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 464,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 465,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 466,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 467,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 468,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 469,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 470,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 471,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 472,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 473,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 474,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 475,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 476,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 477,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 478,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 479,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 480,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 481,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 482,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 483,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 484,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 485,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 486,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 487,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 488,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 489,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 490,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 491,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 492,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 493,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 494,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 495,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 496,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 497,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 498,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 499,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 500,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 501,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 502,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 503,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 504,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 505,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 506,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 507,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 508,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 509,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 510,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 511,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 512,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 513,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 514,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 515,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 516,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 517,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 518,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 519,
+			"roles": [
+				"witness"
+			]
+		},
+		{
+			"site": 520,
+			"roles": [
+				"witness"
+			]
+		}
+	],
+	"unresolved": [
+		{
+			"site": 521,
+			"reason": "unresolved-symbol"
+		},
+		{
+			"site": 522,
+			"reason": "unresolved-symbol"
+		},
+		{
+			"site": 523,
+			"reason": "unresolved-symbol"
+		},
+		{
+			"site": 524,
+			"reason": "unresolved-symbol"
+		},
+		{
+			"site": 525,
+			"reason": "unresolved-symbol"
+		},
+		{
+			"site": 526,
+			"reason": "unresolved-symbol"
+		},
+		{
+			"site": 527,
+			"reason": "unresolved-symbol"
+		},
+		{
+			"site": 528,
+			"reason": "unresolved-symbol"
+		},
+		{
+			"site": 529,
+			"reason": "unresolved-symbol"
+		},
+		{
+			"site": 530,
+			"reason": "unresolved-symbol"
+		},
+		{
+			"site": 531,
+			"reason": "unresolved-symbol"
+		},
+		{
+			"site": 532,
+			"reason": "unresolved-symbol"
+		},
+		{
+			"site": 533,
+			"reason": "unresolved-symbol"
+		},
+		{
+			"site": 534,
+			"reason": "unresolved-symbol"
+		},
+		{
+			"site": 535,
+			"reason": "unresolved-symbol"
+		},
+		{
+			"site": 536,
+			"reason": "unresolved-symbol"
+		},
+		{
+			"site": 537,
+			"reason": "unresolved-symbol"
+		},
+		{
+			"site": 538,
+			"reason": "unresolved-symbol"
+		},
+		{
+			"site": 539,
+			"reason": "unresolved-symbol"
+		},
+		{
+			"site": 540,
+			"reason": "unresolved-symbol"
+		},
+		{
+			"site": 541,
+			"reason": "unresolved-symbol"
+		},
+		{
+			"site": 542,
+			"reason": "unresolved-symbol"
+		},
+		{
+			"site": 543,
+			"reason": "unresolved-symbol"
+		},
+		{
+			"site": 544,
+			"reason": "unresolved-symbol"
+		},
+		{
+			"site": 545,
+			"reason": "unresolved-symbol"
+		},
+		{
+			"site": 546,
+			"reason": "unresolved-symbol"
+		},
+		{
+			"site": 547,
+			"reason": "unresolved-symbol"
+		}
+	],
+	"proofHandle": "d5734765a53d5d6d659474ba44fe65f7c622e4467e21250c2578649c7bc61db7",
+	"counts": {
+		"sites": 548,
+		"results": 521,
+		"unresolved": 27
+	},
+	"integrity": "466109bc892396d7ec55ba6bb6ec7787fa19d58dc2e23b9da3542436c73cc24d"
+}

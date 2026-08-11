@@ -1,0 +1,9 @@
+{
+	"name": "@guessless/engine",
+	"version": "0.0.1",
+	"type": "module",
+	"exports": "./dist/index.js",
+	"dependencies": {
+		"yuku-analyzer": "0.8.4"
+	}
+}

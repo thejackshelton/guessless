@@ -1,0 +1,2 @@
+2026-08-11T16:44:23.961261Z ERROR codex_core::tools::router: error=apply_patch verification failed: Failed to find expected lines in /private/tmp/guessless-fast-value-validation/pair-01/control/packages/typescript-plugin/src/markless-jsx.d.ts:
+	type AttributeValue = string | number | boolean | null | undefined;

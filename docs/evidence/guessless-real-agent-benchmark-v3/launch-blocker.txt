@@ -1,0 +1,5 @@
+Initial pair process result:
+Error: failed to initialize in-process app-server client: Operation not permitted (os error 1)
+
+Escalated next-cell request result:
+Rejected as unacceptable risk because it launched an autonomous Codex agent with --approve-for-me and escalated execution. The approval layer instructed the Worker not to attempt the same outcome through a workaround or indirect execution. No retry or substitution was made.

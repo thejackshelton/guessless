@@ -1,0 +1,7 @@
+WARNING: proceeding, even though we could not create PATH aliases: Operation not permitted (os error 1)
+error: the argument '--sandbox <SANDBOX_MODE>' cannot be used with '--approve-for-me'
+
+Usage: codex exec [OPTIONS] [PROMPT]
+       codex exec [OPTIONS] <COMMAND> [ARGS]
+
+For more information, try '--help'.

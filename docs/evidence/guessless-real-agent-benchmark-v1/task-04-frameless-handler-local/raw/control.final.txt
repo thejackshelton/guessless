@@ -1,0 +1,9 @@
+Fixed the React shared-handler emitter.
+
+- Preserves method-local `const` declarations within the generated method body before lowering state writes.
+- Added an authored-source regression covering `const next = count + step; count = next`.
+- `git diff --check` passed.
+- React emitter test was attempted but blocked because dependencies are not installed: `vitest: command not found`.
+- Vendored and upstream Markless compiler versions both report `0.2.2`; no version drift found.
+
+Changed [emitter/index.ts](/private/tmp/guessless-real-agent-benchmark-v1/task-04-frameless-handler-local/control/packages/frameworks/react/src/emitter/index.ts:3844) and [emitter.test.ts](/private/tmp/guessless-real-agent-benchmark-v1/task-04-frameless-handler-local/control/packages/frameworks/react/test/emitter.test.ts:1663).

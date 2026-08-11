@@ -1,0 +1,232 @@
+# GoalBuddy v2 state.yaml
+# Board truth lives here. goal.md is the editable charter; notes/ holds long receipts only.
+
+version: 2
+
+goal:
+  title: "Guessless must-have fixes"
+  slug: "guessless-must-have-fixes"
+  kind: specific
+  tranche: "Fix the four defect classes from adoption-eval-fable-v1, re-validate honesty on the same ground-truth corpora, then demonstrate one must-have scenario — continuing until the full outcome is complete."
+  status: active
+  oracle:
+    signal: "An adoption-eval-fable-v2 re-trial over the sealed v1 ground-truth corpora shows zero missed-and-unnamed sites (every ground-truth site either returned or named in unresolved), full workspace verification is green, and one receipted demonstration shows guessless materially beating baseline tooling on a repo class where the guarantee matters."
+    cadence: "after each Worker package and at final audit"
+    final_proof: "v2 evidence bundle with per-defect before/after receipts, green pnpm build/test/typecheck/lint, the demonstration receipt, and a final Judge audit mapping each of D1-D4 and the must-have claim to evidence, recording full_outcome_complete: true."
+  intake:
+    original_request: "Go in and improve all the critical issues of guessless, use fable opus cockpit and 15m /loop. Get us to a state where we are confident this is a must have tool for some repos."
+    interpreted_outcome: "The four defect classes documented in docs/evidence/adoption-eval-fable-v1/verdict.md are fixed fail-closed, the honesty contract re-validates on real corpora, and at least one repo class is demonstrated where guessless is a must-have rather than a grep substitute."
+    input_shape: specific
+    audience: "Guessless maintainer and agent-tool consumers in the markless/versionless/frameless family"
+    authority: requested
+    proof_type: metric
+    completion_proof: "Zero missed-and-unnamed sites across the re-run v1 ground truth; all four defect regression tests green in the suite; one demonstration receipt where baseline tooling misses or cannot run and guessless answers with an honest receipt."
+    likely_misfire: "Fixing the four defects with narrow patches that satisfy the exact v1 fixtures but not the defect class; or declaring must-have from the honesty re-trial alone without demonstrating a scenario where guessless beats a grep-capable agent."
+    blind_spots_considered:
+      - "vp pack rebuilds dist for every package; allowed_files must include dist outputs or verify fails on scope."
+      - "The workspace has no git repo; without a baseline commit, Worker slices are not reversible and cockpit worktree isolation is impossible."
+      - "D3 may be a deliberate binding-level design choice; the fix may be receipt vocabulary (named possible-mutation sites) rather than full may-mutate analysis, but README and receipt must agree either way."
+      - "Sealed evidence (oracle-part-3-v3..v11, adoption-eval-fable-v1, guessless-fast-value-validation) is immutable; v2 evidence gets a fresh directory."
+      - "The small-repo A/B showed guessless adds cost without correctness lift; must-have confidence requires a scenario grep cannot serve, not another small-repo win."
+    existing_plan_facts:
+      - "Defect classes D1-D4 and suggested fail-closed fixes are documented in docs/evidence/adoption-eval-fable-v1/verdict.md with raw receipts in raw-markless/ and raw-versionless/."
+      - "D1 isolation A/B: raw-versionless/q23 (alias imports, saga.js invisible) vs q25 (relativised, sites appear)."
+      - "D3 evidence: raw-markless/q10 writesOf complete/empty vs 10 records.push sites in markless serializer src/value.ts."
+      - "User requires execution via the fable-opus cockpit (opus-worker packets) and a 15m /loop cadence."
+      - "Guessless workspace verification: pnpm build, pnpm test (258 tests), pnpm typecheck, pnpm lint."
+
+rules:
+  pm_owns_state: true
+  one_active_task: true
+  max_write_workers: 1
+  no_implementation_without_worker_or_pm_task: true
+  no_completion_without_judge_or_pm_audit: true
+  planning_is_not_completion: true
+  queued_required_worker_blocks_completion: true
+  continuous_until_full_outcome: true
+  missing_input_or_credentials_do_not_stop_goal: true
+  exact_human_approval_can_terminal_wait: true
+  preserve_and_validate_existing_plan: true
+  intake_misfire_must_be_audited: true
+  goal_pressure_requires_oracle: true
+  no_completion_on_weak_proof: true
+  slice_policy:
+    max_consecutive_tiny_tasks: 2
+    prefer_vertical_slices: true
+    judge_picks_largest_safe_slice: true
+    worker_completes_whole_slice: true
+
+agents:
+  scout: installed
+  worker: installed
+  judge: installed
+
+visual_board:
+  selected: local
+  local:
+    status: live
+    url: "http://goalbuddy.localhost:41737/guessless-must-have-fixes/"
+    command: "node /Users/jacksm5pro/.claude/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/guessless-must-have-fixes"
+
+active_task: T001
+
+tasks:
+  - id: T001
+    type: pm
+    assignee: PM
+    status: active
+    reasoning_hint: low
+    objective: "Establish a git baseline for the workspace (git init, sensible .gitignore covering node_modules and dist if absent, initial commit) so Worker slices are reversible and fable-opus worktree isolation becomes available."
+    inputs:
+      - package.json
+      - pnpm-workspace.yaml
+    constraints:
+      - "Do not modify any product source; this is repository plumbing only."
+      - "Do not commit docs/evidence contents differently from working tree; commit everything as-is for the baseline."
+    expected_output:
+      - "A git repository with one baseline commit and a recorded commit hash."
+    receipt: null
+  - id: T002
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: high
+    objective: "Fix D1 fail-closed: any supplied input file whose import/re-export specifiers fail to resolve into the linked graph must surface as named unresolved sites in every traversal-based receipt it is absent from, so a file can never be silently invisible. Reproduce the sealed q23/q25 webpack-alias case as an engine regression test (alias specifier absent -> named unresolved; relativised -> sites returned) plus at least two adversarial variants (chained alias, alias re-export). Dispatch via a fable-opus cockpit packet."
+    allowed_files:
+      - packages/engine/src/**
+      - packages/engine/test/**
+      - packages/*/dist/**
+      - pnpm-lock.yaml
+    verify:
+      - "pnpm build"
+      - "pnpm test"
+      - "pnpm typecheck"
+      - "pnpm lint"
+    stop_if:
+      - "Need files outside allowed_files."
+      - "The fix requires weakening the closed unresolved-reason enumeration without a new named reason."
+      - "Verification fails twice."
+    receipt: null
+  - id: T003
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: high
+    objective: "Fix D2 and D3 as one reference-completeness slice. D2: referencesOf/readsOf/writesOf must include import specifiers and cross-module re-export specifiers as sites (role-labelled), consistent with local export specifiers which are already returned. D3: mutation via member calls on a tracked binding (push, pop, splice, sort, set, delete, defineProperty and similar) must never yield a bare complete/empty writesOf — either classify as a distinct may-mutate access or name each such call site as unresolved with a new closed reason; align the README writesOf wording with whichever is implemented. Regression tests must reproduce the markless ground truth: 7 specifier sites for isValidStorageKey-shaped code and the 10x records.push case. Dispatch via a fable-opus cockpit packet."
+    allowed_files:
+      - packages/engine/src/**
+      - packages/engine/test/**
+      - packages/*/dist/**
+      - README.md
+      - pnpm-lock.yaml
+    verify:
+      - "pnpm build"
+      - "pnpm test"
+      - "pnpm typecheck"
+      - "pnpm lint"
+    stop_if:
+      - "Need files outside allowed_files."
+      - "Receipt schema change would break verifyReceipt/reproduce compatibility without a versioned schema bump."
+      - "Verification fails twice."
+    receipt: null
+  - id: T004
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    objective: "Fix D4 fail-closed: unrecognized export forms (module.exports assignment, exports.x, and any other unclassifiable export construct) must be named as unresolved sites in exportedNames receipts rather than silently absent; reproduce the versionless i18n.js CommonJS case as a regression test. Dispatch via a fable-opus cockpit packet."
+    allowed_files:
+      - packages/engine/src/**
+      - packages/engine/test/**
+      - packages/*/dist/**
+      - pnpm-lock.yaml
+    verify:
+      - "pnpm build"
+      - "pnpm test"
+      - "pnpm typecheck"
+      - "pnpm lint"
+    stop_if:
+      - "Need files outside allowed_files."
+      - "Verification fails twice."
+    receipt: null
+  - id: T005
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    objective: "Re-validation: re-run the adoption-eval-fable-v1 honesty trials against the fixed engine over the same ground-truth corpora (markless serializer set, versionless react-boilerplate fixture, same symbols and query set), writing a fresh docs/evidence/adoption-eval-fable-v2/ bundle. Score: every v1 ground-truth site must now be either returned or named in unresolved; any remaining missed-and-unnamed site leads the report and blocks the oracle. Sealed v1 evidence stays byte-identical. Dispatch via a fable-opus cockpit packet."
+    allowed_files:
+      - docs/evidence/adoption-eval-fable-v2/**
+    verify:
+      - "node -e 'const fs=require(\"fs\");const p=\"docs/evidence/adoption-eval-fable-v2\";if(!fs.existsSync(p+\"/report.md\"))throw new Error(\"missing report\");'"
+      - "pnpm test"
+    stop_if:
+      - "Need files outside allowed_files."
+      - "Any write would touch docs/evidence/adoption-eval-fable-v1 or older sealed evidence."
+      - "Verification fails twice."
+    receipt: null
+  - id: T006
+    type: judge
+    assignee: Judge
+    status: queued
+    reasoning_hint: high
+    objective: "Select and spec the must-have demonstration: choose the scenario where guessless beats a grep-capable agent on the merits — candidates: a repo large enough that exhaustive text sweep is impractical or ambiguous (same-name symbols across many modules), the versionless unbuildable corpus where no LSP starts, or a receipt-verified CI citation check in the frameless check-citations style. Define the Worker package: exact objective, ground truth or oracle, allowed_files, verify, stop_if, and what result would falsify the must-have claim."
+    inputs:
+      - "T002-T005 receipts"
+      - docs/evidence/adoption-eval-fable-v1/verdict.md
+    constraints:
+      - "Do not implement."
+      - "The scenario must include a stated falsifier; a demonstration that cannot fail proves nothing."
+      - "No model-backed external spend without explicit owner approval recorded in the receipt."
+    expected_output:
+      - "Chosen scenario with rationale"
+      - "Exact Worker objective"
+      - "allowed_files"
+      - "verify"
+      - "stop_if"
+      - "Falsifier"
+    receipt: null
+  - id: T007
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: high
+    objective: "Execute the must-have demonstration exactly as specced by T006, producing a receipted evidence bundle under docs/evidence/adoption-eval-fable-v2/demonstration/. Dispatch via a fable-opus cockpit packet."
+    allowed_files:
+      - docs/evidence/adoption-eval-fable-v2/**
+    verify: []
+    stop_if:
+      - "T006 spec is missing or its falsifier fires."
+      - "Need files outside allowed_files."
+      - "Verification fails twice."
+    receipt: null
+  - id: T999
+    type: judge
+    assignee: Judge
+    status: queued
+    reasoning_hint: high
+    objective: "Final audit: map each of D1-D4 to its fix, regression test, and v2 re-validation receipt; confirm zero missed-and-unnamed sites over the v1 ground truth; weigh the demonstration against its falsifier; and decide whether 'must-have for some repos' is now an evidenced claim. Record full_outcome_complete accordingly."
+    inputs:
+      - "All done task receipts"
+      - "Last verification"
+      - "Current dirty diff"
+      - docs/evidence/adoption-eval-fable-v2/
+    constraints:
+      - "Do not implement."
+      - "Reject completion if any defect class is fixed only for the exact v1 fixture rather than the class."
+      - "Reject completion if required Worker work is still queued or active."
+      - "Reject a must-have verdict whose demonstration could not have failed."
+    expected_output:
+      - "complete | not_complete"
+      - "full_outcome_complete: true | false"
+      - "Per-defect evidence map"
+      - "Missing evidence and next task if incomplete"
+    receipt: null
+
+checks:
+  dirty_fingerprint: "No git repository at prep time; T001 establishes the baseline."
+  last_verification:
+    result: pass
+    task: null
+    commands:
+      - "pnpm test (258/258, 2026-08-11, pre-goal baseline)"

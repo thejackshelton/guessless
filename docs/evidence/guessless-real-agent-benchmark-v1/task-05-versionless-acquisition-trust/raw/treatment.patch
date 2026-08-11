@@ -1,0 +1,174 @@
+diff --git a/packages/trust/src/generate.ts b/packages/trust/src/generate.ts
+index 05c09d0..1587a37 100644
+--- a/packages/trust/src/generate.ts
++++ b/packages/trust/src/generate.ts
+@@ -118,6 +118,14 @@ export const NPM_LOCK_ACQUISITION_PREFLIGHT = {
+ 	sha256: '262abe9b19a10804808eadd5ae2dfcbc1fd9ac4119f9dc9571cb3df89df1d351',
+ 	canonicalDigest: 'a14e94d4729f50cf6260431d5dea53e0ac72fa77668e9612ea17cc216c9ed044',
+ } as const;
++export const NPM_LOCK_ACQUISITION_EXCLUSION = {
++	state: 'excluded' as const,
++	reason: 'T190 acquisition is blocked-not-ready and no acquisition consent was consumed.',
++	evidence: {
++		uri: NPM_LOCK_ACQUISITION_PREFLIGHT.path,
++		sha256: NPM_LOCK_ACQUISITION_PREFLIGHT.sha256,
++	},
++} as const;
+ const workspaceReference = createRegExp(
+ 	exactly('workspace:')
+ 		.at.lineStart()
+@@ -179,6 +187,10 @@ export function validateNpmLockAcquisitionPreflight(bytes: Buffer): void {
+ 	const consent = asRecord(acquisition.consent, 'T190 proposed consent');
+ 	const network = asRecord(acquisition.network, 'T190 proposed network');
+ 	const transaction = asRecord(acquisition.transaction, 'T190 proposed transaction');
++	const closure = asRecord(receipt.closure, 'T190 closure');
++	const cacheAudit = asRecord(receipt.cacheAudit, 'T190 cache audit');
++	if (!Array.isArray(cacheAudit.cached) || !Array.isArray(cacheAudit.missing))
++		throw new Error('T190 npm lock acquisition evidence is incomplete');
+ 	if (
+ 		receipt.schemaVersion !== 'versionless.npm-lock-acquisition-preflight.v1' ||
+ 		receipt.result !== 'not-ready' ||
+@@ -188,11 +200,17 @@ export function validateNpmLockAcquisitionPreflight(bytes: Buffer): void {
+ 		replay.identical !== true ||
+ 		replay.networkAttempts !== 0 ||
+ 		replay.residue !== 'none' ||
++		acquisition.state !== 'blocked-not-ready' ||
+ 		consent.status !== 'proposed-unconsumed' ||
+ 		consent.consumed !== false ||
+ 		network.enabled !== false ||
+ 		network.maximumResponseBytes !== null ||
+ 		network.maximumAggregateBytes !== null ||
++		network.exactMembership !== 'cacheAudit.missing' ||
++		network.requests !== cacheAudit.missing.length ||
++		closure.cachedUrls !== cacheAudit.cached.length ||
++		closure.missingUrls !== cacheAudit.missing.length ||
++		closure.urls !== cacheAudit.cached.length + cacheAudit.missing.length ||
+ 		transaction.state !== 'not-created' ||
+ 		transaction.stagingPath !== null ||
+ 		transaction.publicationPath !== null
+@@ -1159,6 +1177,7 @@ export async function generateTrustPackage(options: GenerateTrustOptions): Promi
+ 			signerAuthenticity: 'unknown',
+ 			gitProvenance: 'unknown',
+ 			aggregateFixtures: aggregateFixtures.length,
++			npmLockAcquisition: NPM_LOCK_ACQUISITION_EXCLUSION,
+ 		},
+ 	};
+ 	const controls = {
+@@ -1172,6 +1191,7 @@ export async function generateTrustPackage(options: GenerateTrustOptions): Promi
+ 			scope: 'Versionless-spawned processes and browser routing',
+ 			osWideIsolation: false,
+ 		},
++		npmLockAcquisition: NPM_LOCK_ACQUISITION_EXCLUSION,
+ 		scriptSurface: {
+ 			state: 'verified',
+ 			scope: 'eighteen exact static deployment entrypoints',
+diff --git a/packages/trust/src/verify.ts b/packages/trust/src/verify.ts
+index 00eb6ae..f3a1043 100644
+--- a/packages/trust/src/verify.ts
++++ b/packages/trust/src/verify.ts
+@@ -41,6 +41,7 @@ import {
+ } from '../../core/src/enterprise/runtime-script-observation.ts';
+ import {
+ 	NPM_LOCK_ACQUISITION_PREFLIGHT,
++	NPM_LOCK_ACQUISITION_EXCLUSION,
+ 	validateCycloneDx17,
+ 	validateNpmLockAcquisitionPreflight,
+ 	workspaceManifestPaths,
+@@ -283,6 +284,10 @@ export async function verifyTrustPackage(options: VerifyTrustOptions): Promise<{
+ 	}
+ 	const provenance = asRecord(await readJson(path.join(output, 'provenance.json')), 'provenance');
+ 	const provenanceClaims = asRecord(provenance.claims, 'provenance claims');
++	const provenanceAcquisition = asRecord(
++		provenanceClaims.npmLockAcquisition,
++		'provenance npm-lock acquisition exclusion',
++	);
+ 	if (
+ 		provenanceClaims.slsaLevel !== 'not-claimed' ||
+ 		provenanceClaims.signerAuthenticity !== 'unknown' ||
+@@ -290,6 +295,8 @@ export async function verifyTrustPackage(options: VerifyTrustOptions): Promise<{
+ 		provenanceClaims.aggregateFixtures !== transaction.receipts
+ 	)
+ 		throw new Error('Provenance contains an unsupported assurance state');
++	if (canonicalize(provenanceAcquisition) !== canonicalize(NPM_LOCK_ACQUISITION_EXCLUSION))
++		throw new Error('Provenance npm-lock acquisition exclusion differs from evidence');
+ 	if (!Array.isArray(provenance.subject) || provenance.subject.length !== 11)
+ 		throw new Error('Provenance must attest exactly eleven generated package artifacts');
+ 	const predicate = asRecord(provenance.predicate, 'provenance predicate');
+@@ -364,6 +371,10 @@ export async function verifyTrustPackage(options: VerifyTrustOptions): Promise<{
+ 		throw new Error('Provenance does not attest the exact current core distribution');
+ 	const controls = asRecord(await readJson(path.join(output, 'controls.json')), 'controls');
+ 	const locality = asRecord(controls.locality, 'locality control');
++	const controlsAcquisition = asRecord(
++		controls.npmLockAcquisition,
++		'controls npm-lock acquisition exclusion',
++	);
+ 	const securityPolicy = asRecord(controls.securityPolicy, 'security policy control');
+ 	const gitProvenance = asRecord(controls.gitProvenance, 'Git provenance control');
+ 	const signingIdentity = asRecord(controls.signingIdentity, 'signing identity control');
+@@ -372,6 +383,11 @@ export async function verifyTrustPackage(options: VerifyTrustOptions): Promise<{
+ 		controls.runtimeScriptObservation,
+ 		'runtime script-observation control',
+ 	);
++	if (
++		canonicalize(controlsAcquisition) !== canonicalize(NPM_LOCK_ACQUISITION_EXCLUSION) ||
++		canonicalize(controlsAcquisition) !== canonicalize(provenanceAcquisition)
++	)
++		throw new Error('Controls npm-lock acquisition exclusion differs from evidence');
+ 	if (
+ 		locality.state !== 'verified' ||
+ 		locality.scope !== 'Versionless-spawned processes and browser routing' ||
+diff --git a/packages/trust/test/trust-package.test.ts b/packages/trust/test/trust-package.test.ts
+index 828d432..d10ab28 100644
+--- a/packages/trust/test/trust-package.test.ts
++++ b/packages/trust/test/trust-package.test.ts
+@@ -956,6 +956,15 @@ snapshots:
+ 				const network = acquisition.network as Record<string, unknown>;
+ 				network.maximumResponseBytes = 1;
+ 			},
++			(value: Record<string, unknown>) => {
++				const acquisition = value.proposedAcquisition as Record<string, unknown>;
++				const network = acquisition.network as Record<string, unknown>;
++				network.requests = 1_497;
++			},
++			(value: Record<string, unknown>) => {
++				const closure = value.closure as Record<string, unknown>;
++				closure.missingUrls = 1_497;
++			},
+ 		] as const) {
+ 			const value = JSON.parse(source.toString('utf8')) as Record<string, unknown>;
+ 			mutate(value);
+@@ -1016,6 +1025,34 @@ snapshots:
+ 		}
+ 	}, 30_000);
+ 
++	it('rejects inconsistent npm-lock acquisition exclusions in provenance and controls', async () => {
++		const fixture = await setup();
++		try {
++			for (const artifact of ['provenance.json', 'controls.json'] as const) {
++				const output = path.join(fixture.directory, `acquisition-exclusion-${artifact}`);
++				await cp(fixture.current, output, { recursive: true });
++				await rewriteArtifact(output, artifact, (value) => {
++					const record =
++						artifact === 'provenance.json'
++							? ((value.claims as Record<string, unknown>)
++									.npmLockAcquisition as Record<string, unknown>)
++							: (value.npmLockAcquisition as Record<string, unknown>);
++					record.state = 'verified';
++				});
++				await expect(
++					verifyTrustPackage({
++						rootDir: root,
++						outputDir: output,
++						environment: offline,
++						now: observedAt,
++					}),
++				).rejects.toThrow('npm-lock acquisition exclusion');
++			}
++		} finally {
++			await rm(fixture.directory, { recursive: true, force: true });
++		}
++	}, 30_000);
++
+ 	it('rejects recomputed-hash runtime semantic tampering', async () => {
+ 		const fixture = await setup();
+ 		try {

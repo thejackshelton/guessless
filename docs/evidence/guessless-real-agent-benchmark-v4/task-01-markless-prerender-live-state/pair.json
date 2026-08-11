@@ -1,0 +1,21 @@
+{
+  "schema": "guessless.real-agent-benchmark.pair/v4",
+  "id": "task-01-markless-prerender-live-state",
+  "repository": "markless",
+  "historicalParent": "e9db0a549b2cddd57b5fde5c13a5c5af986d2ccc",
+  "historicalSolution": "ac8a42355da5729b100e4ffafd31bcc86b6039ac",
+  "startingTree": "97691fd448b42f33a1a957d63e722cb5e85643fb",
+  "startingHeads": {"control": "3a63c69acb8e71aac7d170b25308f095184e7b4c", "treatment": "3a63c69acb8e71aac7d170b25308f095184e7b4c"},
+  "basePromptSha256": "89b67738f07fee8077e65cb1259cc4a1a4273fd62a77668a4c8da14350e8b82a",
+  "treatmentPromptSha256": "a81d946c31a69fbee713ccd63fac7655ee02fb6fea1e3c1555b46eb58ae11711",
+  "onboardingTemplateSha256": "fb5d103116be512e22544c340f3d227f78845ba79b252e5b45a547caf6e32f43",
+  "treatmentStructuralRoot": "/private/tmp/guessless-real-agent-benchmark-v4/task-01-markless-prerender-live-state/treatment/packages/web",
+  "order": "control-first",
+  "solutionObjectsAbsentBeforeLaunch": true,
+  "sourceTreeParity": true,
+  "promptParity": "The treatment prompt ends with the byte-identical base prompt; its only prefix is the frozen onboarding template with the structural-root placeholder substituted.",
+  "environmentParity": "Same model, workspace-write sandbox, approval_policy=never, inherited environment, no timeout, and same read-only external dependency tree. Treatment-only deltas were Guessless MCP configuration with default_tools_approval_mode=approve and the onboarding prefix.",
+  "contamination": {"state": "clean"},
+  "score": "pending-independent-judge",
+  "cells": ["cells/control.json", "cells/treatment.json"]
+}
