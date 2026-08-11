@@ -2,6 +2,7 @@ export * from './anchors.ts';
 export * from './canonicalize.ts';
 export * from './contracts.ts';
 export * from './engine.ts';
+export * from './linking.ts';
 export * from './queries.ts';
 export * from './progressive.ts';
 export * from './reachability.ts';

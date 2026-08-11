@@ -1,4 +1,3 @@
-import { builtinModules } from 'node:module';
 import type { Analyzer, Module, Reference, Scope, Space, Symbol } from 'yuku-analyzer';
 import { anchorSite, anchorSymbol, resolveSymbolAnchor } from './anchors.ts';
 import {
@@ -8,6 +7,12 @@ import {
 	type SymbolAnchor,
 	type UnresolvedSite,
 } from './contracts.ts';
+import {
+	boundaryDetail,
+	boundaryReason,
+	suppliedInputIndex,
+	unlinkedInputSites,
+} from './linking.ts';
 import { analyzerSnapshot } from './snapshot.ts';
 
 export interface ReferenceResult {
@@ -24,7 +29,6 @@ export interface ExportResult {
 	readonly module: SymbolAnchor;
 }
 
-const nodeBuiltins = new Set([...builtinModules, ...builtinModules.map((name) => `node:${name}`)]);
 type YukuNode = Parameters<Module['symbolOf']>[0];
 type RichNode = YukuNode & {
 	type: string;
@@ -131,6 +135,7 @@ function moduleClosure(seed: Module, direction: 'dependencies' | 'dependents'): 
 
 function baseUnresolved(analyzer: Analyzer, relevant: ReadonlySet<Module>): UnresolvedSite[] {
 	const unresolved: UnresolvedSite[] = [];
+	const keys = suppliedInputIndex(analyzer);
 	for (const module of analyzer.modules.values()) {
 		if (!relevant.has(module)) continue;
 		for (const [index, diagnostic] of module.diagnostics.entries())
@@ -141,20 +146,20 @@ function baseUnresolved(analyzer: Analyzer, relevant: ReadonlySet<Module>): Unre
 			});
 		for (const record of module.imports) {
 			if (record.resolvedModule !== null) continue;
-			const reason = moduleBoundaryReason(record.specifier);
+			const reason = boundaryReason(record.specifier, keys);
 			unresolved.push({
 				site: anchorSite(module, record.node, 'import-boundary'),
 				reason,
-				detail: `Import '${record.specifier}' leaves the linked file set.`,
+				detail: boundaryDetail('import', record.specifier, reason),
 			});
 		}
 		for (const record of module.exports) {
 			if (record.specifier === null || record.resolvedModule !== null) continue;
-			const reason = moduleBoundaryReason(record.specifier);
+			const reason = boundaryReason(record.specifier, keys);
 			unresolved.push({
 				site: anchorSite(module, record.node, 'export-boundary'),
 				reason,
-				detail: `Export from '${record.specifier}' leaves the linked file set.`,
+				detail: boundaryDetail('export', record.specifier, reason),
 			});
 		}
 	}
@@ -170,16 +175,6 @@ function baseUnresolved(analyzer: Analyzer, relevant: ReadonlySet<Module>): Unre
 		});
 	}
 	return unresolved;
-}
-
-function moduleBoundaryReason(
-	specifier: string,
-): 'builtin-module-boundary' | 'external-module-boundary' | 'unresolved-specifier' {
-	return nodeBuiltins.has(specifier)
-		? 'builtin-module-boundary'
-		: specifier.startsWith('.')
-			? 'unresolved-specifier'
-			: 'external-module-boundary';
 }
 
 function namespaceEvidence(
@@ -979,8 +974,12 @@ export function referencesOf(
 			(mode === 'reads' ? result.access !== 'write' : result.access !== 'read'),
 	);
 	const relevant = moduleClosure(origin.module, 'dependents');
+	// A supplied input whose specifiers failed to link never enters the
+	// dependents closure, so its reference sites are invisible to the walk
+	// above. Name every such file: absence from results must never be silent.
 	return finish(analyzer, request, filtered, [
 		...baseUnresolved(analyzer, relevant),
+		...unlinkedInputSites(analyzer, relevant),
 		...namespace.unresolved,
 		...propertyAliasGaps(analyzer, origin),
 	]);
