@@ -8,7 +8,8 @@
 		"build": "vp pack",
 		"typecheck": "tsc --noEmit",
 		"lint": "vp lint",
-		"test": "vp test --project node"
+		"test": "vp test --project node",
+		"test:evidence": "GUESSLESS_EVIDENCE_TESTS=1 vp test"
 	},
 	"devDependencies": {
 		"@types/node": "24.12.2",

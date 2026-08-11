@@ -1,3 +1,27 @@
+/**
+ * Oracle trust boundaries. Most of this file is environment-independent and runs in the default
+ * `pnpm test` gate: path derivation, escape rejection, stage cleanup, redirect and release-identity
+ * binding, offline evidence validation, percentiles, and record serialization.
+ *
+ * The tests marked with `EVIDENCE_ONLY` below are the exception and are opt-in.
+ *
+ * Verifies (opt-in part): that the production verifier rejects a tampered copy of
+ * `docs/evidence/oracle-part-2`, and that offline repair refuses unauthorized manifest hashes.
+ *
+ * Why opt-in: both paths call `verifyCache()`, which requires the acquired corpus at
+ * `.guessless/cache/oracle/oracle-part-2-v1` — third-party repository tarballs fetched from GitHub
+ * under explicit network consent and checked against sha256 pins. That cache is untracked and
+ * cannot be self-generated or committed (multi-megabyte external archives whose bytes are the point
+ * of the pin), so in a fresh checkout these tests fail with ENOENT for a reason that says nothing
+ * about the health of the code. Gating changes only when they run; no assertion here is weakened or
+ * removed. Populate the cache first with:
+ *   GUESSLESS_ORACLE_NETWORK_CONSENT=... pnpm --filter @guessless/oracle exec node dist/cli.js \
+ *     acquire --allow-network --evidence-id oracle-part-2-v1
+ *
+ * Run the opt-in tests with:
+ *   GUESSLESS_EVIDENCE_TESTS=1 pnpm test oracle
+ *   (or `pnpm test:evidence` for every evidence-era suite at once)
+ */
 import {
 	cpSync,
 	existsSync,
@@ -47,6 +71,10 @@ import {
 } from '../src/performance.ts';
 
 const root = resolve(import.meta.dirname, '../../..');
+
+// Requires the acquired oracle-part-2-v1 corpus cache; see the file header.
+const EVIDENCE_ONLY = test.skipIf(process.env.GUESSLESS_EVIDENCE_TESTS !== '1');
+
 const temporary: string[] = [];
 
 afterEach(() => {
@@ -501,7 +529,7 @@ describe('oracle trust boundaries', () => {
 		);
 	});
 
-	test.each([
+	EVIDENCE_ONLY.each([
 		{
 			name: 'transcript/result mismatch',
 			expected: /LSP transcript result mismatch/,
@@ -611,7 +639,7 @@ describe('oracle trust boundaries', () => {
 		expect(existsSync(join(parent, '.superseded-test'))).toBe(false);
 	});
 
-	test('rejects closed and unknown repair manifest preconditions', async () => {
+	EVIDENCE_ONLY('rejects closed and unknown repair manifest preconditions', async () => {
 		const previous = process.env.GUESSLESS_ORACLE_NETWORK_CONSENT;
 		process.env.GUESSLESS_ORACLE_NETWORK_CONSENT = 'disabled';
 		try {
