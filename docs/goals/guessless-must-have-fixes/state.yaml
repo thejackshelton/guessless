@@ -68,13 +68,13 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/guessless-must-have-fixes/"
     command: "node /Users/jacksm5pro/.claude/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/guessless-must-have-fixes"
 
-active_task: T001
+active_task: T003
 
 tasks:
   - id: T001
     type: pm
     assignee: PM
-    status: active
+    status: done
     reasoning_hint: low
     objective: "Establish a git baseline for the workspace (git init, sensible .gitignore covering node_modules and dist if absent, initial commit) so Worker slices are reversible and fable-opus worktree isolation becomes available."
     inputs:
@@ -85,11 +85,19 @@ tasks:
       - "Do not commit docs/evidence contents differently from working tree; commit everything as-is for the baseline."
     expected_output:
       - "A git repository with one baseline commit and a recorded commit hash."
-    receipt: null
+    receipt:
+      result: done
+      harness: claude-code
+      changed_files:
+        - .git/
+      commands:
+        - cmd: "git init -b main && git add -A && git commit"
+          status: pass
+      summary: "Git baseline established: repository initialized on main, existing .gitignore retained (node_modules, packages/*/dist, .guessless/cache), all workspace content including sealed evidence committed as-is at 09ef2ee. Worker slices are now reversible and fable-opus worktree isolation is available. Note: fresh worktrees lack node_modules; isolated verify must begin with pnpm install --frozen-lockfile --prefer-offline or the slice runs non-isolated."
   - id: T002
     type: worker
     assignee: Worker
-    status: queued
+    status: blocked
     reasoning_hint: high
     objective: "Fix D1 fail-closed: any supplied input file whose import/re-export specifiers fail to resolve into the linked graph must surface as named unresolved sites in every traversal-based receipt it is absent from, so a file can never be silently invisible. Reproduce the sealed q23/q25 webpack-alias case as an engine regression test (alias specifier absent -> named unresolved; relativised -> sites returned) plus at least two adversarial variants (chained alias, alias re-export). Dispatch via a fable-opus cockpit packet."
     allowed_files:
@@ -106,11 +114,35 @@ tasks:
       - "Need files outside allowed_files."
       - "The fix requires weakening the closed unresolved-reason enumeration without a new named reason."
       - "Verification fails twice."
-    receipt: null
+    receipt:
+      result: blocked
+      harness: claude-code
+      blocked_reason: "Fix is complete and green in-package (engine 141/141, typecheck, lint) on review branch worktree-agent-a7409fe15a9e58ff4, but the task verify 'pnpm test' cannot pass for causes outside allowed_files: baseline 09ef2ee already fails 13 tests in a fresh worktree (v7-v11 manifests pin stale built dist; oracle fixtures untracked), and v6-evaluation.test.ts pins the engine bundle sha256 so any engine change fails it. Spawned T008 (truthful test gate) and T009 (merge + full verify)."
+      changed_files:
+        - packages/engine/src/contracts.ts
+        - packages/engine/src/index.ts
+        - packages/engine/src/linking.ts
+        - packages/engine/src/queries.ts
+        - packages/engine/src/reachability.ts
+        - packages/engine/test/contracts.test.ts
+        - packages/engine/test/linking.test.ts
+      commands:
+        - cmd: "pnpm exec vitest run --project node packages/engine/test/ (141/141)"
+          status: pass
+        - cmd: "pnpm typecheck"
+          status: pass
+        - cmd: "pnpm lint"
+          status: pass
+        - cmd: "pnpm test (full suite, fresh worktree)"
+          status: fail
+      summary: "D1 implemented fail-closed on the review branch: new closed reason 'unlinked-input'; supplied-input index distinguishes alias specifiers naming supplied inputs from external/builtin boundaries; traversal queries name every supplied input outside the traversed graph whose specifiers failed to link. 11 class-level regression tests (q23/q25 reproduction, chained alias, alias re-export, reachability, definitionOf, negative controls). PM reviewed the branch diff: design sound, one cosmetic defect (raw NUL byte in linking.ts cache-key literal makes the file diff as binary) queued for fix at T009 integration. Not merged: main's gate must become truthful first (T008)."
+      spawned_tasks:
+        - T008
+        - T009
   - id: T003
     type: worker
     assignee: Worker
-    status: queued
+    status: active
     reasoning_hint: high
     objective: "Fix D2 and D3 as one reference-completeness slice. D2: referencesOf/readsOf/writesOf must include import specifiers and cross-module re-export specifiers as sites (role-labelled), consistent with local export specifiers which are already returned. D3: mutation via member calls on a tracked binding (push, pop, splice, sort, set, delete, defineProperty and similar) must never yield a bare complete/empty writesOf — either classify as a distinct may-mutate access or name each such call site as unresolved with a new closed reason; align the README writesOf wording with whichever is implemented. Regression tests must reproduce the markless ground truth: 7 specifier sites for isValidStorageKey-shaped code and the 10x records.push case. Dispatch via a fable-opus cockpit packet."
     allowed_files:
@@ -200,6 +232,81 @@ tasks:
       - "Need files outside allowed_files."
       - "Verification fails twice."
     receipt: null
+  - id: T008
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: medium
+    objective: "Make pnpm test truthful in a fresh checkout. Baseline commit 09ef2ee fails 13 tests in a clean worktree: v7-v11 evaluation tests pin sha256 of a stale built packages/engine/dist/index.js, packages/oracle tests ENOENT on untracked fixtures, and v6-evaluation.test.ts pins the current engine bundle hash so ANY engine source change fails it. Separate evidence-era integrity tests from the product gate: move manifest-pinning evaluation suites and environment-dependent oracle suites behind an explicit opt-in (env flag such as GUESSLESS_EVIDENCE_TESTS=1, or a non-default vitest project), or make oracle fixtures self-generating/tracked — without deleting or weakening any assertion; each gated file documents why in its header. Acceptance: pnpm build && pnpm test && pnpm typecheck && pnpm lint all green in a fresh worktree at baseline. Dispatch via a fable-opus cockpit packet."
+    allowed_files:
+      - packages/evaluation/test/**
+      - packages/oracle/test/**
+      - packages/oracle/fixtures/**
+      - vite.config.ts
+      - package.json
+      - pnpm-lock.yaml
+    verify:
+      - "pnpm install --frozen-lockfile --prefer-offline"
+      - "pnpm build"
+      - "pnpm test"
+      - "pnpm typecheck"
+      - "pnpm lint"
+    stop_if:
+      - "The fix would require editing packages/evaluation/fixtures/** or docs/evidence/** (sealed)."
+      - "Any assertion must be deleted or weakened rather than gated."
+      - "Verification fails twice."
+    receipt:
+      result: done
+      harness: claude-code
+      changed_files:
+        - package.json
+        - packages/oracle/test/oracle.test.ts
+        - vite.config.ts
+      commands:
+        - cmd: "pnpm install --frozen-lockfile --prefer-offline"
+          status: pass
+        - cmd: "pnpm build"
+          status: pass
+        - cmd: "pnpm test (fresh worktree: 206 passed, 8 skipped, 0 failed; was 13 failed)"
+          status: pass
+        - cmd: "pnpm typecheck"
+          status: pass
+        - cmd: "pnpm lint"
+          status: pass
+      summary: "Default test gate is now truthful in a fresh checkout. v6-v11 evidence suites moved to an opt-in 'evidence' vitest project (GUESSLESS_EVIDENCE_TESTS=1 / pnpm test:evidence) with full rationale documented in vite.config.ts; 8 cache-dependent oracle tests gated via test.skipIf with bodies byte-identical. No assertion weakened; evidence suite bytes untouched because each manifest self-pins its own test file sha256 (proven: an added comment flipped v6 red). Under the flag, all 258 tests still run with exactly the baseline 13 failures. PM accepted the vite.config.ts rationale placement as the correct substitution for inline headers."
+  - id: T009
+    type: pm
+    assignee: PM
+    status: done
+    reasoning_hint: medium
+    objective: "Integrate the reviewed D1 fix: merge branch worktree-agent-a7409fe15a9e58ff4 into main (this PM task explicitly allows the product-tree merge), replace the raw NUL byte in packages/engine/src/linking.ts with the '\\u0000' escape so the file diffs as text, run the full (now truthful) verification suite, and on green record D1 as integrated; then requeue T003."
+    inputs:
+      - "T002 blocked receipt"
+      - "T008 receipt"
+    constraints:
+      - "Merge only after T008 is done and green."
+      - "Full verification must pass on the merged main before recording integration."
+    expected_output:
+      - "Merge commit hash, verification results, D1 integration receipt."
+    receipt:
+      result: done
+      harness: claude-code
+      changed_files:
+        - packages/engine/src/linking.ts
+        - "merge: worktree-agent-a219b6dece54d5580"
+        - "merge: worktree-agent-a7409fe15a9e58ff4"
+      commands:
+        - cmd: "git merge --no-ff (T008 gate: 5b0ba76; D1: 7b0fdec; NUL fix: 43a3f6b)"
+          status: pass
+        - cmd: "pnpm build"
+          status: pass
+        - cmd: "pnpm test (218 passed, 8 skipped, 0 failed, 29s)"
+          status: pass
+        - cmd: "pnpm typecheck"
+          status: pass
+        - cmd: "pnpm lint (after removing merged worktrees whose evidence corpora leaked past the anchored docs ignore)"
+          status: pass
+      summary: "D1 is integrated on main with the truthful gate. Merge order: T008 gate fix, then D1 branch, then the NUL-escape fix so linking.ts diffs as text. Full verification green; default suite now 29s (was 211s). D1 (T002) is hereby verified against the original oracle on the merged tree: the 11 linking regression tests pass in the default gate. Merged worktrees removed post-merge (branches retained); their leftover presence had broken lint because the anchored docs/ ignore does not cover .claude/worktrees paths."
   - id: T999
     type: judge
     assignee: Judge

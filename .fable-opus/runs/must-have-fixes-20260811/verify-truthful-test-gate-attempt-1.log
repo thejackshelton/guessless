@@ -1,0 +1,81 @@
+--- pnpm install --frozen-lockfile --prefer-offline (exit 0) ---
+Scope: all 6 workspace projects
+Lockfile is up to date, resolution step is skipped
+Already up to date
+
+Done in 188ms using pnpm v10.33.2
+
+
+--- pnpm build (exit 0) ---
+
+> guessless-workspace@0.0.0 build /Users/jacksm5pro/dev/open-source/guessless/.claude/worktrees/agent-a219b6dece54d5580
+> vp pack
+
+[34mℹ[39m [38;2;144;100;180m[@guessless/engine][39m entry: [38;2;144;100;180m./src/index.ts[39m
+[34mℹ[39m [38;2;144;100;180m[@guessless/engine][39m tsconfig: [38;2;144;100;180m../../tsconfig.json[39m
+[34mℹ[39m [38;2;180;158;100m[@guessless/mcp][39m entry: [38;2;180;158;100m./src/index.ts, ./src/server.ts[39m
+[34mℹ[39m [38;2;180;158;100m[@guessless/mcp][39m tsconfig: [38;2;180;158;100m../../tsconfig.json[39m
+[34mℹ[39m [38;2;122;100;180m[guessless][39m entry: [38;2;122;100;180m./src/index.ts, ./src/cli.ts[39m
+[34mℹ[39m [38;2;122;100;180m[guessless][39m tsconfig: [38;2;122;100;180m../../tsconfig.json[39m
+[34mℹ[39m [38;2;100;136;180m[@guessless/oracle][39m entry: [38;2;100;136;180m./src/cli.ts[39m
+[34mℹ[39m [38;2;100;136;180m[@guessless/oracle][39m tsconfig: [38;2;100;136;180m../../tsconfig.json[39m
+[34mℹ[39m [38;2;100;180;147m[@guessless/evaluation][39m entry: [38;2;100;180;147m./src/cli.ts[39m
+[34mℹ[39m [38;2;100;180;147m[@guessless/evaluation][39m tsconfig: [38;2;100;180;147m../../tsconfig.json[39m
+[34mℹ[39m Build start
+[34mℹ[39m Cleaning 9 files
+[34mℹ[39m [38;2;122;100;180m[guessless][39m Granting execute permission to [4mdist/cli.js[24m
+[34mℹ[39m [38;2;180;158;100m[@guessless/mcp][39m Granting execute permission to [4mdist/server.js[24m
+[34mℹ[39m [38;2;122;100;180m[guessless][39m [2mdist/[22m[1mcli.js[22m           [2m0.94 kB[22m [2m│ gzip: 0.47 kB[22m
+[34mℹ[39m [38;2;122;100;180m[guessless][39m [2mdist/[22m[1mindex.js[22m         [2m0.16 kB[22m [2m│ gzip: 0.12 kB[22m
+[34mℹ[39m [38;2;122;100;180m[guessless][39m [2mdist/[22msrc-DWRHl3Qf.js  [2m6.64 kB[22m [2m│ gzip: 1.92 kB[22m
+[34mℹ[39m [38;2;122;100;180m[guessless][39m 3 files, total: 7.74 kB
+[32m✔[39m [38;2;122;100;180m[guessless][39m Build complete in [32m12ms[39m
+[34mℹ[39m [38;2;100;136;180m[@guessless/oracle][39m Granting execute permission to [4mdist/cli.js[24m
+[34mℹ[39m [38;2;180;158;100m[@guessless/mcp][39m [2mdist/[22m[1mserver.js[22m        [2m 0.61 kB[22m [2m│ gzip: 0.34 kB[22m
+[34mℹ[39m [38;2;180;158;100m[@guessless/mcp][39m [2mdist/[22m[1mindex.js[22m         [2m 0.14 kB[22m [2m│ gzip: 0.11 kB[22m
+[34mℹ[39m [38;2;180;158;100m[@guessless/mcp][39m [2mdist/[22msrc-DnFJEf5U.js  [2m39.05 kB[22m [2m│ gzip: 9.71 kB[22m
+[34mℹ[39m [38;2;180;158;100m[@guessless/mcp][39m 3 files, total: 39.80 kB
+[32m✔[39m [38;2;180;158;100m[@guessless/mcp][39m Build complete in [32m13ms[39m
+[34mℹ[39m [38;2;100;136;180m[@guessless/oracle][39m [2mdist/[22m[1mcli.js[22m  [2m81.08 kB[22m [2m│ gzip: 21.57 kB[22m
+[34mℹ[39m [38;2;100;136;180m[@guessless/oracle][39m 1 files, total: 81.08 kB
+[32m✔[39m [38;2;100;136;180m[@guessless/oracle][39m Build complete in [32m14ms[39m
+[34mℹ[39m [38;2;144;100;180m[@guessless/engine][39m [2mdist/[22m[1mindex.js[22m  [2m130.51 kB[22m [2m│ gzip: 24.53 kB[22m
+[34mℹ[39m [38;2;144;100;180m[@guessless/engine][39m 1 files, total: 130.51 kB
+[32m✔[39m [38;2;144;100;180m[@guessless/engine][39m Build complete in [32m15ms[39m
+[34mℹ[39m [38;2;100;180;147m[@guessless/evaluation][39m Granting execute permission to [4mdist/cli.js[24m
+[34mℹ[39m [38;2;100;180;147m[@guessless/evaluation][39m [2mdist/[22m[1mcli.js[22m  [2m196.49 kB[22m [2m│ gzip: 45.34 kB[22m
+[34mℹ[39m [38;2;100;180;147m[@guessless/evaluation][39m 1 files, total: 196.49 kB
+[32m✔[39m [38;2;100;180;147m[@guessless/evaluation][39m Build complete in [32m19ms[39m
+
+
+--- pnpm test (exit 0) ---
+
+> guessless-workspace@0.0.0 test /Users/jacksm5pro/dev/open-source/guessless/.claude/worktrees/agent-a219b6dece54d5580
+> vp test --project node
+
+ RUN  /Users/jacksm5pro/dev/open-source/guessless/.claude/worktrees/agent-a219b6dece54d5580
+
+
+ Test Files  17 passed (17)
+      Tests  206 passed | 8 skipped (214)
+   Start at  17:26:36
+   Duration  29.66s (transform 250ms, setup 0ms, import 726ms, tests 28.02s, environment 1ms)
+
+
+
+--- pnpm typecheck (exit 0) ---
+
+> guessless-workspace@0.0.0 typecheck /Users/jacksm5pro/dev/open-source/guessless/.claude/worktrees/agent-a219b6dece54d5580
+> tsc --noEmit
+
+
+
+--- pnpm lint (exit 0) ---
+
+> guessless-workspace@0.0.0 lint /Users/jacksm5pro/dev/open-source/guessless/.claude/worktrees/agent-a219b6dece54d5580
+> vp lint
+
+Found 0 warnings and 0 errors.
+Finished in 99ms on 187 files with 93 rules using 18 threads.
+
+

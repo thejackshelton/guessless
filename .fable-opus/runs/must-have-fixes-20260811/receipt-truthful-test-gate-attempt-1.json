@@ -1,0 +1,12 @@
+{
+  "status": "completed",
+  "summary": "Gated evidence-era suites out of the default test gate without touching any assertion. v6-v11 evaluation suites moved to a separate vitest 'evidence' project in vite.config.ts that only exists under GUESSLESS_EVIDENCE_TESTS=1; their bytes are untouched because each manifest pins the sha256 of its own test file (adding a header comment made v6 fail with 'v6 executable mutation'), so the required per-file rationale lives in vite.config.ts instead. The 8 cache-dependent oracle tests are gated with test.skipIf via an EVIDENCE_ONLY binding, bodies byte-identical, with a full header comment. Added pnpm test:evidence. Default pnpm test: 206 passed, 0 failed (was 13 failed); under the flag all 258 run with the same baseline 13 failures.",
+  "files_changed": [
+    "package.json",
+    "packages/oracle/test/oracle.test.ts",
+    "vite.config.ts"
+  ],
+  "open_questions": [
+    "The packet required a header comment inside every gated file, but v6-v11 pin the sha256 of their own test files, so any inline comment falsifies the seal (proven: v6 went green->red). Rationale was placed in vite.config.ts instead. Confirm that substitution is acceptable, or say whether you would rather break the v6 self-pin to get inline headers."
+  ]
+}

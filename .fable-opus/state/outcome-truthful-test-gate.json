@@ -1,0 +1,11 @@
+{
+  "unitId": "truthful-test-gate",
+  "runId": "must-have-fixes-20260811",
+  "attempt": 1,
+  "outcome": "completed",
+  "reason": "Gated evidence-era suites out of the default test gate without touching any assertion. v6-v11 evaluation suites moved to a separate vitest 'evidence' project in vite.config.ts that only exists under GUESSLESS_EVIDENCE_TESTS=1; their bytes are untouched because each manifest pins the sha256 of its own test file (adding a header comment made v6 fail with 'v6 executable mutation'), so the required per-file rationale lives in vite.config.ts instead. The 8 cache-dependent oracle tests are gated with test.skipIf via an EVIDENCE_ONLY binding, bodies byte-identical, with a full header comment. Added pnpm test:evidence. Default pnpm test: 206 passed, 0 failed (was 13 failed); under the flag all 258 run with the same baseline 13 failures.",
+  "agentId": "a219b6dece54d5580",
+  "background": false,
+  "verdictDelivered": true,
+  "ts": "2026-08-11T22:27:09.568Z"
+}

@@ -2,3 +2,5 @@
 {"ts":"2026-08-11T20:41:21.825Z","unitId":"versionless-receipts","runId":"adoption-eval-20260811","attempt":1,"agentId":"a6318d100cb9f439c","outcome":"completed"}
 {"ts":"2026-08-11T20:45:13.002Z","unitId":"ab-control","runId":"adoption-eval-20260811","attempt":1,"agentId":"afb3920028ca7987e","outcome":"completed"}
 {"ts":"2026-08-11T20:51:02.216Z","unitId":"ab-treatment","runId":"adoption-eval-20260811","attempt":1,"agentId":"ad32850ae52bd222c","outcome":"completed"}
+{"ts":"2026-08-11T21:59:48.464Z","unitId":"d1-unlinked-inputs","runId":"must-have-fixes-20260811","attempt":1,"agentId":"a7409fe15a9e58ff4","outcome":"blocked"}
+{"ts":"2026-08-11T22:27:09.567Z","unitId":"truthful-test-gate","runId":"must-have-fixes-20260811","attempt":1,"agentId":"a219b6dece54d5580","outcome":"completed"}
