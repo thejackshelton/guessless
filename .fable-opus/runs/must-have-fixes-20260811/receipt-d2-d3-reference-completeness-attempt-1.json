@@ -1,0 +1,19 @@
+{
+  "status": "blocked",
+  "summary": "Implemented D2 (import and cross-module re-export specifier sites as normal read results) and D3 (member calls on the queried binding named 'method-call-mutation-uncertain', never claimed as writes), plus 6 new regression tests, updated hash pins with stated intent, and a rewritten README query table. install/build/typecheck/lint pass; pnpm test is 218 passed / 8 skipped with 6 failures, all in packages/evaluation/test/evaluation.test.ts. That package derives sealed rename ground truth by asserting every referencesOf result is a call site and requires byte-equality with the sealed ground-truth.json, so D2 cannot land without a ruling on files outside my contract.",
+  "files_changed": [
+    "README.md",
+    "packages/engine/src/contracts.ts",
+    "packages/engine/src/queries.ts",
+    "packages/engine/test/contracts.test.ts",
+    "packages/engine/test/fixtures/adversarial/ground-truth.json",
+    "packages/engine/test/invalidation.test.ts",
+    "packages/engine/test/linking.test.ts",
+    "packages/engine/test/queries.test.ts",
+    "packages/engine/test/receipt-oracle.test.ts",
+    "packages/engine/test/reference-completeness.test.ts"
+  ],
+  "open_questions": [
+    "packages/evaluation/src/fixtures.ts:373 throws 'rename reference is not a call' because its sealed ground-truth derivation assumes referencesOf returns only call sites, and line 572 requires the derived set to equal the sealed ground-truth.json. Its rename fixture is exactly the D2 shape (barrel re-export plus import specifiers), so D2 necessarily breaks 6 default-gate tests there. Which resolution do you rule: (a) a follow-up unit whose contract includes packages/evaluation/src/fixtures.ts and the v1-v5 ground-truth.json files, to re-derive and re-seal the rename ground truth (a rename genuinely must touch those specifiers, so the old ground truth is now wrong); (b) move packages/evaluation/test/evaluation.test.ts into the opt-in evidence project in vite.config.ts, like the v6-v11 suites; or (c) drop D2?"
+  ]
+}

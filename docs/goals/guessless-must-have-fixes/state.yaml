@@ -68,7 +68,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/guessless-must-have-fixes/"
     command: "node /Users/jacksm5pro/.claude/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/guessless-must-have-fixes"
 
-active_task: T003
+active_task: T010
 
 tasks:
   - id: T001
@@ -142,7 +142,7 @@ tasks:
   - id: T003
     type: worker
     assignee: Worker
-    status: active
+    status: blocked
     reasoning_hint: high
     objective: "Fix D2 and D3 as one reference-completeness slice. D2: referencesOf/readsOf/writesOf must include import specifiers and cross-module re-export specifiers as sites (role-labelled), consistent with local export specifiers which are already returned. D3: mutation via member calls on a tracked binding (push, pop, splice, sort, set, delete, defineProperty and similar) must never yield a bare complete/empty writesOf — either classify as a distinct may-mutate access or name each such call site as unresolved with a new closed reason; align the README writesOf wording with whichever is implemented. Regression tests must reproduce the markless ground truth: 7 specifier sites for isValidStorageKey-shaped code and the 10x records.push case. Dispatch via a fable-opus cockpit packet."
     allowed_files:
@@ -160,7 +160,30 @@ tasks:
       - "Need files outside allowed_files."
       - "Receipt schema change would break verifyReceipt/reproduce compatibility without a versioned schema bump."
       - "Verification fails twice."
-    receipt: null
+    receipt:
+      result: blocked
+      harness: claude-code
+      blocked_reason: "D2+D3 complete and green in-package on review branch worktree-agent-a4d6cbf11f812413d (engine/mcp/cli suites, typecheck, lint), but 6 default-gate tests in packages/evaluation/test/evaluation.test.ts fail: the harness's sealed rename ground-truth derivation asserts every referencesOf result is a call site — the exact D2 blind spot — and requires equality with pre-D2 ground-truth.json. PM ruled option (a): re-derive the harness ground truth (T011) after PM merge (T010)."
+      changed_files:
+        - README.md
+        - packages/engine/src/contracts.ts
+        - packages/engine/src/queries.ts
+        - packages/engine/test/contracts.test.ts
+        - packages/engine/test/fixtures/adversarial/ground-truth.json
+        - packages/engine/test/invalidation.test.ts
+        - packages/engine/test/linking.test.ts
+        - packages/engine/test/queries.test.ts
+        - packages/engine/test/receipt-oracle.test.ts
+        - packages/engine/test/reference-completeness.test.ts
+      commands:
+        - cmd: "engine/mcp/cli suites + typecheck + lint (worktree)"
+          status: pass
+        - cmd: "pnpm test (6 failures, all packages/evaluation/test/evaluation.test.ts)"
+          status: fail
+      summary: "D2: import and cross-module re-export specifiers now returned as read-access results (site:import-specifier / site:reexport-specifier), consistent with local export specifiers; export * names no fake site and its imported-through specifiers are found. D3 design (b): member calls on the queried binding are named unresolved with new closed reason 'method-call-mutation-uncertain' (18th member; distinguished in-comment from property-alias-write-uncertain); no mutation ever claimed, .map()/.includes() negative controls prove no false writes. 6 new class-level tests incl. a byte-identity control pinning pre-change receipts. README writesOf/referencesOf rows rewritten. Unit stopped mid-stream once and was resumed via SendMessage retaining context; second stop delivered the valid blocked receipt."
+      spawned_tasks:
+        - T010
+        - T011
   - id: T004
     type: worker
     assignee: Worker
@@ -307,6 +330,41 @@ tasks:
         - cmd: "pnpm lint (after removing merged worktrees whose evidence corpora leaked past the anchored docs ignore)"
           status: pass
       summary: "D1 is integrated on main with the truthful gate. Merge order: T008 gate fix, then D1 branch, then the NUL-escape fix so linking.ts diffs as text. Full verification green; default suite now 29s (was 211s). D1 (T002) is hereby verified against the original oracle on the merged tree: the 11 linking regression tests pass in the default gate. Merged worktrees removed post-merge (branches retained); their leftover presence had broken lint because the anchored docs/ ignore does not cover .claude/worktrees paths."
+  - id: T010
+    type: pm
+    assignee: PM
+    status: active
+    reasoning_hint: medium
+    objective: "Integrate the reviewed D2+D3 branch worktree-agent-a4d6cbf11f812413d into main (this PM task explicitly allows the product-tree merge), accepting a temporarily red default gate (6 known failures in packages/evaluation/test/evaluation.test.ts) until T011 re-derives the evaluation ground truth. Record merge hash and the exact failing set."
+    inputs:
+      - "T003 blocked receipt"
+    constraints:
+      - "Merge only after PM diff review."
+      - "The 6 evaluation failures are the only acceptable red; anything else halts integration."
+    expected_output:
+      - "Merge commit hash, failing-set confirmation."
+    receipt: null
+  - id: T011
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: high
+    objective: "PM ruling on T003 open question: option (a). The evaluation package's rename ground-truth derivation is harness code with the D2 blind spot baked in — packages/evaluation/src/fixtures.ts:373 asserts every referencesOf result is a call site and line 572 requires equality with the packaged ground-truth.json, both now factually wrong because a rename must also touch import/re-export specifier sites. Update the derivation to accept role-labelled specifier sites as legitimate rename-affected sites, regenerate the packaged v1-v5 fixture ground-truth.json files through the corrected derivation, and make the 6 failing evaluation tests green again without weakening what they assert. docs/evidence/** stays byte-identical: the sealed bundles carry their own copies and remain the record of what the old era measured. Dispatch via a fable-opus cockpit packet."
+    allowed_files:
+      - packages/evaluation/src/fixtures.ts
+      - packages/evaluation/test/evaluation.test.ts
+      - packages/evaluation/fixtures/**/ground-truth.json
+    verify:
+      - "pnpm install --frozen-lockfile --prefer-offline"
+      - "pnpm build"
+      - "pnpm test"
+      - "pnpm typecheck"
+      - "pnpm lint"
+    stop_if:
+      - "Any write would touch docs/evidence/** or packages/evaluation/fixtures/oracle-part-3-v6 or later (self-pinned seals)."
+      - "Green requires weakening an assertion rather than correcting the stale ground truth."
+      - "Verification fails twice."
+    receipt: null
   - id: T999
     type: judge
     assignee: Judge

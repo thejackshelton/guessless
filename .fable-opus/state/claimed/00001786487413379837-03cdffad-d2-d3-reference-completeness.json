@@ -1,0 +1,21 @@
+{
+  "runId": "must-have-fixes-20260811",
+  "unitId": "d2-d3-reference-completeness",
+  "attempt": 1,
+  "promptPath": "/Users/jacksm5pro/dev/open-source/guessless/.fable-opus/runs/must-have-fixes-20260811/prompt-d2-d3-reference-completeness-attempt-1.md",
+  "subagentType": "opus-worker-isolated",
+  "toolUseId": "toolu_01UcSEhyVExCyzs6CiQRWYPR",
+  "promptId": "3ac80c73-b72b-4204-b3bf-f79892d93b40",
+  "background": false,
+  "parallel": false,
+  "effort": "high",
+  "contract": [
+    "packages/engine/src/**",
+    "packages/engine/test/**",
+    "packages/*/dist/**",
+    "README.md",
+    "pnpm-lock.yaml"
+  ],
+  "ts": "2026-08-11T22:30:13.378Z",
+  "pendingName": "00001786487413379837-03cdffad-d2-d3-reference-completeness.json"
+}
