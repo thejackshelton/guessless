@@ -14,13 +14,17 @@ describe('receipt contract', () => {
 		// 15 original reasons plus 'unlinked-input', ruled in for D1: a supplied
 		// input whose own specifier failed to link to another supplied input;
 		// plus 'method-call-mutation-uncertain', ruled in for D3: a call on a
-		// member of the queried binding, which may or may not mutate it.
+		// member of the queried binding, which may or may not mutate it;
+		// plus 'unrecognized-export-form', ruled in for D4: an export-like
+		// construct outside the ES module system (CommonJS assignments, TS
+		// 'export ='), whose exported names the engine refuses to guess.
 		// No existing member was removed, renamed, or widened.
-		expect(UNRESOLVED_REASONS).toHaveLength(17);
+		expect(UNRESOLVED_REASONS).toHaveLength(18);
 		expect(UNRESOLVED_REASONS).toContain('higher-order-call-boundary');
 		expect(UNRESOLVED_REASONS).toContain('stale-snapshot');
 		expect(UNRESOLVED_REASONS).toContain('unlinked-input');
 		expect(UNRESOLVED_REASONS).toContain('method-call-mutation-uncertain');
+		expect(UNRESOLVED_REASONS).toContain('unrecognized-export-form');
 		// The uncertainty reason is additional to, not a replacement for, the
 		// reason that names an observed mutation behind an alias.
 		expect(UNRESOLVED_REASONS).toContain('property-alias-write-uncertain');

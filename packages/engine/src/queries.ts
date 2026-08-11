@@ -7,6 +7,7 @@ import {
 	type SymbolAnchor,
 	type UnresolvedSite,
 } from './contracts.ts';
+import { unrecognizedExportSites } from './export-forms.ts';
 import {
 	boundaryDetail,
 	boundaryReason,
@@ -1085,15 +1086,40 @@ export function referencesOf(
 	]);
 }
 
+/**
+ * Every module whose own export declarations can contribute a name to `seed`:
+ * the seed itself plus everything it re-exports from, transitively. Narrower
+ * than the dependency closure on purpose — a plain `import` cannot add a name
+ * to the importer, so an unrecognized export form in an imported module is not
+ * a gap in *this* answer.
+ */
+function reexportClosure(seed: Module): Set<Module> {
+	const modules = new Set<Module>([seed]);
+	const queue = [seed];
+	for (const module of queue)
+		for (const record of module.exports) {
+			const next = record.resolvedModule;
+			if (next !== null && !modules.has(next)) {
+				modules.add(next);
+				queue.push(next);
+			}
+		}
+	return modules;
+}
+
 export function exportedNames(module: Module): Receipt<ExportResult> {
 	const relevant = moduleClosure(module, 'dependencies');
+	// Export forms the ES analysis cannot classify (CommonJS assignments, TS
+	// 'export =') produce no name here. Naming the constructs keeps their
+	// absence from the results visible instead of silent (D4).
+	const forms = [...reexportClosure(module)].flatMap(unrecognizedExportSites);
 	return finish(
 		module.analyzer,
 		{ kind: 'exportedNames', file: module.path },
 		module
 			.exportedNames()
 			.map((name) => ({ name, module: anchorSite(module, undefined, 'exports') })),
-		baseUnresolved(module.analyzer, relevant),
+		[...baseUnresolved(module.analyzer, relevant), ...forms],
 	);
 }
 
