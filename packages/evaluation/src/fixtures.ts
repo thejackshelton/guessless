@@ -358,6 +358,32 @@ function unique(values: readonly string[]): string[] {
 	return sorted;
 }
 
+/**
+ * The roles a `referencesOf` result can take at a rename-affected site.
+ *
+ * Every one of these is a place a rename of the queried symbol must rewrite, so
+ * the derivation accepts them all and refuses only shapes it cannot classify.
+ * It previously asserted that every rename reference was a call, which was the
+ * same blind spot the engine closed: import specifiers and cross-module
+ * re-export specifiers are reference results now, and a rename that skipped
+ * them would leave the program unbuildable.
+ */
+type RenameRole = 'declaration' | 'import-specifier' | 'reexport-specifier' | 'call' | 'read';
+
+function renameRole(module: Module, node: Node): RenameRole {
+	if (node.type === 'ImportSpecifier' || node.type === 'ImportDefaultSpecifier')
+		return 'import-specifier';
+	if (node.type === 'ExportSpecifier') return 'reexport-specifier';
+	if (node.type !== 'Identifier')
+		throw new Error(`rename reference has no rename-affected role: ${node.type}`);
+	const owner = module.symbolOf(node);
+	if (owner !== null && owner.declarations.includes(node)) return 'declaration';
+	const parent = module.parentOf(node);
+	const callee = parent?.type === 'MemberExpression' && parent.property === node ? parent : node;
+	const call = callee === node ? parent : module.parentOf(callee);
+	return call?.type === 'CallExpression' && call.callee === callee ? 'call' : 'read';
+}
+
 export function deriveGroundTruth(inputRoot: string): GroundTruth {
 	const renameEngine = taskEngine(inputRoot, 'rename');
 	const renameTarget = renameEngine.anchor('api.ts', 'sendTelemetry');
@@ -365,15 +391,20 @@ export function deriveGroundTruth(inputRoot: string): GroundTruth {
 	const renameReceipt = renameEngine.referencesOf(renameTarget);
 	if (!renameEngine.verify(renameReceipt) || renameReceipt.state !== 'complete')
 		throw new Error('rename receipt is not verified complete');
+	const renameRoles = new Map<string, RenameRole>();
 	const rename = unique(
 		renameReceipt.results.map((result) => {
 			const { module, node } = resolveNode(renameEngine, result.site);
-			const member = module.parentOf(node);
-			const call = member?.type === 'MemberExpression' ? module.parentOf(member) : member;
-			if (call?.type !== 'CallExpression') throw new Error('rename reference is not a call');
-			return positionId('rename', module, node);
+			const id = positionId('rename', module, node);
+			const role = renameRole(module, node);
+			const labelled = renameRoles.get(id);
+			if (labelled !== undefined && labelled !== role)
+				throw new Error(`${id} carries conflicting rename roles`);
+			renameRoles.set(id, role);
+			return id;
 		}),
 	);
+	if (renameRoles.size !== rename.length) throw new Error('rename role labelling is incomplete');
 
 	const deleteEngine = taskEngine(inputRoot, 'delete');
 	const deleteTarget = deleteEngine.anchor('state.ts', 'legacyFlag');
