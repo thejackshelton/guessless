@@ -1,0 +1,13 @@
+{
+  "status": "blocked",
+  "summary": "Corrected the rename derivation in packages/evaluation/src/fixtures.ts: the 'reference is not a call' assumption is replaced by a mechanical role classifier accepting declaration/import-specifier/reexport-specifier/call/read and refusing unclassifiable shapes. deriveGroundTruth now completes, adding 4 rename specifier sites and 2 delete import-specifier reads; reach unchanged. Typecheck and lint pass, same 6 tests fail (now at the equality check). Regenerating the packaged ground-truth.json is blocked: it changes the file sha256, which fixtures.ts requires to equal protocol.groundTruthSha256, forcing edits to five protocol.json files and v5's oracle-rationale.json, all outside the file contract.",
+  "files_changed": [
+    "packages/evaluation/src/fixtures.ts"
+  ],
+  "open_questions": [
+    "May I extend the file contract to packages/evaluation/fixtures/oracle-part-3-v{1,2,3,4}/protocol.json to update groundTruthSha256 from dbf5a361045bb9707115898c7b5005b8067d533c79d7a1af17460b1e916d4655 to the regenerated value (a29b993ba82f72f658d6e37c981fbcc65e6da19b5260e085b1016bd160e8ce2d under stableJson formatting)? Without it, loadProtocol throws 'authoritative evaluation protocol mismatch' for every fixture and the suite goes from 6 failures to roughly 15.",
+    "How should v5 be handled? Its ground truth is proven by oracle-rationale.json (17 hand-locked byte/lexeme sites) whose own contract names GuesslessEngine and 'any parser' as forbiddenAuthorities, so regenerating it THROUGH the corrected derivation contradicts v5's independence guarantee; its reach coordinates (reach/boundaries.ts:1:23, 2:8, unresolved 3:9) are not derivation output. Note the v5 calibrate test fails only via inherited v4 calibrations, so leaving v5 untouched still turns all 6 tests green.",
+    "Confirm I may update packages/evaluation/test/evaluation.test.ts:373 (expect(score.sitesMissed.length).toBe(3) becomes 7). That test currently passes; the number is a factual count over rename planted sites, which grows 4 to 8. Structure and the equality/proof form stay intact.",
+    "Sealed-bundle awareness, not a step-4 trigger: the 6 failing tests all use --fixture-only and never read docs/evidence/**, so nothing collides in the gate. However docs/evidence/oracle-part-3-v{2,4,5}/protocol.json embed the old groundTruthSha256 and their scores were computed against the 4-site rename truth, so changing the fixtures desynchronizes the sealed record. Does that need a recording-era ruling before I proceed?"
+  ]
+}

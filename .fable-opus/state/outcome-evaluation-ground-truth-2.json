@@ -1,0 +1,11 @@
+{
+  "unitId": "evaluation-ground-truth-2",
+  "runId": "must-have-fixes-20260811",
+  "attempt": 1,
+  "outcome": "completed",
+  "reason": "Merged the corrected renameRole() derivation, then regenerated ground-truth.json for oracle-part-3-v1..v4 through it (stableJson output written programmatically, never hand-edited). All four fixtures independently derived sha256 a29b993ba82f72f658d6e37c981fbcc65e6da19b5260e085b1016bd160e8ce2d, matching the packet's expectation. Updated groundTruthSha256 in the four protocol.json files and the matching hardcoded non-v5 pin in validateProtocol (fixtures.ts:259). Updated sitesMissed 3->7 with a derivation comment; no other factual counts needed changing and no assertion structure was altered. v5, v6+, and docs/evidence verified untouched. Full gate green: build clean, 224 passed / 8 skipped / 0 failed (was 6 failed), typecheck clean, lint 0 errors.",
+  "agentId": "a4451d0a32f708ad9",
+  "background": false,
+  "verdictDelivered": true,
+  "ts": "2026-08-11T23:08:10.426Z"
+}

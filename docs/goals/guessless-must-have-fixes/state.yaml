@@ -68,7 +68,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/guessless-must-have-fixes/"
     command: "node /Users/jacksm5pro/.claude/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/guessless-must-have-fixes"
 
-active_task: T010
+active_task: T011
 
 tasks:
   - id: T001
@@ -333,7 +333,7 @@ tasks:
   - id: T010
     type: pm
     assignee: PM
-    status: active
+    status: done
     reasoning_hint: medium
     objective: "Integrate the reviewed D2+D3 branch worktree-agent-a4d6cbf11f812413d into main (this PM task explicitly allows the product-tree merge), accepting a temporarily red default gate (6 known failures in packages/evaluation/test/evaluation.test.ts) until T011 re-derives the evaluation ground truth. Record merge hash and the exact failing set."
     inputs:
@@ -343,17 +343,32 @@ tasks:
       - "The 6 evaluation failures are the only acceptable red; anything else halts integration."
     expected_output:
       - "Merge commit hash, failing-set confirmation."
-    receipt: null
+    receipt:
+      result: done
+      harness: claude-code
+      changed_files:
+        - "merge: worktree-agent-a4d6cbf11f812413d"
+      commands:
+        - cmd: "git merge --no-ff worktree-agent-a4d6cbf11f812413d"
+          status: pass
+        - cmd: "pnpm build"
+          status: pass
+        - cmd: "pnpm test (6 failed — exactly the predicted evaluation.test.ts set; 218 passed, 8 skipped)"
+          status: pass
+      summary: "D2+D3 branch merged to main after PM diff review. The default gate is red only on the 6 known evaluation-harness tests whose stale ground-truth derivation T011 corrects; every product suite is green including the 6 new reference-completeness tests. The pass status on the test command reflects the task's acceptance condition (only the predicted set red), not a green gate — the gate returns green at T011."
   - id: T011
     type: worker
     assignee: Worker
-    status: queued
+    status: active
     reasoning_hint: high
     objective: "PM ruling on T003 open question: option (a). The evaluation package's rename ground-truth derivation is harness code with the D2 blind spot baked in — packages/evaluation/src/fixtures.ts:373 asserts every referencesOf result is a call site and line 572 requires equality with the packaged ground-truth.json, both now factually wrong because a rename must also touch import/re-export specifier sites. Update the derivation to accept role-labelled specifier sites as legitimate rename-affected sites, regenerate the packaged v1-v5 fixture ground-truth.json files through the corrected derivation, and make the 6 failing evaluation tests green again without weakening what they assert. docs/evidence/** stays byte-identical: the sealed bundles carry their own copies and remain the record of what the old era measured. Dispatch via a fable-opus cockpit packet."
     allowed_files:
       - packages/evaluation/src/fixtures.ts
       - packages/evaluation/test/evaluation.test.ts
-      - packages/evaluation/fixtures/**/ground-truth.json
+      - packages/evaluation/fixtures/oracle-part-3-v1/**
+      - packages/evaluation/fixtures/oracle-part-3-v2/**
+      - packages/evaluation/fixtures/oracle-part-3-v3/**
+      - packages/evaluation/fixtures/oracle-part-3-v4/**
     verify:
       - "pnpm install --frozen-lockfile --prefer-offline"
       - "pnpm build"
@@ -364,6 +379,7 @@ tasks:
       - "Any write would touch docs/evidence/** or packages/evaluation/fixtures/oracle-part-3-v6 or later (self-pinned seals)."
       - "Green requires weakening an assertion rather than correcting the stale ground truth."
       - "Verification fails twice."
+      - "PM rulings after first blocked attempt: v1-v4 protocol.json groundTruthSha256 re-pins are in scope; v5 fixture stays byte-identical (independent hand-locked authority, engine may never grade itself); evaluation.test.ts sitesMissed count 3->7 is a factual update; docs/evidence desync is accepted era semantics and must be restated in the T005 v2 report."
     receipt: null
   - id: T999
     type: judge

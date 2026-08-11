@@ -1,0 +1,11 @@
+{
+  "unitId": "evaluation-ground-truth",
+  "runId": "must-have-fixes-20260811",
+  "attempt": 1,
+  "outcome": "blocked",
+  "reason": "Corrected the rename derivation in packages/evaluation/src/fixtures.ts: the 'reference is not a call' assumption is replaced by a mechanical role classifier accepting declaration/import-specifier/reexport-specifier/call/read and refusing unclassifiable shapes. deriveGroundTruth now completes, adding 4 rename specifier sites and 2 delete import-specifier reads; reach unchanged. Typecheck and lint pass, same 6 tests fail (now at the equality check). Regenerating the packaged ground-truth.json is blocked: it changes the file sha256, which fixtures.ts requires to equal protocol.groundTruthSha256, forcing edits to five protocol.json files and v5's oracle-rationale.json, all outside the file contract.",
+  "agentId": "af51395e5c7060e69",
+  "background": false,
+  "verdictDelivered": true,
+  "ts": "2026-08-11T22:59:39.861Z"
+}
