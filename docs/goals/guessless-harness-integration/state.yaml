@@ -1,0 +1,182 @@
+# GoalBuddy v2 state.yaml
+# Board truth lives here. goal.md is the editable charter; notes/ holds long receipts only.
+
+version: 2
+
+goal:
+  title: "Guessless harness integration"
+  slug: "guessless-harness-integration"
+  kind: specific
+  tranche: "Ship the four integration layers (docs block, skill, stop-hook gate, CI reproduce check) into markless, versionless, and frameless, with the gate machinery living in guessless — then audit that every layer exists and the gate mechanically fires."
+  status: active
+  oracle:
+    signal: "In each target repo: AGENTS.md carries the guessless block, a guessless skill with valid frontmatter exists, and the stop-hook is wired in .claude/settings.json (valid JSON, pre-existing config preserved) pointing at guessless's claim-gate script. In guessless: claim-gate and reproduce-check scripts exist with tests proving the gate rejects an unreceipted completeness claim, accepts a receipted one, and ignores non-claims. Final Judge verifies all of it mechanically, including a live hook-fire test."
+    cadence: "after each Worker package and at final audit"
+    final_proof: "Judge audit receipt with full_outcome_complete: true mapping every layer in every repo to file evidence and a passing gate test."
+  intake:
+    original_request: "Go ahead and start adding it now. Use fable opus cockpit with goal prep in 15m /loop."
+    interpreted_outcome: "The four-layer guessless integration (AGENTS.md/CLAUDE.md block, per-repo skill, stop-hook claim gate, CI reproduce check) is wired into markless, versionless, and frameless, with shared gate machinery shipped from the guessless repo."
+    input_shape: specific
+    audience: "Jack's agent harnesses (Claude Code and Codex) across the -less family repos"
+    authority: requested
+    proof_type: artifact
+    completion_proof: "All files in place per oracle; gate script test suite green; hook-fire test passes; no target-repo config clobbered."
+    likely_misfire: "Overwriting markless's existing .claude/settings.json or skills; committing or pushing in target repos without owner review; building an elaborate gate that no harness actually invokes; or wiring docs layers while the enforcing hook layer silently doesn't fire."
+    blind_spots_considered:
+      - "The fable-opus scope guard's contract globs may not match absolute paths outside the guessless project root; the first cross-repo unit reveals this. Fallback: PM executes that task directly under GoalBuddy PM-task authority with explicit allowed files, recording the deviation."
+      - "markless has concurrent writers (dev server or another agent observed earlier); target-repo changes stay uncommitted for owner review, additive files only, AGENTS.md edits append-only."
+      - "A Stop hook receives a transcript path, not a claim string; the gate script needs a real Claude Code hook adapter reading hook JSON from stdin, and its test must exercise that shape."
+      - "versionless has strict network/consent conventions; the CI reproduce script must be offline-only there."
+      - "Skill frontmatter must be valid or Claude Code silently ignores the skill."
+    existing_plan_facts:
+      - "Layering agreed with owner: agents.md documents, skill remembers, stop-hook enforces, CI verifies with zero agent cooperation; if only one thing lands, it is the hook."
+      - "Gate machinery lives in guessless (single source): scripts/claim-gate.mjs and scripts/reproduce-check.mjs, referenced by absolute path from target repos."
+      - "Target repo state at prep: all three have git + AGENTS.md; markless also has CLAUDE.md, .claude/settings.json, and .claude/skills (merge, never overwrite); versionless and frameless have no .claude directory."
+      - "guessless CLI reproduce re-verifies receipts byte-for-byte; receipts are JSON with state complete|partial|refused and closed unresolved reasons — the gate is a JSON field check, ~20 lines of logic."
+      - "Execution via fable-opus cockpit packets at a 15m /loop cadence."
+
+rules:
+  pm_owns_state: true
+  one_active_task: true
+  max_write_workers: 1
+  no_implementation_without_worker_or_pm_task: true
+  no_completion_without_judge_or_pm_audit: true
+  planning_is_not_completion: true
+  queued_required_worker_blocks_completion: true
+  continuous_until_full_outcome: true
+  missing_input_or_credentials_do_not_stop_goal: true
+  exact_human_approval_can_terminal_wait: true
+  preserve_and_validate_existing_plan: true
+  intake_misfire_must_be_audited: true
+  goal_pressure_requires_oracle: true
+  no_completion_on_weak_proof: true
+  slice_policy:
+    max_consecutive_tiny_tasks: 2
+    prefer_vertical_slices: true
+    judge_picks_largest_safe_slice: true
+    worker_completes_whole_slice: true
+
+agents:
+  scout: installed
+  worker: installed
+  judge: installed
+
+visual_board:
+  selected: local
+  local:
+    status: live
+    url: "http://goalbuddy.localhost:41737/guessless-harness-integration/"
+    command: "node /Users/jacksm5pro/.claude/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/guessless-harness-integration"
+
+active_task: T001
+
+tasks:
+  - id: T001
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: high
+    objective: "Build the gate machinery in guessless. scripts/claim-gate.mjs: a Claude Code Stop-hook adapter that reads hook JSON from stdin, scans the final assistant message for completeness claims over JS/TS structure ('all call sites', 'no other usages/references', 'safe to delete', 'renamed every', and similar), and if one is present without a cited guessless receipt (a receipt path or inline receipt JSON whose state it can parse), blocks with a message telling the agent to attach a receipt or qualify the claim; a receipted claim passes only if the claim is consistent with the receipt state (complete -> may claim all; partial -> claim must acknowledge gaps). scripts/reproduce-check.mjs: given a directory or file list, finds *.receipt.json and runs the guessless CLI reproduce against each, exiting non-zero on any non-reproduction. docs/integration.md: the four-layer integration guide with copy-paste blocks for AGENTS.md, the skill, the settings.json hook entry, and CI. Tests for both scripts (node --test or vitest, wired into pnpm test) covering: unreceipted claim -> block; receipted complete claim -> pass; partial receipt with unacknowledged 'all' claim -> block; no claim -> pass; reproduce pass and tamper-fail paths. Dispatch via a fable-opus cockpit packet."
+    allowed_files:
+      - scripts/**
+      - docs/integration.md
+      - vite.config.ts
+      - package.json
+      - pnpm-lock.yaml
+    verify:
+      - "pnpm install --frozen-lockfile --prefer-offline"
+      - "pnpm build"
+      - "pnpm test"
+      - "pnpm typecheck"
+      - "pnpm lint"
+    stop_if:
+      - "Need files outside allowed_files."
+      - "The Claude Code hook input contract cannot be satisfied from documentation available locally."
+      - "Verification fails twice."
+    receipt: null
+  - id: T002
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    objective: "Wire markless: append the guessless block to AGENTS.md and CLAUDE.md (append-only, marked section), add .claude/skills/guessless/SKILL.md (valid frontmatter; triggers on rename/delete/reference-enumeration in JS/TS; instructs the CLI invocation and receipt-state rules; notes .tsrx is refused by design so the skill applies to the .ts toolchain code), and merge the Stop hook entry into the EXISTING .claude/settings.json preserving every current key (read it first; additive JSON merge; valid JSON after). Hook points at /Users/jacksm5pro/dev/open-source/guessless/scripts/claim-gate.mjs. No commits, no pushes; changes stay in the working tree for owner review. Dispatch via a fable-opus cockpit packet; if the scope guard refuses cross-repo writes, return blocked immediately reporting the exact refusal."
+    allowed_files:
+      - /Users/jacksm5pro/dev/open-source/markless/AGENTS.md
+      - /Users/jacksm5pro/dev/open-source/markless/CLAUDE.md
+      - /Users/jacksm5pro/dev/open-source/markless/.claude/settings.json
+      - /Users/jacksm5pro/dev/open-source/markless/.claude/skills/guessless/**
+    verify:
+      - "node -e 'JSON.parse(require(\"fs\").readFileSync(\"/Users/jacksm5pro/dev/open-source/markless/.claude/settings.json\",\"utf8\"));console.log(\"settings valid\")'"
+      - "grep -q guessless /Users/jacksm5pro/dev/open-source/markless/AGENTS.md"
+      - "test -f /Users/jacksm5pro/dev/open-source/markless/.claude/skills/guessless/SKILL.md"
+    stop_if:
+      - "Scope guard refuses cross-repo writes (report exact refusal; PM fallback)."
+      - "settings.json merge would drop or alter any existing key."
+      - "Need files outside allowed_files."
+      - "Verification fails twice."
+    receipt: null
+  - id: T003
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    objective: "Wire versionless: append guessless block to AGENTS.md (append-only, marked section), create .claude/settings.json (new file; Stop hook to the guessless claim-gate) and .claude/skills/guessless/SKILL.md, and add an offline-only scripts/guessless-reproduce-check.mjs delegating to guessless's reproduce-check (no network; respects versionless's consent conventions; documented in the file header, not wired into their npm scripts without it being additive). No commits or pushes. Dispatch via cockpit; blocked on scope-guard refusal."
+    allowed_files:
+      - /Users/jacksm5pro/dev/open-source/versionless/AGENTS.md
+      - /Users/jacksm5pro/dev/open-source/versionless/.claude/**
+      - /Users/jacksm5pro/dev/open-source/versionless/scripts/guessless-reproduce-check.mjs
+    verify:
+      - "node -e 'JSON.parse(require(\"fs\").readFileSync(\"/Users/jacksm5pro/dev/open-source/versionless/.claude/settings.json\",\"utf8\"));console.log(\"ok\")'"
+      - "grep -q guessless /Users/jacksm5pro/dev/open-source/versionless/AGENTS.md"
+      - "node /Users/jacksm5pro/dev/open-source/versionless/scripts/guessless-reproduce-check.mjs --help"
+    stop_if:
+      - "Scope guard refuses cross-repo writes (report exact refusal; PM fallback)."
+      - "Need files outside allowed_files."
+      - "Verification fails twice."
+    receipt: null
+  - id: T004
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    objective: "Wire frameless: append guessless block to AGENTS.md (append-only, marked section), create .claude/settings.json (Stop hook) and .claude/skills/guessless/SKILL.md, and add scripts/guessless-reproduce-check.mjs delegating to guessless's reproduce-check, with a header note relating it to the existing scripts/check-citations.mjs use case. No commits or pushes. Dispatch via cockpit; blocked on scope-guard refusal."
+    allowed_files:
+      - /Users/jacksm5pro/dev/open-source/frameless/AGENTS.md
+      - /Users/jacksm5pro/dev/open-source/frameless/.claude/**
+      - /Users/jacksm5pro/dev/open-source/frameless/scripts/guessless-reproduce-check.mjs
+    verify:
+      - "node -e 'JSON.parse(require(\"fs\").readFileSync(\"/Users/jacksm5pro/dev/open-source/frameless/.claude/settings.json\",\"utf8\"));console.log(\"ok\")'"
+      - "grep -q guessless /Users/jacksm5pro/dev/open-source/frameless/AGENTS.md"
+      - "node /Users/jacksm5pro/dev/open-source/frameless/scripts/guessless-reproduce-check.mjs --help"
+    stop_if:
+      - "Scope guard refuses cross-repo writes (report exact refusal; PM fallback)."
+      - "Need files outside allowed_files."
+      - "Verification fails twice."
+    receipt: null
+  - id: T999
+    type: judge
+    assignee: Judge
+    status: queued
+    reasoning_hint: high
+    objective: "Final audit: verify every layer in every repo mechanically (files exist, JSON valid, frontmatter valid, pre-existing markless settings keys preserved against git diff), run the claim-gate test suite, and perform a live hook-fire test by piping a synthetic Stop-hook JSON payload with an unreceipted completeness claim into claim-gate.mjs (must block) and a receipted one (must pass). Record full_outcome_complete accordingly."
+    inputs:
+      - "All done task receipts"
+      - "Fresh gate test run"
+      - "Target repo git diffs"
+    constraints:
+      - "Read-only; do not fix findings."
+      - "Reject completion if the hook layer does not demonstrably fire, regardless of how good the docs layers look."
+    expected_output:
+      - "complete | not_complete"
+      - "full_outcome_complete: true | false"
+      - "Per-repo per-layer evidence map"
+      - "Missing evidence and next package if incomplete"
+    receipt: null
+
+checks:
+  dirty_fingerprint: "guessless clean at prep; target repos have pre-existing dirty state (markless 15 entries) recorded as not-ours."
+  last_verification:
+    result: pass
+    task: null
+    commands:
+      - "pnpm test (248 passed / 8 skipped, 2026-08-12 pre-goal)"
