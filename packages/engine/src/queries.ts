@@ -248,7 +248,14 @@ function namespaceEvidence(
 
 type FlowSegment = string | number | '*';
 type FlowPath = readonly FlowSegment[];
-type AliasFlow = { symbol: Symbol; paths: readonly FlowPath[] };
+/**
+ * A value to walk, and whether it is the queried binding itself or only
+ * something a call handed back after receiving it. `derived` is what keeps
+ * escape naming anchored to the *first* boundary the binding crosses: once a
+ * call has taken the value, the receipt already names that escape, and chasing
+ * the result onward would name ever more distant sites for the same one fact.
+ */
+type AliasFlow = { symbol: Symbol; paths: readonly FlowPath[]; derived?: boolean };
 type ExportRecord = Module['exports'][number];
 
 function concatPaths(left: readonly FlowPath[], right: readonly FlowPath[]): FlowPath[] {
@@ -486,6 +493,7 @@ function queueAnonymousDefaultImports(
 	exportNode: YukuNode,
 	paths: readonly FlowPath[],
 	queue: AliasFlow[],
+	derived: boolean,
 ): void {
 	const exported = module.exports.find(
 		(record) =>
@@ -507,7 +515,7 @@ function queueAnonymousDefaultImports(
 					? []
 					: resolvedAnonymousPaths(imported.resolvedModule, imported.name, exported);
 			if (routes.length > 0)
-				queue.push({ symbol: imported.local, paths: concatPaths(routes, paths) });
+				queue.push({ symbol: imported.local, paths: concatPaths(routes, paths), derived });
 		}
 }
 
@@ -532,20 +540,37 @@ function queueSymbolImports(analyzer: Analyzer, item: AliasFlow, queue: AliasFlo
 				queue.push({
 					symbol: imported.local,
 					paths: concatPaths(transported, item.paths),
+					derived: item.derived,
 				});
 		}
 }
 
-function propertyAliasGaps(analyzer: Analyzer, origin: Symbol): UnresolvedSite[] {
+/**
+ * Uncertainty this walk can only name, never resolve: mutation reachable
+ * *through* a reference to `origin` rather than through a rebinding of it.
+ *
+ * `mode` gates the escape gaps because a gap must name what the answer would
+ * otherwise omit. An argument position is a read of the binding, so
+ * `referencesOf` and `readsOf` already return that exact site as a result —
+ * naming it there would report one site twice, once as an answer and once as a
+ * hole in the answer. Only `writesOf` filters reads out, and only there does
+ * the site otherwise disappear.
+ */
+function propertyAliasGaps(
+	analyzer: Analyzer,
+	origin: Symbol,
+	mode: 'all' | 'reads' | 'writes',
+): UnresolvedSite[] {
 	const unresolved: UnresolvedSite[] = [];
 	const queue: AliasFlow[] = [{ symbol: origin, paths: [[]] }];
 	const seen = new Set<string>();
 	for (const item of queue) {
 		const paths = uniquePaths(item.paths);
-		const key = `${item.symbol.module.path}:${item.symbol.id}:${JSON.stringify(paths)}`;
+		const fromCall = item.derived === true;
+		const key = `${item.symbol.module.path}:${item.symbol.id}:${JSON.stringify(paths)}:${fromCall}`;
 		if (seen.has(key)) continue;
 		seen.add(key);
-		queueSymbolImports(analyzer, { symbol: item.symbol, paths }, queue);
+		queueSymbolImports(analyzer, { symbol: item.symbol, paths, derived: fromCall }, queue);
 		const occurrences: Array<{ module: Module; node: YukuNode; paths: readonly FlowPath[] }> = [
 			...analyzer
 				.referencesOf(item.symbol)
@@ -598,6 +623,20 @@ function propertyAliasGaps(analyzer: Analyzer, origin: Symbol): UnresolvedSite[]
 			const module = occurrence.module;
 			let current: YukuNode = occurrence.node;
 			let currentPaths = occurrence.paths;
+			// False while `current` is still the value this walk started from; true
+			// once the walk has crossed a call boundary and `current` is only the
+			// *result* of a call that received it. Past that line the identity of
+			// the value is the callee's business, so a method call on `current` is
+			// a call on whatever came back — not on this binding — and must not be
+			// attributed to it. This is what keeps 'Object.values(x).includes(v)'
+			// from being reported as a possible mutation of 'x'.
+			//
+			// Deliberately walk-local, and deliberately *not* seeded from
+			// `item.derived`: for an alias born of a call ('const y = wrap(x)'),
+			// 'y.push(1)' is exactly the aliased mutation worth naming, because
+			// 'wrap' may well have returned 'x' itself. Going silent there is the
+			// missed-and-unnamed failure this contract exists to prevent.
+			let crossedCall = false;
 			while (true) {
 				const parent = module.parentOf(current) as RichNode | null;
 				if (parent === null) break;
@@ -614,7 +653,7 @@ function propertyAliasGaps(analyzer: Analyzer, origin: Symbol): UnresolvedSite[]
 					if (direct) {
 						if (memberIsMutated(module, parent))
 							unresolved.push(aliasMutationGap(module, parent, item.symbol, origin));
-						else if (memberIsCalled(module, parent))
+						else if (!crossedCall && memberIsCalled(module, parent))
 							unresolved.push(methodCallGap(module, parent, origin));
 						break;
 					}
@@ -672,6 +711,7 @@ function propertyAliasGaps(analyzer: Analyzer, origin: Symbol): UnresolvedSite[]
 						queue,
 						unresolved,
 						origin,
+						crossedCall || fromCall,
 					);
 					break;
 				}
@@ -687,6 +727,7 @@ function propertyAliasGaps(analyzer: Analyzer, origin: Symbol): UnresolvedSite[]
 						queue,
 						unresolved,
 						origin,
+						crossedCall || fromCall,
 					);
 					break;
 				}
@@ -702,6 +743,7 @@ function propertyAliasGaps(analyzer: Analyzer, origin: Symbol): UnresolvedSite[]
 						queue,
 						unresolved,
 						origin,
+						crossedCall || fromCall,
 					);
 					current = parent;
 					continue;
@@ -727,8 +769,32 @@ function propertyAliasGaps(analyzer: Analyzer, origin: Symbol): UnresolvedSite[]
 					(parent.type === 'CallExpression' || parent.type === 'NewExpression') &&
 					parent.arguments?.includes(current)
 				) {
+					// The value leaves for a callee body this analysis does not read.
+					// Three conditions, each dropping a weaker claim than this
+					// reason makes:
+					//   - `currentPaths` must contain the empty path: otherwise what
+					//     escapes is an aggregate that merely *contains* the binding
+					//     ('transform(code, { presets, plugins })').
+					//   - `!crossedCall`: this walk has not already handed the value
+					//     to a callee.
+					//   - `!fromCall`: neither did the walk that produced it. Both
+					//     guards say the same thing — name the *first* boundary the
+					//     binding crosses, once. The onward journey of a call's
+					//     result is the same escape restated at greater distance,
+					//     and 'get(output)' three calls downstream of 'plugins'
+					//     tells a reader nothing the first naming did not.
+					if (
+						mode === 'writes' &&
+						!crossedCall &&
+						!fromCall &&
+						currentPaths.some((path) => path.length === 0)
+					)
+						unresolved.push(
+							argumentEscapeGap(module, current, calleeDescription(parent), origin),
+						);
 					current = parent;
 					currentPaths = [[]];
+					crossedCall = true;
 					continue;
 				}
 				if (
@@ -741,12 +807,22 @@ function propertyAliasGaps(analyzer: Analyzer, origin: Symbol): UnresolvedSite[]
 					continue;
 				}
 				if (parent.type === 'TaggedTemplateExpression' && parent.quasi === current) {
+					// A tag function is a callee like any other; what continues up
+					// the walk is its return value, not the binding.
 					current = parent;
 					currentPaths = [[]];
+					crossedCall = true;
 					continue;
 				}
 				if (parent.type === 'ExportDefaultDeclaration') {
-					queueAnonymousDefaultImports(analyzer, module, parent, currentPaths, queue);
+					queueAnonymousDefaultImports(
+						analyzer,
+						module,
+						parent,
+						currentPaths,
+						queue,
+						crossedCall || fromCall,
+					);
 					break;
 				}
 				break;
@@ -775,6 +851,12 @@ function aliasMutationGap(module: Module, node: YukuNode, alias: Symbol, origin:
  * alone either. The honest report is neither result nor silence: the site is
  * named as an unresolved possible mutation, which is what stops 'writesOf' from
  * answering 'complete' with the mutation invisible.
+ *
+ * The receiver must be the queried binding itself. In 'Object.values(x).includes(v)'
+ * the receiver of '.includes' is the array 'Object.values' returned, not 'x', and
+ * naming that site here would attribute to 'x' a call made on a different value.
+ * The walk tracks that distinction with its `crossedCall` flag; the escape of 'x' into
+ * 'Object.values' is real and is named by `argumentEscapeGap` instead.
  */
 function methodCallGap(module: Module, member: YukuNode, origin: Symbol) {
 	return {
@@ -782,6 +864,60 @@ function methodCallGap(module: Module, member: YukuNode, origin: Symbol) {
 		reason: 'method-call-mutation-uncertain' as const,
 		detail: `Call on a member of '${origin.name}' may mutate it; structural evidence cannot prove whether it does.`,
 	};
+}
+
+/**
+ * The queried binding handed to a callee as an argument
+ * ('encodeSlot(item, path, seen, records, diagnostics)').
+ *
+ * The reference escapes: the callee receives the value and this analysis does
+ * not read callee bodies for mutation, so it cannot be shown that the value
+ * comes back untouched. As with a method call, no write may be *claimed* — an
+ * argument rebinds nothing and most calls mutate nothing. But an argument is
+ * syntactically a read of the binding, and `writesOf` filters reads out of its
+ * results, so absent this gap the site leaves no trace at all in the answer and
+ * `complete` gets asserted over a mutation the receipt never mentioned. That is
+ * the exact shape of the v1 D1 defect, one level of indirection out.
+ *
+ * Deliberately **not** suppressed for callees that are "obviously" harmless.
+ * A builtin allowlist ('Object.values', 'Array.isArray', …) would have to prove
+ * the callee identifier still refers to the global — not shadowed, not
+ * reassigned, not a same-named local — before it could suppress anything, and a
+ * wrong suppression is a silent missed mutation, the one failure this contract
+ * exists to prevent. Naming a harmless escape costs a reader one line; missing a
+ * real one costs correctness. When in doubt, name it.
+ */
+function argumentEscapeGap(module: Module, argument: YukuNode, callee: string, origin: Symbol) {
+	return {
+		site: anchorSite(module, argument, 'argument-escape'),
+		reason: 'argument-escape-mutation-uncertain' as const,
+		detail: `'${origin.name}' escapes as an argument to ${callee}; the callee's body is not analyzed for mutation, so whether it mutates the referenced value is unknown.`,
+	};
+}
+
+/**
+ * How to name the callee of an escape in a receipt detail, using only what is
+ * structurally provable: a plain identifier, a static member chain, or an
+ * explicit admission that the callee is itself an expression. Never guesses.
+ */
+function calleeDescription(call: RichNode): string {
+	const callee = call.callee as RichNode | undefined;
+	if (callee === undefined) return 'a call';
+	const prefix = call.type === 'NewExpression' ? 'new ' : '';
+	const rendered = calleeName(callee);
+	return rendered === null ? 'an opaque callee' : `'${prefix}${rendered}'`;
+}
+
+function calleeName(node: RichNode): string | null {
+	if (node.type === 'Identifier') return node.name ?? null;
+	if (node.type === 'ChainExpression')
+		return node.expression === undefined ? null : calleeName(node.expression as RichNode);
+	if (node.type === 'MemberExpression') {
+		const object = node.object === undefined ? null : calleeName(node.object as RichNode);
+		const key = staticMemberKey(node);
+		return object === null || key === null ? null : `${object}.${key}`;
+	}
+	return null;
 }
 
 /** True when `member` is the callee of a call: 'x.push(1)', 'x?.sort()'. */
@@ -866,18 +1002,19 @@ function queuePatternBindings(
 	queue: AliasFlow[],
 	unresolved: UnresolvedSite[],
 	origin: Symbol,
+	derived: boolean,
 ): void {
 	const node = pattern as RichNode;
 	if (node.type === 'Identifier') {
-		for (const symbol of bindingSymbols(module, node)) queue.push({ symbol, paths });
+		for (const symbol of bindingSymbols(module, node)) queue.push({ symbol, paths, derived });
 		return;
 	}
 	if (node.type === 'AssignmentPattern' && node.left !== undefined) {
-		queuePatternBindings(module, node.left, paths, queue, unresolved, origin);
+		queuePatternBindings(module, node.left, paths, queue, unresolved, origin, derived);
 		return;
 	}
 	if (node.type === 'RestElement' && node.argument !== undefined) {
-		queuePatternBindings(module, node.argument, paths, queue, unresolved, origin);
+		queuePatternBindings(module, node.argument, paths, queue, unresolved, origin, derived);
 		return;
 	}
 	if (paths.some((path) => path[0] === '*')) {
@@ -905,6 +1042,7 @@ function queuePatternBindings(
 						queue,
 						unresolved,
 						origin,
+						derived,
 					);
 				else if (paths.length > 0)
 					unresolved.push({
@@ -920,6 +1058,7 @@ function queuePatternBindings(
 					queue,
 					unresolved,
 					origin,
+					derived,
 				);
 		}
 		return;
@@ -934,7 +1073,7 @@ function queuePatternBindings(
 							.filter((path) => typeof path[0] === 'number' && path[0] >= index)
 							.map((path) => [Number(path[0]) - index, ...path.slice(1)])
 					: pathsAtKey(paths, index);
-			queuePatternBindings(module, element, selected, queue, unresolved, origin);
+			queuePatternBindings(module, element, selected, queue, unresolved, origin, derived);
 		}
 }
 
@@ -1082,7 +1221,7 @@ export function referencesOf(
 		...baseUnresolved(analyzer, relevant),
 		...unlinkedInputSites(analyzer, relevant),
 		...namespace.unresolved,
-		...propertyAliasGaps(analyzer, origin),
+		...propertyAliasGaps(analyzer, origin, mode),
 	]);
 }
 

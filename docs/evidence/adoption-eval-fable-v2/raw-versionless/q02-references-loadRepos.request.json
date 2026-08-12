@@ -1,0 +1,14 @@
+{
+  "kind": "referencesOf",
+  "target": {
+    "schema": "guessless.symbol-anchor/v1",
+    "file": "containers/App/actions.js",
+    "semanticPath": [
+      "global:scope:Program",
+      "module:scope:Program",
+      "symbol:loadRepos",
+      "declaration:FunctionDeclaration"
+    ],
+    "fingerprint": "0afffe31762723dc311b61e1ee122a424fa849c2df4e2e754496c85113b5dc5d"
+  }
+}

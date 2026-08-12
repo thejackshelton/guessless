@@ -1,0 +1,14 @@
+{
+  "kind": "writesOf",
+  "target": {
+    "schema": "guessless.symbol-anchor/v1",
+    "file": "internals/scripts/extract-intl.js",
+    "semanticPath": [
+      "global:scope:Program",
+      "module:scope:Program",
+      "symbol:progress",
+      "declaration:VariableDeclarator"
+    ],
+    "fingerprint": "339d12802d317682f01604cbbb6a2ee902d0b5e88e16bfe669073f73532fcda2"
+  }
+}

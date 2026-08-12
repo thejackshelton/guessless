@@ -20,13 +20,37 @@ export const UNRESOLVED_REASONS = [
 	// another supplied input: the file could not be established as part of the
 	// traversed graph, so no traversal answer may claim to have covered it.
 	'unlinked-input',
-	// A call whose callee is a member of the queried binding ('x.push(...)').
-	// Structural analysis proves the receiver is the binding and proves nothing
-	// about the callee's body, so whether the call mutates the referenced value
-	// is unknown: neither a write may be claimed nor completeness of writes.
-	// Distinct from 'property-alias-write-uncertain', which names an *observed*
-	// mutation that cannot be attributed to the queried symbol through an alias.
+	// A call whose callee is a member of the queried binding *itself*
+	// ('records.push(...)'): structural analysis proves the receiver is the
+	// binding and proves nothing about the callee's body, so whether the call
+	// mutates the referenced value is unknown. Neither a write may be claimed
+	// nor completeness of writes. The receiver test is strict — in
+	// 'Object.values(x).includes(v)' the receiver of '.includes' is the fresh
+	// array the call returned, not 'x', so that site is not this reason (the
+	// argument position of 'Object.values' is 'argument-escape-mutation-uncertain'
+	// instead). Distinct from 'property-alias-write-uncertain', which names an
+	// *observed* mutation that cannot be attributed to the queried symbol
+	// through an alias.
 	'method-call-mutation-uncertain',
+	// The queried binding is passed as an *argument* to a call
+	// ('encodeSlot(item, path, seen, records, diagnostics)'): the reference
+	// escapes to a callee whose body this analysis does not read for mutation,
+	// so the callee may mutate the referenced value and no structural evidence
+	// can rule it out. The escape is named rather than claimed — an argument is
+	// syntactically a read of the binding, and 'writesOf' filters reads out of
+	// its results, so without this reason the site would vanish from the answer
+	// entirely and 'complete' would be asserted over an invisible mutation.
+	//
+	// Three-way distinction, all about *different* unknowns:
+	//   - 'method-call-mutation-uncertain' — the binding is the RECEIVER of the
+	//     call ('x.sort()'); this reason — the binding is an ARGUMENT of the
+	//     call ('sort(x)'). Receiver versus argument, never both for one site.
+	//   - 'higher-order-call-boundary' — an unknown about *control* flow: which
+	//     function a call actually invokes (an opaque returned callee, an
+	//     invoked parameter, a callback handed to an opaque callee). This
+	//     reason is an unknown about *data*: the callee is named and reachable,
+	//     but what it does to the value it received is not modelled.
+	'argument-escape-mutation-uncertain',
 	// An export-like construct outside the ES module system: a CommonJS
 	// 'module.exports' / 'exports' assignment, an alias of either object, or a
 	// TS 'export ='. The ES export analysis cannot classify it, so the names it

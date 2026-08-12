@@ -472,7 +472,10 @@
 			"9861eeda16572e8c363859fd0d6129afbba1553d403eb3372cfbec3c9f7d1c55:property-alias-write-uncertain",
 			"7dbbe43ac657a9783127b42a69c3117805eb12bbd688f5e40915cca65106169f:property-alias-write-uncertain",
 			"86638aab85298fe06491f9ebab9eeeb0728888d6b976119ded4442a6a73472ce:property-alias-write-uncertain",
-			"b02d5b97bba14461291df0c17a5be5c067dbb485bbfcc6025679cdacc312373c:property-alias-write-uncertain"
+			"b02d5b97bba14461291df0c17a5be5c067dbb485bbfcc6025679cdacc312373c:property-alias-write-uncertain",
+			"2bc4814cb5c898ce2932410faacfd52be22ccc0946306a671d4916a873243823:argument-escape-mutation-uncertain",
+			"b888ff3c7df212154e646c5599ac205a6185dc34ce2839d50e6edc8d4eeb70cd:argument-escape-mutation-uncertain",
+			"f4f7e549b7545cd85e298167f69200b1fc8731ce73199c8f7f5c6be3eec69627:argument-escape-mutation-uncertain"
 		]
 	},
 	"exportedNames": {

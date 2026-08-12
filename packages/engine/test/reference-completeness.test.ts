@@ -21,6 +21,21 @@ import {
  * prove a call mutates its receiver and must never claim it does, so the site
  * is named as an unresolved possible mutation instead — never claimed, never
  * silent.
+ *
+ * D5 (docs/evidence/adoption-eval-fable-v2/report.md §1) is D3's residual, and
+ * it cuts both ways — the tests below pin both directions, because a fix that
+ * only widened would trade a missed site for a false one:
+ *
+ *  - *recall*: a binding handed to a callee as an argument escapes to a body
+ *    this analysis does not read. An argument is syntactically a read, so
+ *    `writesOf` filtered it out of results and named nothing — the mutation
+ *    left no trace at all. It is now named `argument-escape-mutation-uncertain`.
+ *  - *precision*: `method-call-mutation-uncertain` fired whenever a member call
+ *    sat above the binding in the walk, including on receivers that were only
+ *    the *result* of a call the binding was passed to
+ *    (`Object.values(x).includes(v)`). That attributes to `x` a call made on a
+ *    different value. The reason is now restricted to calls whose receiver is
+ *    the queried binding itself.
  */
 
 const API_SOURCE =
@@ -238,6 +253,311 @@ test('D3: non-mutating member calls are never reported as writes', () => {
 		'items.includes',
 		'items.map',
 	]);
+});
+
+test('D5: a binding passed as an argument is named as an escape, never claimed as a write', () => {
+	const engine = new GuesslessEngine();
+	// The markless shape (packages/serializer/src/value.ts:223…331): `records` is
+	// both mutated through its own member and handed to callees that mutate it.
+	engine.addFile(
+		'encode.ts',
+		[
+			'export function encodeSlot(value: unknown, records: string[]): number {',
+			'\trecords.push(String(value));',
+			'\tencodeBuffer(value, records);',
+			'\tconst nested = encodeSlot(value, records);',
+			'\treturn records.length + nested;',
+			'}',
+			'function encodeBuffer(value: unknown, sink: string[]): void {',
+			"\tsink.push('buffer');",
+			'}',
+			'',
+		].join('\n'),
+	);
+	engine.link();
+	const target = engine.anchor('encode.ts', 'records')!;
+	const writes = engine.writesOf(target);
+
+	// Still no claim: an argument rebinds nothing, so nothing is a write.
+	expect(writes.results).toEqual([]);
+	expect(writes.state).toBe('partial');
+	if (writes.state !== 'partial') throw new Error('expected named escape uncertainty');
+	expect(engine.verify(writes)).toBe(true);
+
+	const escapes = writes.unresolved.filter(
+		(item) => item.reason === 'argument-escape-mutation-uncertain',
+	);
+	// Exactly the two argument positions: encodeBuffer(…, records) and the
+	// recursive encodeSlot(…, records). `records.push` and `records.length` are
+	// receiver and member reads, not argument positions, and earn no escape.
+	expect(escapes).toHaveLength(2);
+	expect(escapes.map((item) => sourceOf(engine, item.site))).toEqual(['records', 'records']);
+	for (const escape of escapes) {
+		expect(escape.detail).toContain("'records'");
+		// The callee is named from structure, so a reader can see where it went.
+		expect(escape.detail).toMatch(/'encodeBuffer'|'encodeSlot'/);
+	}
+	// Every citation resolves to real source, escapes included.
+	expect(new Set(writes.unresolved.map((item) => JSON.stringify(item.site))).size).toBe(
+		writes.unresolved.length,
+	);
+	// The receiver call is still named under its own reason — the two coexist and
+	// neither absorbed the other.
+	expect(
+		writes.unresolved
+			.filter((item) => item.reason === 'method-call-mutation-uncertain')
+			.map((item) => sourceOf(engine, item.site)),
+	).toEqual(['records.push']);
+});
+
+test('D5: an escape into a callee is named even when the callee is opaque or constructed', () => {
+	const engine = new GuesslessEngine();
+	engine.addFile(
+		'escape.ts',
+		[
+			"import { ship } from './opaque.ts';",
+			'export function run(batch: string[]): void {',
+			'\tship(batch);',
+			'\tnew Collector(batch);',
+			'\tconst held = { batch };',
+			'\tvoid held;',
+			'}',
+			'declare class Collector {',
+			'\tconstructor(items: string[]);',
+			'}',
+			'',
+		].join('\n'),
+	);
+	engine.link();
+	const writes = engine.writesOf(engine.anchor('escape.ts', 'batch')!);
+	expect(writes.results).toEqual([]);
+	if (writes.state !== 'partial') throw new Error('expected named escape uncertainty');
+	const escapes = writes.unresolved.filter(
+		(item) => item.reason === 'argument-escape-mutation-uncertain',
+	);
+	// A plain call and a `new` both hand the reference out; both are named, and
+	// the detail distinguishes them so the receipt says which construct escaped.
+	expect(escapes).toHaveLength(2);
+	expect(escapes.map((item) => item.detail).sort()).toEqual([
+		"'batch' escapes as an argument to 'new Collector'; the callee's body is not analyzed for mutation, so whether it mutates the referenced value is unknown.",
+		"'batch' escapes as an argument to 'ship'; the callee's body is not analyzed for mutation, so whether it mutates the referenced value is unknown.",
+	]);
+	// `{ batch }` is an aggregate that merely *contains* the binding and is passed
+	// to nothing: it is a weaker claim than this reason makes, so it is not named
+	// here.
+	expect(escapes.every((item) => sourceOf(engine, item.site) === 'batch')).toBe(true);
+});
+
+test('D5: argument escapes are named only where the answer would otherwise omit them', () => {
+	const engine = new GuesslessEngine();
+	engine.addFile(
+		'flow.ts',
+		[
+			'export function run(items: string[]): number {',
+			'\tconsume(items);',
+			'\treturn items.length;',
+			'}',
+			'declare function consume(values: string[]): void;',
+			'',
+		].join('\n'),
+	);
+	engine.link();
+	const target = engine.anchor('flow.ts', 'items')!;
+	// `referencesOf` and `readsOf` return the argument site itself, so naming it
+	// there would report one site twice — once as an answer, once as a hole in
+	// the answer. Only `writesOf` filters reads out, and only there is the gap
+	// the difference between a named site and silence.
+	for (const receipt of [engine.referencesOf(target), engine.readsOf(target)]) {
+		const named =
+			receipt.state === 'partial'
+				? receipt.unresolved.filter(
+						(item) => item.reason === 'argument-escape-mutation-uncertain',
+					)
+				: [];
+		expect(named).toEqual([]);
+		expect(receipt.results.some((result) => sourceOf(engine, result.site) === 'items')).toBe(
+			true,
+		);
+	}
+	const writes = engine.writesOf(target);
+	if (writes.state !== 'partial') throw new Error('expected named escape uncertainty');
+	expect(
+		writes.unresolved.filter((item) => item.reason === 'argument-escape-mutation-uncertain'),
+	).toHaveLength(1);
+});
+
+test('D5: an escape names the first boundary once, not every call downstream of it', () => {
+	const engine = new GuesslessEngine();
+	// The versionless shape (internals/scripts/extract-intl.js:97): `plugins` goes
+	// into `transform` inside an object, and `transform`'s result then flows into
+	// `get`. Naming `get` would report the same one fact — plugins left — at ever
+	// greater distance, against a callee that never saw `plugins` at all.
+	engine.addFile(
+		'chain.ts',
+		[
+			'export function run(plugins: string[]): unknown {',
+			'\tconst output = transform({ plugins });',
+			"\tconst messages = get(output, 'messages');",
+			'\treturn messages;',
+			'}',
+			'declare function transform(options: { plugins: string[] }): unknown;',
+			'declare function get(source: unknown, path: string): unknown;',
+			'',
+		].join('\n'),
+	);
+	engine.link();
+	const writes = engine.writesOf(engine.anchor('chain.ts', 'plugins')!);
+	const escapes =
+		writes.state === 'partial'
+			? writes.unresolved.filter(
+					(item) => item.reason === 'argument-escape-mutation-uncertain',
+				)
+			: [];
+	// `{ plugins }` is an aggregate, so even the first hop is below this reason's
+	// threshold — and the derived `output` earns nothing either.
+	expect(escapes).toEqual([]);
+	expect(writes.results).toEqual([]);
+
+	// The same chain with a *direct* first hop names exactly that hop, once.
+	const direct = new GuesslessEngine();
+	direct.addFile(
+		'direct.ts',
+		[
+			'export function run(plugins: string[]): unknown {',
+			'\tconst output = transform(plugins);',
+			"\tconst messages = get(output, 'messages');",
+			'\treturn messages;',
+			'}',
+			'declare function transform(values: string[]): unknown;',
+			'declare function get(source: unknown, path: string): unknown;',
+			'',
+		].join('\n'),
+	);
+	direct.link();
+	const receipt = direct.writesOf(direct.anchor('direct.ts', 'plugins')!);
+	if (receipt.state !== 'partial') throw new Error('expected named escape uncertainty');
+	const named = receipt.unresolved.filter(
+		(item) => item.reason === 'argument-escape-mutation-uncertain',
+	);
+	expect(named).toHaveLength(1);
+	expect(named[0]!.detail).toContain("'transform'");
+});
+
+test('D5: an aliased binding still earns a receiver gap — the first-boundary rule never silences one', () => {
+	const engine = new GuesslessEngine();
+	// `wrap` may return `items` itself, so `held.push(...)` may be a mutation of
+	// `items`. The escape rule narrows *escape* naming only; a member call on the
+	// alias is the classic aliased mutation and stays named. Losing this would be
+	// the missed-and-unnamed failure the whole contract exists to prevent.
+	engine.addFile(
+		'alias.ts',
+		[
+			'export function run(items: string[]): void {',
+			'\tconst held = wrap(items);',
+			"\theld.push('x');",
+			'}',
+			'declare function wrap(values: string[]): string[];',
+			'',
+		].join('\n'),
+	);
+	engine.link();
+	const writes = engine.writesOf(engine.anchor('alias.ts', 'items')!);
+	if (writes.state !== 'partial') throw new Error('expected named uncertainty');
+	expect(
+		writes.unresolved
+			.filter((item) => item.reason === 'method-call-mutation-uncertain')
+			.map((item) => sourceOf(engine, item.site)),
+	).toEqual(['held.push']);
+	// And the escape into `wrap` is named at its own first boundary.
+	expect(
+		writes.unresolved
+			.filter((item) => item.reason === 'argument-escape-mutation-uncertain')
+			.map((item) => sourceOf(engine, item.site)),
+	).toEqual(['items']);
+});
+
+test('D5: method-call uncertainty is restricted to calls whose receiver is the binding', () => {
+	const engine = new GuesslessEngine();
+	// The markless false alarm (packages/serializer/src/protocol-validation.ts:301):
+	// the receiver of `.includes` is the fresh array `Object.values` returned, not
+	// `arms`. Attributing that call to `arms` would be a mutation claim about a
+	// value `arms` never was.
+	engine.addFile(
+		'guard.ts',
+		[
+			"export const arms = { a: 'a', b: 'b' } as const;",
+			'export function isArm(value: string): boolean {',
+			'\treturn Object.values(arms).includes(value as never);',
+			'}',
+			'',
+		].join('\n'),
+	);
+	engine.link();
+	const writes = engine.writesOf(engine.anchor('guard.ts', 'arms')!);
+	expect(writes.results).toEqual([]);
+	const reasons =
+		writes.state === 'partial' ? writes.unresolved.map((item) => item.reason) : [];
+	expect(reasons).not.toContain('method-call-mutation-uncertain');
+	// The real, honest uncertainty is one level down: `arms` escapes into
+	// `Object.values`. No builtin allowlist suppresses it — see `argumentEscapeGap`.
+	expect(reasons).toEqual(['argument-escape-mutation-uncertain']);
+	if (writes.state !== 'partial') throw new Error('expected named escape uncertainty');
+	expect(writes.unresolved[0]!.detail).toContain("'Object.values'");
+});
+
+test('D5: a method call on a different binding is never attributed to the queried one', () => {
+	const engine = new GuesslessEngine();
+	engine.addFile(
+		'sibling.ts',
+		[
+			'export function run(left: string[], right: string[]): number {',
+			"\tright.push('x');",
+			'\treturn left.length + right.length;',
+			'}',
+			'',
+		].join('\n'),
+	);
+	engine.link();
+	// `left` is never a receiver and never an argument: nothing may be named
+	// against it, and the answer is a genuine, earned `complete`.
+	const writes = engine.writesOf(engine.anchor('sibling.ts', 'left')!);
+	expect(writes.results).toEqual([]);
+	expect(writes.state).toBe('complete');
+});
+
+test('D5: reassignment from a self-receiver call keeps both the write and the receiver gap', () => {
+	const engine = new GuesslessEngine();
+	// The versionless shape (internals/scripts/extract-intl.js:26):
+	// `plugins = plugins.filter(...)`. The assignment is a real write and is
+	// claimed as one; the `.filter` call has `plugins` as its receiver, so it
+	// stays named. `.filter` does not mutate, but proving that would need a
+	// builtin model the engine deliberately does not have — when in doubt, name.
+	engine.addFile(
+		'plugins.ts',
+		[
+			"export let plugins: string[] = ['a', 'b'];",
+			"plugins.push('react-intl');",
+			"plugins = plugins.filter((p) => p !== 'styled-components');",
+			'',
+		].join('\n'),
+	);
+	engine.link();
+	const writes = engine.writesOf(engine.anchor('plugins.ts', 'plugins')!);
+	// The reassignment is claimed, not merely named.
+	expect(writes.results.map((result) => result.access)).toEqual(['write']);
+	if (writes.state !== 'partial') throw new Error('expected named call uncertainty');
+	expect(
+		writes.unresolved
+			.filter((item) => item.reason === 'method-call-mutation-uncertain')
+			.map((item) => sourceOf(engine, item.site))
+			.sort(),
+	).toEqual(['plugins.filter', 'plugins.push']);
+	// The callback passed to `.filter` is not an escape of `plugins` itself.
+	expect(
+		writes.unresolved.filter(
+			(item) => item.reason === 'argument-escape-mutation-uncertain',
+		),
+	).toEqual([]);
 });
 
 test('negative control: a fixture with no specifiers and no calls answers byte-identically', () => {
