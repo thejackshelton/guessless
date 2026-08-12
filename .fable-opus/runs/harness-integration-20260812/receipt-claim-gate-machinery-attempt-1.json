@@ -1,0 +1,12 @@
+{
+  "status": "completed",
+  "summary": "Built the claim-gate machinery. claim-gate.mjs is a Stop-hook adapter (stdin hook JSON, JSONL transcript extraction, exit 2 + stderr to block) plus a --check mode sharing one core; fail-open, sentence-scoped hedge detection, and prose/evidence separation so a pasted partial receipt cannot vouch for itself via its own \"unresolved\" field. reproduce-check.mjs finds *.receipt.json, re-runs sibling *.reproduction.json through the built CLI (shape verified against packages/cli/src first), reports unverifiable receipts, exits non-zero on any non-reproduction. docs/integration.md covers all four layers with copy-paste blocks and states the adoption evidence precisely (0/5 real-agent cells, 18 no-invocation synthetic cells) rather than a flat 0%. 22 tests wired into pnpm test via vite.config.ts. All verification commands pass.",
+  "files_changed": [
+    "scripts/claim-gate.mjs",
+    "scripts/reproduce-check.mjs",
+    "scripts/claim-gate.test.mjs",
+    "docs/integration.md",
+    "vite.config.ts"
+  ],
+  "open_questions": []
+}

@@ -68,13 +68,13 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/guessless-harness-integration/"
     command: "node /Users/jacksm5pro/.claude/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/guessless-harness-integration"
 
-active_task: T001
+active_task: T002
 
 tasks:
   - id: T001
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: high
     objective: "Build the gate machinery in guessless. scripts/claim-gate.mjs: a Claude Code Stop-hook adapter that reads hook JSON from stdin, scans the final assistant message for completeness claims over JS/TS structure ('all call sites', 'no other usages/references', 'safe to delete', 'renamed every', and similar), and if one is present without a cited guessless receipt (a receipt path or inline receipt JSON whose state it can parse), blocks with a message telling the agent to attach a receipt or qualify the claim; a receipted claim passes only if the claim is consistent with the receipt state (complete -> may claim all; partial -> claim must acknowledge gaps). scripts/reproduce-check.mjs: given a directory or file list, finds *.receipt.json and runs the guessless CLI reproduce against each, exiting non-zero on any non-reproduction. docs/integration.md: the four-layer integration guide with copy-paste blocks for AGENTS.md, the skill, the settings.json hook entry, and CI. Tests for both scripts (node --test or vitest, wired into pnpm test) covering: unreceipted claim -> block; receipted complete claim -> pass; partial receipt with unacknowledged 'all' claim -> block; no claim -> pass; reproduce pass and tamper-fail paths. Dispatch via a fable-opus cockpit packet."
     allowed_files:
@@ -93,11 +93,29 @@ tasks:
       - "Need files outside allowed_files."
       - "The Claude Code hook input contract cannot be satisfied from documentation available locally."
       - "Verification fails twice."
-    receipt: null
+    receipt:
+      result: done
+      harness: claude-code
+      changed_files:
+        - scripts/claim-gate.mjs
+        - scripts/reproduce-check.mjs
+        - scripts/claim-gate.test.mjs
+        - docs/integration.md
+        - vite.config.ts
+      commands:
+        - cmd: "git merge --no-ff worktree-agent-a9b8e95c58535f8a4"
+          status: pass
+        - cmd: "pnpm build && pnpm test (270 passed, 8 skipped)"
+          status: pass
+        - cmd: "pnpm typecheck && pnpm lint"
+          status: pass
+        - cmd: "PM smoke: Stop-hook JSON with missing transcript -> exit 0 (fail-open confirmed)"
+          status: pass
+      summary: "Gate machinery merged. claim-gate.mjs: Stop-hook adapter (stdin JSON, JSONL transcript extraction, exit-2 block) + --check mode, with prose/evidence separation (a pasted partial receipt cannot vouch for itself), sentence-scoped hedge detection, stop_hook_active loop guard, fail-open on all error paths. reproduce-check.mjs verified against the CLI's actual reproduce envelope; tamper flips exit 2. docs/integration.md documents the four layers and states adoption evidence precisely (0/5 real-agent cells, 18 no-invocation synthetic cells; hooks/CI channels argued, not evidenced) - worker corrected PM's imprecise 0% phrasing. 22 tests in the default gate."
   - id: T002
     type: worker
     assignee: Worker
-    status: queued
+    status: active
     reasoning_hint: medium
     objective: "Wire markless: append the guessless block to AGENTS.md and CLAUDE.md (append-only, marked section), add .claude/skills/guessless/SKILL.md (valid frontmatter; triggers on rename/delete/reference-enumeration in JS/TS; instructs the CLI invocation and receipt-state rules; notes .tsrx is refused by design so the skill applies to the .ts toolchain code), and merge the Stop hook entry into the EXISTING .claude/settings.json preserving every current key (read it first; additive JSON merge; valid JSON after). Hook points at /Users/jacksm5pro/dev/open-source/guessless/scripts/claim-gate.mjs. No commits, no pushes; changes stay in the working tree for owner review. Dispatch via a fable-opus cockpit packet; if the scope guard refuses cross-repo writes, return blocked immediately reporting the exact refusal."
     allowed_files:

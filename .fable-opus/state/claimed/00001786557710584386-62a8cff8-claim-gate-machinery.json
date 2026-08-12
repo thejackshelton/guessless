@@ -1,0 +1,21 @@
+{
+  "runId": "harness-integration-20260812",
+  "unitId": "claim-gate-machinery",
+  "attempt": 1,
+  "promptPath": "/Users/jacksm5pro/dev/open-source/guessless/.fable-opus/runs/harness-integration-20260812/prompt-claim-gate-machinery-attempt-1.md",
+  "subagentType": "opus-worker-isolated",
+  "toolUseId": "toolu_014zz9owPhVmwZUFkJTWspNw",
+  "promptId": "ade00798-1c14-4778-b44e-b14ede3e176f",
+  "background": false,
+  "parallel": false,
+  "effort": null,
+  "contract": [
+    "scripts/**",
+    "docs/integration.md",
+    "vite.config.ts",
+    "package.json",
+    "pnpm-lock.yaml"
+  ],
+  "ts": "2026-08-12T18:01:50.583Z",
+  "pendingName": "00001786557710584386-62a8cff8-claim-gate-machinery.json"
+}
