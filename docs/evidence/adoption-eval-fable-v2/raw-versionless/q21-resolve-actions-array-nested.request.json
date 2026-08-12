@@ -1,0 +1,7 @@
+{
+  "kind": "resolveBinding",
+  "file": "internals/generators/language/index.js",
+  "name": "actions",
+  "space": "value",
+  "scope": null
+}

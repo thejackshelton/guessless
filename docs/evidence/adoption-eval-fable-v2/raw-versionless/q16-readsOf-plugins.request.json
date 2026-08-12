@@ -1,0 +1,14 @@
+{
+  "kind": "readsOf",
+  "target": {
+    "schema": "guessless.symbol-anchor/v1",
+    "file": "internals/scripts/extract-intl.js",
+    "semanticPath": [
+      "global:scope:Program",
+      "module:scope:Program",
+      "symbol:plugins",
+      "declaration:VariableDeclarator"
+    ],
+    "fingerprint": "7903259ad715f1c9cf6a977bf99046a7100ce7140a64eb252657a5d9eace5439"
+  }
+}

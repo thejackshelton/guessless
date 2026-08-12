@@ -1,0 +1,7 @@
+{
+  "kind": "resolveBinding",
+  "file": "internals/scripts/extract-intl.js",
+  "name": "plugins",
+  "space": "value",
+  "scope": null
+}

@@ -1,0 +1,7 @@
+{
+  "kind": "resolveBinding",
+  "file": "containers/HomePage/selectors.js",
+  "name": "makeSelectUsername",
+  "space": "value",
+  "scope": null
+}

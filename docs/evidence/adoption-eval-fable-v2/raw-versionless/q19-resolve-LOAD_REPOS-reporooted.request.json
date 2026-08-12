@@ -1,0 +1,7 @@
+{
+  "kind": "resolveBinding",
+  "file": "app/containers/App/constants.js",
+  "name": "LOAD_REPOS",
+  "space": "value",
+  "scope": null
+}

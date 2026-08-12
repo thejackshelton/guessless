@@ -1,0 +1,7 @@
+{
+  "kind": "resolveBinding",
+  "file": "containers/HomePage/saga.js",
+  "name": "getRepos",
+  "space": "value",
+  "scope": null
+}
