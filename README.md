@@ -70,6 +70,11 @@ pnpm build
 pnpm test
 ```
 
+`pnpm test` is the product gate and passes in any fresh checkout. The sealed evidence-era
+integrity suites (v6–v11 evaluation seals and the network-acquired oracle corpus tests)
+are opt-in via `pnpm test:evidence`, because they pin artifacts of their own eras — the
+rationale is documented in `vite.config.ts`.
+
 Create `query.json`:
 
 ```json
@@ -201,13 +206,17 @@ The exact recorded performance values are:
 
 The synthetic workload is one TypeScript file with nine fixed code lines plus comment padding. It measures physical-line scaling, not real-project complexity.
 
-### Oracle part 3: concluded, do not adopt in sibling projects now
+### Oracle part 3: sealed history, superseded by the 2026-08 campaign
 
-The decision-grade `oracle-part-3-v5` benchmark completed all 36 preregistered cells and all 18 valid pairs. Its current, scoped recommendation is: **do not integrate Guessless into Markless, Frameless, Versionless, or comparable sibling repositories now**. This is not a universal or permanent claim about Guessless; it is the frozen decision for a reversible sibling-repository integration under this synthetic same-model protocol.
+The sealed `oracle-part-3-v5` benchmark recorded `DO_NOT_ADOPT`, but a later audit showed all 68 of its Guessless MCP calls were cancelled client-side: no engine output ever reached the agent, so v5 supports no causal claim about engine value in either direction. The sealed bundles ([adoption decision](docs/evidence/oracle-part-3-adoption-decision.md), [v5 summary](docs/evidence/oracle-part-3-v5/summary.md), [v3 attempt](docs/evidence/oracle-part-3-v3-attempt.md), [v4 audit](docs/evidence/oracle-part-3-v4-audit.md)) remain immutable records of their eras and may not be retried or rescored. Note that the v1–v4 packaged rename ground truth predates specifier-site reporting; the sealed copies record the pre-correction contract.
 
-Control/Guessless correctness was 5/4 for rename, 0/0 for delete, and 4/6 for reach. Guessless therefore produced a real positive reach result, but it added false completeness, regressed rename correctness, and was slower with more tool calls across all seven both-correct pairs. Those results mechanically yield `DO_NOT_ADOPT` under the preregistered rule.
+### 2026-08 defect campaign and re-validation
 
-Read the [adoption decision](docs/evidence/oracle-part-3-adoption-decision.md) and sealed v5 [summary](docs/evidence/oracle-part-3-v5/summary.md), [decision](docs/evidence/oracle-part-3-v5/decision.json), [benchmarks](docs/evidence/oracle-part-3-v5/benchmarks.json), [replay](docs/evidence/oracle-part-3-v5/replay.json), and [manifest](docs/evidence/oracle-part-3-v5/manifest.json). The invalid immutable predecessors remain documented in the [v3 attempt report](docs/evidence/oracle-part-3-v3-attempt.md) and [v4 audit](docs/evidence/oracle-part-3-v4-audit.md); neither may be retried or rescored.
+A ground-truthed honesty trial against real sibling-repository code ([adoption-eval-fable-v1](docs/evidence/adoption-eval-fable-v1/verdict.md)) found four defect classes where sites were missed and not named — the failure this engine exists to make impossible. Fixing them surfaced two more (argument-position escapes; workspace package-name specifiers stranding supplied inputs). All six are fixed fail-closed with class-level regression tests; the closed unresolved-reason enumeration grew from 16 to 20 members, each addition documented at its definition.
+
+The [v2 re-trial](docs/evidence/adoption-eval-fable-v2/report.md) re-ran all 51 v1 queries like-for-like: **zero missed-and-unnamed sites and zero spurious sites** over 202 hand-audited ground-truth sites (v1 baseline through the identical scorer: 51 missed). The [repo-scale demonstration](docs/evidence/adoption-eval-fable-v2/demonstration/report.md) ran the engine over 635 files / 161k lines of Markless with mechanically verified same-name decoys and five preregistered falsifiers. One falsifier genuinely fired (19 silent sites), the defect was fixed, and the identical protocol then passed: zero decoy sites where word-boundary grep's answer was 13.5% decoys, every unreturned site named by its route specifier, byte-identical receipts across runs, 5.1 s total. The honest bounds are disclosed in the report: for the widest symbol the engine answered 42 of 113 sites and named the other 71 as boundaries, and four external packages whose names collide with supplied directories appear as named uncertainty (never as results).
+
+What this does not establish, stated plainly: no agent-in-the-loop benchmark has run against the fixed engine (the only valid prior pairs showed no correctness lift and material overhead on small repositories), MCP transport reliability is unmeasured (all campaign evidence is CLI-based), and `.tsrx` corpora remain refused by design.
 
 ## Limitations
 
