@@ -62,9 +62,9 @@
     },
     {
       "id": "q03-refs-asyncboundaryarm",
-      "state": "partial",
+      "state": "complete",
       "results": 6,
-      "unresolved": 1,
+      "unresolved": 0,
       "gt": 6,
       "returned": 6,
       "named": 0,
@@ -172,11 +172,11 @@
       "id": "q10-writes-records",
       "state": "partial",
       "results": 0,
-      "unresolved": 10,
+      "unresolved": 17,
       "gt": 17,
       "returned": 0,
-      "named": 10,
-      "missedUnnamed": 7,
+      "named": 17,
+      "missedUnnamed": 0,
       "spurious": 0,
       "detail": [
         "mutation-named:packages/serializer/src/value.ts",
@@ -189,13 +189,13 @@
         "mutation-named:packages/serializer/src/value.ts",
         "mutation-named:packages/serializer/src/value.ts",
         "mutation-named:packages/serializer/src/value.ts",
-        "MISSED-escape:packages/serializer/src/value.ts",
-        "MISSED-escape:packages/serializer/src/value.ts",
-        "MISSED-escape:packages/serializer/src/value.ts",
-        "MISSED-escape:packages/serializer/src/value.ts",
-        "MISSED-escape:packages/serializer/src/value.ts",
-        "MISSED-escape:packages/serializer/src/value.ts",
-        "MISSED-escape:packages/serializer/src/value.ts"
+        "escape-named:packages/serializer/src/value.ts",
+        "escape-named:packages/serializer/src/value.ts",
+        "escape-named:packages/serializer/src/value.ts",
+        "escape-named:packages/serializer/src/value.ts",
+        "escape-named:packages/serializer/src/value.ts",
+        "escape-named:packages/serializer/src/value.ts",
+        "escape-named:packages/serializer/src/value.ts"
       ]
     },
     {
@@ -558,7 +558,7 @@
       "id": "q18-writesOf-progress",
       "state": "partial",
       "results": 1,
-      "unresolved": 9,
+      "unresolved": 10,
       "gt": 1,
       "returned": 1,
       "named": 0,
@@ -663,10 +663,10 @@
   ],
   "totals": {
     "queries": 51,
-    "missedUnnamed": 7,
+    "missedUnnamed": 0,
     "spurious": 0,
-    "named": 29,
+    "named": 36,
     "returned": 166,
-    "oracleZeroMissedAndUnnamed": false
+    "oracleZeroMissedAndUnnamed": true
   }
 }

@@ -7,7 +7,7 @@
 ## Oracle
 
 ```
-zero missed-and-unnamed: FALSE
+zero missed-and-unnamed: TRUE
 ```
 
 51 queries re-run (markless q00–q21, versionless q01–q25). Scored against the hand-audited v1
@@ -16,31 +16,37 @@ ground truth by `score.mjs`, whose output is checked in as `scores.json`:
 | | v1 (recomputed under the same rule) | v2 |
 | --- | --- | --- |
 | ground-truth sites returned in `results` | 140 | **166** |
-| ground-truth sites named in `unresolved` | 11 | **29** |
-| **missed and unnamed** | **51** | **7** |
+| ground-truth sites named in `unresolved` | 11 | **36** |
+| **missed and unnamed** | **51** | **0** |
 | spurious (result with no ground-truth counterpart) | 0 | **0** |
 
-The oracle is **FALSE** on a single residual class, described immediately below. All four
-commissioned defect classes (D1–D4) are fixed, and 44 of the 51 v1 missed-and-unnamed sites are
-now either returned or named. Nothing else regressed: no ground-truth site that v1 returned is
-absent from v2, and no spurious site appeared anywhere.
+The oracle is **TRUE**: every one of the 202 ground-truth sites across both corpora is either
+returned in `results` or named by a causally specific `unresolved` entry, and nothing was
+invented to get there — `spurious` is 0, and no ground-truth site that v1 returned is absent
+from v2.
+
+This is the second reading of this bundle. The first (engine at `3da8ce4`) scored **7
+missed-and-unnamed** and is described in §1: `writesOf` dropped the by-reference escape sites
+silently. Those 7 are now named under a new closed reason, and the same change removed three
+false alarms in the opposite direction. §1 records both the defect and its fix, because the
+residual is the whole reason this bundle was re-measured.
 
 ---
 
-## 1. The finding: `writesOf` still drops 7 by-reference escape sites, unnamed
+## 1. The residual, and its fix: by-reference escape sites (D5)
 
-**Receipt:** `raw-markless/q10-writes-records.receipt.json` — `state: "partial"`, `results: []`,
-`unresolved` = 10 entries, all `method-call-mutation-uncertain`.
+**Status: closed.** `raw-markless/q10-writes-records.receipt.json` now names all 17
+mutation-bearing sites; `scores.json` scores it 0 missed-and-unnamed.
 
 The v1 ground truth for `writesOf` on the `records` parameter of `encodeSlot`
 (`packages/serializer/src/value.ts`, lines 146–338) is **17 mutation-bearing sites**, in two
 groups (v1 `markless-report.md` §1 D1, verbatim: *"All 17 mutation-bearing sites are missing and
 none is named"*):
 
-| group | lines | v1 | v2 |
-| --- | --- | --- | --- |
-| `records.push(…)` mutations (10) | 176, 185, 194, 204, 219, 235, 257, 274, 308, 328 | missed, unnamed | **named** — 10 × `method-call-mutation-uncertain` |
-| by-reference escapes into a mutating callee (7) | 223, 238, 261, 281, 288, 311, 331 | missed, unnamed | **missed, unnamed** |
+| group | lines | v1 | v2 (first reading) | v2 (this reading) |
+| --- | --- | --- | --- | --- |
+| `records.push(…)` mutations (10) | 176, 185, 194, 204, 219, 235, 257, 274, 308, 328 | missed, unnamed | named — 10 × `method-call-mutation-uncertain` | unchanged |
+| by-reference escapes into a mutating callee (7) | 223, 238, 261, 281, 288, 311, 331 | missed, unnamed | **missed, unnamed** | **named** — 7 × `argument-escape-mutation-uncertain` |
 
 The 7 escapes are argument positions where `records` is handed to `encodeSlot` or
 `encodeArrayBufferViewBuffer`, each of which pushes into it — e.g. value.ts:223
@@ -49,43 +55,77 @@ The 7 escapes are argument positions where `records` is handed to `encodeSlot` o
 buffer: encodeArrayBufferViewBuffer(value, path, seen, records, diagnostics),
 ```
 
-`referencesOf` on the same anchor (`raw-markless/q08-refs-records.receipt.json`) returns all
-seven of these sites, so the engine sees them; it classifies them `read`, and `writesOf` neither
-returns them nor spends an `unresolved` entry on them. The receipt's ten `unresolved` entries are
-each anchored at a `site:method-call-receiver` path — they account for the ten `.push` statements
-and for nothing else, so file-level attribution cannot be stretched to cover the escapes.
+**Why they were silent.** `referencesOf` on the same anchor
+(`raw-markless/q08-refs-records.receipt.json`) returns all seven, so the engine always saw them —
+it classifies them `read`, and `writesOf` filters reads out of `results`. The site therefore left
+no trace at all: not a result, and not an `unresolved` entry either. The ten entries the receipt
+did carry are each anchored at a `site:method-call-receiver` path, accounting for the ten `.push`
+statements and nothing else, so file-level attribution could not be stretched to cover the
+escapes. Same root shape as v1's D1: mutation reachable *through* a reference was not modelled,
+and where the code could not even see the question it emitted nothing.
 
-This is materially narrower than the v1 defect and the receipt no longer lies about it — the
-state is `partial`, not `complete` — but a caller asking "is anything mutating `records`?" still
-gets a receipt whose named boundaries under-describe the answer by seven sites. It is the same
-root shape as v1's D1: mutation reachable *through* a reference is not modelled, and where the
-new code could not prove a mutation it emitted a reason, while where it could not even see the
-question it emitted nothing.
+**The fix.** A 19th closed reason, `argument-escape-mutation-uncertain`, names the site where the
+binding's reference leaves for a callee body the analysis does not read:
 
-The analogous versionless case does **not** reproduce: `plugins` at
-`internals/scripts/extract-intl.js:97` is passed into `transform(…)` by object-property shorthand,
-and v1's ground truth for `q15` counted it as a read only (2 write sites, not 3), so v2's
-`q15-writesOf-plugins` scores 0 missed-and-unnamed.
+```json
+{ "reason": "argument-escape-mutation-uncertain",
+  "detail": "'records' escapes as an argument to 'encodeArrayBufferViewBuffer'; the callee's body is not analyzed for mutation, so whether it mutates the referenced value is unknown." }
+```
+
+Still no `write` is claimed — an argument rebinds nothing, and most calls mutate nothing. The
+callee is named from structure alone (a plain identifier or a static member chain; anything else
+reads `an opaque callee`), so the receipt says *where* the value went rather than merely that it
+went somewhere. `q10` now carries 10 `method-call-mutation-uncertain` + 7
+`argument-escape-mutation-uncertain` = all 17 ground-truth sites named, one entry each.
+
+Three rules keep the reason from spreading (see `argumentEscapeGap` and the walk in
+`packages/engine/src/queries.ts`):
+
+* **`writesOf` only.** In `referencesOf`/`readsOf` the argument position is itself a returned
+  result, so naming it there would report one site twice — once as an answer, once as a hole in
+  the answer. Only `writesOf` filters it out, and only there is the gap the difference between a
+  named site and silence.
+* **Direct values only.** `plugins` at `internals/scripts/extract-intl.js:97` goes into
+  `transform(code, { filename, presets, plugins })` inside an object literal — an aggregate that
+  merely *contains* the binding, a weaker claim than this reason makes. Not named. (v1's ground
+  truth agrees: `q15` counts that site as a read, 2 write sites not 3.)
+* **First boundary only.** Once a call has taken the value, the receipt already names that
+  escape; chasing the call's *result* onward would restate the same one fact at ever greater
+  distance. An earlier iteration of this fix did chase it, and produced exactly that noise — an
+  escape naming `get(output)` three calls downstream of `plugins`, and an 8th entry in `q10` for
+  a `slot` alias. Both are gone; the 7 named in `q10` are precisely the 7 ground-truth lines.
+
+The narrowing never silences a real alias: for `const y = wrap(x)`, `y.push(1)` is still named
+`method-call-mutation-uncertain`, because `wrap` may well have returned `x` itself. Regression
+tests for each rule, including that negative control, are in
+`packages/engine/test/reference-completeness.test.ts`.
 
 **No spurious sites.** Across all 51 receipts, every `results` entry maps to a ground-truth site
-(`scores.json` `totals.spurious = 0`). The engine gained recall without inventing anything.
+(`scores.json` `totals.spurious = 0`), and no `results` entry anywhere changed between the two
+readings. The engine gained recall without inventing anything.
 
 ---
 
 ## 2. Method
 
-### 2.1 Engine under test — not rebuilt
+### 2.1 Engine under test
 
 | artifact | sha256 | vs v1 |
 | --- | --- | --- |
 | `packages/cli/dist/cli.js` | `784899828ad9c45b0a5d3532ab29cea674832153fa2be187c74fd1e51f775439` | identical |
 | `packages/cli/dist/src-DWRHl3Qf.js` | `4a406b37aa6b3eb65c10d64a98f31011bf4adf30337343a0aade58fc931a7e85` | identical |
-| `packages/engine/dist/index.js` | `1605ea0329fc065cf55d5f5b68191f6e7111459fe1d0d05e20dc3b0b06642bd5` | **changed** |
+| `packages/engine/dist/index.js` | `b31b14eab5d508f97baf7a15ad65ae768521be009be0bfe27c622ae67578583e` | **changed** |
 
 The CLI bundle is byte-identical to the one v1 ran; it does `await import("@guessless/engine")`,
 which resolves through `packages/cli/node_modules/@guessless/engine → ../../../engine`. All of
-D1–D4 therefore lives in `packages/engine/dist/index.js`. Repository HEAD `3da8ce4`; every `dist/`
-file dated 2026-08-11 18:22. Nothing was built during this unit. Node v24.15.0, darwin 25.5.0.
+D1–D5 therefore lives in `packages/engine/dist/index.js`. Node v24.15.0, darwin 25.5.0.
+
+The first reading of this bundle ran the engine at repository HEAD `3da8ce4`
+(`1605ea0329fc065cf55d5f5b68191f6e7111459fe1d0d05e20dc3b0b06642bd5`) and built nothing. This
+reading rebuilt the engine from the D5 source change (`pnpm install && pnpm build`) and re-ran
+both runner scripts end to end; the two CLI bundle hashes above are unchanged from v1 across both
+readings, so the delta is confined to the engine. Only four receipts differ between the readings
+(§4.2); the other 47 are byte-identical.
 
 ### 2.2 Corpora — verified identical to v1
 
@@ -127,12 +167,13 @@ verbatim, so this is a like-for-like comparison rather than a re-targeted one.
 * **returned** — a result matches the site on (file, site class), where class is
   `import` (`site:import-specifier`), `reexport` (`site:reexport-specifier`) or `use`
   (everything else, including local `export { X }` specifiers and type-position uses);
-* **named** — not returned, but an `unresolved` entry accounts for it. Every one of the 29 named
+* **named** — not returned, but an `unresolved` entry accounts for it. Every one of the 36 named
   sites in v2 is covered by a causally specific entry, not merely a same-file one:
   `unlinked-input` naming the exact import the symbol arrives through (24),
-  `unrecognized-export-form` quoting the exact `exports.X = …` statement (4), and
+  `unrecognized-export-form` quoting the exact `exports.X = …` statement (4),
   `method-call-mutation-uncertain` anchored at the mutating call (10 in q10, 1 in q15 — counted
-  one per site);
+  one per site), and `argument-escape-mutation-uncertain` anchored at the escaping argument
+  (7 in q10, counted one per site);
 * **missed and unnamed** — neither;
 * **spurious** — a result with no ground-truth counterpart.
 
@@ -140,6 +181,17 @@ Run `GL_BUNDLE=../adoption-eval-fable-v1 GL_SCORES=scores-v1-recomputed.json nod
 score the v1 bundle with the identical rule; that file is checked in, and it is the source of the
 v1 column in every table here. Its total (51 missed-and-unnamed) is the same measurement applied
 to v1's receipts.
+
+**One scorer change between the two readings, and what it cannot do.** The `escape` branch of
+`score.mjs` previously hardcoded `missedUnnamed`, because when the scorer was written no closed
+reason could name an escape — the engine had no vocabulary for it, so no receipt could earn the
+credit. That branch now applies the same rule the `mutation` branch always used: an escape site
+counts as named only when the receipt carries its own `argument-escape-mutation-uncertain` entry
+in that file, matched **one-for-one**, so seven ground-truth escapes still require seven distinct
+entries. This cannot flatter v2 against v1: the v1 bundle scored through the identical code still
+totals **51** missed-and-unnamed, byte-identical to the first reading's
+`scores-v1-recomputed.json`, because v1 receipts carry no such entry. Re-run both to check —
+`node score.mjs` and the `GL_BUNDLE` invocation below.
 
 That recomputed baseline is deliberately **more forgiving to v1** than the v1 reports were. Where
 a missed site sat in a file that happened to carry unrelated `unresolved` entries, `score.mjs`
@@ -205,7 +257,7 @@ sites inside the two JSX-broken files whose parse diagnostics v1 had to lean on.
 markless unparseable-caller probe went 1 → 2 results, recovering the import specifier inside a file
 the engine cannot fully parse.
 
-### D3 — `writesOf` on a method-call-mutated binding no longer returns bare complete/empty — **PASS (with the §1 residual)**
+### D3 — `writesOf` on a method-call-mutated binding no longer returns bare complete/empty — **PASS**
 
 **Receipt:** `raw-markless/q10-writes-records.receipt.json`. v1 was
 `{"state":"complete","results":[],"unresolved":absent}`. v2 is `state: "partial"` with ten
@@ -217,7 +269,7 @@ the engine cannot fully parse.
 
 one per `records.push(…)` site, each anchored at `site:method-call-receiver`. The packet's D3
 criterion — the 10 push sites appear as `method-call-mutation-uncertain` unresolved — is met
-exactly. The 7 by-reference escapes remain unaccounted; see §1.
+exactly. The 7 by-reference escapes are named under D5's separate reason; see §1.
 
 Replicates on versionless: `raw-versionless/q15-writesOf-plugins.receipt.json` gains a
 `method-call-mutation-uncertain` entry for `plugins.push('react-intl')` at line 23, the exact site
@@ -250,55 +302,68 @@ ground-truth site. Near-miss neighbours the v1 audit called out are still correc
 `ASYNC_BOUNDARY_ARM_MIN/_PENDING/_MAX` do not appear in `q03`, the other three `records` bindings
 do not leak into `q08`, and the Set-branch `let index` does not leak into `q12`.
 
-### 4.2 New over-naming (precision cost, not a miss)
+### 4.2 Over-naming: the receiver restriction (fixed)
 
-The mutation-uncertainty reason fires on some call shapes that cannot mutate the target:
+The first reading flagged `method-call-mutation-uncertain` firing on call shapes that cannot
+mutate the target, and proposed restricting the reason to calls whose *receiver* is the queried
+binding. That restriction is now implemented, and it is the second half of the D5 change. The
+complete delta between the two readings is four receipts:
 
-* `raw-markless/q03-refs-asyncboundaryarm.receipt.json` and `q04b-writes-asyncboundaryarm` each
-  carry one `method-call-mutation-uncertain` entry for `protocol-validation.ts:301`,
-  `Object.values(ASYNC_BOUNDARY_ARM).includes(value as never)` — here `ASYNC_BOUNDARY_ARM` is an
-  *argument*, and the method call is on the array `Object.values` returned. `q04b` consequently
-  reports `partial` on a binding that genuinely has no writes.
-* `raw-versionless/q15-writesOf-plugins` carries a second entry for
-  `plugins = plugins.filter(…)` at line 26 — `filter` does not mutate.
+| receipt | change | why |
+| --- | --- | --- |
+| `raw-markless/q03-refs-asyncboundaryarm` | −1 `method-call-mutation-uncertain`; **`partial` → `complete`** | `Object.values(ASYNC_BOUNDARY_ARM).includes(…)` at `protocol-validation.ts:301` — the receiver of `.includes` is the array `Object.values` returned, not the binding. All 6 sites are returned, so `complete` is now earned. |
+| `raw-markless/q04b-writes-asyncboundaryarm` | −1 `method-call-mutation-uncertain`, +1 `argument-escape-mutation-uncertain` | Same site, correctly re-described: `ASYNC_BOUNDARY_ARM` is an *argument* of `Object.values`, not a receiver. Still `partial` — see below. |
+| `raw-markless/q10-writes-records` | +7 `argument-escape-mutation-uncertain` | §1. |
+| `raw-versionless/q18-writesOf-progress` | +1 `argument-escape-mutation-uncertain` | `clearTimeout(progress)` — a genuine direct escape. |
 
-This is the honest direction to err (an over-named boundary costs a reader a check; an unnamed one
-costs them a wrong answer), and it never manufactures a `results` entry. It is worth a follow-up:
-restricting the reason to calls whose *receiver* is the target binding would remove all three
-false alarms without touching any of the 11 true ones.
+`raw-versionless/q15-writesOf-plugins` is unchanged, and deliberately so. Both of its entries have
+`plugins` as the receiver: `plugins.push('react-intl')` (a real mutation, and a ground-truth site)
+and `plugins = plugins.filter(…)` at line 26. `.filter` does not mutate, but suppressing it would
+need a builtin model the engine does not have — proving the identifier still refers to the global
+`Array.prototype` method, unshadowed and unreassigned. **No builtin allowlist was added**, here or
+for `Object.values`/`Object.keys`: a wrong suppression is a silent missed mutation, the one
+failure this contract exists to prevent, while a named harmless call costs a reader one line. When
+in doubt, name it. The reasoning is recorded on `argumentEscapeGap` in
+`packages/engine/src/queries.ts`.
+
+Residual over-naming, all in the safe direction and none of it a `results` entry: `q04b` still
+reports `partial` on a binding with no writes (the escape into `Object.values` is real, even
+though `Object.values` cannot mutate), and `q18` gains an entry for `clearTimeout`. Three false
+*receiver* attributions are gone and none of the 11 true ones was lost.
 
 ### 4.3 Receipt-state transitions v1 → v2
 
-Five markless receipts moved `complete` → `partial`; no receipt moved in the other direction, and
+Four markless receipts moved `complete` → `partial`; no receipt moved in the other direction, and
 no `refused` changed.
 
 | receipt | v1 | v2 | cause |
 | --- | --- | --- | --- |
-| `q03-refs-asyncboundaryarm` | complete | partial | 1 over-named mutation-uncertainty (§4.2) |
-| `q04b-writes-asyncboundaryarm` | complete | partial | same |
+| `q03-refs-asyncboundaryarm` | complete | **complete** | unchanged — the receiver restriction (§4.2) removed the one over-named entry the first reading had here |
+| `q04b-writes-asyncboundaryarm` | complete | partial | 1 escape into `Object.values` (§4.2) |
 | `q08-refs-records` | complete | partial | 10 mutation-uncertainty entries |
 | `q09-reads-records` | complete | partial | same |
-| `q10-writes-records` | complete | partial | same — the D3 fix |
+| `q10-writes-records` | complete | partial | 10 mutation-uncertainty + 7 escape entries — the D3/D5 fix |
 
 Versionless had no state transitions: every receipt that was `partial` stayed `partial` and every
 `complete` stayed `complete`. The `unlinked-input` reason replaced or supplemented entries in
 receipts that were already `partial`, which is why D1's fix is visible in the reason text rather
 than in the state.
 
-Note the shape of this: on markless, the fixes *cost* four `complete` badges on queries that were
-already correct, and bought one on a query that was wrong. That is the trade the honesty contract
-asks for, but it does mean `complete` is now rarer on real code, and §4.2's over-naming is what
-makes it rarer than it needs to be.
+Note the shape of this: on markless, the fixes *cost* three `complete` badges on queries that were
+already correct (`q04b`, `q08`, `q09`) and one on `q10`, which was wrong. That is the trade the
+honesty contract asks for. The receiver restriction bought `q03` back — a `complete` that is now
+earned rather than assumed — so `complete` is rarer on real code than in v1, but no longer rarer
+than the evidence requires.
 
 ### 4.4 Size and timing
 
 | corpus | receipts | total bytes v1 → v2 | wall min / median / max (v2) |
 | --- | --- | --- | --- |
-| markless | 26 | 51,034 → 70,009 (**+37 %**) | 26.8 / 46.8 / 257.3 ms |
-| versionless | 25 | 193,469 → 261,083 (**+35 %**) | 35.1 / 42.4 / 95.4 ms |
+| markless | 26 | 51,034 → 73,975 (**+45 %**) | 28.1 / 44.1 / 246.2 ms |
+| versionless | 25 | 193,469 → 261,733 (**+35 %**) | 35.5 / 41.3 / 91.8 ms |
 
-Growth is concentrated where the fixes fire: `q10-writes-records` 670 B → 5,833 B (an empty
-receipt became ten named sites), `q08`/`q09` +5.2 KB each, and the versionless `referencesOf`
+Growth is concentrated where the fixes fire: `q10-writes-records` 670 B → 10,245 B (an empty
+receipt became seventeen named sites), `q08`/`q09` +5.2 KB each, and the versionless `referencesOf`
 receipts +8 KB each (~30 KB, from ~21 KB) as bystander files acquire `unlinked-input` entries.
 `q09-reaches-getRepos` more than doubled (7,881 → 16,271 B) with no change in results — the whole
 increase is newly named boundaries. Wall times are single-run here versus v1's 3-run medians, so
@@ -333,16 +398,16 @@ missed-and-unnamed — the oracle column.
 | `q00-resolve-asyncboundaryarm` | complete→complete | 1 | 1→1 | 0→0 | 0→**0** | 0 | 695→695 | 46.8 |
 | `q01-refs-isvalidstoragekey` | complete→complete | 5 | 2→5 | 0→0 | 3→**0** | 0 | 1473→2401 | 41.2 |
 | `q02-refs-serializegraphvalue` | complete→complete | 6 | 4→6 | 0→0 | 2→**0** | 0 | 2290→2897 | 191.2 |
-| `q03-refs-asyncboundaryarm` | complete→partial | 6 | 4→6 | 0→0 | 2→**0** | 0 | 2029→3166 | 63.9 |
+| `q03-refs-asyncboundaryarm` | complete→complete | 6 | 4→6 | 0→0 | 2→**0** | 0 | 2029→2630 | 64.0 |
 | `q04-writes-serializegraphvalue` | complete→complete | 0 | 0→0 | 0→0 | 0→**0** | 0 | 570→570 | 181.4 |
-| `q04b-writes-asyncboundaryarm` | complete→partial | 0 | 0→0 | 0→0 | 0→**0** | 0 | 581→1117 | 67.2 |
+| `q04b-writes-asyncboundaryarm` | complete→partial | 0 | 0→0 | 0→0 | 0→**0** | 0 | 581→1207 | 66.9 |
 | `q05-exportednames-storage-slot` | complete→complete | 8 | 8→8 | 0→0 | 0→**0** | 0 | 2447→2447 | 39.6 |
 | `q06-resolve-encodeslot` | complete→complete | 1 | 1→1 | 0→0 | 0→**0** | 0 | 654→654 | 39.8 |
 | `q06b-refs-encodeslot` | complete→complete | 7 | 7→7 | 0→0 | 0→**0** | 0 | 3452→3452 | 179.8 |
 | `q07-resolve-records` | complete→complete | 1 | 1→1 | 0→0 | 0→**0** | 0 | 1123→1123 | 172.4 |
 | `q08-refs-records` | complete→partial | 24 | 24→24 | 0→0 | 0→**0** | 0 | 10217→15380 | 229.9 |
 | `q09-reads-records` | complete→partial | 24 | 24→24 | 0→0 | 0→**0** | 0 | 10207→15370 | 228.6 |
-| `q10-writes-records` | complete→partial | 17 | 0→0 | 0→10 | 17→**7** | 0 | 670→5833 | 257.3 |
+| `q10-writes-records` | complete→partial | 17 | 0→0 | 0→17 | 17→**0** | 0 | 670→10245 | 246.2 |
 | `q11-resolve-index` | complete→complete | 1 | 1→1 | 0→0 | 0→**0** | 0 | 1300→1300 | 176.5 |
 | `q12-refs-index` | complete→complete | 3 | 3→3 | 0→0 | 0→**0** | 0 | 2156→2156 | 179.0 |
 | `q13-writes-index` | complete→complete | 1 | 1→1 | 0→0 | 0→**0** | 0 | 1228→1228 | 180.3 |
@@ -376,7 +441,7 @@ missed-and-unnamed — the oracle column.
 | `q15-writesOf-plugins` | partial→partial | 2 | 1→1 | 0→1 | 1→**0** | 0 | 4400→5321 | 90.8 |
 | `q16-readsOf-plugins` | partial→partial | 3 | 3→3 | 0→0 | 0→**0** | 0 | 5239→6160 | 95.4 |
 | `q17-resolve-progress` | partial→partial | 1 | 1→1 | 0→0 | 0→**0** | 0 | 4187→4187 | 42.4 |
-| `q18-writesOf-progress` | partial→partial | 1 | 1→1 | 0→0 | 0→**0** | 0 | 4487→4487 | 89.5 |
+| `q18-writesOf-progress` | partial→partial | 1 | 1→1 | 0→0 | 0→**0** | 0 | 4487→5137 | 87.4 |
 | `q19-resolve-LOAD_REPOS-reporooted` | complete→complete | 1 | 1→1 | 0→0 | 0→**0** | 0 | 651→651 | 38.3 |
 | `q20-references-LOAD_REPOS-reporooted` | partial→partial | 10 | 3→6 | 1→4 | 6→**0** | 0 | 21849→30219 | 51.6 |
 | `q21-resolve-actions-array-nested` | partial→partial | 0 | 0→0 | 0→0 | 0→**0** | 0 | 1181→1181 | 39.1 |
@@ -400,20 +465,26 @@ Sealed pre-v2 evidence bundles (oracle-part-3-v1..v11, adoption-eval-fable-v1) r
 
 ## 7. Verdict
 
-**zero missed-and-unnamed: FALSE** — 7 sites, one class, one query
-(`raw-markless/q10-writes-records.receipt.json`): the by-reference escapes at value.ts 223, 238,
-261, 281, 288, 311 and 331, which `writesOf` neither returns nor names.
+**zero missed-and-unnamed: TRUE** — all 51 of v1's missed-and-unnamed sites are now returned (26)
+or named (25), across all 51 queries and both corpora, with `spurious` at zero.
 
-Everything else the retrial was commissioned to check passed. D1, D2, D3 and D4 are each fixed at
-the receipt level with the citations in §3; 44 of v1's 51 missed-and-unnamed sites are now
-returned (26) or named (18); spurious sites remain at zero; `resolveBinding` and the `.tsrx`
-boundary behaviour are bit-stable; and the four `complete` → `partial` transitions are the
-contract working, not regressions.
+D1, D2, D3, D4 and D5 are each fixed at the receipt level with the citations in §1 and §3;
+`resolveBinding` and the `.tsrx` boundary behaviour are bit-stable; and the four
+`complete` → `partial` transitions are the contract working, not regressions.
 
-The remaining gap is narrow and precisely stated: mutation reachable through an argument position
-is still outside the model, and unlike the method-call case it does not yet spend an `unresolved`
-entry. Until it does, `writesOf` should be read as "assignments, plus method calls that might
-mutate" — which is now what the receipts say, except at the seven sites above.
+What the answer means has not been overstated. `writesOf` still models assignment only: it claims
+a `write` for assignments, updates and destructuring targets, and for everything else it *names*
+rather than claims. A caller should read a `writesOf` receipt as "these are the assignments; these
+other sites are places the value could be mutated and structural evidence cannot settle it" —
+`method-call-mutation-uncertain` where the binding is the receiver, `argument-escape-mutation-uncertain`
+where it is an argument. The oracle is TRUE because nothing is silent, not because mutation is
+now decided.
+
+Two known costs, both in the safe direction and both visible in the receipts rather than hidden:
+`q04b` reports `partial` on a binding with no writes (its escape into `Object.values` is real, but
+`Object.values` cannot mutate), and `q10` is 15× its v1 size. No builtin allowlist was added to
+trim either (§4.2) — suppressing a callee wrongly is a silent missed mutation, which is the
+failure this contract exists to prevent.
 
 ## Files
 

@@ -216,7 +216,7 @@
    }
   },
   "snapshot": "21c5aa8db8657266f82f4f4e30665b94cf0cedbca2f7ab8bca66905fea276e93",
-  "state": "partial"
+  "state": "complete"
  },
  "q04-writes-serializegraphvalue": {
   "inputs": [

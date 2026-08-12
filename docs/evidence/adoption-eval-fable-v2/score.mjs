@@ -301,8 +301,32 @@ function scoreOne(dir, id, spec) {
 			continue;
 		}
 		if (site.cls === 'escape') {
-			row.missedUnnamed += 1;
-			row.detail.push(`MISSED-escape:${site.file}`);
+			// Symmetric with the `mutation` branch above, and held to the identical
+			// standard: an escape site counts as named only when the receipt carries
+			// its own `argument-escape-mutation-uncertain` entry in that file, matched
+			// one-for-one. Seven ground-truth escapes still need seven distinct
+			// entries; a file that carries one entry cannot cover all seven.
+			//
+			// This branch previously hardcoded `missedUnnamed`, because when the
+			// scorer was written no closed reason could name an escape at all — the
+			// engine had no vocabulary for it, so no receipt could earn the credit.
+			// The reason now exists (D5), so the rule is applied rather than the
+			// verdict assumed. Nothing was loosened: the v1 bundle scored through
+			// this same code still counts all 7 as missed, because v1 receipts carry
+			// no such entry — the two columns stay a like-for-like comparison.
+			const left = unresolved.filter(
+				(u) =>
+					u.site?.file === site.file &&
+					u.reason === 'argument-escape-mutation-uncertain',
+			).length;
+			const used = row.detail.filter((d) => d === `escape-named:${site.file}`).length;
+			if (used < left) {
+				row.named += 1;
+				row.detail.push(`escape-named:${site.file}`);
+			} else {
+				row.missedUnnamed += 1;
+				row.detail.push(`MISSED-escape:${site.file}`);
+			}
 			continue;
 		}
 		if (unresolvedFiles.has(site.file)) {
