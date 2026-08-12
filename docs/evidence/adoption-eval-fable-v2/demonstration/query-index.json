@@ -1,0 +1,92 @@
+{
+ "S1-q00-resolve-deserializegraphvalue": {
+  "symbol": "S1",
+  "inputFiles": 635,
+  "inputList": "input-files.txt",
+  "corpus": {
+   "repo": "/Users/jacksm5pro/dev/open-source/markless",
+   "commit": "931f054444a41c0527dfa77f812fa49e87df3b8f",
+   "bytes": 5379260
+  },
+  "request": {
+   "kind": "resolveBinding",
+   "file": "packages/serializer/src/value-decode.ts",
+   "name": "deserializeGraphValue",
+   "space": "value",
+   "scope": null
+  },
+  "snapshot": "ffc33304187d907422a6d8251d261c37349f168ff6fd4b90b0013579b31430fb",
+  "state": "complete"
+ },
+ "S1-q01-refs-deserializegraphvalue": {
+  "symbol": "S1",
+  "inputFiles": 635,
+  "inputList": "input-files.txt",
+  "corpus": {
+   "repo": "/Users/jacksm5pro/dev/open-source/markless",
+   "commit": "931f054444a41c0527dfa77f812fa49e87df3b8f",
+   "bytes": 5379260
+  },
+  "request": {
+   "kind": "referencesOf",
+   "target": {
+    "schema": "guessless.symbol-anchor/v1",
+    "file": "packages/serializer/src/value-decode.ts",
+    "semanticPath": [
+     "global:scope:Program",
+     "module:scope:Program",
+     "symbol:deserializeGraphValue",
+     "declaration:FunctionDeclaration"
+    ],
+    "fingerprint": "b91283ef0faf2f7f7b384cfb45fee7539fdf9654f370a422108b5c4792ea8c89"
+   }
+  },
+  "snapshot": "ffc33304187d907422a6d8251d261c37349f168ff6fd4b90b0013579b31430fb",
+  "state": "partial"
+ },
+ "S2-q00-resolve-async_boundary_arm": {
+  "symbol": "S2",
+  "inputFiles": 635,
+  "inputList": "input-files.txt",
+  "corpus": {
+   "repo": "/Users/jacksm5pro/dev/open-source/markless",
+   "commit": "931f054444a41c0527dfa77f812fa49e87df3b8f",
+   "bytes": 5379260
+  },
+  "request": {
+   "kind": "resolveBinding",
+   "file": "packages/serializer/src/async-boundary-arm.ts",
+   "name": "ASYNC_BOUNDARY_ARM",
+   "space": "value",
+   "scope": null
+  },
+  "snapshot": "ffc33304187d907422a6d8251d261c37349f168ff6fd4b90b0013579b31430fb",
+  "state": "complete"
+ },
+ "S2-q01-refs-async_boundary_arm": {
+  "symbol": "S2",
+  "inputFiles": 635,
+  "inputList": "input-files.txt",
+  "corpus": {
+   "repo": "/Users/jacksm5pro/dev/open-source/markless",
+   "commit": "931f054444a41c0527dfa77f812fa49e87df3b8f",
+   "bytes": 5379260
+  },
+  "request": {
+   "kind": "referencesOf",
+   "target": {
+    "schema": "guessless.symbol-anchor/v1",
+    "file": "packages/serializer/src/async-boundary-arm.ts",
+    "semanticPath": [
+     "global:scope:Program",
+     "module:scope:Program",
+     "symbol:ASYNC_BOUNDARY_ARM",
+     "declaration:VariableDeclarator"
+    ],
+    "fingerprint": "5afa208aad039cf5166823497a4bad84351c122cefb8c770d66253a244951308"
+   }
+  },
+  "snapshot": "ffc33304187d907422a6d8251d261c37349f168ff6fd4b90b0013579b31430fb",
+  "state": "partial"
+ }
+}

@@ -1,0 +1,66 @@
+{
+  "corpus": {
+    "repo": "/Users/jacksm5pro/dev/open-source/markless",
+    "commit": "931f054444a41c0527dfa77f812fa49e87df3b8f",
+    "inputFiles": 635,
+    "bytes": 5379260
+  },
+  "queries": [
+    {
+      "id": "S1-q00-resolve-deserializegraphvalue",
+      "symbol": "S1",
+      "inputFiles": 635,
+      "query": "resolveBinding",
+      "state": "complete",
+      "results": 1,
+      "unresolved": null,
+      "wallMs": 157.1,
+      "receiptBytes": 690,
+      "snapshot": "ffc33304187d907422a6d8251d261c37349f168ff6fd4b90b0013579b31430fb",
+      "exitCode": 0
+    },
+    {
+      "id": "S1-q01-refs-deserializegraphvalue",
+      "symbol": "S1",
+      "inputFiles": 635,
+      "query": "referencesOf",
+      "state": "partial",
+      "results": 27,
+      "unresolved": 845,
+      "wallMs": 1799.6,
+      "receiptBytes": 378422,
+      "snapshot": "ffc33304187d907422a6d8251d261c37349f168ff6fd4b90b0013579b31430fb",
+      "exitCode": 0
+    },
+    {
+      "id": "S2-q00-resolve-async_boundary_arm",
+      "symbol": "S2",
+      "inputFiles": 635,
+      "query": "resolveBinding",
+      "state": "complete",
+      "results": 1,
+      "unresolved": null,
+      "wallMs": 151.9,
+      "receiptBytes": 695,
+      "snapshot": "ffc33304187d907422a6d8251d261c37349f168ff6fd4b90b0013579b31430fb",
+      "exitCode": 0
+    },
+    {
+      "id": "S2-q01-refs-async_boundary_arm",
+      "symbol": "S2",
+      "inputFiles": 635,
+      "query": "referencesOf",
+      "state": "partial",
+      "results": 42,
+      "unresolved": 778,
+      "wallMs": 1499.3,
+      "receiptBytes": 360984,
+      "snapshot": "ffc33304187d907422a6d8251d261c37349f168ff6fd4b90b0013579b31430fb",
+      "exitCode": 0
+    }
+  ],
+  "prepareMs": 150.6,
+  "totalQueryMs": 3607.9,
+  "totalWallMs": 3813.2,
+  "budgetMs": 600000
+}

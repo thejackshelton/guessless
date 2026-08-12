@@ -1,0 +1,26 @@
+{
+  "status": "blocked",
+  "summary": "Ran the demonstration as specced: 635 committed markless .ts files, engine-derived anchors, hand-audited occurrence-level ground truth, mechanical scorer. F2 fired for both symbols: 19 real reference sites in 6 files (compiler/src public-render + render-data, web/src ssr.ts, render-to-stream.ts, ssr-data/renderer.ts) are neither returned nor named, because files reaching the binding only via a bare '@markless/serializer' specifier fall outside both the dependents closure and the unlinked-input naming pass. P1/P3/P4/P5 pass; serializer-scope answer byte-identical to sealed v1/v2; 3.8s wall. score-demo.mjs exits 1 by design.",
+  "files_changed": [
+    "docs/evidence/adoption-eval-fable-v2/demonstration/report.md",
+    "docs/evidence/adoption-eval-fable-v2/demonstration/run-demo.mjs",
+    "docs/evidence/adoption-eval-fable-v2/demonstration/build-ground-truth.mjs",
+    "docs/evidence/adoption-eval-fable-v2/demonstration/score-demo.mjs",
+    "docs/evidence/adoption-eval-fable-v2/demonstration/scores.json",
+    "docs/evidence/adoption-eval-fable-v2/demonstration/ground-truth-S1.json",
+    "docs/evidence/adoption-eval-fable-v2/demonstration/ground-truth-S2.json",
+    "docs/evidence/adoption-eval-fable-v2/demonstration/baseline-S1.txt",
+    "docs/evidence/adoption-eval-fable-v2/demonstration/baseline-S2.txt",
+    "docs/evidence/adoption-eval-fable-v2/demonstration/S1-q00-resolve-deserializegraphvalue.receipt.json",
+    "docs/evidence/adoption-eval-fable-v2/demonstration/S1-q01-refs-deserializegraphvalue.receipt.json",
+    "docs/evidence/adoption-eval-fable-v2/demonstration/S2-q00-resolve-async_boundary_arm.receipt.json",
+    "docs/evidence/adoption-eval-fable-v2/demonstration/S2-q01-refs-async_boundary_arm.receipt.json",
+    "docs/evidence/adoption-eval-fable-v2/demonstration/query-index.json",
+    "docs/evidence/adoption-eval-fable-v2/demonstration/timings.json",
+    "docs/evidence/adoption-eval-fable-v2/demonstration/input-files.txt"
+  ],
+  "open_questions": [
+    "F2 fired: 19 target sites silently absent (4 for S1, 15 for S2) because unlinkedInputSites only names 'unlinked-input' boundaries, not 'external-module-boundary' ones — should this become a D6 fix (name external-module boundaries for out-of-closure supplied inputs) before the must-have claim is re-asserted?",
+    "Verification command 3 (markless working tree byte-clean) cannot pass: that checkout was already dirty at dispatch with 15 unrelated entries, unchanged by this unit. Should the cockpit accept the recorded pre/post status diff as the clean-corpus proof, or is the corpus expected to be stashed first?"
+  ]
+}

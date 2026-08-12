@@ -1,0 +1,540 @@
+{
+ "schema": "guessless.demonstration.scores/v1",
+ "verdict": "FALSIFIED",
+ "corpus": {
+  "repo": "/Users/jacksm5pro/dev/open-source/markless",
+  "commit": "931f054444a41c0527dfa77f812fa49e87df3b8f",
+  "inputFiles": 635,
+  "bytes": 5379260
+ },
+ "checks": {
+  "P1": true,
+  "P2": false,
+  "P3": true,
+  "P4": true,
+  "P5": true
+ },
+ "falsifiers": [
+  {
+   "id": "F2",
+   "symbol": "S1",
+   "detail": "4 ground-truth site(s) of 'deserializeGraphValue' are neither returned nor named anywhere in the receipt: packages/compiler/src/passes/public-render/shared.ts, packages/compiler/src/passes/public-render/state-entries.ts"
+  },
+  {
+   "id": "F2",
+   "symbol": "S2",
+   "detail": "15 ground-truth site(s) of 'ASYNC_BOUNDARY_ARM' are neither returned nor named anywhere in the receipt: packages/compiler/src/passes/render-data/index.ts, packages/web/src/fns/ssr.ts, packages/web/src/render-to-stream.ts, packages/web/src/ssr-data/renderer.ts"
+  }
+ ],
+ "timing": {
+  "totalWallMs": 3813.2,
+  "totalQueryMs": 3607.9,
+  "budgetMs": 600000,
+  "P5": true
+ },
+ "stability": {
+  "bigRunSerializerSrcSites": 6,
+  "sealedV2Sites": 6,
+  "sealedV1Sites": 4,
+  "identicalToSealedV2": true,
+  "sealedV1IsSubset": true,
+  "targetAnchorIdenticalToSealed": true
+ },
+ "symbols": {
+  "S1": {
+   "symbol": "deserializeGraphValue",
+   "anchorSource": "resolveBinding (engine-derived; no hand-authored anchor)",
+   "anchorsFromResolve": 1,
+   "receiptState": "partial",
+   "baseline": {
+    "command": "grep -rnw 'deserializeGraphValue' packages | LC_ALL=C sort",
+    "tool": "grep -rnw (word-boundary equivalent of the rg pattern)",
+    "hitLines": 37,
+    "baselineTrueHits": 32,
+    "baselineDecoyHits": 5,
+    "partition": "none — grep returns the undifferentiated union"
+   },
+   "groundTruth": {
+    "occurrences": 37,
+    "targetReferenceSites": 31,
+    "decoySites": 5
+   },
+   "guessless": {
+    "results": 27,
+    "unresolvedEntries": 845,
+    "filesNamedInUnresolved": 273,
+    "decoyHitsInResults": 0,
+    "spurious": [],
+    "missedFiles": [
+     {
+      "file": "packages/compiler/src/passes/public-render/shared.ts",
+      "expected": 2,
+      "returned": 0,
+      "missing": 2,
+      "named": false,
+      "routeSpecifier": "@markless/serializer",
+      "namesRouteSpecifier": false,
+      "namedBy": []
+     },
+     {
+      "file": "packages/compiler/src/passes/public-render/state-entries.ts",
+      "expected": 2,
+      "returned": 0,
+      "missing": 2,
+      "named": false,
+      "routeSpecifier": "@markless/serializer",
+      "namesRouteSpecifier": false,
+      "namedBy": []
+     }
+    ],
+    "silentlyMissedFiles": [
+     "packages/compiler/src/passes/public-render/shared.ts",
+     "packages/compiler/src/passes/public-render/state-entries.ts"
+    ],
+    "silentlyMissedSites": 4,
+    "missedSites": 4,
+    "missedSitesNamedByRouteSpecifier": 0,
+    "missedSitesNamedOnlyIncidentally": 0
+   },
+   "serializerScope": {
+    "coverage": [
+     {
+      "file": "packages/serializer/src/value.ts",
+      "expected": 1,
+      "returned": 1
+     },
+     {
+      "file": "packages/serializer/test/module-split.test.ts",
+      "expected": 2,
+      "returned": 2
+     },
+     {
+      "file": "packages/serializer/test/payload-scripts.test.ts",
+      "expected": 2,
+      "returned": 2
+     },
+     {
+      "file": "packages/serializer/test/protocol-state.test.ts",
+      "expected": 7,
+      "returned": 7
+     },
+     {
+      "file": "packages/serializer/test/serializer.test.ts",
+      "expected": 6,
+      "returned": 6
+     },
+     {
+      "file": "packages/serializer/test/value-correctness.test.ts",
+      "expected": 4,
+      "returned": 4
+     }
+    ],
+    "expected": 22,
+    "returned": 22,
+    "sealed": "n/a (sealed q03 ground truth covers S2 only)"
+   },
+   "checks": {
+    "P1": true,
+    "P2": false,
+    "P3": true,
+    "P4": true
+   }
+  },
+  "S2": {
+   "symbol": "ASYNC_BOUNDARY_ARM",
+   "anchorSource": "resolveBinding (engine-derived; no hand-authored anchor)",
+   "anchorsFromResolve": 1,
+   "receiptState": "partial",
+   "baseline": {
+    "command": "grep -rnw 'ASYNC_BOUNDARY_ARM' packages | LC_ALL=C sort",
+    "tool": "grep -rnw (word-boundary equivalent of the rg pattern)",
+    "hitLines": 112,
+    "baselineTrueHits": 114,
+    "baselineDecoyHits": 0,
+    "partition": "none — grep returns the undifferentiated union"
+   },
+   "groundTruth": {
+    "occurrences": 114,
+    "targetReferenceSites": 113,
+    "decoySites": 0
+   },
+   "guessless": {
+    "results": 42,
+    "unresolvedEntries": 778,
+    "filesNamedInUnresolved": 280,
+    "decoyHitsInResults": 0,
+    "spurious": [],
+    "missedFiles": [
+     {
+      "file": "packages/compiler/src/passes/render-data/index.ts",
+      "expected": 2,
+      "returned": 0,
+      "missing": 2,
+      "named": false,
+      "routeSpecifier": "@markless/serializer/protocol",
+      "namesRouteSpecifier": false,
+      "namedBy": []
+     },
+     {
+      "file": "packages/compiler/test/boundary-runner-agreement.test.ts",
+      "expected": 2,
+      "returned": 0,
+      "missing": 2,
+      "named": true,
+      "routeSpecifier": "@markless/serializer",
+      "namesRouteSpecifier": false,
+      "namedBy": [
+       {
+        "reason": "unlinked-input",
+        "detail": "Import 'vitest' did not resolve, but names a supplied input; the link between these files could not be established."
+       },
+       {
+        "reason": "unlinked-input",
+        "detail": "Import 'vitest' did not resolve, but names a supplied input; the link between these files could not be established."
+       }
+      ]
+     },
+     {
+      "file": "packages/compiler/test/payload-arena.test.ts",
+      "expected": 2,
+      "returned": 0,
+      "missing": 2,
+      "named": true,
+      "routeSpecifier": "@markless/serializer",
+      "namesRouteSpecifier": false,
+      "namedBy": [
+       {
+        "reason": "unlinked-input",
+        "detail": "Import 'vitest' did not resolve, but names a supplied input; the link between these files could not be established."
+       },
+       {
+        "reason": "unlinked-input",
+        "detail": "Import 'vitest' did not resolve, but names a supplied input; the link between these files could not be established."
+       }
+      ]
+     },
+     {
+      "file": "packages/compiler/test/protocol-view.test.ts",
+      "expected": 2,
+      "returned": 0,
+      "missing": 2,
+      "named": true,
+      "routeSpecifier": "@markless/serializer",
+      "namesRouteSpecifier": false,
+      "namedBy": [
+       {
+        "reason": "unlinked-input",
+        "detail": "Import 'vitest' did not resolve, but names a supplied input; the link between these files could not be established."
+       },
+       {
+        "reason": "unlinked-input",
+        "detail": "Import 'vitest' did not resolve, but names a supplied input; the link between these files could not be established."
+       }
+      ]
+     },
+     {
+      "file": "packages/compiler/test/render-data/render-data.test.ts",
+      "expected": 2,
+      "returned": 0,
+      "missing": 2,
+      "named": true,
+      "routeSpecifier": "@markless/serializer/protocol",
+      "namesRouteSpecifier": false,
+      "namedBy": [
+       {
+        "reason": "unlinked-input",
+        "detail": "Import 'vitest' did not resolve, but names a supplied input; the link between these files could not be established."
+       },
+       {
+        "reason": "unlinked-input",
+        "detail": "Import 'vitest' did not resolve, but names a supplied input; the link between these files could not be established."
+       }
+      ]
+     },
+     {
+      "file": "packages/web/src/fns/ssr.ts",
+      "expected": 7,
+      "returned": 0,
+      "missing": 7,
+      "named": false,
+      "routeSpecifier": "@markless/serializer",
+      "namesRouteSpecifier": false,
+      "namedBy": []
+     },
+     {
+      "file": "packages/web/src/prerender/adopt-filled-arms.ts",
+      "expected": 2,
+      "returned": 0,
+      "missing": 2,
+      "named": true,
+      "routeSpecifier": "@markless/serializer",
+      "namesRouteSpecifier": true,
+      "namedBy": [
+       {
+        "reason": "external-module-boundary",
+        "detail": "Import '@markless/serializer' leaves the linked file set."
+       },
+       {
+        "reason": "external-module-boundary",
+        "detail": "Import '@markless/runtime' leaves the linked file set."
+       }
+      ]
+     },
+     {
+      "file": "packages/web/src/render-to-stream.ts",
+      "expected": 2,
+      "returned": 0,
+      "missing": 2,
+      "named": false,
+      "routeSpecifier": "@markless/serializer",
+      "namesRouteSpecifier": false,
+      "namedBy": []
+     },
+     {
+      "file": "packages/web/src/resume-async-wiring.ts",
+      "expected": 5,
+      "returned": 0,
+      "missing": 5,
+      "named": true,
+      "routeSpecifier": "@markless/serializer/async-boundary-arm",
+      "namesRouteSpecifier": true,
+      "namedBy": [
+       {
+        "reason": "external-module-boundary",
+        "detail": "Import '@markless/runtime' leaves the linked file set."
+       },
+       {
+        "reason": "external-module-boundary",
+        "detail": "Import '@markless/runtime' leaves the linked file set."
+       }
+      ]
+     },
+     {
+      "file": "packages/web/src/ssr-data/renderer.ts",
+      "expected": 4,
+      "returned": 0,
+      "missing": 4,
+      "named": false,
+      "routeSpecifier": "@markless/serializer",
+      "namesRouteSpecifier": false,
+      "namedBy": []
+     },
+     {
+      "file": "packages/web/test/commit-arm.test.ts",
+      "expected": 2,
+      "returned": 0,
+      "missing": 2,
+      "named": true,
+      "routeSpecifier": "@markless/serializer",
+      "namesRouteSpecifier": true,
+      "namedBy": [
+       {
+        "reason": "external-module-boundary",
+        "detail": "Import '@markless/serializer' leaves the linked file set."
+       },
+       {
+        "reason": "unlinked-input",
+        "detail": "Import 'vitest' did not resolve, but names a supplied input; the link between these files could not be established."
+       }
+      ]
+     },
+     {
+      "file": "packages/web/test/render-to-stream.test.ts",
+      "expected": 9,
+      "returned": 0,
+      "missing": 9,
+      "named": true,
+      "routeSpecifier": "@markless/serializer",
+      "namesRouteSpecifier": false,
+      "namedBy": [
+       {
+        "reason": "unlinked-input",
+        "detail": "Import 'vitest' did not resolve, but names a supplied input; the link between these files could not be established."
+       },
+       {
+        "reason": "unlinked-input",
+        "detail": "Import 'vitest' did not resolve, but names a supplied input; the link between these files could not be established."
+       }
+      ]
+     },
+     {
+      "file": "packages/web/test/render.test.ts",
+      "expected": 2,
+      "returned": 0,
+      "missing": 2,
+      "named": true,
+      "routeSpecifier": "@markless/serializer",
+      "namesRouteSpecifier": true,
+      "namedBy": [
+       {
+        "reason": "external-module-boundary",
+        "detail": "Import '@markless/serializer' leaves the linked file set."
+       },
+       {
+        "reason": "external-module-boundary",
+        "detail": "Import '@markless/serializer' leaves the linked file set."
+       }
+      ]
+     },
+     {
+      "file": "packages/web/test/resettle-hold-timing.test.ts",
+      "expected": 2,
+      "returned": 0,
+      "missing": 2,
+      "named": true,
+      "routeSpecifier": "@markless/serializer",
+      "namesRouteSpecifier": true,
+      "namedBy": [
+       {
+        "reason": "external-module-boundary",
+        "detail": "Import '@markless/serializer' leaves the linked file set."
+       },
+       {
+        "reason": "unlinked-input",
+        "detail": "Import 'vitest' did not resolve, but names a supplied input; the link between these files could not be established."
+       }
+      ]
+     },
+     {
+      "file": "packages/web/test/resume-stream-patches.test.ts",
+      "expected": 6,
+      "returned": 0,
+      "missing": 6,
+      "named": true,
+      "routeSpecifier": "@markless/serializer",
+      "namesRouteSpecifier": true,
+      "namedBy": [
+       {
+        "reason": "external-module-boundary",
+        "detail": "Import '@markless/serializer' leaves the linked file set."
+       },
+       {
+        "reason": "external-module-boundary",
+        "detail": "Import '@markless/serializer' leaves the linked file set."
+       }
+      ]
+     },
+     {
+      "file": "packages/web/test/resume.test.ts",
+      "expected": 4,
+      "returned": 0,
+      "missing": 4,
+      "named": true,
+      "routeSpecifier": "@markless/serializer",
+      "namesRouteSpecifier": true,
+      "namedBy": [
+       {
+        "reason": "unresolved-symbol",
+        "detail": "Module '../src/index.ts' has no export 'DomJournalEntry'"
+       },
+       {
+        "reason": "unresolved-specifier",
+        "detail": "Import '../src/index.ts?pre-connect-branch-flip' leaves the linked file set."
+       }
+      ]
+     },
+     {
+      "file": "packages/web/test/settle-tracker-timing.test.ts",
+      "expected": 5,
+      "returned": 0,
+      "missing": 5,
+      "named": true,
+      "routeSpecifier": "@markless/serializer",
+      "namesRouteSpecifier": true,
+      "namedBy": [
+       {
+        "reason": "external-module-boundary",
+        "detail": "Import '@markless/serializer' leaves the linked file set."
+       },
+       {
+        "reason": "unlinked-input",
+        "detail": "Import 'vitest' did not resolve, but names a supplied input; the link between these files could not be established."
+       }
+      ]
+     },
+     {
+      "file": "packages/web/test/ssr-boundary-fields.test.ts",
+      "expected": 8,
+      "returned": 0,
+      "missing": 8,
+      "named": true,
+      "routeSpecifier": "@markless/serializer",
+      "namesRouteSpecifier": true,
+      "namedBy": [
+       {
+        "reason": "external-module-boundary",
+        "detail": "Import '@markless/serializer' leaves the linked file set."
+       },
+       {
+        "reason": "unlinked-input",
+        "detail": "Import 'vitest' did not resolve, but names a supplied input; the link between these files could not be established."
+       }
+      ]
+     },
+     {
+      "file": "packages/web/test/ssr-data/renderer.test.ts",
+      "expected": 3,
+      "returned": 0,
+      "missing": 3,
+      "named": true,
+      "routeSpecifier": "@markless/serializer",
+      "namesRouteSpecifier": false,
+      "namedBy": [
+       {
+        "reason": "unlinked-input",
+        "detail": "Import 'vitest' did not resolve, but names a supplied input; the link between these files could not be established."
+       },
+       {
+        "reason": "unlinked-input",
+        "detail": "Import 'vitest' did not resolve, but names a supplied input; the link between these files could not be established."
+       }
+      ]
+     }
+    ],
+    "silentlyMissedFiles": [
+     "packages/compiler/src/passes/render-data/index.ts",
+     "packages/web/src/fns/ssr.ts",
+     "packages/web/src/render-to-stream.ts",
+     "packages/web/src/ssr-data/renderer.ts"
+    ],
+    "silentlyMissedSites": 15,
+    "missedSites": 71,
+    "missedSitesNamedByRouteSpecifier": 36,
+    "missedSitesNamedOnlyIncidentally": 20
+   },
+   "serializerScope": {
+    "coverage": [
+     {
+      "file": "packages/serializer/src/protocol-validation.ts",
+      "expected": 2,
+      "returned": 2
+     },
+     {
+      "file": "packages/serializer/src/protocol.ts",
+      "expected": 4,
+      "returned": 4
+     },
+     {
+      "file": "packages/serializer/test/module-split.test.ts",
+      "expected": 4,
+      "returned": 4
+     },
+     {
+      "file": "packages/serializer/test/protocol.test.ts",
+      "expected": 6,
+      "returned": 6
+     }
+    ],
+    "expected": 16,
+    "returned": 16,
+    "sealed": "hand audit agrees with the sealed 6 q03 sites; engine returned 6/6 in packages/serializer/src/"
+   },
+   "checks": {
+    "P1": true,
+    "P2": false,
+    "P3": true,
+    "P4": false
+   }
+  }
+ }
+}

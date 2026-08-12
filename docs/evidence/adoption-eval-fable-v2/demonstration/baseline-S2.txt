@@ -1,0 +1,112 @@
+packages/compiler/src/passes/render-data/index.ts:1:import { ASYNC_BOUNDARY_ARM } from '@markless/serializer/protocol';
+packages/compiler/src/passes/render-data/index.ts:48:				initiallyServedArm: ASYNC_BOUNDARY_ARM.pending,
+packages/compiler/test/boundary-runner-agreement.test.ts:2:import { ASYNC_BOUNDARY_ARM } from '@markless/serializer';
+packages/compiler/test/boundary-runner-agreement.test.ts:68:		initiallyServedArm: ASYNC_BOUNDARY_ARM.pending,
+packages/compiler/test/compile-module.test.ts:4:	ASYNC_BOUNDARY_ARM,
+packages/compiler/test/compile-module.test.ts:5305:			initiallyServedArm: ASYNC_BOUNDARY_ARM.try,
+packages/compiler/test/payload-arena.test.ts:228:			initiallyServedArm: ASYNC_BOUNDARY_ARM.pending,
+packages/compiler/test/payload-arena.test.ts:2:import { ASYNC_BOUNDARY_ARM } from '@markless/serializer';
+packages/compiler/test/protocol-view.test.ts:258:			initiallyServedArm: ASYNC_BOUNDARY_ARM.pending,
+packages/compiler/test/protocol-view.test.ts:2:import { ASYNC_BOUNDARY_ARM } from '@markless/serializer';
+packages/compiler/test/render-data/render-data.test.ts:2:import { ASYNC_BOUNDARY_ARM } from '@markless/serializer/protocol';
+packages/compiler/test/render-data/render-data.test.ts:67:			initiallyServedArm: ASYNC_BOUNDARY_ARM.pending,
+packages/router/boxes/router-streaming-settle.box.ts:356:						? ASYNC_BOUNDARY_ARM.try
+packages/router/boxes/router-streaming-settle.box.ts:357:						: ASYNC_BOUNDARY_ARM.pending,
+packages/router/boxes/router-streaming-settle.box.ts:3:import { ASYNC_BOUNDARY_ARM, ASYNC_PROTOCOL_VERSION } from '../../serializer/src/index.ts';
+packages/router/test/vite/runtime/create-server-entry.test.ts:3:import { ASYNC_BOUNDARY_ARM } from '../../../../serializer/src/index.ts';
+packages/router/test/vite/runtime/create-server-entry.test.ts:820:									? ASYNC_BOUNDARY_ARM.try
+packages/router/test/vite/runtime/create-server-entry.test.ts:822:										? ASYNC_BOUNDARY_ARM.catch
+packages/router/test/vite/runtime/create-server-entry.test.ts:823:										: ASYNC_BOUNDARY_ARM.pending,
+packages/serializer/src/async-boundary-arm.ts:7:export const ASYNC_BOUNDARY_ARM = {
+packages/serializer/src/protocol-validation.ts:2:	ASYNC_BOUNDARY_ARM,
+packages/serializer/src/protocol-validation.ts:301:	if (!Object.values(ASYNC_BOUNDARY_ARM).includes(value as never)) {
+packages/serializer/src/protocol.ts:1:import { ASYNC_BOUNDARY_ARM } from './async-boundary-arm.ts';
+packages/serializer/src/protocol.ts:4:export { ASYNC_BOUNDARY_ARM, ASYNC_PROTOCOL_VERSION, STORAGE_PROTOCOL_VERSION };
+packages/serializer/src/protocol.ts:6:export type ProtocolAsyncBoundaryArm = (typeof ASYNC_BOUNDARY_ARM)[keyof typeof ASYNC_BOUNDARY_ARM];
+packages/serializer/test/module-split.test.ts:180:					initiallyServedArm: ASYNC_BOUNDARY_ARM.pending,
+packages/serializer/test/module-split.test.ts:189:		initiallyServedArm: ASYNC_BOUNDARY_ARM.pending,
+packages/serializer/test/module-split.test.ts:204:				`"initiallyServedArm":${String(ASYNC_BOUNDARY_ARM.pending)}`,
+packages/serializer/test/module-split.test.ts:4:	ASYNC_BOUNDARY_ARM,
+packages/serializer/test/protocol.test.ts:154:		initiallyServedArm: ASYNC_BOUNDARY_ARM.pending,
+packages/serializer/test/protocol.test.ts:16:		ASYNC_BOUNDARY_ARM.try,
+packages/serializer/test/protocol.test.ts:190:		initiallyServedArm: ASYNC_BOUNDARY_ARM.pending,
+packages/serializer/test/protocol.test.ts:195:	['missing runnerGraphNodeId', { initiallyServedArm: ASYNC_BOUNDARY_ARM.pending }],
+packages/serializer/test/protocol.test.ts:198:		{ runnerGraphNodeId: 7, initiallyServedArm: ASYNC_BOUNDARY_ARM.pending },
+packages/serializer/test/protocol.test.ts:3:	ASYNC_BOUNDARY_ARM,
+packages/vitest-browser/browser/stream-arm-executor.test.ts:124:						? ASYNC_BOUNDARY_ARM.try
+packages/vitest-browser/browser/stream-arm-executor.test.ts:126:							? ASYNC_BOUNDARY_ARM.catch
+packages/vitest-browser/browser/stream-arm-executor.test.ts:127:							: ASYNC_BOUNDARY_ARM.pending,
+packages/vitest-browser/browser/stream-arm-executor.test.ts:4:import { ASYNC_BOUNDARY_ARM, ASYNC_PROTOCOL_VERSION } from '../../serializer/src/index.ts';
+packages/vitest-browser/browser/stream-arm-executor.test.ts:56:									? ASYNC_BOUNDARY_ARM.try
+packages/vitest-browser/browser/stream-arm-executor.test.ts:58:										? ASYNC_BOUNDARY_ARM.catch
+packages/vitest-browser/browser/stream-arm-executor.test.ts:59:										: ASYNC_BOUNDARY_ARM.pending,
+packages/web/src/fns/ssr.ts:23:import { ASYNC_BOUNDARY_ARM } from '@markless/serializer';
+packages/web/src/fns/ssr.ts:513:		? ASYNC_BOUNDARY_ARM.try
+packages/web/src/fns/ssr.ts:515:			? ASYNC_BOUNDARY_ARM.catch
+packages/web/src/fns/ssr.ts:516:			: ASYNC_BOUNDARY_ARM.pending;
+packages/web/src/fns/ssr.ts:811:				? ASYNC_BOUNDARY_ARM.try
+packages/web/src/fns/ssr.ts:813:					? ASYNC_BOUNDARY_ARM.catch
+packages/web/src/fns/ssr.ts:814:					: ASYNC_BOUNDARY_ARM.pending;
+packages/web/src/prerender/adopt-filled-arms.ts:2:import { ASYNC_BOUNDARY_ARM } from '@markless/serializer';
+packages/web/src/prerender/adopt-filled-arms.ts:48:			initiallyServedArm: ASYNC_BOUNDARY_ARM.try,
+packages/web/src/render-to-stream.ts:147:		return graphNodeId && entry && boundary.initiallyServedArm === ASYNC_BOUNDARY_ARM.pending
+packages/web/src/render-to-stream.ts:2:	ASYNC_BOUNDARY_ARM,
+packages/web/src/resume-async-wiring.ts:253:					status === 'rejected' ? ASYNC_BOUNDARY_ARM.catch : ASYNC_BOUNDARY_ARM.try
+packages/web/src/resume-async-wiring.ts:2:import { ASYNC_BOUNDARY_ARM } from '@markless/serializer/async-boundary-arm';
+packages/web/src/resume-async-wiring.ts:57:			boundary.initiallyServedArm === ASYNC_BOUNDARY_ARM.try ||
+packages/web/src/resume-async-wiring.ts:58:				boundary.initiallyServedArm === ASYNC_BOUNDARY_ARM.catch,
+packages/web/src/ssr-data/renderer.ts:2:	ASYNC_BOUNDARY_ARM,
+packages/web/src/ssr-data/renderer.ts:512:	if (arm === ASYNC_BOUNDARY_ARM.try) return chunks.try;
+packages/web/src/ssr-data/renderer.ts:513:	if (arm === ASYNC_BOUNDARY_ARM.pending) return chunks.pending;
+packages/web/src/ssr-data/renderer.ts:514:	if (arm === ASYNC_BOUNDARY_ARM.catch) return chunks.catch;
+packages/web/test/commit-arm.test.ts:2:import { ASYNC_BOUNDARY_ARM } from '@markless/serializer';
+packages/web/test/commit-arm.test.ts:85:		initiallyServedArm: ASYNC_BOUNDARY_ARM.pending,
+packages/web/test/debug-channel-registration.test.ts:185:								? ASYNC_BOUNDARY_ARM.try
+packages/web/test/debug-channel-registration.test.ts:186:								: ASYNC_BOUNDARY_ARM.pending,
+packages/web/test/debug-channel-registration.test.ts:4:	ASYNC_BOUNDARY_ARM,
+packages/web/test/payload-scripts.test.ts:1137:			viewScript: `<script type="markless/view">{"version":1,"locators":[],"events":[],"domUpdates":[],"behaviors":[],"elementHandles":[],"asyncBoundaries":[{"id":"boundary:0","runnerGraphNodeId":null,"initiallyServedArm":${ASYNC_BOUNDARY_ARM.pending},"startAnchor":{"strategy":"dom-order-comment","index":0.5},"endAnchor":{"strategy":"dom-order-comment","index":1},"asyncReads":[]}]}</script>`,
+packages/web/test/payload-scripts.test.ts:2055:	const view = `{"version":1,"locators":[{"hostNodeId":"h0","strategy":"dom-order","index":0,"tagName":"main"}],"events":[],"domUpdates":[],"behaviors":[],"elementHandles":[],"asyncBoundaries":[{"id":"boundary:0","runnerGraphNodeId":"computed:details","initiallyServedArm":${ASYNC_BOUNDARY_ARM.pending},"updateSymbolId":"symbol:boundary-update","startAnchor":{"strategy":"dom-order-comment","index":0},"endAnchor":{"strategy":"dom-order-comment","index":1},"asyncReads":[{"source":"details","graphNodeId":"computed:details","path":[],"runnerSymbolId":"symbol:details-runner"}]}]}`;
+packages/web/test/payload-scripts.test.ts:2194:						initiallyServedArm: ASYNC_BOUNDARY_ARM.pending,
+packages/web/test/payload-scripts.test.ts:3:	ASYNC_BOUNDARY_ARM,
+packages/web/test/payload-scripts.test.ts:594:				initiallyServedArm: ASYNC_BOUNDARY_ARM.pending,
+packages/web/test/payload-scripts.test.ts:699:				initiallyServedArm: ASYNC_BOUNDARY_ARM.try,
+packages/web/test/payload-scripts.test.ts:793:				initiallyServedArm: ASYNC_BOUNDARY_ARM.pending,
+packages/web/test/render-to-stream.test.ts:127:									? ASYNC_BOUNDARY_ARM.try
+packages/web/test/render-to-stream.test.ts:129:										? ASYNC_BOUNDARY_ARM.catch
+packages/web/test/render-to-stream.test.ts:130:										: ASYNC_BOUNDARY_ARM.pending,
+packages/web/test/render-to-stream.test.ts:2:	ASYNC_BOUNDARY_ARM,
+packages/web/test/render-to-stream.test.ts:320:						? ASYNC_BOUNDARY_ARM.try
+packages/web/test/render-to-stream.test.ts:322:							? ASYNC_BOUNDARY_ARM.catch
+packages/web/test/render-to-stream.test.ts:323:							: ASYNC_BOUNDARY_ARM.pending,
+packages/web/test/render-to-stream.test.ts:760:							initiallyServedArm: ASYNC_BOUNDARY_ARM.try,
+packages/web/test/render-to-stream.test.ts:781:							initiallyServedArm: ASYNC_BOUNDARY_ARM.pending,
+packages/web/test/render.test.ts:2845:						initiallyServedArm: ASYNC_BOUNDARY_ARM.try,
+packages/web/test/render.test.ts:2:	ASYNC_BOUNDARY_ARM,
+packages/web/test/resettle-hold-timing.test.ts:2:import { ASYNC_BOUNDARY_ARM } from '@markless/serializer';
+packages/web/test/resettle-hold-timing.test.ts:32:		initiallyServedArm: ASYNC_BOUNDARY_ARM.try,
+packages/web/test/resume-stream-patches.test.ts:122:	expect(adopted.view.asyncBoundaries[0]?.initiallyServedArm).toBe(ASYNC_BOUNDARY_ARM.try);
+packages/web/test/resume-stream-patches.test.ts:148:				JSON.stringify([ASYNC_BOUNDARY_ARM.try, settledRecords]),
+packages/web/test/resume-stream-patches.test.ts:188:				JSON.stringify([ASYNC_BOUNDARY_ARM.try, { locators: [] }]),
+packages/web/test/resume-stream-patches.test.ts:1:import { ASYNC_BOUNDARY_ARM, ASYNC_PROTOCOL_VERSION } from '@markless/serializer';
+packages/web/test/resume-stream-patches.test.ts:50:				initiallyServedArm: ASYNC_BOUNDARY_ARM.pending,
+packages/web/test/resume-stream-patches.test.ts:71:				JSON.stringify([ASYNC_BOUNDARY_ARM.try, settledRecords]),
+packages/web/test/resume.test.ts:2452:					initiallyServedArm: ASYNC_BOUNDARY_ARM.pending,
+packages/web/test/resume.test.ts:2482:		initiallyServedArm: ASYNC_BOUNDARY_ARM.pending,
+packages/web/test/resume.test.ts:3:import { ASYNC_BOUNDARY_ARM, createProtocolStatePayload } from '@markless/serializer';
+packages/web/test/resume.test.ts:4718:			initiallyServedArm: ASYNC_BOUNDARY_ARM.pending,
+packages/web/test/settle-tracker-timing.test.ts:22:	initiallyServedArm = ASYNC_BOUNDARY_ARM.pending,
+packages/web/test/settle-tracker-timing.test.ts:293:		ASYNC_BOUNDARY_ARM.try,
+packages/web/test/settle-tracker-timing.test.ts:2:import { ASYNC_BOUNDARY_ARM } from '@markless/serializer';
+packages/web/test/settle-tracker-timing.test.ts:60:			boundaryRecord('done', undefined, ASYNC_BOUNDARY_ARM.try),
+packages/web/test/settle-tracker-timing.test.ts:61:			boundaryRecord('failed', undefined, ASYNC_BOUNDARY_ARM.catch),
+packages/web/test/ssr-boundary-fields.test.ts:146:					initiallyServedArm: ASYNC_BOUNDARY_ARM.pending,
+packages/web/test/ssr-boundary-fields.test.ts:16:			initiallyServedArm: ASYNC_BOUNDARY_ARM.pending,
+packages/web/test/ssr-boundary-fields.test.ts:1:import { ASYNC_BOUNDARY_ARM } from '@markless/serializer';
+packages/web/test/ssr-boundary-fields.test.ts:7:	['fulfilled', ASYNC_BOUNDARY_ARM.try, 'try'],
+packages/web/test/ssr-boundary-fields.test.ts:81:				initiallyServedArm: ASYNC_BOUNDARY_ARM.pending,
+packages/web/test/ssr-boundary-fields.test.ts:8:	['pending', ASYNC_BOUNDARY_ARM.pending, 'pending'],
+packages/web/test/ssr-boundary-fields.test.ts:99:	expect(armized.initiallyServedArm).toBe(ASYNC_BOUNDARY_ARM.try);
+packages/web/test/ssr-boundary-fields.test.ts:9:	['rejected', ASYNC_BOUNDARY_ARM.catch, 'catch'],
+packages/web/test/ssr-data/renderer.test.ts:101:					initiallyServedArm: ASYNC_BOUNDARY_ARM.catch,
+packages/web/test/ssr-data/renderer.test.ts:1:import { ASYNC_BOUNDARY_ARM, ASYNC_PROTOCOL_VERSION } from '@markless/serializer';
+packages/web/test/ssr-data/renderer.test.ts:90:					initiallyServedArm: ASYNC_BOUNDARY_ARM.pending,

@@ -1,0 +1,381 @@
+{
+ "schema": "guessless.demonstration.ground-truth/v1",
+ "symbol": "deserializeGraphValue",
+ "symbolId": "S1",
+ "corpus": {
+  "repo": "/Users/jacksm5pro/dev/open-source/markless",
+  "commit": "931f054444a41c0527dfa77f812fa49e87df3b8f",
+  "inputFiles": 635,
+  "inputList": "input-files.txt"
+ },
+ "declaration": {
+  "file": "packages/serializer/src/value-decode.ts",
+  "line": 5
+ },
+ "decoyDeclaration": {
+  "file": "packages/web/src/payload-graph-construct.ts",
+  "line": 148
+ },
+ "method": "Occurrences enumerated mechanically over the committed input set; each hit file classified by hand from its imports/declarations (route recorded per site). Declaration occurrences are marked *-declaration and are not reference sites.",
+ "baseline": {
+  "command": "grep -rnw 'deserializeGraphValue' packages | LC_ALL=C sort",
+  "tool": "grep -rnw (word-boundary equivalent of the rg pattern)",
+  "cwd": "a read-only extract of the input set at the audited commit",
+  "hitLines": 37,
+  "hitList": "baseline-S1.txt"
+ },
+ "counts": {
+  "occurrences": 37,
+  "targetReferenceSites": 31,
+  "targetDeclarationSites": 1,
+  "decoySites": 5,
+  "baselineTrueHits": 32,
+  "baselineDecoyHits": 5
+ },
+ "targetSitesByFile": {
+  "packages/compiler/src/passes/public-render/shared.ts": 2,
+  "packages/compiler/src/passes/public-render/state-entries.ts": 2,
+  "packages/compiler/test/compile-module.test.ts": 5,
+  "packages/serializer/src/value.ts": 1,
+  "packages/serializer/test/module-split.test.ts": 2,
+  "packages/serializer/test/payload-scripts.test.ts": 2,
+  "packages/serializer/test/protocol-state.test.ts": 7,
+  "packages/serializer/test/serializer.test.ts": 6,
+  "packages/serializer/test/value-correctness.test.ts": 4
+ },
+ "sites": [
+  {
+   "file": "packages/compiler/src/passes/public-render/shared.ts",
+   "line": 2,
+   "column": 10,
+   "class": "target",
+   "binding": "value-decode.ts#deserializeGraphValue",
+   "route": "'@markless/serializer' -> packages/serializer/package.json exports '.' -> src/index.ts -> 'export * from ./value.ts' -> 'export { deserializeGraphValue } from ./value-decode.ts'",
+   "text": "import { deserializeGraphValue, type SerializedGraphPayload } from '@markless/serializer';"
+  },
+  {
+   "file": "packages/compiler/src/passes/public-render/shared.ts",
+   "line": 376,
+   "column": 17,
+   "class": "target",
+   "binding": "value-decode.ts#deserializeGraphValue",
+   "route": "'@markless/serializer' -> packages/serializer/package.json exports '.' -> src/index.ts -> 'export * from ./value.ts' -> 'export { deserializeGraphValue } from ./value-decode.ts'",
+   "text": "const value = deserializeGraphValue(cell.value as SerializedGraphPayload);"
+  },
+  {
+   "file": "packages/compiler/src/passes/public-render/state-entries.ts",
+   "line": 1,
+   "column": 10,
+   "class": "target",
+   "binding": "value-decode.ts#deserializeGraphValue",
+   "route": "'@markless/serializer' -> src/index.ts -> value.ts -> value-decode.ts",
+   "text": "import { deserializeGraphValue } from '@markless/serializer';"
+  },
+  {
+   "file": "packages/compiler/src/passes/public-render/state-entries.ts",
+   "line": 16,
+   "column": 7,
+   "class": "target",
+   "binding": "value-decode.ts#deserializeGraphValue",
+   "route": "'@markless/serializer' -> src/index.ts -> value.ts -> value-decode.ts",
+   "text": ": deserializeGraphValue(cell.value as SerializedGraphPayload);"
+  },
+  {
+   "file": "packages/compiler/test/compile-module.test.ts",
+   "line": 5,
+   "column": 2,
+   "class": "target",
+   "binding": "value-decode.ts#deserializeGraphValue",
+   "route": "'../../serializer/src/index.ts' -> value.ts -> value-decode.ts",
+   "text": "deserializeGraphValue,"
+  },
+  {
+   "file": "packages/compiler/test/compile-module.test.ts",
+   "line": 591,
+   "column": 9,
+   "class": "target",
+   "binding": "value-decode.ts#deserializeGraphValue",
+   "route": "'../../serializer/src/index.ts' -> value.ts -> value-decode.ts",
+   "text": "return deserializeGraphValue(cell!.value!);"
+  },
+  {
+   "file": "packages/compiler/test/compile-module.test.ts",
+   "line": 851,
+   "column": 9,
+   "class": "target",
+   "binding": "value-decode.ts#deserializeGraphValue",
+   "route": "'../../serializer/src/index.ts' -> value.ts -> value-decode.ts",
+   "text": "expect(deserializeGraphValue(countCell!.value!)).toBe(1);"
+  },
+  {
+   "file": "packages/compiler/test/compile-module.test.ts",
+   "line": 853,
+   "column": 9,
+   "class": "target",
+   "binding": "value-decode.ts#deserializeGraphValue",
+   "route": "'../../serializer/src/index.ts' -> value.ts -> value-decode.ts",
+   "text": "expect(deserializeGraphValue(menuCell!.value!)).toEqual({ open: true, title: 'Menu' });"
+  },
+  {
+   "file": "packages/compiler/test/compile-module.test.ts",
+   "line": 4450,
+   "column": 9,
+   "class": "target",
+   "binding": "value-decode.ts#deserializeGraphValue",
+   "route": "'../../serializer/src/index.ts' -> value.ts -> value-decode.ts",
+   "text": "expect(deserializeGraphValue(countCell!.value!)).toBe(0);"
+  },
+  {
+   "file": "packages/serializer/src/value-decode.ts",
+   "line": 5,
+   "column": 17,
+   "class": "target-declaration",
+   "binding": "value-decode.ts#deserializeGraphValue",
+   "route": "declaring module",
+   "text": "export function deserializeGraphValue(payload: SerializedGraphPayload): unknown {"
+  },
+  {
+   "file": "packages/serializer/src/value.ts",
+   "line": 120,
+   "column": 10,
+   "class": "target",
+   "binding": "value-decode.ts#deserializeGraphValue",
+   "route": "re-export specifier -> './value-decode.ts'",
+   "text": "export { deserializeGraphValue } from './value-decode.ts';"
+  },
+  {
+   "file": "packages/serializer/test/module-split.test.ts",
+   "line": 16,
+   "column": 10,
+   "class": "target",
+   "binding": "value-decode.ts#deserializeGraphValue",
+   "route": "'../src/value-decode.ts' (direct)",
+   "text": "import { deserializeGraphValue } from '../src/value-decode.ts';"
+  },
+  {
+   "file": "packages/serializer/test/module-split.test.ts",
+   "line": 21,
+   "column": 16,
+   "class": "target",
+   "binding": "value-decode.ts#deserializeGraphValue",
+   "route": "'../src/value-decode.ts' (direct)",
+   "text": "expect(typeof deserializeGraphValue).toBe('function');"
+  },
+  {
+   "file": "packages/serializer/test/payload-scripts.test.ts",
+   "line": 5,
+   "column": 2,
+   "class": "target",
+   "binding": "value-decode.ts#deserializeGraphValue",
+   "route": "'../src/index.ts' -> value.ts -> value-decode.ts",
+   "text": "deserializeGraphValue,"
+  },
+  {
+   "file": "packages/serializer/test/payload-scripts.test.ts",
+   "line": 46,
+   "column": 22,
+   "class": "target",
+   "binding": "value-decode.ts#deserializeGraphValue",
+   "route": "'../src/index.ts' -> value.ts -> value-decode.ts",
+   "text": "const decodedMenu = deserializeGraphValue(scripts.state.cells[0].value!) as {"
+  },
+  {
+   "file": "packages/serializer/test/protocol-state.test.ts",
+   "line": 4,
+   "column": 2,
+   "class": "target",
+   "binding": "value-decode.ts#deserializeGraphValue",
+   "route": "'../src/index.ts' -> value.ts -> value-decode.ts",
+   "text": "deserializeGraphValue,"
+  },
+  {
+   "file": "packages/serializer/test/protocol-state.test.ts",
+   "line": 36,
+   "column": 9,
+   "class": "target",
+   "binding": "value-decode.ts#deserializeGraphValue",
+   "route": "'../src/index.ts' -> value.ts -> value-decode.ts",
+   "text": "expect(deserializeGraphValue(snapshot.key)).toBe('ada');"
+  },
+  {
+   "file": "packages/serializer/test/protocol-state.test.ts",
+   "line": 37,
+   "column": 9,
+   "class": "target",
+   "binding": "value-decode.ts#deserializeGraphValue",
+   "route": "'../src/index.ts' -> value.ts -> value-decode.ts",
+   "text": "expect(deserializeGraphValue(snapshot.value)).toEqual({ title: 'User ada' });"
+  },
+  {
+   "file": "packages/serializer/test/protocol-state.test.ts",
+   "line": 71,
+   "column": 9,
+   "class": "target",
+   "binding": "value-decode.ts#deserializeGraphValue",
+   "route": "'../src/index.ts' -> value.ts -> value-decode.ts",
+   "text": "expect(deserializeGraphValue(payload.cells[0]?.value as never)).toBe('light');"
+  },
+  {
+   "file": "packages/serializer/test/protocol-state.test.ts",
+   "line": 148,
+   "column": 9,
+   "class": "target",
+   "binding": "value-decode.ts#deserializeGraphValue",
+   "route": "'../src/index.ts' -> value.ts -> value-decode.ts",
+   "text": "expect(deserializeGraphValue(propCell.value as never)).toEqual({"
+  },
+  {
+   "file": "packages/serializer/test/protocol-state.test.ts",
+   "line": 160,
+   "column": 9,
+   "class": "target",
+   "binding": "value-decode.ts#deserializeGraphValue",
+   "route": "'../src/index.ts' -> value.ts -> value-decode.ts",
+   "text": "expect(deserializeGraphValue((cells[0] as { value: never }).value)).toEqual({ owner: 'ada' });"
+  },
+  {
+   "file": "packages/serializer/test/protocol-state.test.ts",
+   "line": 205,
+   "column": 9,
+   "class": "target",
+   "binding": "value-decode.ts#deserializeGraphValue",
+   "route": "'../src/index.ts' -> value.ts -> value-decode.ts",
+   "text": "expect(deserializeGraphValue(snapshot?.error as never)).toEqual({"
+  },
+  {
+   "file": "packages/serializer/test/serializer.test.ts",
+   "line": 2,
+   "column": 10,
+   "class": "target",
+   "binding": "value-decode.ts#deserializeGraphValue",
+   "route": "'../src/index.ts' -> value.ts -> value-decode.ts",
+   "text": "import { deserializeGraphValue, serializeGraphValue } from '../src/index.ts';"
+  },
+  {
+   "file": "packages/serializer/test/serializer.test.ts",
+   "line": 23,
+   "column": 18,
+   "class": "target",
+   "binding": "value-decode.ts#deserializeGraphValue",
+   "route": "'../src/index.ts' -> value.ts -> value-decode.ts",
+   "text": "const decoded = deserializeGraphValue(result.payload) as typeof value;"
+  },
+  {
+   "file": "packages/serializer/test/serializer.test.ts",
+   "line": 49,
+   "column": 18,
+   "class": "target",
+   "binding": "value-decode.ts#deserializeGraphValue",
+   "route": "'../src/index.ts' -> value.ts -> value-decode.ts",
+   "text": "const decoded = deserializeGraphValue(result.payload) as typeof value;"
+  },
+  {
+   "file": "packages/serializer/test/serializer.test.ts",
+   "line": 73,
+   "column": 18,
+   "class": "target",
+   "binding": "value-decode.ts#deserializeGraphValue",
+   "route": "'../src/index.ts' -> value.ts -> value-decode.ts",
+   "text": "const decoded = deserializeGraphValue(result.payload) as typeof value;"
+  },
+  {
+   "file": "packages/serializer/test/serializer.test.ts",
+   "line": 97,
+   "column": 18,
+   "class": "target",
+   "binding": "value-decode.ts#deserializeGraphValue",
+   "route": "'../src/index.ts' -> value.ts -> value-decode.ts",
+   "text": "const decoded = deserializeGraphValue(result.payload) as typeof value;"
+  },
+  {
+   "file": "packages/serializer/test/serializer.test.ts",
+   "line": 126,
+   "column": 18,
+   "class": "target",
+   "binding": "value-decode.ts#deserializeGraphValue",
+   "route": "'../src/index.ts' -> value.ts -> value-decode.ts",
+   "text": "const decoded = deserializeGraphValue(result.payload) as typeof value;"
+  },
+  {
+   "file": "packages/serializer/test/value-correctness.test.ts",
+   "line": 2,
+   "column": 10,
+   "class": "target",
+   "binding": "value-decode.ts#deserializeGraphValue",
+   "route": "'../src/index.ts' -> value.ts -> value-decode.ts",
+   "text": "import { deserializeGraphValue, serializeGraphValue } from '../src/index.ts';"
+  },
+  {
+   "file": "packages/serializer/test/value-correctness.test.ts",
+   "line": 39,
+   "column": 9,
+   "class": "target",
+   "binding": "value-decode.ts#deserializeGraphValue",
+   "route": "'../src/index.ts' -> value.ts -> value-decode.ts",
+   "text": "expect(deserializeGraphValue(result.payload)).toEqual(value);"
+  },
+  {
+   "file": "packages/serializer/test/value-correctness.test.ts",
+   "line": 56,
+   "column": 18,
+   "class": "target",
+   "binding": "value-decode.ts#deserializeGraphValue",
+   "route": "'../src/index.ts' -> value.ts -> value-decode.ts",
+   "text": "const decoded = deserializeGraphValue(result.payload) as typeof value;"
+  },
+  {
+   "file": "packages/serializer/test/value-correctness.test.ts",
+   "line": 107,
+   "column": 18,
+   "class": "target",
+   "binding": "value-decode.ts#deserializeGraphValue",
+   "route": "'../src/index.ts' -> value.ts -> value-decode.ts",
+   "text": "const decoded = deserializeGraphValue(result.payload) as typeof supported;"
+  },
+  {
+   "file": "packages/web/src/payload-graph-construct.ts",
+   "line": 68,
+   "column": 16,
+   "class": "decoy",
+   "binding": "payload-graph-construct.ts#deserializeGraphValue (module-local async function)",
+   "route": "declared in this module; never imported from the serializer",
+   "text": ": await deserializeGraphValue(cell.value as SerializedGraphPayload),"
+  },
+  {
+   "file": "packages/web/src/payload-graph-construct.ts",
+   "line": 134,
+   "column": 14,
+   "class": "decoy",
+   "binding": "payload-graph-construct.ts#deserializeGraphValue (module-local async function)",
+   "route": "declared in this module; never imported from the serializer",
+   "text": "key: await deserializeGraphValue(snapshot.key as SerializedGraphPayload),"
+  },
+  {
+   "file": "packages/web/src/payload-graph-construct.ts",
+   "line": 137,
+   "column": 25,
+   "class": "decoy",
+   "binding": "payload-graph-construct.ts#deserializeGraphValue (module-local async function)",
+   "route": "declared in this module; never imported from the serializer",
+   "text": "decoded.value = await deserializeGraphValue(snapshot.value as SerializedGraphPayload);"
+  },
+  {
+   "file": "packages/web/src/payload-graph-construct.ts",
+   "line": 139,
+   "column": 25,
+   "class": "decoy",
+   "binding": "payload-graph-construct.ts#deserializeGraphValue (module-local async function)",
+   "route": "declared in this module; never imported from the serializer",
+   "text": "decoded.error = await deserializeGraphValue(snapshot.error as SerializedGraphPayload);"
+  },
+  {
+   "file": "packages/web/src/payload-graph-construct.ts",
+   "line": 148,
+   "column": 16,
+   "class": "decoy-declaration",
+   "binding": "payload-graph-construct.ts#deserializeGraphValue (module-local async function)",
+   "route": "declared in this module; never imported from the serializer",
+   "text": "async function deserializeGraphValue(payload: SerializedGraphPayload): Promise<unknown> {"
+  }
+ ]
+}

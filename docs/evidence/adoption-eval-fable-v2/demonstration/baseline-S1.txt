@@ -1,0 +1,37 @@
+packages/compiler/src/passes/public-render/shared.ts:2:import { deserializeGraphValue, type SerializedGraphPayload } from '@markless/serializer';
+packages/compiler/src/passes/public-render/shared.ts:376:		const value = deserializeGraphValue(cell.value as SerializedGraphPayload);
+packages/compiler/src/passes/public-render/state-entries.ts:16:				: deserializeGraphValue(cell.value as SerializedGraphPayload);
+packages/compiler/src/passes/public-render/state-entries.ts:1:import { deserializeGraphValue } from '@markless/serializer';
+packages/compiler/test/compile-module.test.ts:4450:	expect(deserializeGraphValue(countCell!.value!)).toBe(0);
+packages/compiler/test/compile-module.test.ts:591:	return deserializeGraphValue(cell!.value!);
+packages/compiler/test/compile-module.test.ts:5:	deserializeGraphValue,
+packages/compiler/test/compile-module.test.ts:851:	expect(deserializeGraphValue(countCell!.value!)).toBe(1);
+packages/compiler/test/compile-module.test.ts:853:	expect(deserializeGraphValue(menuCell!.value!)).toEqual({ open: true, title: 'Menu' });
+packages/serializer/src/value-decode.ts:5:export function deserializeGraphValue(payload: SerializedGraphPayload): unknown {
+packages/serializer/src/value.ts:120:export { deserializeGraphValue } from './value-decode.ts';
+packages/serializer/test/module-split.test.ts:16:import { deserializeGraphValue } from '../src/value-decode.ts';
+packages/serializer/test/module-split.test.ts:21:	expect(typeof deserializeGraphValue).toBe('function');
+packages/serializer/test/payload-scripts.test.ts:46:	const decodedMenu = deserializeGraphValue(scripts.state.cells[0].value!) as {
+packages/serializer/test/payload-scripts.test.ts:5:	deserializeGraphValue,
+packages/serializer/test/protocol-state.test.ts:148:	expect(deserializeGraphValue(propCell.value as never)).toEqual({
+packages/serializer/test/protocol-state.test.ts:160:	expect(deserializeGraphValue((cells[0] as { value: never }).value)).toEqual({ owner: 'ada' });
+packages/serializer/test/protocol-state.test.ts:205:	expect(deserializeGraphValue(snapshot?.error as never)).toEqual({
+packages/serializer/test/protocol-state.test.ts:36:	expect(deserializeGraphValue(snapshot.key)).toBe('ada');
+packages/serializer/test/protocol-state.test.ts:37:	expect(deserializeGraphValue(snapshot.value)).toEqual({ title: 'User ada' });
+packages/serializer/test/protocol-state.test.ts:4:	deserializeGraphValue,
+packages/serializer/test/protocol-state.test.ts:71:	expect(deserializeGraphValue(payload.cells[0]?.value as never)).toBe('light');
+packages/serializer/test/serializer.test.ts:126:	const decoded = deserializeGraphValue(result.payload) as typeof value;
+packages/serializer/test/serializer.test.ts:23:	const decoded = deserializeGraphValue(result.payload) as typeof value;
+packages/serializer/test/serializer.test.ts:2:import { deserializeGraphValue, serializeGraphValue } from '../src/index.ts';
+packages/serializer/test/serializer.test.ts:49:	const decoded = deserializeGraphValue(result.payload) as typeof value;
+packages/serializer/test/serializer.test.ts:73:	const decoded = deserializeGraphValue(result.payload) as typeof value;
+packages/serializer/test/serializer.test.ts:97:	const decoded = deserializeGraphValue(result.payload) as typeof value;
+packages/serializer/test/value-correctness.test.ts:107:	const decoded = deserializeGraphValue(result.payload) as typeof supported;
+packages/serializer/test/value-correctness.test.ts:2:import { deserializeGraphValue, serializeGraphValue } from '../src/index.ts';
+packages/serializer/test/value-correctness.test.ts:39:	expect(deserializeGraphValue(result.payload)).toEqual(value);
+packages/serializer/test/value-correctness.test.ts:56:	const decoded = deserializeGraphValue(result.payload) as typeof value;
+packages/web/src/payload-graph-construct.ts:134:		key: await deserializeGraphValue(snapshot.key as SerializedGraphPayload),
+packages/web/src/payload-graph-construct.ts:137:		decoded.value = await deserializeGraphValue(snapshot.value as SerializedGraphPayload);
+packages/web/src/payload-graph-construct.ts:139:		decoded.error = await deserializeGraphValue(snapshot.error as SerializedGraphPayload);
+packages/web/src/payload-graph-construct.ts:148:async function deserializeGraphValue(payload: SerializedGraphPayload): Promise<unknown> {
+packages/web/src/payload-graph-construct.ts:68:							: await deserializeGraphValue(cell.value as SerializedGraphPayload),

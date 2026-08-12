@@ -68,7 +68,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/guessless-must-have-fixes/"
     command: "node /Users/jacksm5pro/.claude/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/guessless-must-have-fixes"
 
-active_task: T006
+active_task: T007
 
 tasks:
   - id: T001
@@ -252,7 +252,7 @@ tasks:
   - id: T006
     type: judge
     assignee: Judge
-    status: active
+    status: done
     reasoning_hint: high
     objective: "Select and spec the must-have demonstration: choose the scenario where guessless beats a grep-capable agent on the merits — candidates: a repo large enough that exhaustive text sweep is impractical or ambiguous (same-name symbols across many modules), the versionless unbuildable corpus where no LSP starts, or a receipt-verified CI citation check in the frameless check-citations style. Define the Worker package: exact objective, ground truth or oracle, allowed_files, verify, stop_if, and what result would falsify the must-have claim."
     inputs:
@@ -269,18 +269,29 @@ tasks:
       - "verify"
       - "stop_if"
       - "Falsifier"
-    receipt: null
+    receipt:
+      result: done
+      harness: claude-code
+      decision: approved
+      full_outcome_complete: false
+      rationale: "Chosen: repo-scale scope-resolved references on markless (635 committed packages/ .ts files, 161k lines) with mechanically verified same-name decoys — exactly v1's stated unmeasured gap. Versionless lost (small fixture, already receipted, blind_spots forbid another small-repo win); frameless citation check lost (integration outside allowed_files, bespoke truth, weakest generalization). Verified decoys: local deserializeGraphValue shadow at packages/web/src/payload-graph-construct.ts:148 with call sites grep cannot partition; ASYNC_BOUNDARY_ARM across 30 files via @markless/serializer specifiers (D1 class at scale). No model spend; ripgrep is the baseline. Five falsifiers F1-F5 incl. F3 (grep suffices — claim dies) and F2 (silent miss at scale — honesty contract dies). Full worker package with P1-P5 pass conditions copied onto T007."
   - id: T007
     type: worker
     assignee: Worker
-    status: queued
+    status: active
     reasoning_hint: high
-    objective: "Execute the must-have demonstration exactly as specced by T006, producing a receipted evidence bundle under docs/evidence/adoption-eval-fable-v2/demonstration/. Dispatch via a fable-opus cockpit packet."
+    objective: "Execute the T006-specced must-have demonstration: scope-resolved symbol truth at repo scale on markless @931f054 (635 committed packages/ .ts files), symbols deserializeGraphValue (with the payload-graph-construct.ts:148 shadow decoy) and ASYNC_BOUNDARY_ARM (30-file @markless/serializer specifier spread). Full protocol, pass conditions P1-P5, and falsifiers F1-F5 are in the T006 receipt worker_package.objective — copy obeyed verbatim. A fired falsifier is a valid blocked outcome feeding T999, not a failure to retry into passing. Dispatch via a fable-opus cockpit packet."
     allowed_files:
       - docs/evidence/adoption-eval-fable-v2/**
-    verify: []
+    verify:
+      - "test -f docs/evidence/adoption-eval-fable-v2/demonstration/report.md"
+      - "node docs/evidence/adoption-eval-fable-v2/demonstration/score-demo.mjs"
+      - "test -z \"$(git -C /Users/jacksm5pro/dev/open-source/markless status --porcelain)\""
+      - "test -z \"$(git status --porcelain -- packages/ docs/evidence/adoption-eval-fable-v1/)\""
+      - "pnpm test"
     stop_if:
-      - "T006 spec is missing or its falsifier fires."
+      - "Any falsifier F1-F5 fires: stop, write the honest failing report, return blocked with the falsifying receipt - do not soften scoring to pass."
+      - "Any write would touch the markless repo, docs/evidence/adoption-eval-fable-v1/**, or existing v2 files outside demonstration/."
       - "Need files outside allowed_files."
       - "Verification fails twice."
     receipt: null
