@@ -8,5 +8,29 @@
 	"exports": "./dist/index.js",
 	"dependencies": {
 		"@guessless/engine": "workspace:*"
-	}
+	},
+	"description": "Structural receipts for JavaScript/TypeScript: certify reference/mutation/reachability claims as complete, partial with named gaps, or refused.",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/thejackshelton/guessless.git",
+		"directory": "packages/cli"
+	},
+	"files": [
+		"dist"
+	],
+	"engines": {
+		"node": ">=22"
+	},
+	"publishConfig": {
+		"access": "public"
+	},
+	"keywords": [
+		"structural-analysis",
+		"typescript",
+		"javascript",
+		"agents",
+		"receipts",
+		"code-intelligence"
+	]
 }

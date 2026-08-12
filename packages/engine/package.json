@@ -5,5 +5,29 @@
 	"exports": "./dist/index.js",
 	"dependencies": {
 		"yuku-analyzer": "0.8.4"
-	}
+	},
+	"description": "Deterministic structural-analysis engine for JavaScript/TypeScript that returns integrity-protected receipts: complete, partial with every unresolved site named, or refused.",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/thejackshelton/guessless.git",
+		"directory": "packages/engine"
+	},
+	"files": [
+		"dist"
+	],
+	"engines": {
+		"node": ">=22"
+	},
+	"publishConfig": {
+		"access": "public"
+	},
+	"keywords": [
+		"structural-analysis",
+		"typescript",
+		"javascript",
+		"agents",
+		"receipts",
+		"code-intelligence"
+	]
 }

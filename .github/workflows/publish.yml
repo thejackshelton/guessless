@@ -1,0 +1,172 @@
+# Publish @guessless/engine, @guessless/mcp, and guessless to npm.
+#
+# Authentication is npm Trusted Publishing over GitHub Actions OIDC (the
+# oxc-tsrx pattern): no NPM_TOKEN anywhere. `permissions: id-token: write`
+# creates the OIDC environment; npm exchanges it for a short-lived registry
+# token at publish time.
+#
+# Two things must be true before this can authenticate, and neither is
+# something the workflow can do for itself:
+#   1. All three package names must already exist on the registry — npm
+#      configures a trusted publisher on an EXISTING package, so v1.0.0 of the
+#      brand-new names was published once from a logged-in local machine.
+#   2. Each package's npm settings must name THIS repository and the file name
+#      `publish.yml` exactly as its trusted publisher.
+#
+# Safety, also the oxc-tsrx pattern: manual dispatch only, dry-run by default,
+# and publishing requires typing "PUBLISH <version>". npm versions are
+# immutable after the 72-hour unpublish window, so the default is the harmless
+# mode. Publish order is dependency order: engine, then mcp, then the CLI —
+# pnpm resolves workspace:/catalog: specifiers at pack time.
+#
+# Provenance note: this repository is private; npm generates provenance only
+# for public repositories, so none is requested. If the repo goes public,
+# add publishConfig.provenance to the manifests.
+name: Publish to npm
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version to publish, e.g. 1.0.0. Must match every manifest and the pushed tag."
+        required: true
+        type: string
+      mode:
+        description: "dry-run rehearses everything and publishes nothing. publish is irreversible."
+        required: true
+        default: dry-run
+        type: choice
+        options:
+          - dry-run
+          - publish
+      confirm:
+        description: "Required only when mode is publish. Type: PUBLISH <version>"
+        required: false
+        default: ""
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: publish-npm
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    name: ${{ inputs.mode }} ${{ inputs.version }}
+    if: github.repository == 'thejackshelton/guessless'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - name: Check the publish gate
+        shell: bash
+        env:
+          MODE: ${{ inputs.mode }}
+          CONFIRM: ${{ inputs.confirm }}
+          VERSION: ${{ inputs.version }}
+        run: |
+          set -euo pipefail
+          case "$VERSION" in
+            [0-9]*.[0-9]*.[0-9]*) ;;
+            *) echo "version must look like 1.2.3, got: $VERSION" >&2; exit 1 ;;
+          esac
+          if [[ "$MODE" == "dry-run" ]]; then
+            echo "mode=dry-run: nothing will be published."
+          elif [[ "$MODE" == "publish" ]]; then
+            if [[ "$CONFIRM" != "PUBLISH $VERSION" ]]; then
+              echo "mode=publish requires confirm to be exactly: PUBLISH $VERSION" >&2
+              exit 1
+            fi
+            echo "mode=publish confirmed for $VERSION. This is irreversible."
+          else
+            echo "unknown mode: $MODE" >&2; exit 1
+          fi
+
+      - uses: actions/checkout@v4
+        with:
+          ref: v${{ inputs.version }}
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          registry-url: "https://registry.npmjs.org"
+          cache: pnpm
+
+      # Trusted publishing needs npm >= 11.5.1; assert instead of assuming so a
+      # too-old npm fails loudly rather than as an unexplained ENEEDAUTH.
+      - name: Pin an npm new enough for trusted publishing
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm install -g npm@11.18.0
+          npm --version
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: Build
+        run: pnpm build
+
+      - name: Test
+        run: pnpm test
+
+      - name: Check every manifest matches the dispatched version
+        shell: bash
+        env:
+          VERSION: ${{ inputs.version }}
+        run: |
+          set -euo pipefail
+          node --input-type=module <<'NODE'
+          import assert from "node:assert/strict";
+          import { readFile } from "node:fs/promises";
+          const version = process.env.VERSION;
+          for (const dir of ["engine", "mcp", "cli"]) {
+            const m = JSON.parse(await readFile(`packages/${dir}/package.json`, "utf8"));
+            assert.equal(m.version, version, `${m.name}: version ${m.version} is not ${version}`);
+            assert.equal(m.publishConfig?.access, "public", `${m.name}: not public`);
+          }
+          console.log(`all three manifests are at ${version}`);
+          NODE
+
+      - name: Rehearse the publish
+        shell: bash
+        run: |
+          set -euo pipefail
+          for dir in engine mcp cli; do
+            echo "::group::dry-run packages/$dir"
+            pnpm --filter "./packages/$dir" publish --access public --no-git-checks --dry-run
+            echo "::endgroup::"
+          done
+
+      - name: Publish in dependency order
+        if: inputs.mode == 'publish'
+        shell: bash
+        run: |
+          set -euo pipefail
+          for dir in engine mcp cli; do
+            echo "::group::publish packages/$dir"
+            pnpm --filter "./packages/$dir" publish --access public --no-git-checks
+            echo "::endgroup::"
+          done
+
+      - name: Install the published release from the registry and run it
+        if: inputs.mode == 'publish'
+        shell: bash
+        env:
+          VERSION: ${{ inputs.version }}
+        run: |
+          set -euo pipefail
+          mkdir /tmp/smoke && cd /tmp/smoke
+          npm init -y >/dev/null
+          for i in 1 2 3 4 5; do
+            npm install "guessless@$VERSION" && break
+            echo "registry replica not caught up, retry $i"; sleep 15
+          done
+          echo '{"inputs":[{"path":"a.ts","source":"export const x = 1;"}],"request":{"kind":"exportedNames","file":"a.ts"}}' \
+            | npx guessless query - | node -e 'let s="";process.stdin.on("data",d=>s+=d).on("end",()=>{const r=JSON.parse(s);if(r.state!=="complete"||r.results.length!==1)throw new Error("smoke failed: "+s);console.log("published CLI answers correctly")})'

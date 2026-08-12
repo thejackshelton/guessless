@@ -1,0 +1,49 @@
+# Runs on every v* tag that `pnpm release` (bumpp) pushes: verifies the tagged
+# commit, then creates the GitHub release with changelogen from the conventional
+# commits since the previous tag. npm publishing lives in publish.yml.
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # changelogen diffs against the previous tag
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: Build
+        run: pnpm build
+
+      - name: Test
+        run: pnpm test
+
+      - name: Typecheck and lint
+        run: pnpm typecheck && pnpm lint
+
+      - name: Create the GitHub release from the changelog
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npx changelogen@latest gh release

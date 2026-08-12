@@ -15,5 +15,29 @@
 		"pathe": "catalog:",
 		"ufo": "catalog:",
 		"zod": "catalog:"
-	}
+	},
+	"description": "MCP stdio server exposing guessless structural receipts to agent harnesses.",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/thejackshelton/guessless.git",
+		"directory": "packages/mcp"
+	},
+	"files": [
+		"dist"
+	],
+	"engines": {
+		"node": ">=22"
+	},
+	"publishConfig": {
+		"access": "public"
+	},
+	"keywords": [
+		"structural-analysis",
+		"typescript",
+		"javascript",
+		"agents",
+		"receipts",
+		"code-intelligence"
+	]
 }
