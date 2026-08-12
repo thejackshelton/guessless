@@ -11,7 +11,7 @@ import {
 import {
 	boundaryDetail,
 	boundaryReason,
-	suppliedInputIndex,
+	linkEvidence,
 	unlinkedInputSites,
 } from './linking.ts';
 import { analyzerSnapshot } from './snapshot.ts';
@@ -526,7 +526,7 @@ function uniqueGaps(gaps: UnresolvedSite[]): UnresolvedSite[] {
 
 function moduleGaps(analyzer: Analyzer, modules: ReadonlySet<Module>): UnresolvedSite[] {
 	const gaps: UnresolvedSite[] = [];
-	const keys = suppliedInputIndex(analyzer);
+	const evidence = linkEvidence(analyzer);
 	for (const module of modules) {
 		for (const [index, diagnostic] of module.diagnostics.entries())
 			gaps.push({
@@ -536,20 +536,20 @@ function moduleGaps(analyzer: Analyzer, modules: ReadonlySet<Module>): Unresolve
 			});
 		for (const record of module.imports)
 			if (record.resolvedModule === null) {
-				const reason = boundaryReason(record.specifier, keys);
+				const reason = boundaryReason(record.specifier, evidence);
 				gaps.push({
 					site: anchorSite(module, record.node, 'reachability-import-boundary'),
 					reason,
-					detail: boundaryDetail('import', record.specifier, reason),
+					detail: boundaryDetail('import', record.specifier, reason, evidence),
 				});
 			}
 		for (const record of module.exports)
 			if (record.specifier !== null && record.resolvedModule === null) {
-				const reason = boundaryReason(record.specifier, keys);
+				const reason = boundaryReason(record.specifier, evidence);
 				gaps.push({
 					site: anchorSite(module, record.node, 'reachability-export-boundary'),
 					reason,
-					detail: boundaryDetail('export', record.specifier, reason),
+					detail: boundaryDetail('export', record.specifier, reason, evidence),
 				});
 			}
 	}
@@ -1769,7 +1769,7 @@ function invocationBoundary(module: Module, invocation: Invocation): UnresolvedS
 		if (imported !== undefined && imported.resolvedModule === null)
 			return {
 				site: anchorSite(module, target, 'external-call-boundary'),
-				reason: boundaryReason(imported.specifier, suppliedInputIndex(module.analyzer)),
+				reason: boundaryReason(imported.specifier, linkEvidence(module.analyzer)),
 				detail: `Invocation implementation from '${imported.specifier}' is outside the linked set.`,
 			};
 	}

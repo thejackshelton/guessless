@@ -14,7 +14,7 @@
       "state": "complete",
       "results": 1,
       "unresolved": null,
-      "wallMs": 157.1,
+      "wallMs": 164,
       "receiptBytes": 690,
       "snapshot": "ffc33304187d907422a6d8251d261c37349f168ff6fd4b90b0013579b31430fb",
       "exitCode": 0
@@ -26,9 +26,9 @@
       "query": "referencesOf",
       "state": "partial",
       "results": 27,
-      "unresolved": 845,
-      "wallMs": 1799.6,
-      "receiptBytes": 378422,
+      "unresolved": 1304,
+      "wallMs": 2415.6,
+      "receiptBytes": 702866,
       "snapshot": "ffc33304187d907422a6d8251d261c37349f168ff6fd4b90b0013579b31430fb",
       "exitCode": 0
     },
@@ -40,7 +40,7 @@
       "state": "complete",
       "results": 1,
       "unresolved": null,
-      "wallMs": 151.9,
+      "wallMs": 154.7,
       "receiptBytes": 695,
       "snapshot": "ffc33304187d907422a6d8251d261c37349f168ff6fd4b90b0013579b31430fb",
       "exitCode": 0
@@ -52,15 +52,15 @@
       "query": "referencesOf",
       "state": "partial",
       "results": 42,
-      "unresolved": 778,
-      "wallMs": 1499.3,
-      "receiptBytes": 360984,
+      "unresolved": 1241,
+      "wallMs": 2169.8,
+      "receiptBytes": 686950,
       "snapshot": "ffc33304187d907422a6d8251d261c37349f168ff6fd4b90b0013579b31430fb",
       "exitCode": 0
     }
   ],
-  "prepareMs": 150.6,
-  "totalQueryMs": 3607.9,
-  "totalWallMs": 3813.2,
+  "prepareMs": 144.2,
+  "totalQueryMs": 4904.1,
+  "totalWallMs": 5104.5,
   "budgetMs": 600000
 }
