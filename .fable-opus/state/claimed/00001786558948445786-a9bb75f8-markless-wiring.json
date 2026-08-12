@@ -1,0 +1,20 @@
+{
+  "runId": "harness-integration-20260812",
+  "unitId": "markless-wiring",
+  "attempt": 1,
+  "promptPath": "/Users/jacksm5pro/dev/open-source/guessless/.fable-opus/runs/harness-integration-20260812/prompt-markless-wiring-attempt-1.md",
+  "subagentType": "opus-worker",
+  "toolUseId": "toolu_01JJJHdup74CRvdkGnPkszuy",
+  "promptId": "8f05658a-4094-4e32-99d8-c1fcf1167bc4",
+  "background": false,
+  "parallel": false,
+  "effort": null,
+  "contract": [
+    "/Users/jacksm5pro/dev/open-source/markless/AGENTS.md",
+    "/Users/jacksm5pro/dev/open-source/markless/CLAUDE.md",
+    "/Users/jacksm5pro/dev/open-source/markless/.claude/settings.json",
+    "/Users/jacksm5pro/dev/open-source/markless/.claude/skills/guessless/**"
+  ],
+  "ts": "2026-08-12T18:22:28.444Z",
+  "pendingName": "00001786558948445786-a9bb75f8-markless-wiring.json"
+}

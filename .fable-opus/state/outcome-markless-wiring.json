@@ -1,0 +1,11 @@
+{
+  "unitId": "markless-wiring",
+  "runId": "harness-integration-20260812",
+  "attempt": 1,
+  "outcome": "blocked",
+  "reason": "No writes landed. The scope guard refuses all four contract paths as outside the unit work root, including .claude/settings.json which the contract explicitly lists. Independently, AGENTS.md, CLAUDE.md and .claude/skills/ are Ruler-generated from .ruler/ (ruler.toml output_path + [skills] enabled); markless CI re-runs ruler apply and fails on drift, so direct appends would be erased by 'pnpm rules' and red in CI. Correct targets are .ruler/AGENTS.md, .ruler/claude.md, .ruler/skills/guessless/SKILL.md plus a regen. Functional check passed: claim-gate.mjs --check exits 2 on a bald claim, 0 on a hedged one, run from markless. Git status identical before and after.",
+  "agentId": "a1e82ab6ae9fb7049",
+  "background": false,
+  "verdictDelivered": true,
+  "ts": "2026-08-12T18:24:39.236Z"
+}

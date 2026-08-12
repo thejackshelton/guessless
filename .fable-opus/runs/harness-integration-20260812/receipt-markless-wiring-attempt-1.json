@@ -1,0 +1,10 @@
+{
+  "status": "blocked",
+  "summary": "No writes landed. The scope guard refuses all four contract paths as outside the unit work root, including .claude/settings.json which the contract explicitly lists. Independently, AGENTS.md, CLAUDE.md and .claude/skills/ are Ruler-generated from .ruler/ (ruler.toml output_path + [skills] enabled); markless CI re-runs ruler apply and fails on drift, so direct appends would be erased by 'pnpm rules' and red in CI. Correct targets are .ruler/AGENTS.md, .ruler/claude.md, .ruler/skills/guessless/SKILL.md plus a regen. Functional check passed: claim-gate.mjs --check exits 2 on a bald claim, 0 on a hedged one, run from markless. Git status identical before and after.",
+  "files_changed": [],
+  "open_questions": [
+    "Scope guard refusal (verbatim): 'fable-opus scope guard: Edit refused — /Users/jacksm5pro/dev/open-source/markless/.claude/settings.json is outside the unit's work root. Unit markless-wiring may only write: /Users/jacksm5pro/dev/open-source/markless/AGENTS.md, /Users/jacksm5pro/dev/open-source/markless/CLAUDE.md, /Users/jacksm5pro/dev/open-source/markless/.claude/settings.json, /Users/jacksm5pro/dev/open-source/markless/.claude/skills/guessless/**. Needing a file outside your contract is a `blocked` receipt, not an exception.' Can the unit work root be set to the markless repo, or must this run from a cockpit rooted there?",
+    "Should the docs and skill layers be written to .ruler/AGENTS.md, .ruler/claude.md and .ruler/skills/guessless/SKILL.md (then regenerated with 'pnpm rules', which also touches the generated AGENTS.md/CLAUDE.md/.claude/skills copies), instead of the generated files named in this packet? Writing the generated files directly contradicts markless's own rule and fails .github/workflows/ci.yml:28-33.",
+    "Confirm whether the owner wants 'pnpm rules' run as part of the integration, since markless commits generated agent files and CI fails on drift between sources and copies."
+  ]
+}

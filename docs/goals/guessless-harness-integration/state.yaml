@@ -68,7 +68,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/guessless-harness-integration/"
     command: "node /Users/jacksm5pro/.claude/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/guessless-harness-integration"
 
-active_task: T002
+active_task: T999
 
 tasks:
   - id: T001
@@ -115,7 +115,7 @@ tasks:
   - id: T002
     type: worker
     assignee: Worker
-    status: active
+    status: blocked
     reasoning_hint: medium
     objective: "Wire markless: append the guessless block to AGENTS.md and CLAUDE.md (append-only, marked section), add .claude/skills/guessless/SKILL.md (valid frontmatter; triggers on rename/delete/reference-enumeration in JS/TS; instructs the CLI invocation and receipt-state rules; notes .tsrx is refused by design so the skill applies to the .ts toolchain code), and merge the Stop hook entry into the EXISTING .claude/settings.json preserving every current key (read it first; additive JSON merge; valid JSON after). Hook points at /Users/jacksm5pro/dev/open-source/guessless/scripts/claim-gate.mjs. No commits, no pushes; changes stay in the working tree for owner review. Dispatch via a fable-opus cockpit packet; if the scope guard refuses cross-repo writes, return blocked immediately reporting the exact refusal."
     allowed_files:
@@ -132,13 +132,23 @@ tasks:
       - "settings.json merge would drop or alter any existing key."
       - "Need files outside allowed_files."
       - "Verification fails twice."
-    receipt: null
+    receipt:
+      result: blocked
+      harness: claude-code
+      blocked_reason: "Two independent blockers, no writes landed (git status byte-identical before/after). (1) Scope guard refuses all cross-repo writes: the unit work root is pinned to the guessless workspace, so contract-listed markless paths are refused ('outside the unit's work root'). (2) markless AGENTS.md/CLAUDE.md/.claude/skills are Ruler-generated from .ruler/ sources; direct edits would be erased by 'pnpm rules' and fail markless CI on drift (.github/workflows/ci.yml:28-33). Correct targets: .ruler/AGENTS.md, .ruler/claude.md, .ruler/skills/guessless/SKILL.md + regeneration. settings.json is the one hand-maintained target (no hooks key; clean addition)."
+      changed_files: []
+      commands:
+        - cmd: "claim-gate.mjs --check from markless cwd: bald claim exit 2, hedged claim exit 0"
+          status: pass
+      summary: "Probe unit did its job: proved the cross-repo scope-guard limitation (PM fallback per charter), discovered the Ruler pipeline that would have broken markless CI under the original plan, and functionally verified the claim-gate fires cross-repo. PM rulings: write .ruler sources + run pnpm rules (canonical sync, reversible while uncommitted); T003/T004 flipped to PM fallback; frameless is also Ruler-managed, versionless is not."
+      spawned_tasks:
+        - T005
   - id: T003
-    type: worker
-    assignee: Worker
-    status: queued
+    type: pm
+    assignee: PM
+    status: done
     reasoning_hint: medium
-    objective: "Wire versionless: append guessless block to AGENTS.md (append-only, marked section), create .claude/settings.json (new file; Stop hook to the guessless claim-gate) and .claude/skills/guessless/SKILL.md, and add an offline-only scripts/guessless-reproduce-check.mjs delegating to guessless's reproduce-check (no network; respects versionless's consent conventions; documented in the file header, not wired into their npm scripts without it being additive). No commits or pushes. Dispatch via cockpit; blocked on scope-guard refusal."
+    objective: "Wire versionless (PM fallback; scope guard refuses cross-repo units; no Ruler here - direct edits are correct): append the marked guessless section to AGENTS.md, create .claude/settings.json (Stop hook) and .claude/skills/guessless/SKILL.md, and add an offline-only scripts/guessless-reproduce-check.mjs delegating to guessless's reproduce-check (no network; respects versionless's consent conventions; documented in the file header, not wired into their npm scripts without it being additive). No commits or pushes. Dispatch via cockpit; blocked on scope-guard refusal."
     allowed_files:
       - /Users/jacksm5pro/dev/open-source/versionless/AGENTS.md
       - /Users/jacksm5pro/dev/open-source/versionless/.claude/**
@@ -151,13 +161,28 @@ tasks:
       - "Scope guard refuses cross-repo writes (report exact refusal; PM fallback)."
       - "Need files outside allowed_files."
       - "Verification fails twice."
-    receipt: null
+    receipt:
+      result: done
+      harness: claude-code
+      changed_files:
+        - versionless/AGENTS.md
+        - versionless/.claude/settings.json
+        - versionless/.claude/skills/guessless/SKILL.md
+        - versionless/scripts/guessless-reproduce-check.mjs
+      commands:
+        - cmd: "guessless-reproduce-check.mjs --help (delegation works)"
+          status: pass
+        - cmd: "settings.json valid JSON with Stop hook to claim-gate.mjs"
+          status: pass
+        - cmd: "guessless-integration markers in AGENTS.md; skill with offline-boundary note"
+          status: pass
+      summary: "Versionless wired directly (no Ruler): marked AGENTS.md block, new .claude/settings.json with the Stop hook, skill with an offline-only boundary note consistent with VERSIONLESS_NETWORK_MODE conventions, and an offline reproduce-check delegate script with header documentation. Nothing committed. Pre-existing dirty entries (another agent's evidence/ingests work, a t006 note, a stray .fable-opus dir) untouched and recorded."
   - id: T004
-    type: worker
-    assignee: Worker
-    status: queued
+    type: pm
+    assignee: PM
+    status: done
     reasoning_hint: medium
-    objective: "Wire frameless: append guessless block to AGENTS.md (append-only, marked section), create .claude/settings.json (Stop hook) and .claude/skills/guessless/SKILL.md, and add scripts/guessless-reproduce-check.mjs delegating to guessless's reproduce-check, with a header note relating it to the existing scripts/check-citations.mjs use case. No commits or pushes. Dispatch via cockpit; blocked on scope-guard refusal."
+    objective: "Wire frameless (PM fallback; scope guard refuses cross-repo units; frameless is Ruler-managed): add the marked guessless section to .ruler/AGENTS.md, add .ruler skill source if ruler.toml has skills enabled (else .claude/skills directly), regenerate via the repo's ruler sync, create .claude/settings.json (Stop hook), and add scripts/guessless-reproduce-check.mjs delegating to guessless's reproduce-check, with a header note relating it to the existing scripts/check-citations.mjs use case. No commits or pushes. Dispatch via cockpit; blocked on scope-guard refusal."
     allowed_files:
       - /Users/jacksm5pro/dev/open-source/frameless/AGENTS.md
       - /Users/jacksm5pro/dev/open-source/frameless/.claude/**
@@ -170,11 +195,61 @@ tasks:
       - "Scope guard refuses cross-repo writes (report exact refusal; PM fallback)."
       - "Need files outside allowed_files."
       - "Verification fails twice."
-    receipt: null
+    receipt:
+      result: done
+      harness: claude-code
+      changed_files:
+        - frameless/.ruler/AGENTS.md
+        - frameless/.ruler/skills/guessless/SKILL.md
+        - "frameless/AGENTS.md (generated)"
+        - "frameless/.codex/skills (generated)"
+        - frameless/.claude/settings.json
+        - frameless/.claude/skills/guessless/SKILL.md
+        - frameless/scripts/guessless-reproduce-check.mjs
+      commands:
+        - cmd: "pnpm rules (Ruler apply, Codex output regenerated with markers)"
+          status: pass
+        - cmd: "settings.json valid; reproduce-check --help passes; skill placed in .claude/skills (not Ruler-managed here, drift-safe)"
+          status: pass
+      summary: "Frameless wired via its Codex-only Ruler pipeline: marked block in .ruler/AGENTS.md regenerated into AGENTS.md, skill added as Ruler source (mirrored to .codex) and placed directly in .claude/skills (outside Ruler's outputs here), new settings.json Stop hook, reproduce-check delegate with a check-citations framing note. Attribution audit: pnpm-lock/workspace diffs are pre-existing (in-flight 'website' package work), not ours. Nothing committed."
+  - id: T005
+    type: pm
+    assignee: PM
+    status: done
+    reasoning_hint: medium
+    objective: "Execute the markless wiring as PM fallback (scope guard refuses cross-repo units) via the Ruler pipeline T002 discovered: add the marked guessless section to .ruler/AGENTS.md and .ruler/claude.md, add .ruler/skills/guessless/SKILL.md (with the .tsrx-refused note), run 'pnpm rules' in markless to regenerate AGENTS.md/CLAUDE.md/.claude/skills, and additively add the Stop hook to the hand-maintained .claude/settings.json (no hooks key exists today; every existing key preserved). No commits or pushes; record git-status delta so the owner can separate these paths from pre-existing dirty entries. This PM task explicitly allows edits to those markless paths."
+    inputs:
+      - "T002 blocked receipt (Ruler discovery, verbatim scope-guard refusal)"
+      - "docs/integration.md copy-paste blocks"
+    constraints:
+      - "Append-only marked sections in .ruler sources; never edit generated files directly."
+      - "pnpm rules is the canonical sync and is expected to touch only its generated outputs."
+      - "settings.json merge preserves every existing key."
+    expected_output:
+      - "Ruler sources + regenerated files + settings hook in the markless working tree, verified, uncommitted."
+    receipt:
+      result: done
+      harness: claude-code
+      changed_files:
+        - markless/.ruler/AGENTS.md
+        - markless/.ruler/claude.md
+        - markless/.ruler/skills/guessless/SKILL.md
+        - "markless/AGENTS.md (generated)"
+        - "markless/CLAUDE.md (generated)"
+        - "markless/.claude/skills/guessless/ (generated)"
+        - markless/.claude/settings.json
+      commands:
+        - cmd: "pnpm rules (Ruler apply: Claude Code + Codex outputs regenerated)"
+          status: pass
+        - cmd: "settings.json JSON-valid; permissions key preserved; hooks.Stop added pointing at claim-gate.mjs"
+          status: pass
+        - cmd: "guessless-integration markers present in generated AGENTS.md and CLAUDE.md; skill mirrored to .claude/skills"
+          status: pass
+      summary: "Markless wired via the Ruler pipeline per T002's discovery: marked docs block appended to .ruler sources, skill (with .tsrx-refused boundary note) added as a ruler skill source, pnpm rules regenerated the four generated outputs in the repo's canonical way (CI drift check stays green), and the Stop hook added additively to hand-maintained settings.json (permissions preserved; no prior hooks key). All seven changed paths are ours; the 15 pre-existing dirty entries are untouched. Nothing committed - owner reviews the working tree."
   - id: T999
     type: judge
     assignee: Judge
-    status: queued
+    status: active
     reasoning_hint: high
     objective: "Final audit: verify every layer in every repo mechanically (files exist, JSON valid, frontmatter valid, pre-existing markless settings keys preserved against git diff), run the claim-gate test suite, and perform a live hook-fire test by piping a synthetic Stop-hook JSON payload with an unreceipted completeness claim into claim-gate.mjs (must block) and a receipted one (must pass). Record full_outcome_complete accordingly."
     inputs:
