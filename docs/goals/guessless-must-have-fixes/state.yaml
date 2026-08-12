@@ -8,7 +8,7 @@ goal:
   slug: "guessless-must-have-fixes"
   kind: specific
   tranche: "Fix the four defect classes from adoption-eval-fable-v1, re-validate honesty on the same ground-truth corpora, then demonstrate one must-have scenario — continuing until the full outcome is complete."
-  status: active
+  status: done
   oracle:
     signal: "An adoption-eval-fable-v2 re-trial over the sealed v1 ground-truth corpora shows zero missed-and-unnamed sites (every ground-truth site either returned or named in unresolved), full workspace verification is green, and one receipted demonstration shows guessless materially beating baseline tooling on a repo class where the guarantee matters."
     cadence: "after each Worker package and at final audit"
@@ -68,7 +68,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/guessless-must-have-fixes/"
     command: "node /Users/jacksm5pro/.claude/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/guessless-must-have-fixes"
 
-active_task: T999
+active_task: null
 
 tasks:
   - id: T001
@@ -577,12 +577,22 @@ tasks:
       - "full_outcome_complete: true | false"
       - "Per-defect evidence map"
       - "Missing evidence and next task if incomplete"
-    receipt: null
+    receipt:
+      result: done
+      harness: claude-code
+      decision: complete
+      full_outcome_complete: true
+      rationale: "All three oracle prongs verified mechanically by the Judge: score.mjs re-run gives 0 missed-and-unnamed / 0 spurious over all 202 v1 ground-truth sites (v1 re-scored through identical code stays 51 - scorer not softened); pnpm test/typecheck/lint green on a clean tree; score-demo.mjs exits 0 against a falsifier that genuinely fired once (F2/D6) before fix and re-run. D1-D6 each carry class-level regression suites and cross-corpus or repo-scale re-validation. Must-have evidenced for large multi-binding TS repos and unbuildable legacy corpora. Honestly unproven and out of stated oracle: agent-in-the-loop value, MCP transport, .tsrx corpora, manifest-supplied re-run, receipt-size cost. T002/T003/T007 remain blocked as honest history; their outcomes are superseded and verified via T009, T011, T013 respectively."
+      note: "Full audit in the T999 agent transcript; evidence map spans commits 7b0fdec, 6a3b23e, 7ab6301, a15745a, 9a76712."
 
 checks:
-  dirty_fingerprint: "No git repository at prep time; T001 establishes the baseline."
+  dirty_fingerprint: "Clean tree at final audit (T999, 2026-08-12)."
   last_verification:
     result: pass
-    task: null
+    task: T999
     commands:
-      - "pnpm test (258/258, 2026-08-11, pre-goal baseline)"
+      - "pnpm test (248 passed / 8 skipped)"
+      - "pnpm typecheck (0 errors)"
+      - "pnpm lint (0 warnings / 0 errors)"
+      - "node docs/evidence/adoption-eval-fable-v2/score.mjs (0 missed-and-unnamed / 0 spurious)"
+      - "node docs/evidence/adoption-eval-fable-v2/demonstration/score-demo.mjs (exit 0, P1-P5)"
