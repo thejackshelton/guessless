@@ -134,7 +134,10 @@ export default defineConfig({
 					name: 'node',
 					environment: 'node',
 					fileParallelism: false,
-					include: ['packages/*/test/**/*.test.ts'],
+					// `scripts/` holds the adoption-layer tooling (claim gate, reproduce check).
+					// It ships as plain .mjs so target repos can run it straight from a hook or
+					// a CI step without a build step, so its suites are included by extension.
+					include: ['packages/*/test/**/*.test.ts', 'scripts/**/*.test.mjs'],
 					exclude: ['**/node_modules/**', '**/dist/**', ...evidenceSuites],
 					benchmark: { include: ['packages/*/test/**/*.bench.ts'] },
 				},
