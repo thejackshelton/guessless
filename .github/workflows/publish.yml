@@ -19,9 +19,9 @@
 # mode. Publish order is dependency order: engine, then mcp, then the CLI —
 # pnpm resolves workspace:/catalog: specifiers at pack time.
 #
-# Provenance note: this repository is private; npm generates provenance only
-# for public repositories, so none is requested. If the repo goes public,
-# add publishConfig.provenance to the manifests.
+# Provenance: the repository is public, so the publish step requests npm
+# provenance (Sigstore attestation binding the tarball to this workflow run).
+# The rehearsal keeps it off — a dry run has nothing to attest.
 name: Publish to npm
 
 on:
@@ -136,6 +136,8 @@ jobs:
 
       - name: Rehearse the publish
         shell: bash
+        env:
+          NPM_CONFIG_PROVENANCE: "false"
         run: |
           set -euo pipefail
           for dir in engine mcp cli; do
@@ -147,6 +149,8 @@ jobs:
       - name: Publish in dependency order
         if: inputs.mode == 'publish'
         shell: bash
+        env:
+          NPM_CONFIG_PROVENANCE: "true"
         run: |
           set -euo pipefail
           for dir in engine mcp cli; do

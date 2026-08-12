@@ -452,10 +452,15 @@ describe('sealed evaluation protocol', () => {
 		);
 		rmSync(fixture);
 		renameSync(fixtureSaved, fixture);
+		// The symlink target only needs to be a real directory outside the fake
+		// root; the repo's own docs/ tree is untracked and absent in fresh
+		// checkouts, so the attack payload is a scratch directory instead.
+		const attackTarget = `${fake}-attack-target`;
+		mkdirSync(attackTarget, { recursive: true });
 		const docs = join(fake, 'docs');
 		const docsSaved = `${docs}-saved`;
 		renameSync(docs, docsSaved);
-		symlinkSync(join(root, 'docs'), docs, 'dir');
+		symlinkSync(attackTarget, docs, 'dir');
 		expect(() => paths(pathToFileURL(realpathSync(fakeModule)).href)).toThrow(
 			/docs|lexical\/canonical|symlink/,
 		);
@@ -464,7 +469,7 @@ describe('sealed evaluation protocol', () => {
 		const evidence = join(fake, 'docs/evidence');
 		const evidenceSaved = `${evidence}-saved`;
 		renameSync(evidence, evidenceSaved);
-		symlinkSync(join(root, 'docs/evidence'), evidence, 'dir');
+		symlinkSync(attackTarget, evidence, 'dir');
 		expect(() => paths(pathToFileURL(realpathSync(fakeModule)).href)).toThrow(
 			/evidence|lexical\/canonical|symlink/,
 		);
