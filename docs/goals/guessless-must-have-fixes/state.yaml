@@ -559,7 +559,7 @@ tasks:
   - id: T999
     type: judge
     assignee: Judge
-    status: active
+    status: done
     reasoning_hint: high
     objective: "Final audit: map each of D1-D4 to its fix, regression test, and v2 re-validation receipt; confirm zero missed-and-unnamed sites over the v1 ground truth; weigh the demonstration against its falsifier; and decide whether 'must-have for some repos' is now an evidenced claim. Record full_outcome_complete accordingly."
     inputs:
