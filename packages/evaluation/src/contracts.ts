@@ -136,6 +136,11 @@ export function paths(
 	const fixtureRoot = join(packageRoot, 'fixtures', evidenceId);
 	const docs = join(root, 'docs');
 	const evidenceParent = join(docs, 'evidence');
+	// The docs/evidence roots are archive locations, untracked since 2026-08-12:
+	// a fresh checkout legitimately lacks them. Absence is not a symlink attack,
+	// so they are created real before the guard runs; every assertion below is
+	// unchanged and still rejects symlinked or non-canonical paths.
+	mkdirSync(evidenceParent, { recursive: true });
 	for (const [candidate, label] of [
 		[fixtureRoot, 'fixture root'],
 		[docs, 'docs root'],

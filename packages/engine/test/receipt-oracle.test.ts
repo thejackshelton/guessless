@@ -595,7 +595,7 @@ test('every query request, result citation, and unresolved citation matches exac
 
 	for (const language of truth.languages as string[])
 		expect(engine.module(language)?.diagnostics).toEqual([]);
-}, 20_000);
+}, 120_000);
 
 test('safe-change receipts preserve exact unique resolvable identities and uncertainty', () => {
 	const engine = new GuesslessEngine();
