@@ -20,6 +20,22 @@ export const UNRESOLVED_REASONS = [
 	// another supplied input: the file could not be established as part of the
 	// traversed graph, so no traversal answer may claim to have covered it.
 	'unlinked-input',
+	// A supplied input whose import/re-export specifier is a *package*
+	// specifier — bare or '@scope/name' — whose package name matches the last
+	// segment of one or more supplied directories ('@markless/serializer'
+	// against a supplied 'packages/serializer/**'). The specifier may therefore
+	// denote supplied inputs, but nothing in the supplied set proves which
+	// supplied file is that package's entry point: manifests, 'exports' maps and
+	// workspace globs are not inputs. So the edge is never drawn — a guessed
+	// link would manufacture results — and the file is named instead, keeping it
+	// out of neither the answer nor the ledger.
+	//
+	// Strictly weaker evidence than 'unlinked-input', which is a match against a
+	// supplied *file path*; the two are separate reasons so a receipt reader can
+	// tell the two strengths apart without parsing details. The direction of
+	// error is deliberate: a genuinely external package whose name collides with
+	// a supplied directory is named too (a false alarm, never a false result).
+	'unlinked-workspace-package',
 	// A call whose callee is a member of the queried binding *itself*
 	// ('records.push(...)'): structural analysis proves the receiver is the
 	// binding and proves nothing about the callee's body, so whether the call

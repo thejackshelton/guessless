@@ -1,6 +1,6 @@
 {
  "schema": "guessless.demonstration.scores/v1",
- "verdict": "FALSIFIED",
+ "verdict": "PASS",
  "corpus": {
   "repo": "/Users/jacksm5pro/dev/open-source/markless",
   "commit": "931f054444a41c0527dfa77f812fa49e87df3b8f",
@@ -9,26 +9,15 @@
  },
  "checks": {
   "P1": true,
-  "P2": false,
+  "P2": true,
   "P3": true,
   "P4": true,
   "P5": true
  },
- "falsifiers": [
-  {
-   "id": "F2",
-   "symbol": "S1",
-   "detail": "4 ground-truth site(s) of 'deserializeGraphValue' are neither returned nor named anywhere in the receipt: packages/compiler/src/passes/public-render/shared.ts, packages/compiler/src/passes/public-render/state-entries.ts"
-  },
-  {
-   "id": "F2",
-   "symbol": "S2",
-   "detail": "15 ground-truth site(s) of 'ASYNC_BOUNDARY_ARM' are neither returned nor named anywhere in the receipt: packages/compiler/src/passes/render-data/index.ts, packages/web/src/fns/ssr.ts, packages/web/src/render-to-stream.ts, packages/web/src/ssr-data/renderer.ts"
-  }
- ],
+ "falsifiers": [],
  "timing": {
-  "totalWallMs": 3813.2,
-  "totalQueryMs": 3607.9,
+  "totalWallMs": 5104.5,
+  "totalQueryMs": 4904.1,
   "budgetMs": 600000,
   "P5": true
  },
@@ -61,8 +50,8 @@
    },
    "guessless": {
     "results": 27,
-    "unresolvedEntries": 845,
-    "filesNamedInUnresolved": 273,
+    "unresolvedEntries": 1304,
+    "filesNamedInUnresolved": 391,
     "decoyHitsInResults": 0,
     "spurious": [],
     "missedFiles": [
@@ -71,29 +60,44 @@
       "expected": 2,
       "returned": 0,
       "missing": 2,
-      "named": false,
+      "named": true,
       "routeSpecifier": "@markless/serializer",
-      "namesRouteSpecifier": false,
-      "namedBy": []
+      "namesRouteSpecifier": true,
+      "namedBy": [
+       {
+        "reason": "unlinked-workspace-package",
+        "detail": "Import '@tsrx/core' did not resolve; its package name matches the supplied directory 'packages/core', so it may name supplied inputs — but no supplied manifest proves which supplied file is that package's entry point, so the link was named rather than guessed."
+       },
+       {
+        "reason": "unlinked-workspace-package",
+        "detail": "Import '@markless/serializer' did not resolve; its package name matches the supplied directory 'packages/serializer', so it may name supplied inputs — but no supplied manifest proves which supplied file is that package's entry point, so the link was named rather than guessed."
+       }
+      ]
      },
      {
       "file": "packages/compiler/src/passes/public-render/state-entries.ts",
       "expected": 2,
       "returned": 0,
       "missing": 2,
-      "named": false,
+      "named": true,
       "routeSpecifier": "@markless/serializer",
-      "namesRouteSpecifier": false,
-      "namedBy": []
+      "namesRouteSpecifier": true,
+      "namedBy": [
+       {
+        "reason": "unlinked-workspace-package",
+        "detail": "Import '@markless/serializer' did not resolve; its package name matches the supplied directory 'packages/serializer', so it may name supplied inputs — but no supplied manifest proves which supplied file is that package's entry point, so the link was named rather than guessed."
+       },
+       {
+        "reason": "unlinked-workspace-package",
+        "detail": "Import '@markless/serializer' did not resolve; its package name matches the supplied directory 'packages/serializer', so it may name supplied inputs — but no supplied manifest proves which supplied file is that package's entry point, so the link was named rather than guessed."
+       }
+      ]
      }
     ],
-    "silentlyMissedFiles": [
-     "packages/compiler/src/passes/public-render/shared.ts",
-     "packages/compiler/src/passes/public-render/state-entries.ts"
-    ],
-    "silentlyMissedSites": 4,
+    "silentlyMissedFiles": [],
+    "silentlyMissedSites": 0,
     "missedSites": 4,
-    "missedSitesNamedByRouteSpecifier": 0,
+    "missedSitesNamedByRouteSpecifier": 4,
     "missedSitesNamedOnlyIncidentally": 0
    },
    "serializerScope": {
@@ -135,7 +139,7 @@
    },
    "checks": {
     "P1": true,
-    "P2": false,
+    "P2": true,
     "P3": true,
     "P4": true
    }
@@ -160,8 +164,8 @@
    },
    "guessless": {
     "results": 42,
-    "unresolvedEntries": 778,
-    "filesNamedInUnresolved": 280,
+    "unresolvedEntries": 1241,
+    "filesNamedInUnresolved": 391,
     "decoyHitsInResults": 0,
     "spurious": [],
     "missedFiles": [
@@ -170,10 +174,15 @@
       "expected": 2,
       "returned": 0,
       "missing": 2,
-      "named": false,
+      "named": true,
       "routeSpecifier": "@markless/serializer/protocol",
-      "namesRouteSpecifier": false,
-      "namedBy": []
+      "namesRouteSpecifier": true,
+      "namedBy": [
+       {
+        "reason": "unlinked-workspace-package",
+        "detail": "Import '@markless/serializer/protocol' did not resolve; its package name matches the supplied directory 'packages/serializer', so it may name supplied inputs — but no supplied manifest proves which supplied file is that package's entry point, so the link was named rather than guessed."
+       }
+      ]
      },
      {
       "file": "packages/compiler/test/boundary-runner-agreement.test.ts",
@@ -182,7 +191,7 @@
       "missing": 2,
       "named": true,
       "routeSpecifier": "@markless/serializer",
-      "namesRouteSpecifier": false,
+      "namesRouteSpecifier": true,
       "namedBy": [
        {
         "reason": "unlinked-input",
@@ -201,7 +210,7 @@
       "missing": 2,
       "named": true,
       "routeSpecifier": "@markless/serializer",
-      "namesRouteSpecifier": false,
+      "namesRouteSpecifier": true,
       "namedBy": [
        {
         "reason": "unlinked-input",
@@ -220,7 +229,7 @@
       "missing": 2,
       "named": true,
       "routeSpecifier": "@markless/serializer",
-      "namesRouteSpecifier": false,
+      "namesRouteSpecifier": true,
       "namedBy": [
        {
         "reason": "unlinked-input",
@@ -239,7 +248,7 @@
       "missing": 2,
       "named": true,
       "routeSpecifier": "@markless/serializer/protocol",
-      "namesRouteSpecifier": false,
+      "namesRouteSpecifier": true,
       "namedBy": [
        {
         "reason": "unlinked-input",
@@ -256,10 +265,15 @@
       "expected": 7,
       "returned": 0,
       "missing": 7,
-      "named": false,
+      "named": true,
       "routeSpecifier": "@markless/serializer",
-      "namesRouteSpecifier": false,
-      "namedBy": []
+      "namesRouteSpecifier": true,
+      "namedBy": [
+       {
+        "reason": "unlinked-workspace-package",
+        "detail": "Import '@markless/serializer' did not resolve; its package name matches the supplied directory 'packages/serializer', so it may name supplied inputs — but no supplied manifest proves which supplied file is that package's entry point, so the link was named rather than guessed."
+       }
+      ]
      },
      {
       "file": "packages/web/src/prerender/adopt-filled-arms.ts",
@@ -271,12 +285,12 @@
       "namesRouteSpecifier": true,
       "namedBy": [
        {
-        "reason": "external-module-boundary",
-        "detail": "Import '@markless/serializer' leaves the linked file set."
+        "reason": "unlinked-workspace-package",
+        "detail": "Import '@markless/serializer' did not resolve; its package name matches the supplied directory 'packages/serializer', so it may name supplied inputs — but no supplied manifest proves which supplied file is that package's entry point, so the link was named rather than guessed."
        },
        {
-        "reason": "external-module-boundary",
-        "detail": "Import '@markless/runtime' leaves the linked file set."
+        "reason": "unlinked-workspace-package",
+        "detail": "Import '@markless/runtime' did not resolve; its package name matches 4 supplied directories ('packages/core/src/runtime', 'packages/router/src/vite/runtime', 'packages/router/test/vite/runtime', 'packages/runtime'), so which one it denotes is ambiguous, so it may name supplied inputs — but no supplied manifest proves which supplied file is that package's entry point, so the link was named rather than guessed."
        }
       ]
      },
@@ -285,10 +299,19 @@
       "expected": 2,
       "returned": 0,
       "missing": 2,
-      "named": false,
+      "named": true,
       "routeSpecifier": "@markless/serializer",
-      "namesRouteSpecifier": false,
-      "namedBy": []
+      "namesRouteSpecifier": true,
+      "namedBy": [
+       {
+        "reason": "unlinked-workspace-package",
+        "detail": "Import '@markless/serializer' did not resolve; its package name matches the supplied directory 'packages/serializer', so it may name supplied inputs — but no supplied manifest proves which supplied file is that package's entry point, so the link was named rather than guessed."
+       },
+       {
+        "reason": "unlinked-workspace-package",
+        "detail": "Import '@markless/serializer' did not resolve; its package name matches the supplied directory 'packages/serializer', so it may name supplied inputs — but no supplied manifest proves which supplied file is that package's entry point, so the link was named rather than guessed."
+       }
+      ]
      },
      {
       "file": "packages/web/src/resume-async-wiring.ts",
@@ -300,12 +323,12 @@
       "namesRouteSpecifier": true,
       "namedBy": [
        {
-        "reason": "external-module-boundary",
-        "detail": "Import '@markless/runtime' leaves the linked file set."
+        "reason": "unlinked-workspace-package",
+        "detail": "Import '@markless/runtime' did not resolve; its package name matches 4 supplied directories ('packages/core/src/runtime', 'packages/router/src/vite/runtime', 'packages/router/test/vite/runtime', 'packages/runtime'), so which one it denotes is ambiguous, so it may name supplied inputs — but no supplied manifest proves which supplied file is that package's entry point, so the link was named rather than guessed."
        },
        {
-        "reason": "external-module-boundary",
-        "detail": "Import '@markless/runtime' leaves the linked file set."
+        "reason": "unlinked-workspace-package",
+        "detail": "Import '@markless/runtime' did not resolve; its package name matches 4 supplied directories ('packages/core/src/runtime', 'packages/router/src/vite/runtime', 'packages/router/test/vite/runtime', 'packages/runtime'), so which one it denotes is ambiguous, so it may name supplied inputs — but no supplied manifest proves which supplied file is that package's entry point, so the link was named rather than guessed."
        }
       ]
      },
@@ -314,10 +337,19 @@
       "expected": 4,
       "returned": 0,
       "missing": 4,
-      "named": false,
+      "named": true,
       "routeSpecifier": "@markless/serializer",
-      "namesRouteSpecifier": false,
-      "namedBy": []
+      "namesRouteSpecifier": true,
+      "namedBy": [
+       {
+        "reason": "unlinked-workspace-package",
+        "detail": "Import '@markless/serializer' did not resolve; its package name matches the supplied directory 'packages/serializer', so it may name supplied inputs — but no supplied manifest proves which supplied file is that package's entry point, so the link was named rather than guessed."
+       },
+       {
+        "reason": "unlinked-workspace-package",
+        "detail": "Import '@markless/serializer' did not resolve; its package name matches the supplied directory 'packages/serializer', so it may name supplied inputs — but no supplied manifest proves which supplied file is that package's entry point, so the link was named rather than guessed."
+       }
+      ]
      },
      {
       "file": "packages/web/test/commit-arm.test.ts",
@@ -329,8 +361,8 @@
       "namesRouteSpecifier": true,
       "namedBy": [
        {
-        "reason": "external-module-boundary",
-        "detail": "Import '@markless/serializer' leaves the linked file set."
+        "reason": "unlinked-input",
+        "detail": "Import 'vitest' did not resolve, but names a supplied input; the link between these files could not be established."
        },
        {
         "reason": "unlinked-input",
@@ -345,7 +377,7 @@
       "missing": 9,
       "named": true,
       "routeSpecifier": "@markless/serializer",
-      "namesRouteSpecifier": false,
+      "namesRouteSpecifier": true,
       "namedBy": [
        {
         "reason": "unlinked-input",
@@ -367,12 +399,12 @@
       "namesRouteSpecifier": true,
       "namedBy": [
        {
-        "reason": "external-module-boundary",
-        "detail": "Import '@markless/serializer' leaves the linked file set."
+        "reason": "unlinked-input",
+        "detail": "Import 'vitest' did not resolve, but names a supplied input; the link between these files could not be established."
        },
        {
-        "reason": "external-module-boundary",
-        "detail": "Import '@markless/serializer' leaves the linked file set."
+        "reason": "unlinked-input",
+        "detail": "Import 'vitest' did not resolve, but names a supplied input; the link between these files could not be established."
        }
       ]
      },
@@ -386,8 +418,8 @@
       "namesRouteSpecifier": true,
       "namedBy": [
        {
-        "reason": "external-module-boundary",
-        "detail": "Import '@markless/serializer' leaves the linked file set."
+        "reason": "unlinked-input",
+        "detail": "Import 'vitest' did not resolve, but names a supplied input; the link between these files could not be established."
        },
        {
         "reason": "unlinked-input",
@@ -405,12 +437,12 @@
       "namesRouteSpecifier": true,
       "namedBy": [
        {
-        "reason": "external-module-boundary",
-        "detail": "Import '@markless/serializer' leaves the linked file set."
+        "reason": "unlinked-input",
+        "detail": "Import 'vitest' did not resolve, but names a supplied input; the link between these files could not be established."
        },
        {
-        "reason": "external-module-boundary",
-        "detail": "Import '@markless/serializer' leaves the linked file set."
+        "reason": "unlinked-input",
+        "detail": "Import 'vitest' did not resolve, but names a supplied input; the link between these files could not be established."
        }
       ]
      },
@@ -443,8 +475,8 @@
       "namesRouteSpecifier": true,
       "namedBy": [
        {
-        "reason": "external-module-boundary",
-        "detail": "Import '@markless/serializer' leaves the linked file set."
+        "reason": "unlinked-input",
+        "detail": "Import 'vitest' did not resolve, but names a supplied input; the link between these files could not be established."
        },
        {
         "reason": "unlinked-input",
@@ -462,8 +494,8 @@
       "namesRouteSpecifier": true,
       "namedBy": [
        {
-        "reason": "external-module-boundary",
-        "detail": "Import '@markless/serializer' leaves the linked file set."
+        "reason": "unlinked-input",
+        "detail": "Import 'vitest' did not resolve, but names a supplied input; the link between these files could not be established."
        },
        {
         "reason": "unlinked-input",
@@ -478,7 +510,7 @@
       "missing": 3,
       "named": true,
       "routeSpecifier": "@markless/serializer",
-      "namesRouteSpecifier": false,
+      "namesRouteSpecifier": true,
       "namedBy": [
        {
         "reason": "unlinked-input",
@@ -491,16 +523,11 @@
       ]
      }
     ],
-    "silentlyMissedFiles": [
-     "packages/compiler/src/passes/render-data/index.ts",
-     "packages/web/src/fns/ssr.ts",
-     "packages/web/src/render-to-stream.ts",
-     "packages/web/src/ssr-data/renderer.ts"
-    ],
-    "silentlyMissedSites": 15,
+    "silentlyMissedFiles": [],
+    "silentlyMissedSites": 0,
     "missedSites": 71,
-    "missedSitesNamedByRouteSpecifier": 36,
-    "missedSitesNamedOnlyIncidentally": 20
+    "missedSitesNamedByRouteSpecifier": 71,
+    "missedSitesNamedOnlyIncidentally": 0
    },
    "serializerScope": {
     "coverage": [
@@ -531,7 +558,7 @@
    },
    "checks": {
     "P1": true,
-    "P2": false,
+    "P2": true,
     "P3": true,
     "P4": false
    }

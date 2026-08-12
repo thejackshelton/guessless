@@ -11,7 +11,7 @@ import { unrecognizedExportSites } from './export-forms.ts';
 import {
 	boundaryDetail,
 	boundaryReason,
-	suppliedInputIndex,
+	linkEvidence,
 	unlinkedInputSites,
 } from './linking.ts';
 import { analyzerSnapshot } from './snapshot.ts';
@@ -137,7 +137,7 @@ function moduleClosure(seed: Module, direction: 'dependencies' | 'dependents'): 
 
 function baseUnresolved(analyzer: Analyzer, relevant: ReadonlySet<Module>): UnresolvedSite[] {
 	const unresolved: UnresolvedSite[] = [];
-	const keys = suppliedInputIndex(analyzer);
+	const evidence = linkEvidence(analyzer);
 	for (const module of analyzer.modules.values()) {
 		if (!relevant.has(module)) continue;
 		for (const [index, diagnostic] of module.diagnostics.entries())
@@ -148,20 +148,20 @@ function baseUnresolved(analyzer: Analyzer, relevant: ReadonlySet<Module>): Unre
 			});
 		for (const record of module.imports) {
 			if (record.resolvedModule !== null) continue;
-			const reason = boundaryReason(record.specifier, keys);
+			const reason = boundaryReason(record.specifier, evidence);
 			unresolved.push({
 				site: anchorSite(module, record.node, 'import-boundary'),
 				reason,
-				detail: boundaryDetail('import', record.specifier, reason),
+				detail: boundaryDetail('import', record.specifier, reason, evidence),
 			});
 		}
 		for (const record of module.exports) {
 			if (record.specifier === null || record.resolvedModule !== null) continue;
-			const reason = boundaryReason(record.specifier, keys);
+			const reason = boundaryReason(record.specifier, evidence);
 			unresolved.push({
 				site: anchorSite(module, record.node, 'export-boundary'),
 				reason,
-				detail: boundaryDetail('export', record.specifier, reason),
+				detail: boundaryDetail('export', record.specifier, reason, evidence),
 			});
 		}
 	}

@@ -20,9 +20,13 @@ describe('receipt contract', () => {
 		// 'export ='), whose exported names the engine refuses to guess;
 		// plus 'argument-escape-mutation-uncertain', ruled in for D5: the
 		// binding handed to a callee as an argument, where the reference escapes
-		// to a body this analysis does not read for mutation.
+		// to a body this analysis does not read for mutation;
+		// plus 'unlinked-workspace-package', ruled in for D6: a supplied input
+		// stranded behind a workspace package-name specifier ('@scope/pkg')
+		// whose name matches a supplied directory root but whose entry file no
+		// supplied manifest proves — named, never linked on the guess.
 		// No existing member was removed, renamed, or widened.
-		expect(UNRESOLVED_REASONS).toHaveLength(19);
+		expect(UNRESOLVED_REASONS).toHaveLength(20);
 		expect(UNRESOLVED_REASONS).toContain('higher-order-call-boundary');
 		expect(UNRESOLVED_REASONS).toContain('stale-snapshot');
 		expect(UNRESOLVED_REASONS).toContain('unlinked-input');
@@ -34,6 +38,10 @@ describe('receipt contract', () => {
 		// The uncertainty reason is additional to, not a replacement for, the
 		// reason that names an observed mutation behind an alias.
 		expect(UNRESOLVED_REASONS).toContain('property-alias-write-uncertain');
+		// A supplied *file path* match and a supplied *directory root* match are
+		// different strengths of evidence and keep different names: a receipt
+		// reader must be able to tell them apart without parsing details.
+		expect(UNRESOLVED_REASONS).toContain('unlinked-workspace-package');
 		expect(UNRESOLVED_REASONS).not.toContain('other');
 	});
 
