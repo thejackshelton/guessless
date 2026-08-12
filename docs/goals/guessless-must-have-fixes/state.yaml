@@ -68,7 +68,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/guessless-must-have-fixes/"
     command: "node /Users/jacksm5pro/.claude/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/guessless-must-have-fixes"
 
-active_task: T007
+active_task: T013
 
 tasks:
   - id: T001
@@ -278,7 +278,7 @@ tasks:
   - id: T007
     type: worker
     assignee: Worker
-    status: active
+    status: blocked
     reasoning_hint: high
     objective: "Execute the T006-specced must-have demonstration: scope-resolved symbol truth at repo scale on markless @931f054 (635 committed packages/ .ts files), symbols deserializeGraphValue (with the payload-graph-construct.ts:148 shadow decoy) and ASYNC_BOUNDARY_ARM (30-file @markless/serializer specifier spread). Full protocol, pass conditions P1-P5, and falsifiers F1-F5 are in the T006 receipt worker_package.objective — copy obeyed verbatim. A fired falsifier is a valid blocked outcome feeding T999, not a failure to retry into passing. Dispatch via a fable-opus cockpit packet."
     allowed_files:
@@ -294,7 +294,21 @@ tasks:
       - "Any write would touch the markless repo, docs/evidence/adoption-eval-fable-v1/**, or existing v2 files outside demonstration/."
       - "Need files outside allowed_files."
       - "Verification fails twice."
-    receipt: null
+    receipt:
+      result: blocked
+      harness: claude-code
+      blocked_reason: "Falsifier F2 fired (valid specced outcome): 19 hand-audited target sites in 6 files neither returned nor named — files reaching the binding only via bare '@markless/serializer' workspace-package specifiers fall outside both the dependents closure and the unlinked-input naming pass (boundaryReason suffix heuristic classifies them external-module-boundary; linking.ts:89-92, queries.ts:1216-1225). New defect class D6, only visible at repo scale."
+      changed_files:
+        - "docs/evidence/adoption-eval-fable-v2/demonstration/ (17 files: report, ground truths, receipts, baselines, scorer, timings)"
+      commands:
+        - cmd: "score-demo.mjs (P1 pass: 0 decoys vs grep 13.5% contamination; P3 pass: serializer scope byte-identical to sealed v1/v2 under 21x input growth; P4 pass; P5 pass: 3.8s/10min; P2 FAIL: 19 silent misses)"
+          status: fail
+        - cmd: "pnpm test (239 passed)"
+          status: pass
+        - cmd: "markless corpus integrity: pre-existing 15-entry dirty state byte-identical pre/post; all reads via git archive 931f0544 — accepted by PM as clean-corpus proof"
+          status: pass
+      summary: "Demonstration executed exactly as specced and disproved the must-have claim AS CURRENTLY SHIPPED via F2, while proving the two headline strengths: perfect scope partition (0 decoys; grep provably cannot partition) and answer stability + speed at repo scale. The fix shape is known and small: unlinkedInputSites must also name supplied-input files reachable only through workspace package-name specifiers (extend the supplied-input index with package-name mapping from workspace manifests, or name ALL out-of-closure supplied inputs that reference the queried name). Spawned as D6 decision for the owner fork: task budget 9/10 units, ~2h55m/3h."
+      spawned_tasks: []
   - id: T008
     type: worker
     assignee: Worker
@@ -494,6 +508,31 @@ tasks:
         - cmd: "node docs/evidence/adoption-eval-fable-v2/score.mjs (PM re-run: oracleZeroMissedAndUnnamed true, spurious 0)"
           status: pass
       summary: "D5 closed and the goal oracle flipped TRUE on the integrated tree. 19th closed reason argument-escape-mutation-uncertain names all 7 by-reference escapes (writesOf only, direct values only, first boundary only via a derived flag); method-call-mutation-uncertain restricted to receiver position clearing 3 false alarms while keeping all 11 true names; no builtin allowlist (unprovable suppression documented as a silent-miss risk). Scorer escape branch now one-for-one like the mutation branch, proven non-softening (v1 baseline re-scores byte-identical at 51). Unit stalled mid-stream once, resumed via SendMessage. Pre-D5 FALSE-era measurement preserved at commit a472f14. Known honest residuals recorded in report: q04b partial on a no-write binding (real escape into Object.values), q10 receipt 15x v1 size."
+  - id: T013
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: high
+    objective: "Fix D6 found by the falsified demonstration: supplied-input files whose only route to the corpus is a workspace package-name specifier ('@markless/serializer') are classified external-module-boundary and fall outside both the traversal closure and the unlinked-input naming pass, silently dropping 19 real sites at repo scale. Extend the supplied-input index to map workspace package names (from supplied package.json manifests or a supplied-root heuristic) to supplied entry files, or fail-closed name ALL out-of-closure supplied inputs whose unresolved specifiers COULD reach the queried module. Class regression tests at multi-package scale. Then re-run the T006 demonstration protocol unchanged and re-score; the claim stands only if score-demo.mjs exits 0. DISPATCH GATE: task breaker fork presented 2026-08-12; requires explicit owner go."
+    allowed_files:
+      - packages/engine/src/**
+      - packages/engine/test/**
+      - packages/*/dist/**
+      - docs/evidence/adoption-eval-fable-v2/demonstration/**
+      - pnpm-lock.yaml
+    verify:
+      - "pnpm install --frozen-lockfile --prefer-offline"
+      - "pnpm build"
+      - "pnpm test"
+      - "pnpm typecheck"
+      - "pnpm lint"
+      - "node docs/evidence/adoption-eval-fable-v2/demonstration/score-demo.mjs"
+    stop_if:
+      - "Owner has not answered the task-breaker fork."
+      - "Need files outside allowed_files."
+      - "Any falsifier fires on the re-run: report honestly, never soften."
+      - "Verification fails twice."
+    receipt: null
   - id: T999
     type: judge
     assignee: Judge
