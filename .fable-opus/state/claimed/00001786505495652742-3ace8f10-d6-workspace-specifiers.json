@@ -1,0 +1,21 @@
+{
+  "runId": "must-have-fixes-20260811",
+  "unitId": "d6-workspace-specifiers",
+  "attempt": 1,
+  "promptPath": "/Users/jacksm5pro/dev/open-source/guessless/.fable-opus/runs/must-have-fixes-20260811/prompt-d6-workspace-specifiers-attempt-1.md",
+  "subagentType": "opus-worker-isolated",
+  "toolUseId": "toolu_01FWFNVcLwtN4wrad8WMd7um",
+  "promptId": "5e4a26e4-6a6b-4408-9840-21a55ce5c0e0",
+  "background": false,
+  "parallel": false,
+  "effort": "high",
+  "contract": [
+    "packages/engine/src/**",
+    "packages/engine/test/**",
+    "packages/*/dist/**",
+    "docs/evidence/adoption-eval-fable-v2/demonstration/**",
+    "pnpm-lock.yaml"
+  ],
+  "ts": "2026-08-12T03:31:35.651Z",
+  "pendingName": "00001786505495652742-3ace8f10-d6-workspace-specifiers.json"
+}

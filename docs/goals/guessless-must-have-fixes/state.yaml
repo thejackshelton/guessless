@@ -68,7 +68,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/guessless-must-have-fixes/"
     command: "node /Users/jacksm5pro/.claude/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/guessless-must-have-fixes"
 
-active_task: T013
+active_task: T999
 
 tasks:
   - id: T001
@@ -511,9 +511,9 @@ tasks:
   - id: T013
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: high
-    objective: "Fix D6 found by the falsified demonstration: supplied-input files whose only route to the corpus is a workspace package-name specifier ('@markless/serializer') are classified external-module-boundary and fall outside both the traversal closure and the unlinked-input naming pass, silently dropping 19 real sites at repo scale. Extend the supplied-input index to map workspace package names (from supplied package.json manifests or a supplied-root heuristic) to supplied entry files, or fail-closed name ALL out-of-closure supplied inputs whose unresolved specifiers COULD reach the queried module. Class regression tests at multi-package scale. Then re-run the T006 demonstration protocol unchanged and re-score; the claim stands only if score-demo.mjs exits 0. DISPATCH GATE: task breaker fork presented 2026-08-12; requires explicit owner go."
+    objective: "Fix D6 found by the falsified demonstration: supplied-input files whose only route to the corpus is a workspace package-name specifier ('@markless/serializer') are classified external-module-boundary and fall outside both the traversal closure and the unlinked-input naming pass, silently dropping 19 real sites at repo scale. Extend the supplied-input index to map workspace package names (from supplied package.json manifests or a supplied-root heuristic) to supplied entry files, or fail-closed name ALL out-of-closure supplied inputs whose unresolved specifiers COULD reach the queried module. Class regression tests at multi-package scale. Then re-run the T006 demonstration protocol unchanged and re-score; the claim stands only if score-demo.mjs exits 0. Owner answered the task-breaker fork 2026-08-12: continue (fix D6, re-run demo, then audit)."
     allowed_files:
       - packages/engine/src/**
       - packages/engine/test/**
@@ -528,15 +528,38 @@ tasks:
       - "pnpm lint"
       - "node docs/evidence/adoption-eval-fable-v2/demonstration/score-demo.mjs"
     stop_if:
-      - "Owner has not answered the task-breaker fork."
       - "Need files outside allowed_files."
       - "Any falsifier fires on the re-run: report honestly, never soften."
       - "Verification fails twice."
-    receipt: null
+    receipt:
+      result: done
+      harness: claude-code
+      changed_files:
+        - packages/engine/src/linking.ts
+        - packages/engine/src/contracts.ts
+        - packages/engine/src/queries.ts
+        - packages/engine/src/reachability.ts
+        - packages/engine/test/linking.test.ts
+        - packages/engine/test/contracts.test.ts
+        - docs/evidence/adoption-eval-fable-v2/demonstration/report.md
+        - docs/evidence/adoption-eval-fable-v2/demonstration/scores.json
+        - docs/evidence/adoption-eval-fable-v2/demonstration/timings.json
+        - docs/evidence/adoption-eval-fable-v2/demonstration/S1-q01-refs-deserializegraphvalue.receipt.json
+        - docs/evidence/adoption-eval-fable-v2/demonstration/S2-q01-refs-async_boundary_arm.receipt.json
+      commands:
+        - cmd: "git merge --no-ff worktree-agent-a1653efd88cdb06f3"
+          status: pass
+        - cmd: "pnpm build && pnpm test (248 passed, 8 skipped)"
+          status: pass
+        - cmd: "pnpm typecheck && pnpm lint"
+          status: pass
+        - cmd: "node demonstration/score-demo.mjs (PM re-run on merged main: exit 0, P1-P5 pass)"
+          status: pass
+      summary: "D6 closed with 'name, never link': new 20th closed reason unlinked-workspace-package — bare/scoped specifiers whose package-name tail matches a supplied directory root are named with every matching root quoted and ambiguity stated; no heuristic links (an entry-point guess would manufacture results). 9 class regression tests. Demonstration re-run read-only via git archive: PASS — zero silent sites (was 19), all 75 unreturned sites named by route specifier, serializer scope still byte-identical to sealed eras, two consecutive runs byte-identical, 5.1s wall. Honest precision bound documented: 4 external packages collide with supplied directory names and appear as ledger false alarms, never in answers. Owner-approved post-breaker unit; budget final: 10 units."
   - id: T999
     type: judge
     assignee: Judge
-    status: queued
+    status: active
     reasoning_hint: high
     objective: "Final audit: map each of D1-D4 to its fix, regression test, and v2 re-validation receipt; confirm zero missed-and-unnamed sites over the v1 ground truth; weigh the demonstration against its falsifier; and decide whether 'must-have for some repos' is now an evidenced claim. Record full_outcome_complete accordingly."
     inputs:
