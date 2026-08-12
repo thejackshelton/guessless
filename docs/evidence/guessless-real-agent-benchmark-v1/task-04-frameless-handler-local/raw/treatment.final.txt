@@ -1,8 +1,0 @@
-Implemented the React shared-handler fix.
-
-- Preserves direct method-body `const` declarations before generated state writes.
-- Does not lift factory-level or nested-block declarations.
-- Added a regression covering `const next = count + step; count = next`.
-- `git diff --check`: passed.
-- React tests: blocked because dependencies are absent; offline install was denied access to the external pnpm store.
-- Vendored and upstream Markless compiler versions are both `0.2.2`; no version drift detected.

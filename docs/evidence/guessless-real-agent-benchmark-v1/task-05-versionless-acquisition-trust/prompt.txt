@@ -1,1 +1,0 @@
-Harden npm-lock acquisition and trust verification so acquisition failures remain fail-closed and generated trust/provenance artifacts cannot be accepted when acquisition evidence or explicit exclusion records are inconsistent. Add focused regression tests and run the relevant tests.

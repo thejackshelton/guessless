@@ -1,1 +1,0 @@
-Fix the React emitter so a generated shared handler preserves local const declarations used by state writes inside that handler. Keep lowering scoped to the method body, add a focused regression test, and run the relevant tests.

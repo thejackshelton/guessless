@@ -1,9 +1,0 @@
-Implemented the React and Solid emitter fix.
-
-- Shared hooks are now exported from declaration-plus-host modules.
-- Modules without shared definitions remain unaffected, covered by negative regression tests.
-- Added focused React and Solid regression suites.
-- Updated affected generated composition goldens.
-- `git diff --check` passed.
-- Relevant Vitest run was attempted but blocked because dependencies are absent: `vitest: command not found`.
-- Vendored and upstream Markless compiler versions both resolve to `0.2.2`; no version drift detected.

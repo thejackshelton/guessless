@@ -1,9 +1,0 @@
-Implemented npm-lock trust hardening:
-
-- Added explicit fail-closed exclusions for `react-dashboard` and `angular-contacts`, bound to the exact T190 evidence digest.
-- Trust generation now rejects missing, reordered, altered, or inconsistent exclusion records.
-- Provenance embeds those exclusions; verification independently checks them against aggregate evidence.
-- Added regression tests for missing exclusions, altered state, digest tampering, and recomputed provenance tampering.
-- `git diff --check` and JSON validation pass.
-
-Tests could not run because dependencies are unavailable locally. Both the required `vp` command and an offline install failed due missing cached tarballs (`playwright-core` and `@types/node`). No network access was used.

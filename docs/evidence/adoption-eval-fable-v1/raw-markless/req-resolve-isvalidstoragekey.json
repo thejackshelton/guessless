@@ -1,1 +1,0 @@
-{ "kind": "resolveBinding", "file": "packages/serializer/src/storage-key.ts", "name": "isValidStorageKey", "space": "value", "scope": null }

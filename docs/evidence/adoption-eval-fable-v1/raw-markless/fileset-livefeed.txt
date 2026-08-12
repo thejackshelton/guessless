@@ -1,4 +1,0 @@
-demos/live-feed/src/App.tsrx
-demos/live-feed/src/UpdateSummary.tsrx
-demos/live-feed/src/main.ts
-demos/live-feed/src/update-feed.ts

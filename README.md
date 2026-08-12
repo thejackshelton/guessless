@@ -44,7 +44,7 @@ echo '{"inputs":[{"path":"src/api.ts","source":"export const answer = 42;"}],
   | node packages/cli/dist/cli.js query -
 ```
 
-`query` accepts a file path or `-` for stdin; `reproduce` re-verifies a saved receipt against the same ordered inputs. The MCP stdio server (`node packages/mcp/dist/server.js`), its snapshot/safe-change workflow, summary and paged views, and local benchmarks are documented in [`packages/mcp/README.md`](packages/mcp/README.md).
+`query` accepts a file path or `-` for stdin; `reproduce` re-verifies a saved receipt against the same ordered inputs. The MCP stdio server (`node packages/mcp/dist/server.js`), its snapshot/safe-change workflow, summary and paged views, and local benchmarks are documented in [`packages/mcp/README.md`](packages/mcp/README.md); the four-layer agent-harness integration (docs block, skill, stop-hook claim gate, CI reproduce check) is in [`INTEGRATION.md`](INTEGRATION.md).
 
 ## Architecture
 
@@ -56,10 +56,12 @@ The engine owns parsing, linking, queries, anchors, receipt states, and integrit
 
 ## Evidence
 
+The raw evidence bundles (receipts, scorers, sealed manifests) live in a local `docs/evidence` archive that is deliberately not published; the claims below are each backed by a named bundle in that archive.
+
 - **Planted falsification**: the engine suite uses adversarial JS/TS/JSX/TSX fixtures with known ground truth, checking exact results, unresolved citations, integrity, and mutation guards. See [`packages/engine/test/`](packages/engine/test/).
-- **Real repositories and scaling**: three pinned repos indexed without installed dependencies, an LSP comparison retained verbatim, and exact query timings from 10k to 1M lines (~1–2ms p50 at 10k; ~33–270ms at 1M). Sealed in [oracle part 2](docs/evidence/oracle-part-2/summary.md).
-- **2026-08 defect campaign**: a ground-truthed trial against sibling-repo code ([v1 verdict](docs/evidence/adoption-eval-fable-v1/verdict.md)) found four missed-and-unnamed defect classes; fixing them surfaced two more. All six are fixed fail-closed with class-level regression tests. The [v2 re-trial](docs/evidence/adoption-eval-fable-v2/report.md) re-ran all 51 queries: **zero missed-and-unnamed, zero spurious** over 202 hand-audited sites. A falsifiable [repo-scale demonstration](docs/evidence/adoption-eval-fable-v2/demonstration/report.md) (635 files / 161k lines, preregistered falsifiers — one genuinely fired and was fixed) then passed: zero decoy sites where grep's answer was 13.5% decoys, every unreturned site named by its route specifier, byte-identical receipts, 5.1s total.
-- **Sealed history**: the earlier `oracle-part-3` bundles (including a v5 `DO_NOT_ADOPT` whose 68 tool calls were all cancelled client-side and so support no causal claim) remain immutable era records — see the [adoption decision](docs/evidence/oracle-part-3-adoption-decision.md).
+- **Real repositories and scaling**: three pinned repos indexed without installed dependencies, an LSP comparison retained verbatim, and exact query timings from 10k to 1M lines (~1–2ms p50 at 10k; ~33–270ms at 1M). Sealed in the local evidence archive (`docs/evidence/oracle-part-2`, kept out of the published tree).
+- **2026-08 defect campaign**: a ground-truthed trial against sibling-repo code (the `adoption-eval-fable-v1` trial) found four missed-and-unnamed defect classes; fixing them surfaced two more. All six are fixed fail-closed with class-level regression tests. The `adoption-eval-fable-v2` re-trial re-ran all 51 queries: **zero missed-and-unnamed, zero spurious** over 202 hand-audited sites. A falsifiable repo-scale demonstration (635 files / 161k lines, preregistered falsifiers — one genuinely fired and was fixed) then passed: zero decoy sites where grep's answer was 13.5% decoys, every unreturned site named by its route specifier, byte-identical receipts, 5.1s total.
+- **Sealed history**: the earlier `oracle-part-3` bundles (including a v5 `DO_NOT_ADOPT` whose 68 tool calls were all cancelled client-side and so support no causal claim) remain immutable era records — archived in the same local evidence tree.
 
 Not yet established, stated plainly: agent-in-the-loop benefit against the fixed engine (prior valid pairs showed no correctness lift and material overhead on small repos), MCP transport reliability under real agent clients, and `.tsrx` corpora (refused by design).
 

@@ -1,1 +1,0 @@
-Fix the React and Solid emitters so a module that declares shared definitions exports its generated shared hook even when the same module also renders a host component. Preserve modules without shared definitions. Add focused regression tests for declaration-plus-host modules and run the relevant tests.

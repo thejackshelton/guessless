@@ -1,2 +1,0 @@
- M packages/typescript-plugin/src/language.ts
- M packages/typescript-plugin/test/language.test.ts

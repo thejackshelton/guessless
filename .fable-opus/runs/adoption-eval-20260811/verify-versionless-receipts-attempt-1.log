@@ -1,4 +1,0 @@
---- node -e 'const fs=require("fs");const p="docs/evidence/adoption-eval-fable-v1";const rep=p+"/versionless-report.md";if(!fs.existsSync(rep))throw new Error("missing report");const dir=p+"/raw-versionless";const files=fs.readdirSync(dir).filter(f=>f.endsWith(".receipt.json"));if(files.length<5)throw new Error("need >=5 receipts, got "+files.length);for(const f of files){const r=JSON.parse(fs.readFileSync(dir+"/"+f,"utf8"));if(!["complete","partial","refused"].includes(r.state))throw new Error(f+" bad state: "+r.state)}console.log("ok:",files.length,"receipts")' (exit 0) ---
-ok: 25 receipts
-
-

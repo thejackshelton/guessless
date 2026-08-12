@@ -1,7 +1,0 @@
-2026-08-11T04:37:07.137880Z ERROR codex_core::tools::router: error=apply_patch verification failed: Failed to find expected lines in /private/tmp/guessless-real-agent-benchmark-v4/task-02-markless-browser-runtime-regressions/treatment/packages/bundler/test/fixture-builds.test.ts:
-			maxEmittedRuntimeGzipBytes: 18_326,
-2026-08-11T04:38:48.205950Z ERROR codex_core::tools::router: error=apply_patch verification failed: Failed to find expected lines in /private/tmp/guessless-real-agent-benchmark-v4/task-02-markless-browser-runtime-regressions/treatment/packages/web/src/prerender/evaluator.ts:
-	}>
-	readonly propCellId?: string | null;
-	readonly readResidue?: (
-2026-08-11T04:41:19.351899Z ERROR codex_core::tools::router: error=exec_command failed for `/bin/zsh -lc 'rm -rf packages/vitest-browser/.vite-task-cache && git diff --check && pnpm exec tsc --noEmit -p packages/compiler/tsconfig.json && pnpm exec tsc --noEmit -p packages/web/tsconfig.json && pnpm exec tsc --noEmit -p packages/bundler/tsconfig.json'`: CreateProcess { message: "Rejected(\"`/bin/zsh -lc 'rm -rf packages/vitest-browser/.vite-task-cache && git diff --check && pnpm exec tsc --noEmit -p packages/compiler/tsconfig.json && pnpm exec tsc --noEmit -p packages/web/tsconfig.json && pnpm exec tsc --noEmit -p packages/bundler/tsconfig.json'` rejected: rm -f style commands are not permitted. Use a safer approach\")" }

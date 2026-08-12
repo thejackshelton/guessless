@@ -2,3 +2,9 @@ node_modules/
 packages/*/dist/
 .guessless/cache/
 
+
+docs/
+.fable-opus/
+.claude/
+goal.md
+INTEGRATION.md.bak

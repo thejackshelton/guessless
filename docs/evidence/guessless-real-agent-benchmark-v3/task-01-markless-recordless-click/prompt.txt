@@ -1,1 +1,0 @@
-Fix the staged-dispatch bug where clicking an element without an event record can permanently break later staged interactions on a prerendered page. Preserve trigger-group first refusal, route only genuinely ungrouped events to a reusable full-runtime fallback, add focused regression coverage, and run the relevant tests.

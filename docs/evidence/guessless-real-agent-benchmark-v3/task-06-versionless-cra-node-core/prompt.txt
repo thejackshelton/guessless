@@ -1,1 +1,0 @@
-Extend the generic React CRA Vite adapter to support configured Node core-module usage in browser builds, including static imports, dynamic imports, and require calls, without rewriting unrelated strings or shadowed local bindings. Keep the capability generic, add focused regression tests, and run the relevant adapter tests.

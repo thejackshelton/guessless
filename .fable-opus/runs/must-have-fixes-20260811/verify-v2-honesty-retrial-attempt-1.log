@@ -1,4 +1,0 @@
---- node -e 'const fs=require("fs");const p="docs/evidence/adoption-eval-fable-v2";const t=fs.readFileSync(p+"/report.md","utf8");if(!/zero missed-and-unnamed: (TRUE|FALSE)/.test(t))throw new Error("missing oracle line");for(const d of ["raw-markless","raw-versionless"]){const files=fs.readdirSync(p+"/"+d).filter(f=>f.endsWith(".receipt.json"));if(files.length<15)throw new Error(d+" has "+files.length+" receipts");for(const f of files){const r=JSON.parse(fs.readFileSync(p+"/"+d+"/"+f,"utf8"));if(!["complete","partial","refused"].includes(r.state))throw new Error(f+" bad state")}}console.log("ok")' (exit 0) ---
-ok
-
-

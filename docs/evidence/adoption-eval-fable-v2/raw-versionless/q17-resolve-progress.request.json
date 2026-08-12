@@ -1,7 +1,0 @@
-{
-  "kind": "resolveBinding",
-  "file": "internals/scripts/extract-intl.js",
-  "name": "progress",
-  "space": "value",
-  "scope": null
-}
