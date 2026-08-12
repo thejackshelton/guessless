@@ -8,7 +8,7 @@ goal:
   slug: "guessless-harness-integration"
   kind: specific
   tranche: "Ship the four integration layers (docs block, skill, stop-hook gate, CI reproduce check) into markless, versionless, and frameless, with the gate machinery living in guessless — then audit that every layer exists and the gate mechanically fires."
-  status: active
+  status: done
   oracle:
     signal: "In each target repo: AGENTS.md carries the guessless block, a guessless skill with valid frontmatter exists, and the stop-hook is wired in .claude/settings.json (valid JSON, pre-existing config preserved) pointing at guessless's claim-gate script. In guessless: claim-gate and reproduce-check scripts exist with tests proving the gate rejects an unreceipted completeness claim, accepts a receipted one, and ignores non-claims. Final Judge verifies all of it mechanically, including a live hook-fire test."
     cadence: "after each Worker package and at final audit"
@@ -68,7 +68,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/guessless-harness-integration/"
     command: "node /Users/jacksm5pro/.claude/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/guessless-harness-integration"
 
-active_task: T999
+active_task: null
 
 tasks:
   - id: T001
@@ -211,7 +211,7 @@ tasks:
           status: pass
         - cmd: "settings.json valid; reproduce-check --help passes; skill placed in .claude/skills (not Ruler-managed here, drift-safe)"
           status: pass
-      summary: "Frameless wired via its Codex-only Ruler pipeline: marked block in .ruler/AGENTS.md regenerated into AGENTS.md, skill added as Ruler source (mirrored to .codex) and placed directly in .claude/skills (outside Ruler's outputs here), new settings.json Stop hook, reproduce-check delegate with a check-citations framing note. Attribution audit: pnpm-lock/workspace diffs are pre-existing (in-flight 'website' package work), not ours. Nothing committed."
+      summary: "Frameless wired via its Codex-only Ruler pipeline: marked block in .ruler/AGENTS.md regenerated into AGENTS.md, skill added as Ruler source (mirrored to .codex) and placed directly in .claude/skills (outside Ruler's outputs here), new settings.json Stop hook, reproduce-check delegate with a check-citations framing note. Attribution audit: pnpm-lock/workspace diffs are pre-existing (in-flight 'website' package work), not ours. Nothing committed. AUDIT AMENDMENT (T999/T006): the tree receipted here did not reproduce under pnpm rules - a duplicated Ruler self-inclusion body was later removed by the audit check-run and the normalized state receipted at T006; AGENTS.md.bak (Ruler backup from a post-integration re-run, deleted at T006) and .fable-opus/ (cockpit dispatch artifact) belong to this task's era."
   - id: T005
     type: pm
     assignee: PM
@@ -245,11 +245,57 @@ tasks:
           status: pass
         - cmd: "guessless-integration markers present in generated AGENTS.md and CLAUDE.md; skill mirrored to .claude/skills"
           status: pass
-      summary: "Markless wired via the Ruler pipeline per T002's discovery: marked docs block appended to .ruler sources, skill (with .tsrx-refused boundary note) added as a ruler skill source, pnpm rules regenerated the four generated outputs in the repo's canonical way (CI drift check stays green), and the Stop hook added additively to hand-maintained settings.json (permissions preserved; no prior hooks key). All seven changed paths are ours; the 15 pre-existing dirty entries are untouched. Nothing committed - owner reviews the working tree."
+      summary: "Markless wired via the Ruler pipeline per T002's discovery: marked docs block appended to .ruler sources, skill (with .tsrx-refused boundary note) added as a ruler skill source, pnpm rules regenerated the four generated outputs in the repo's canonical way (CI drift check stays green), and the Stop hook added additively to hand-maintained settings.json (permissions preserved; no prior hooks key). All seven changed paths are ours; the 15 pre-existing dirty entries are untouched. Nothing committed - owner reviews the working tree. AUDIT AMENDMENT (T999): changed paths also include markless/.codex/skills/guessless/ (Ruler-generated Codex mirror); settings.json addition is semantically hooks-only but the file was reformatted tabs-to-2-space, so the git diff is whole-file - flagged for owner review."
+  - id: T006
+    type: pm
+    assignee: PM
+    status: done
+    reasoning_hint: medium
+    objective: "Frameless closure per T999: receipt the pnpm-rules-normalized AGENTS.md state; delete AGENTS.md.bak (Ruler backup created by a post-integration re-run) and document .fable-opus/ as a cockpit dispatch artifact; amend T004 and T005 receipts per the audit; prove Ruler stability with two consecutive pnpm rules runs and zero working-tree delta. This PM task explicitly allows the frameless paths listed by the audit."
+    inputs:
+      - "T999 receipt worker_package"
+    constraints:
+      - "If pnpm rules produces changes on a second consecutive run, stop and report the delta verbatim."
+    expected_output:
+      - "Normalized, stability-proven frameless tree; amended receipts; closure receipt."
+    receipt:
+      result: done
+      harness: claude-code
+      changed_files:
+        - "frameless/AGENTS.md.bak (deleted; verified Ruler-generated header before removal)"
+        - "docs/goals/guessless-harness-integration/state.yaml (receipt amendments)"
+      commands:
+        - cmd: "rm AGENTS.md.bak after verifying '<!-- Generated by Ruler -->' header and marker count"
+          status: pass
+        - cmd: "two consecutive pnpm rules runs: git status and diff byte-identical (STABLE), markers exactly 2"
+          status: pass
+        - cmd: "settings.json still valid JSON"
+          status: pass
+      summary: "Frameless closure per T999: normalized AGENTS.md state (produced by the audit check-run) is hereby receipted and proven stable across two consecutive pnpm rules runs with zero working-tree delta; AGENTS.md.bak deleted after verification; .fable-opus/ documented as cockpit dispatch artifact of the T004 era; T004/T005 receipts amended per the audit (non-reproducing tree note, .codex skills mirror, settings whitespace reformat flag); versionless concurrent-commit attribution recorded in the dirty fingerprint."
+  - id: T007
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: medium
+    objective: "Focused re-audit of the T006 closure only (frameless normalization receipted, .bak resolved, artifacts attributed, stability proof, receipt amendments); if clean, record decision complete with full_outcome_complete: true, incorporating T999's evidence map for the unchanged passing scopes."
+    inputs:
+      - "T999 receipt"
+      - "T006 receipt"
+    constraints:
+      - "Read-only. Re-verify the closure deltas mechanically; do not re-run the full audit scopes T999 already passed unless the closure touched them."
+    expected_output:
+      - "complete | not_complete"
+      - "full_outcome_complete: true | false"
+    receipt:
+      result: done
+      harness: claude-code
+      decision: complete
+      full_outcome_complete: true
+      rationale: "All T006 closure deltas verified mechanically (bak absent; frameless Ruler stable with zero delta and exactly 2 markers; receipt amendments and concurrent-commit fingerprint on the board; spot-checks green). Incorporating T999's evidence map for scopes it already passed - live Stop-hook fire (bald claim exit 2, hedged/receipted exit 0, loop guard), 270-test gate suite, markless and versionless full wiring with clean attribution - every layer of the original outcome maps to receipts and current verification."
   - id: T999
     type: judge
     assignee: Judge
-    status: active
+    status: done
     reasoning_hint: high
     objective: "Final audit: verify every layer in every repo mechanically (files exist, JSON valid, frontmatter valid, pre-existing markless settings keys preserved against git diff), run the claim-gate test suite, and perform a live hook-fire test by piping a synthetic Stop-hook JSON payload with an unreceipted completeness claim into claim-gate.mjs (must block) and a receipted one (must pass). Record full_outcome_complete accordingly."
     inputs:
@@ -264,12 +310,19 @@ tasks:
       - "full_outcome_complete: true | false"
       - "Per-repo per-layer evidence map"
       - "Missing evidence and next package if incomplete"
-    receipt: null
-
+    receipt:
+      result: done
+      harness: claude-code
+      decision: not_complete
+      full_outcome_complete: false
+      rationale: "Gate machinery real and demonstrably fires (live Stop-hook: bald claim exit 2 with stderr reason; hedged exit 0; inline complete receipt exit 0; loop guard honored; 270 tests green). Markless and versionless fully wired, drift-free, attribution-clean (markless settings.json semantically hooks-only but whitespace-reformatted, noted for owner; versionless had 25 concurrent disjoint commits today). Frameless failed: pre-audit AGENTS.md carried a duplicated Ruler self-inclusion body that a fresh pnpm rules removed (T004 tree did not reproduce), plus unreceipted AGENTS.md.bak and .fable-opus/. Closure package spawned as T006 with focused re-audit T007."
 checks:
-  dirty_fingerprint: "guessless clean at prep; target repos have pre-existing dirty state (markless 15 entries) recorded as not-ours."
+  dirty_fingerprint: "guessless clean at prep; markless 15 pre-existing entries not-ours; versionless received 25 concurrent disjoint commits 2026-08-12 from another agent (zero path overlap, verified by T999)."
   last_verification:
     result: pass
-    task: null
+    task: T007
     commands:
-      - "pnpm test (248 passed / 8 skipped, 2026-08-12 pre-goal)"
+      - "pnpm test (270 passed / 8 skipped incl. 22 claim-gate tests)"
+      - "live Stop-hook fire test: bald claim exit 2, hedged/receipted exit 0, loop guard honored (T999)"
+      - "frameless pnpm rules stability: zero delta across consecutive runs (T006/T007)"
+      - "all three repos: settings valid, markers present, skills valid, delegates exit 0 (T999/T007)"
