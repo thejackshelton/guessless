@@ -327,20 +327,56 @@ describe('immutable warm snapshots', () => {
 			`${prefix}${'b'.repeat(bodyLength)}${suffix}`,
 		];
 		await writeFile(volatile, variants[0]);
-		let active = true;
-		const churn = (async () => {
-			let index = 0;
-			while (active) {
-				await writeFile(volatile, variants[index % 2]);
-				index += 1;
+		// The churn provocation is a race the scan can legitimately win on a fast
+		// runner: a scan that slips between two writes sees a stable file, and
+		// 'complete' is then the honest answer - which also commits a fresh
+		// snapshot, so a lost race cannot simply be retried against the old
+		// baseline. Each attempt therefore re-baselines against the currently
+		// committed snapshot, and the refusal, once provoked, must preserve
+		// exactly that commitment. Eight attempts make a lost race vanishingly
+		// unlikely without weakening any assertion.
+		let provoked = false;
+		for (let attempt = 0; attempt < 8 && !provoked; attempt += 1) {
+			const committed = await call(client, 'guessless_prepare_snapshot', {
+				rootUri: pathToFileURL(root).href,
+			});
+			expect(committed.structuredContent?.state).toBe('complete');
+			const committedSnapshot = committed.structuredContent?.snapshot as string;
+			const committedArguments = impactArguments(committedSnapshot, 'rename');
+			const committedBaseline = await call(
+				client,
+				'guessless_safe_change_impact',
+				committedArguments,
+			);
+			let active = true;
+			const churn = (async () => {
+				let index = 1;
+				while (active) {
+					await writeFile(volatile, variants[index % 2]);
+					index += 1;
+				}
+			})();
+			try {
+				const attempted = await call(client, 'guessless_prepare_snapshot', {
+					rootUri: pathToFileURL(root).href,
+				});
+				if (attempted.structuredContent?.state === 'refused') {
+					expect(attempted.structuredContent).toMatchObject({
+						state: 'refused',
+						reason: 'unstable-scan',
+						snapshot: committedSnapshot,
+					});
+					expect(
+						await call(client, 'guessless_safe_change_impact', committedArguments),
+					).toEqual(committedBaseline);
+					provoked = true;
+				}
+			} finally {
+				active = false;
+				await churn;
 			}
-		})();
-		try {
-			await assertAtomicRefusal('unstable-scan');
-		} finally {
-			active = false;
-			await churn;
 		}
+		if (!provoked) throw new Error('unstable-scan was never provoked in 8 attempts');
 	});
 
 	test('describes outside-language and excluded-directory changes without false semantic invalidation', async () => {
