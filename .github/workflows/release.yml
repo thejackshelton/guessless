@@ -46,4 +46,4 @@ jobs:
       - name: Create the GitHub release from the changelog
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: npx changelogen@latest gh release
+        run: npx changelogen@latest gh release "${GITHUB_REF_NAME#v}"
