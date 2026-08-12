@@ -1,6 +1,6 @@
 {
 	"name": "@guessless/mcp",
-	"version": "0.0.1",
+	"version": "1.0.0",
 	"bin": {
 		"guessless-mcp": "./dist/server.js"
 	},
