@@ -1,0 +1,17 @@
+{
+  "runId": "must-have-fixes-20260811",
+  "unitId": "v2-honesty-retrial",
+  "attempt": 1,
+  "promptPath": "/Users/jacksm5pro/dev/open-source/guessless/.fable-opus/runs/must-have-fixes-20260811/prompt-v2-honesty-retrial-attempt-1.md",
+  "subagentType": "opus-worker",
+  "toolUseId": "toolu_01SkoYZXo8tH5pi81rn2aPZa",
+  "promptId": "6bf38b6e-b056-44c0-9aac-814dbce30519",
+  "background": false,
+  "parallel": false,
+  "effort": null,
+  "contract": [
+    "docs/evidence/adoption-eval-fable-v2/**"
+  ],
+  "ts": "2026-08-11T23:22:59.567Z",
+  "pendingName": "00001786490579569000-1fb61f25-v2-honesty-retrial.json"
+}

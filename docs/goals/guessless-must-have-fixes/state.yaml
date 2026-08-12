@@ -68,7 +68,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/guessless-must-have-fixes/"
     command: "node /Users/jacksm5pro/.claude/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/guessless-must-have-fixes"
 
-active_task: T005
+active_task: T006
 
 tasks:
   - id: T001
@@ -226,7 +226,7 @@ tasks:
   - id: T005
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     objective: "Re-validation: re-run the adoption-eval-fable-v1 honesty trials against the fixed engine over the same ground-truth corpora (markless serializer set, versionless react-boilerplate fixture, same symbols and query set), writing a fresh docs/evidence/adoption-eval-fable-v2/ bundle. Score: every v1 ground-truth site must now be either returned or named in unresolved; any remaining missed-and-unnamed site leads the report and blocks the oracle. Sealed v1 evidence stays byte-identical. Dispatch via a fable-opus cockpit packet."
     allowed_files:
@@ -238,11 +238,21 @@ tasks:
       - "Need files outside allowed_files."
       - "Any write would touch docs/evidence/adoption-eval-fable-v1 or older sealed evidence."
       - "Verification fails twice."
-    receipt: null
+    receipt:
+      result: done
+      harness: claude-code
+      changed_files:
+        - "docs/evidence/adoption-eval-fable-v2/** (51 receipts, scorer, report)"
+      commands:
+        - cmd: "51/51 v1 queries re-run, snapshot hashes identical to v1, mechanical scorer over both bundles"
+          status: pass
+        - cmd: "packet verify (report oracle line + receipt states)"
+          status: pass
+      summary: "v2 honesty re-trial complete and like-for-like (zero input drift, 19/19 anchors byte-identical). Missed-and-unnamed 51->7, returned 140->166, named 11->29, spurious 0->0. D1-D4 all verified fixed with receipt citations. Oracle line FALSE: one residual class - 7 argument-position escape sites in markless q10 writesOf (value.ts 223,238,261,281,288,311,331) where the binding escapes into a mutating callee, seen as read but unpriced. Secondary finding: method-call-mutation-uncertain over-names argument-position and non-mutating calls (3 false alarms incl. q04b). Both spawned into T012. PM spot-verified scores.json mechanics and the q10 transition (complete/empty -> partial/10-named)."
   - id: T006
     type: judge
     assignee: Judge
-    status: queued
+    status: active
     reasoning_hint: high
     objective: "Select and spec the must-have demonstration: choose the scenario where guessless beats a grep-capable agent on the merits — candidates: a repo large enough that exhaustive text sweep is impractical or ambiguous (same-name symbols across many modules), the versionless unbuildable corpus where no LSP starts, or a receipt-verified CI citation check in the frameless check-citations style. Define the Worker package: exact objective, ground truth or oracle, allowed_files, verify, stop_if, and what result would falsify the must-have claim."
     inputs:
@@ -425,6 +435,54 @@ tasks:
         - cmd: "pnpm lint (after removing merged worktrees)"
           status: pass
       summary: "Evaluation harness ground truth corrected per PM rulings, two attempts: attempt 1 fixed the derivation (renameRole classifier replacing the 'reference is not a call' assumption) and blocked on protocol-pin scope; attempt 2 regenerated v1-v4 ground-truth.json through the derivation (all four independently converging on a29b993b...ce2d), re-pinned protocol.json and the load-bearing validateProtocol literal, updated sitesMissed 3->7 with derivation comment. v5 byte-identical (hand-locked independent authority - engine never grades itself), v6+ and docs/evidence untouched (verified). Corrected truth: rename planted 4->8 sites, delete 4->6. Full default gate green on merged main. T003's D2+D3 oracle is hereby verified on the integrated tree. Era note for T005: sealed docs/evidence bundles remain records of the pre-D2 4-site rename truth by explicit ruling."
+  - id: T012
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: high
+    objective: "Close the residual honesty class found by the v2 re-trial (argument-position escape) and correct the D3 over-naming, then flip the v2 oracle by delta re-measurement. (1) writesOf must name every call where the queried binding appears in argument position (its reference escapes to a callee that may mutate it) as an unresolved site with an honest closed reason (new member argument-escape-mutation-uncertain or a ruled refinement). (2) Restrict method-call-mutation-uncertain to calls whose RECEIVER is the queried binding, clearing the three false alarms (Object.values(X).includes, x = x.filter) without losing the 11 true names. (3) Re-run the affected v2 queries (all writesOf-class receipts incl. q10, q04b, q13, versionless q15/q18), update the v2 bundle receipts, scores and report, and restate the oracle line; TRUE only if the mechanical scorer says zero missed-and-unnamed across the whole bundle. Dispatch via a fable-opus cockpit packet."
+    allowed_files:
+      - packages/engine/src/**
+      - packages/engine/test/**
+      - packages/*/dist/**
+      - docs/evidence/adoption-eval-fable-v2/**
+      - pnpm-lock.yaml
+    verify:
+      - "pnpm install --frozen-lockfile --prefer-offline"
+      - "pnpm build"
+      - "pnpm test"
+      - "pnpm typecheck"
+      - "pnpm lint"
+    stop_if:
+      - "Need files outside allowed_files."
+      - "The fix requires weakening the closed enumeration or claiming unproven mutation."
+      - "Verification fails twice."
+    receipt:
+      result: done
+      harness: claude-code
+      changed_files:
+        - packages/engine/src/contracts.ts
+        - packages/engine/src/queries.ts
+        - packages/engine/test/contracts.test.ts
+        - packages/engine/test/reference-completeness.test.ts
+        - packages/engine/test/fixtures/adversarial/ground-truth.json
+        - docs/evidence/adoption-eval-fable-v2/report.md
+        - docs/evidence/adoption-eval-fable-v2/score.mjs
+        - docs/evidence/adoption-eval-fable-v2/scores.json
+        - docs/evidence/adoption-eval-fable-v2/raw-markless/q03-refs-asyncboundaryarm.receipt.json
+        - docs/evidence/adoption-eval-fable-v2/raw-markless/q04b-writes-asyncboundaryarm.receipt.json
+        - docs/evidence/adoption-eval-fable-v2/raw-markless/q10-writes-records.receipt.json
+        - docs/evidence/adoption-eval-fable-v2/raw-versionless/q18-writesOf-progress.receipt.json
+      commands:
+        - cmd: "git merge (baseline a472f14 preserved, merge a15745a, 10 add/add conflicts resolved to branch)"
+          status: pass
+        - cmd: "pnpm build && pnpm test (239 passed, 8 skipped, 0 failed)"
+          status: pass
+        - cmd: "pnpm typecheck && pnpm lint"
+          status: pass
+        - cmd: "node docs/evidence/adoption-eval-fable-v2/score.mjs (PM re-run: oracleZeroMissedAndUnnamed true, spurious 0)"
+          status: pass
+      summary: "D5 closed and the goal oracle flipped TRUE on the integrated tree. 19th closed reason argument-escape-mutation-uncertain names all 7 by-reference escapes (writesOf only, direct values only, first boundary only via a derived flag); method-call-mutation-uncertain restricted to receiver position clearing 3 false alarms while keeping all 11 true names; no builtin allowlist (unprovable suppression documented as a silent-miss risk). Scorer escape branch now one-for-one like the mutation branch, proven non-softening (v1 baseline re-scores byte-identical at 51). Unit stalled mid-stream once, resumed via SendMessage. Pre-D5 FALSE-era measurement preserved at commit a472f14. Known honest residuals recorded in report: q04b partial on a no-write binding (real escape into Object.values), q10 receipt 15x v1 size."
   - id: T999
     type: judge
     assignee: Judge
