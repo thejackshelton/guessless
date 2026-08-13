@@ -7,6 +7,6 @@ echo '{"inputs":[{"path":"a.ts","source":"export const x = 1;"}],
       "request":{"kind":"exportedNames","file":"a.ts"}}' | npx guessless query -
 ```
 
-`guessless query <envelope.json|->` answers; `guessless reproduce <bundle.json>` re-verifies any saved receipt byte-for-byte. Full docs, evidence, and agent-harness integration (docs block, skill, stop-hook claim gate, CI): [repository](https://github.com/thejackshelton/guessless).
+`guessless query <envelope.json|->` answers; `guessless reproduce <bundle.json>` re-verifies any saved receipt byte-for-byte. Full docs, evidence, and agent-harness integration (docs block, skill, stop-hook claim gate, CI): [repository](https://github.com/compiled-run/guessless).
 
 MIT

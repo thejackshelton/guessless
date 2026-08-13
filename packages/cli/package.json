@@ -13,7 +13,7 @@
 	"license": "MIT",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/thejackshelton/guessless.git",
+		"url": "git+https://github.com/compiled-run/guessless.git",
 		"directory": "packages/cli"
 	},
 	"files": [

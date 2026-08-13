@@ -55,7 +55,7 @@ concurrency:
 jobs:
   publish:
     name: ${{ inputs.mode }} ${{ inputs.version }}
-    if: github.repository == 'thejackshelton/guessless'
+    if: github.repository == 'compiled-run/guessless'
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     permissions:

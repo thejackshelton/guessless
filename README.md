@@ -188,4 +188,4 @@ docs next to what it got right.
 
 ## License
 
-MIT — [github.com/thejackshelton/guessless](https://github.com/thejackshelton/guessless)
+MIT — [github.com/compiled-run/guessless](https://github.com/compiled-run/guessless)
