@@ -1,0 +1,5 @@
+.fable-opus
+.vercel
+.env*
+.DS_Store
+*.dc.html.bak

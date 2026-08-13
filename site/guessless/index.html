@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guessless — Grep tells you what it matched. Not what it missed.</title>
+<meta name="description" content="Guessless reads JavaScript and TypeScript as structure rather than text. Every answer comes back as a receipt: complete, partial with every gap named, or refused.">
+<meta property="og:title" content="Guessless — Grep tells you what it matched. Not what it missed.">
+<meta property="og:description" content="Guessless reads JavaScript and TypeScript as structure rather than text. Every answer comes back as a receipt: complete, partial with every gap named, or refused.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://compiled.run/guessless/">
+<meta property="og:image" content="https://compiled.run/guessless/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="The Guessless hooded mark glowing on a near-black field, beside the wordmark Guessless and the line: Grep tells you what it matched. Not what it missed.">
+<meta property="og:site_name" content="Guessless">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Guessless — Grep tells you what it matched. Not what it missed.">
+<meta name="twitter:description" content="Guessless reads JavaScript and TypeScript as structure rather than text. Every answer comes back as a receipt: complete, partial with every gap named, or refused.">
+<meta name="twitter:image" content="https://compiled.run/guessless/og.png">
+<link rel="icon" href="/guessless/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/guessless/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/guessless/favicon-16x16.png">
+<link rel="apple-touch-icon" href="/guessless/apple-touch-icon.png">
+<script src="/guessless/support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200;300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --accent: oklch(0.72 0.19 12);
+  --accent-hover: oklch(from var(--accent) calc(l + 0.08) c h);
+  --accent-soft: oklch(from var(--accent) 0.74 calc(c * 0.55) h);
+  --accent-dim: oklch(from var(--accent) l c h / 0.1);
+}
+html { scroll-behavior: smooth; background: #0a0a0a; color-scheme: dark; }
+section[id] { scroll-margin-top: 76px; }
+body { margin: 0; overflow-x: hidden; background: #0a0a0a; color: #ededed; font-family: 'Unbounded', sans-serif; font-weight: 300; -webkit-font-smoothing: antialiased; }
+a { color: #ededed; text-decoration: none; }
+a:hover { color: var(--accent); }
+::selection { background: var(--accent); color: #0a0a0a; }
+@keyframes gl-blink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
+[data-noscroll] { scrollbar-width: none; -ms-overflow-style: none; }
+[data-noscroll]::-webkit-scrollbar { width: 0; height: 0; display: none; }
+summary::-webkit-details-marker { display: none; }
+details[open] [data-chev] { transform: rotate(180deg); }
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #0a0a0a;">
+  <header style="position: sticky; top: 0; z-index: 10; display: flex; align-items: center; justify-content: space-between; height: 60px; padding: 0 clamp(16px, 4vw, 28px); background: rgba(10,10,10,0.9); backdrop-filter: blur(12px); border-bottom: 1px solid #1c1c1c;">
+    <div style="display: flex; align-items: center; gap: 12px;">
+      <img src="/guessless/uploads/pasted-1786572735264-0.png" alt="Guessless" style="width: 40px; height: 40px; object-fit: contain; display: block; filter: drop-shadow(0 3px 8px rgba(0,0,0,0.75)) drop-shadow(0 0 14px rgba(190,190,195,0.28));">
+      <span style="font-weight: 600; font-size: 15px; letter-spacing: 0.02em;">Guessless</span>
+    </div>
+    <sc-if value="{{ wideStates }}" hint-placeholder-val="{{ true }}">
+      <nav style="display: flex; align-items: center; gap: clamp(12px, 3vw, 24px); font-size: 11px; font-weight: 400; color: #888;">
+        <a href="https://www.npmjs.com/package/guessless" style="display: inline-flex; align-items: center; gap: 7px; color: #888;" style-hover="color: #ededed;"><span style="width: 13px; height: 13px; flex-shrink: 0; background: currentColor; -webkit-mask: url(https://cdn.simpleicons.org/npm) center/contain no-repeat; mask: url(https://cdn.simpleicons.org/npm) center/contain no-repeat;"></span>npm</a>
+        <a href="https://github.com/thejackshelton/guessless" style="display: inline-flex; align-items: center; gap: 7px; background: var(--accent); color: #0a0a0a; padding: 8px 16px; border-radius: 6px; font-weight: 500;" style-hover="background: var(--accent-hover); color: #0a0a0a;"><span style="width: 13px; height: 13px; flex-shrink: 0; background: currentColor; -webkit-mask: url(https://cdn.simpleicons.org/github) center/contain no-repeat; mask: url(https://cdn.simpleicons.org/github) center/contain no-repeat;"></span>GitHub</a>
+      </nav>
+    </sc-if>
+    <sc-if value="{{ narrowStates }}" hint-placeholder-val="{{ false }}">
+      <button onClick="{{ toggleMenu }}" aria-label="Menu" style="display: flex; flex-direction: column; justify-content: center; gap: 5px; width: 44px; height: 44px; padding: 0 10px; border: 1px solid #1e1e1e; border-radius: 8px; background: #0f0f0f; cursor: pointer;">
+        <span style="{{ barTop }}"></span>
+        <span style="{{ barBottom }}"></span>
+      </button>
+    </sc-if>
+  </header>
+  <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position: sticky; top: 60px; z-index: 9; background: rgba(10,10,10,0.97); backdrop-filter: blur(12px); border-bottom: 1px solid #1c1c1c; padding: 12px clamp(16px, 4vw, 28px) 20px; display: flex; flex-direction: column; gap: 2px;">
+      <sc-for list="{{ menuLinks }}" as="m" hint-placeholder-count="7">
+        <a href="{{ m.href }}" onClick="{{ m.go }}" style="padding: 11px 4px; font-size: 13px; color: #b5b5b5; border-bottom: 1px solid #141414;" style-hover="color: #ededed;">{{ m.label }}</a>
+      </sc-for>
+      <div style="display: flex; gap: 10px; margin-top: 14px;">
+        <a href="https://www.npmjs.com/package/guessless" style="flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 0; font-size: 12px; color: #b5b5b5; border: 1px solid #1e1e1e; border-radius: 8px;"><span style="width: 14px; height: 14px; flex-shrink: 0; background: currentColor; -webkit-mask: url(https://cdn.simpleicons.org/npm) center/contain no-repeat; mask: url(https://cdn.simpleicons.org/npm) center/contain no-repeat;"></span>npm</a>
+        <a href="https://github.com/thejackshelton/guessless" style="flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 0; font-size: 12px; font-weight: 500; color: #0a0a0a; background: var(--accent); border-radius: 8px;"><span style="width: 14px; height: 14px; flex-shrink: 0; background: currentColor; -webkit-mask: url(https://cdn.simpleicons.org/github) center/contain no-repeat; mask: url(https://cdn.simpleicons.org/github) center/contain no-repeat;"></span>GitHub</a>
+      </div>
+    </div>
+  </sc-if>
+  <div style="max-width: 720px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 28px);">
+    <main style="padding: clamp(40px, 8vw, 72px) 0 120px; font-size: clamp(12.5px, 1.1vw + 12px, 13px); line-height: 2; color: #b5b5b5;">
+      <section id="introduction" data-screen-label="Introduction">
+        <h1 style="font-size: clamp(25px, 6vw, 36px); font-weight: 600; line-height: 1.3; color: #fff; margin: 0 0 20px; letter-spacing: -0.01em; text-wrap: pretty;">Grep tells you what it matched. Not what it missed.</h1>
+        <div style="display: flex; align-items: center; gap: 12px; margin: 0 0 40px; font-size: 11px; color: #666;">
+          <img src="/guessless/uploads/profile-img.jpg" alt="Jack Shelton" style="width: 26px; height: 26px; border-radius: 50%; border: 1px solid #262626; object-fit: cover; display: block;">
+          <span style="color: #999;">Jack Shelton</span>
+          <span style="color: #333;">&middot;</span>
+          <span>August 2026</span>
+          <span style="color: #333;">&middot;</span>
+          <span>6 min read</span>
+        </div>
+        <p style="margin: 0 0 16px; text-wrap: pretty;">Say you're renaming a function across the whole codebase — or changing its signature, or deleting a prop that half your components pass down. You search the project for the name, find <span onMouseEnter="{{ hovEight }}" onMouseLeave="{{ hovNone }}" style="{{ cueNeutral }}">8<span style="{{ cardEight }}"><img src="/guessless/assets/mark-faint.png" alt="" style="width:22px;height:22px;object-fit:contain;flex-shrink:0;"><span style="display:flex;gap:3px;"><span style="width:4px;height:4px;border-radius:1px;background:#3f3f3f;"></span><span style="width:4px;height:4px;border-radius:1px;background:#3f3f3f;"></span><span style="width:4px;height:4px;border-radius:1px;background:#3f3f3f;"></span><span style="width:4px;height:4px;border-radius:1px;background:#3f3f3f;"></span><span style="width:4px;height:4px;border-radius:1px;background:#3f3f3f;"></span><span style="width:4px;height:4px;border-radius:1px;background:#3f3f3f;"></span><span style="width:4px;height:4px;border-radius:1px;background:#3f3f3f;"></span><span style="width:4px;height:4px;border-radius:1px;background:#3f3f3f;"></span></span>what a text search returned</span></span> places that use it, and update them. But there were <span onMouseEnter="{{ hovTwelve }}" onMouseLeave="{{ hovNone }}" style="{{ cueAccent }}">12<span style="{{ cardTwelve }}"><img src="/guessless/assets/mark-glitch.png" alt="" style="width:22px;height:22px;object-fit:contain;flex-shrink:0;"><span style="display:flex;gap:3px;"><span style="width:4px;height:4px;border-radius:1px;background:#3f3f3f;"></span><span style="width:4px;height:4px;border-radius:1px;background:#3f3f3f;"></span><span style="width:4px;height:4px;border-radius:1px;background:#3f3f3f;"></span><span style="width:4px;height:4px;border-radius:1px;background:#3f3f3f;"></span><span style="width:4px;height:4px;border-radius:1px;background:#3f3f3f;"></span><span style="width:4px;height:4px;border-radius:1px;background:#3f3f3f;"></span><span style="width:4px;height:4px;border-radius:1px;background:#3f3f3f;"></span><span style="width:4px;height:4px;border-radius:1px;background:#3f3f3f;"></span><span style="width:4px;height:4px;border-radius:1px;background:var(--accent);"></span><span style="width:4px;height:4px;border-radius:1px;background:var(--accent);"></span><span style="width:4px;height:4px;border-radius:1px;background:var(--accent);"></span><span style="width:4px;height:4px;border-radius:1px;background:var(--accent);"></span></span>four of these were missed</span></span>, and a text search has no way to tell you that. The four you missed look exactly like four that were never there, so the half-finished change ships and nobody doubts it.</p>
+        <p style="margin: 0; text-wrap: pretty;">Guessless reads<span style="display: inline-block; width: 11px; height: 11px; vertical-align: -0.5px; margin: 0 4px 0 8px; border-radius: 2px; background: #f7df1e; -webkit-mask: url(https://cdn.simpleicons.org/javascript) center/contain no-repeat; mask: url(https://cdn.simpleicons.org/javascript) center/contain no-repeat;"></span><span style="color: #ededed;">JavaScript</span> and<span style="display: inline-block; width: 11px; height: 11px; vertical-align: -0.5px; margin: 0 4px 0 8px; border-radius: 2px; background: #3178c6; -webkit-mask: url(https://cdn.simpleicons.org/typescript) center/contain no-repeat; mask: url(https://cdn.simpleicons.org/typescript) center/contain no-repeat;"></span><span style="color: #ededed;">TypeScript</span> as structure rather than text, so it knows where every name actually comes from — which import, which binding, which file. That is what makes a codebase-wide transform safe to run: before you rewrite 200 call sites, you need to know the list really is all 200. Every answer comes back as a <svg width="11" height="12" viewBox="0 0 11 12" fill="none" stroke="#ededed" stroke-width="1.2" stroke-linejoin="round" style="display: inline-block; vertical-align: -1px; margin: 0 4px 0 2px;"><path d="M1 1h9v9.4l-1.5-1-1.5 1-1.5-1-1.5 1-1.5-1-1.5 1z"></path><path d="M3.4 4h4.2M3.4 6.4h2.4" stroke-linecap="round"></path></svg><strong style="color: #ededed; font-weight: 500;">receipt</strong> that says one of three things: <span onMouseEnter="{{ hovComplete }}" onMouseLeave="{{ hovNone }}" style="{{ cueComplete }}">this list is complete<span style="{{ cardComplete }}"><img src="/guessless/assets/mark-badge.png" alt="" style="width:22px;height:22px;object-fit:contain;flex-shrink:0;">state: <span style="color:#ededed;">complete</span></span></span>, <span onMouseEnter="{{ hovPartial }}" onMouseLeave="{{ hovNone }}" style="{{ cuePartial }}">this list has gaps and here is each one<span style="{{ cardPartial }}"><img src="/guessless/assets/mark-tilt.png" alt="" style="width:22px;height:22px;object-fit:contain;flex-shrink:0;">state: <span style="color:#ededed;">partial</span> &middot; gaps named</span></span>, or <span onMouseEnter="{{ hovRefused }}" onMouseLeave="{{ hovNone }}" style="{{ cueRefused }}">I can't answer this safely<span style="{{ cardRefused }}"><img src="/guessless/assets/mark-hood.png" alt="" style="width:22px;height:22px;object-fit:contain;flex-shrink:0;">state: <span style="color:var(--accent);">refused</span></span></span>.</p>
+      </section>
+      <hr style="border: none; border-top: 1px solid #1c1c1c; margin: 56px 0;">
+      <section id="install" data-screen-label="Install">
+        <h2 style="font-size: clamp(17px, 3.6vw, 20px); font-weight: 500; color: #fff; margin: 0 0 20px;">Install</h2>
+        <div style="position: relative; height: 196px; overflow: hidden; margin: 0 0 12px;">
+        <div style="background: #0d0d0d; border: 1px solid #1e1e1e; border-radius: 10px; overflow: hidden;">
+          <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 8px; padding: 12px 16px; background: #0f0f0f; border-bottom: 1px solid #1a1a1a;">
+            <div style="display: inline-flex; align-items: center; gap: 2px; background: #0a0a0a; border: 1px solid #1e1e1e; border-radius: 8px; padding: 3px;">
+            <sc-for list="{{ pmTabs }}" as="pm" hint-placeholder-count="4">
+              <button onClick="{{ pm.pick }}" style="{{ pm.style }}" style-hover="color: #ededed;"><span style="{{ pm.iconStyle }}"></span>{{ pm.label }}</button>
+            </sc-for>
+            </div>
+          </div>
+          <div style="padding: 18px clamp(14px, 3.5vw, 24px) 46px; font-family: 'JetBrains Mono', monospace; font-size: clamp(11px, 2.4vw, 12.5px); line-height: 2; overflow-x: auto;">
+            <sc-for list="{{ installLines }}" as="line" hint-placeholder-count="3">
+              <div style="display: flex; flex-wrap: wrap; column-gap: 16px; white-space: nowrap;">
+                <span style="display: inline-flex; gap: 8px; min-width: 260px;"><span style="color: var(--accent);">{{ line.tool }}</span><span style="color: #d4d4d4;">{{ line.verb }}</span><span style="color: #6f6f6f;">{{ line.flag }}</span><span style="color: var(--accent-soft);">{{ line.pkg }}</span></span>
+                <span style="color: #555;">{{ line.comment }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+        <div style="position: absolute; left: 0; right: 0; bottom: 0; height: 40px; pointer-events: none; background: linear-gradient(to bottom, rgba(10,10,10,0), #0a0a0a 92%);"></div>
+        </div>
+        <p style="margin: 0; font-size: 12px; color: #777;">Requires Node.js 22+.</p>
+      </section>
+      <hr style="border: none; border-top: 1px solid #1c1c1c; margin: 56px 0;">
+      <section id="quickstart" data-screen-label="60 seconds">
+        <h2 style="font-size: clamp(17px, 3.6vw, 20px); font-weight: 500; color: #fff; margin: 0 0 12px;">60 seconds</h2>
+        <p style="margin: 0 0 24px; text-wrap: pretty;">Ask which names a module exports and you get a receipt, not a list. Pick one of the three files below and run the query to see what comes back.</p>
+        <div style="position: relative; height: 452px; overflow: hidden; margin: 0 0 24px;">
+        <div style="border: 1px solid #1e1e1e; border-radius: 10px; overflow: hidden; background: #0d0d0d;">
+          <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding: 12px 16px; border-bottom: 1px solid #1a1a1a; background: #0f0f0f;">
+            <div style="display: inline-flex; align-items: center; gap: 2px; background: #0a0a0a; border: 1px solid #1e1e1e; border-radius: 8px; padding: 3px;">
+              <sc-for list="{{ scenarios }}" as="tab" hint-placeholder-count="3">
+                <button onClick="{{ tab.pick }}" style="{{ tab.style }}" style-hover="color: #ededed;"><span style="{{ tab.dotStyle }}"></span>{{ tab.label }}</button>
+              </sc-for>
+            </div>
+            <button onClick="{{ run }}" style="{{ runStyle }}" style-hover="background: var(--accent-hover);"><svg width="11" height="12" viewBox="0 0 11 12" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round" style="flex-shrink: 0;"><path d="M1 1h9v9.4l-1.5-1-1.5 1-1.5-1-1.5 1-1.5-1-1.5 1z"></path><path d="M3.4 4h4.2M3.4 6.4h2.4" stroke-linecap="round"></path></svg>{{ runLabel }}</button>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));">
+            <div style="border-right: 1px solid #1a1a1a; display: flex; flex-direction: column;">
+              <div style="padding: 8px 16px; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #555; border-bottom: 1px solid #161616; display: flex; align-items: center; gap: 8px;"><span style="width: 6px; height: 6px; border-radius: 50%; background: #333; display: inline-block;"></span>{{ demoFilename }}</div>
+              <pre style="{{ demoSourceStyle }}">{{ demoSource }}</pre>
+            </div>
+            <div style="display: flex; flex-direction: column;">
+              <div style="padding: 8px 16px; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #555; border-bottom: 1px solid #161616;">receipt</div>
+              <div style="padding: 16px 16px 20px; font-family: 'JetBrains Mono', monospace; font-size: 12px; line-height: 1.9; min-height: 190px;">
+                <sc-for list="{{ receiptLines }}" as="line" hint-placeholder-count="0">
+                  <div style="{{ line.style }}">{{ line.text }}</div>
+                </sc-for>
+                <sc-if value="{{ showCursor }}" hint-placeholder-val="{{ false }}"><span style="display: inline-block; width: 7px; height: 14px; background: var(--accent); animation: gl-blink 0.8s steps(1) infinite;"></span></sc-if>
+              </div>
+            </div>
+          </div>
+          <div style="display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-top: 1px solid #1a1a1a; background: #0f0f0f; font-size: 11.5px; min-height: 22px;">
+            <span style="{{ statePillStyle }}">{{ statePillText }}</span>
+            <span style="{{ stateCaptionStyle }}">{{ stateCaption }}</span>
+          </div>
+        </div>
+        <div style="position: absolute; left: 0; right: 0; bottom: 0; height: 40px; pointer-events: none; background: linear-gradient(to bottom, rgba(10,10,10,0), #0a0a0a 92%);"></div>
+        </div>
+        <sc-if value="{{ wideStates }}" hint-placeholder-val="{{ true }}">
+        <div style="border: 1px solid #1e1e1e; border-radius: 8px; overflow: hidden; margin-bottom: 24px;">
+          <div style="display: grid; grid-template-columns: minmax(84px, 0.7fr) minmax(0, 2fr) minmax(0, 1.4fr); gap: clamp(10px, 2.5vw, 20px); padding: 12px clamp(14px, 3vw, 20px); background: #0f0f0f; border-bottom: 1px solid #1e1e1e; font-size: 10px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: #666;">
+            <div>State</div><div>Meaning</div><div>What it licenses</div>
+          </div>
+          <div style="display: grid; grid-template-columns: minmax(84px, 0.7fr) minmax(0, 2fr) minmax(0, 1.4fr); gap: clamp(10px, 2.5vw, 20px); padding: 16px clamp(14px, 3vw, 20px); border-bottom: 1px solid #161616; font-size: 12px;">
+            <div style="font-family: 'JetBrains Mono', monospace; color: #ededed;">complete</div>
+            <div>The result set is exhaustive</div>
+            <div>The word <strong style="color: #ededed; font-weight: 500;">&ldquo;all&rdquo;</strong></div>
+          </div>
+          <div style="display: grid; grid-template-columns: minmax(84px, 0.7fr) minmax(0, 2fr) minmax(0, 1.4fr); gap: clamp(10px, 2.5vw, 20px); padding: 16px clamp(14px, 3vw, 20px); border-bottom: 1px solid #161616; font-size: 12px;">
+            <div style="font-family: 'JetBrains Mono', monospace; color: #ededed;">partial</div>
+            <div>Results plus every unresolved site named, with one of 20 machine-readable reasons</div>
+            <div>A qualified answer that knows its own gaps</div>
+          </div>
+          <div style="display: grid; grid-template-columns: minmax(84px, 0.7fr) minmax(0, 2fr) minmax(0, 1.4fr); gap: clamp(10px, 2.5vw, 20px); padding: 16px clamp(14px, 3vw, 20px); font-size: 12px;">
+            <div style="font-family: 'JetBrains Mono', monospace; color: var(--accent);">refused</div>
+            <div>Not answerable safely (e.g. unsupported language)</div>
+            <div>Nothing, and that's the point</div>
+          </div>
+        </div>        </sc-if>
+        <sc-if value="{{ narrowStates }}" hint-placeholder-val="{{ false }}">
+          <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 24px;">
+            <sc-for list="{{ stateRows }}" as="s" hint-placeholder-count="3">
+              <details style="border: 1px solid #1e1e1e; border-radius: 8px; background: #0d0d0d; overflow: hidden;">
+                <summary style="display: flex; align-items: center; gap: 10px; padding: 12px 16px; cursor: pointer; list-style: none; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #ededed;"><span style="{{ s.dot }}"></span><span style="flex: 1;">{{ s.name }}</span><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="#777" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; transition: transform 0.2s ease;" data-chev="1"><path d="M3 4.5L6 8l3-3.5"></path></svg></summary>
+                <div style="padding: 0 16px 14px; display: flex; flex-direction: column; gap: 10px; font-size: 12px; color: #b5b5b5;">
+                  <div>{{ s.meaning }}</div>
+                  <div style="font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: #555;">Licenses</div>
+                  <div style="color: #ededed;">{{ s.licenses }}</div>
+                </div>
+              </details>
+            </sc-for>
+          </div>
+        </sc-if>
+        <p style="margin: 0; text-wrap: pretty;">Anyone can re-verify a saved receipt byte-for-byte: <code style="font-family: 'JetBrains Mono', monospace; font-size: 12px; background: #161616; border: 1px solid #222; border-radius: 4px; padding: 2px 7px; color: #ededed;">guessless reproduce bundle.json</code>. Sites are semantic anchors, not line numbers, so citations survive code moving.</p>
+      </section>
+      <hr style="border: none; border-top: 1px solid #1c1c1c; margin: 56px 0;">
+      <section id="when" data-screen-label="When you want this">
+        <h2 style="font-size: clamp(17px, 3.6vw, 20px); font-weight: 500; color: #fff; margin: 0 0 20px;">When you actually want this</h2>
+        <div style="display: flex; flex-direction: column; gap: 16px;">
+          <div style="display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: clamp(12px, 3vw, 18px); border: 1px solid #1e1e1e; border-radius: 8px; padding: 20px clamp(16px, 3.5vw, 24px);">
+            <div style="width: 40px; height: 40px; border: 1px solid #242424; border-radius: 8px; background: #101010; display: flex; align-items: center; justify-content: center;"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="#8a8a8a" stroke-width="1.4"><circle cx="7" cy="9" r="5"></circle><circle cx="11" cy="9" r="5"></circle></svg></div>
+            <div>
+              <div style="font-weight: 500; font-size: 13px; color: #ededed; margin-bottom: 4px;">Transforms at scale</div>
+              <div style="display: grid; margin-bottom: 10px; font-size: 11px; letter-spacing: 0.06em; color: var(--accent);">
+                <div style="{{ grepOnly }}">13.5% of grep hits were the wrong binding</div>
+                <div style="{{ glessOnly }}">Nothing falsely reported, every gap named</div>
+              </div>
+              <div style="display: grid; margin-bottom: 18px;">
+                <p style="{{ grepOnly }}">In a 635-file / 161k-line trial, word-boundary grep for one symbol returned an answer where 13.5% of hits were a <em>different</em> same-name binding, indistinguishable without reading every file.</p>
+                <p style="{{ glessOnly }}">Guessless returned zero of them, named every site it couldn't resolve by its exact import specifier, and did it in ~5 seconds.</p>
+              </div>
+              <div style="position: relative; margin-bottom: -20px; height: 126px; overflow: hidden;">
+              <div style="border: 1px solid #1e1e1e; border-radius: 8px; background: #0b0b0b; padding: 14px 16px; display: flex; flex-direction: column; gap: 14px;">
+                <div style="display: inline-flex; align-items: center; gap: 2px; background: #0a0a0a; border: 1px solid #1e1e1e; border-radius: 8px; padding: 3px; align-self: flex-start;">
+                  <sc-for list="{{ toolTabs }}" as="t" hint-placeholder-count="2">
+                    <button onClick="{{ t.pick }}" style="{{ t.style }}" style-hover="color: #ededed;"><span style="{{ t.dotStyle }}"></span>{{ t.label }}</button>
+                  </sc-for>
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(11px, 1fr)); gap: 5px;">
+                  <sc-for list="{{ hitDots }}" as="d" hint-placeholder-count="96">
+                    <span title="{{ d.title }}" style="{{ d.style }}"></span>
+                  </sc-for>
+                </div>
+                <div style="display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: 11px; color: #777;">
+                  <sc-for list="{{ hitLegend }}" as="l" hint-placeholder-count="2">
+                    <span style="display: inline-flex; align-items: center; gap: 7px;"><span style="{{ l.swatch }}"></span>{{ l.text }}</span>
+                  </sc-for>
+                </div>
+              </div>
+              <div style="position: absolute; left: 0; right: 0; bottom: 0; height: 40px; pointer-events: none; background: linear-gradient(to bottom, rgba(10,10,10,0), #0a0a0a 92%);"></div>
+              </div>
+            </div>
+          </div>
+          <div style="display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: clamp(12px, 3vw, 18px); border: 1px solid #1e1e1e; border-radius: 8px; padding: 20px clamp(16px, 3.5vw, 24px);">
+            <div style="width: 40px; height: 40px; border: 1px solid #242424; border-radius: 8px; background: #101010; display: flex; align-items: center; justify-content: center;"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="#8a8a8a" stroke-width="1.4"><rect x="3.5" y="3.5" width="11" height="11" rx="1.5" stroke-dasharray="3 2.5"></rect></svg></div>
+            <div>
+              <div style="font-weight: 500; font-size: 13px; color: #ededed; margin-bottom: 4px;">Code that doesn't build</div>
+              <div style="{{ fileFade }}">
+                <div style="font-size: 11px; letter-spacing: 0.06em; color: var(--accent); margin-bottom: 10px;">{{ fileCopy.sub }}</div>
+                <p style="margin: 0; font-size: 12.5px; text-wrap: pretty;">{{ fileCopy.body }}</p>
+              </div>
+              <div style="position: relative; margin: 18px 0 -20px; height: 108px; overflow: hidden;">
+              <div style="border: 1px solid #1e1e1e; border-radius: 8px; background: #0b0b0b; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+                <div style="position: relative; border-right: 1px solid #161616;">
+                  <div data-noscroll="1" style="padding: 12px 0 14px;">
+                    <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #555; padding: 0 14px 8px;">repo/</div>
+                    <sc-for list="{{ treeRows }}" as="f" hint-placeholder-count="5">
+                      <button onClick="{{ f.pick }}" style="{{ f.style }}" style-hover="color: #ededed;"><span style="{{ f.mark }}"></span>{{ f.name }}</button>
+                    </sc-for>
+                  </div>
+                </div>
+                <div style="{{ treePaneStyle }}">
+                  <div>
+                    <div style="font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: #555; margin-bottom: 4px;">Language server</div>
+                    <div style="font-size: 12px; color: #777; line-height: 1.6;">{{ treeDetail.lsp }}</div>
+                  </div>
+                  <div>
+                    <div style="font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: #555; margin-bottom: 6px;">Guessless</div>
+                    <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                      <span style="{{ treeDetail.pillStyle }}">{{ treeDetail.state }}</span>
+                      <span style="font-size: 12px; color: #b5b5b5; line-height: 1.6;">{{ treeDetail.result }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div style="position: absolute; left: 0; right: 0; bottom: 0; height: 40px; pointer-events: none; background: linear-gradient(to bottom, rgba(10,10,10,0), #0a0a0a 92%);"></div>
+              </div>
+            </div>
+          </div>
+          <div style="display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: clamp(12px, 3vw, 18px); border: 1px solid #1e1e1e; border-radius: 8px; padding: 20px clamp(16px, 3.5vw, 24px);">
+            <div style="width: 40px; height: 40px; border: 1px solid #242424; border-radius: 8px; background: #101010; display: flex; align-items: center; justify-content: center;"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="#8a8a8a" stroke-width="1.4"><rect x="3" y="7" width="12" height="8" rx="1.5"></rect><path d="M6 7V5a3 3 0 0 1 6 0v2"></path></svg></div>
+            <div>
+              <div style="font-weight: 500; font-size: 13px; color: #ededed; margin-bottom: 4px;">Agent harnesses</div>
+              <div style="display: grid; margin-bottom: 10px; font-size: 11px; letter-spacing: 0.06em; color: var(--accent);">
+                <div style="{{ hookOff }}">Gate the claim, don't trust it</div>
+                <div style="{{ hookOn }}">The hook refuses unsigned claims</div>
+              </div>
+              <div style="display: grid;">
+                <p style="{{ hookOff }}">Don't hope the agent double-checks. Gate it with a ~20-line stop-hook. See <a href="https://github.com/thejackshelton/guessless/blob/main/INTEGRATION.md" style="color: var(--accent);">INTEGRATION.md</a>.</p>
+                <p style="{{ hookOn }}">No receipt, no accepted claim. CI verifies it again on the way in.</p>
+              </div>
+              <div style="position: relative; margin: 18px 0 -20px; height: 132px; overflow: hidden;">
+              <div style="border: 1px solid #1e1e1e; border-radius: 8px; background: #0b0b0b; padding: 14px 16px; display: flex; flex-direction: column; gap: 14px;">
+                <div style="display: inline-flex; align-items: center; gap: 2px; background: #0a0a0a; border: 1px solid #1e1e1e; border-radius: 8px; padding: 3px; align-self: flex-start;">
+                  <sc-for list="{{ hookTabs }}" as="h" hint-placeholder-count="2">
+                    <button onClick="{{ h.pick }}" style="{{ h.style }}" style-hover="color: #ededed;"><span style="{{ h.dotStyle }}"></span>{{ h.label }}</button>
+                  </sc-for>
+                </div>
+                <div style="border: 1px solid #1a1a1a; border-radius: 6px; padding: 10px 12px; font-family: 'JetBrains Mono', monospace; font-size: 11.5px; color: #999; line-height: 1.7;">agent: &ldquo;renamed all 12 call sites of <span style="color: #ededed;">answer</span>&rdquo;</div>
+                <div style="display: flex; align-items: flex-start; gap: 10px;">
+                  <span style="{{ hookResult.pillStyle }}">{{ hookResult.verdict }}</span>
+                  <span style="font-size: 12px; color: #b5b5b5; line-height: 1.7; text-wrap: pretty;">{{ hookResult.text }}</span>
+                </div>
+              </div>
+              <div style="position: absolute; left: 0; right: 0; bottom: 0; height: 40px; pointer-events: none; background: linear-gradient(to bottom, rgba(10,10,10,0), #0a0a0a 92%);"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p style="margin: 24px 0 0; font-size: 12.5px; color: #777; text-wrap: pretty;">Grep is still the right search tool; this is not a search tool. Guessless exists for the one sentence grep can't sign.</p>
+      </section>
+      <hr style="border: none; border-top: 1px solid #1c1c1c; margin: 56px 0;">
+      <section id="queries" data-screen-label="Query surface">
+        <h2 style="font-size: clamp(17px, 3.6vw, 20px); font-weight: 500; color: #fff; margin: 0 0 20px;">Query surface</h2>
+        <div style="display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 16px;">
+          <sc-for list="{{ queryChips }}" as="q" hint-placeholder-count="8">
+            <button onClick="{{ q.pick }}" style="{{ q.style }}" style-hover="color: #ededed; border-color: #333;">{{ q.label }}</button>
+          </sc-for>
+        </div>
+        <div style="position: relative; height: 118px; overflow: hidden;">
+        <div style="{{ queryFade }}">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <span style="width: 5px; height: 5px; border-radius: 50%; background: var(--accent); flex-shrink: 0;"></span>
+            <code style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #ededed;">{{ queryDetail.signature }}</code>
+          </div>
+          <p style="margin: 0; font-size: 12.5px; line-height: 1.9; color: #b5b5b5; text-wrap: pretty;">{{ queryDetail.body }}</p>
+          <div style="margin-top: auto; display: flex; align-items: center; gap: 10px; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: #555;">
+            <span>Returns</span>
+            <span style="color: #888; letter-spacing: 0.06em; text-transform: none; font-size: 11.5px; font-family: 'JetBrains Mono', monospace;">{{ queryDetail.returns }}</span>
+          </div>
+        </div>
+        <div style="position: absolute; left: 0; right: 0; bottom: 0; height: 40px; pointer-events: none; background: linear-gradient(to bottom, rgba(10,10,10,0), #0a0a0a 92%);"></div>
+        </div>
+        <p style="margin: 24px 0 0; font-size: 12.5px; text-wrap: pretty;">Strings and comments are never structural evidence (run one <code style="font-family: 'JetBrains Mono', monospace; font-size: 11.5px; background: #161616; border-radius: 4px; padding: 1px 6px;">rg</code> at the end for those). <code style="font-family: 'JetBrains Mono', monospace; font-size: 11.5px; background: #161616; border-radius: 4px; padding: 1px 6px;">export *</code> hides nothing. The full semantics live in each receipt, not in prose.</p>
+      </section>
+      <hr style="border: none; border-top: 1px solid #1c1c1c; margin: 56px 0;">
+      <section id="library" data-screen-label="Library and MCP">
+        <h2 style="font-size: clamp(17px, 3.6vw, 20px); font-weight: 500; color: #fff; margin: 0 0 20px;">Library and MCP</h2>
+        <div style="position: relative; height: 172px; overflow: hidden; margin: 0 0 24px;">
+        <pre style="background: #0f0f0f; border: 1px solid #1e1e1e; border-radius: 8px; padding: 20px clamp(14px, 3.5vw, 24px) 44px; font-family: 'JetBrains Mono', monospace; font-size: clamp(10.5px, 2.4vw, 12.5px); line-height: 1.9; color: #d4d4d4; overflow-x: auto; margin: 0;"><span style="color: #999;">import</span> { GuesslessEngine } <span style="color: #999;">from</span> <span style="color: var(--accent-soft);">"@guessless/engine"</span>;
+
+<span style="color: #999;">const</span> engine = <span style="color: #999;">new</span> GuesslessEngine();
+engine.addFile(<span style="color: var(--accent-soft);">"api.ts"</span>, <span style="color: var(--accent-soft);">"export const answer = 42;"</span>);
+engine.link();
+<span style="color: #999;">const</span> receipt = engine.referencesOf(engine.anchor(<span style="color: var(--accent-soft);">"api.ts"</span>, <span style="color: var(--accent-soft);">"answer"</span>)!);</pre>
+        <div style="position: absolute; left: 0; right: 0; bottom: 0; height: 44px; pointer-events: none; background: linear-gradient(to bottom, rgba(10,10,10,0), #0a0a0a 92%);"></div>
+        </div>
+        <p style="margin: 0; text-wrap: pretty;">The MCP server (<code style="font-family: 'JetBrains Mono', monospace; font-size: 12px; background: #161616; border: 1px solid #222; border-radius: 4px; padding: 2px 7px; color: #ededed;">npx -p @guessless/mcp guessless-mcp</code>) exposes snapshot preparation and safe-change impact (rename / delete / entry-point) to any MCP harness, with summary and paged views for context budgets.</p>
+      </section>
+      <hr style="border: none; border-top: 1px solid #1c1c1c; margin: 56px 0;">
+      <section id="honesty" data-screen-label="Evidence">
+        <h2 style="font-size: clamp(17px, 3.6vw, 20px); font-weight: 500; color: #fff; margin: 0 0 20px;">How honest is it, really?</h2>
+        <p style="margin: 0 0 20px; text-wrap: pretty;">Everything above is measured, not estimated. When Guessless gets something wrong, that goes on this page next to what it got right.</p>
+        <ul style="margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 12px; font-size: 12.5px;">
+          <li style="text-wrap: pretty;"><strong style="color: #ededed; font-weight: 500;">It never pointed at the wrong place.</strong> Every location it reported really was a use of that symbol. We checked all of them by hand against a list we had verified ourselves.</li>
+          <li style="text-wrap: pretty;"><strong style="color: #ededed; font-weight: 500;">It never missed a place without saying so.</strong> If it can't see somewhere, it names that gap in the receipt instead of quietly leaving it out. Getting there meant fixing six kinds of bug in August 2026. One of our own tests caught a defect partway through, so we fixed it and re-ran that same test unchanged — and it passed.</li>
+          <li style="text-wrap: pretty;" data-keep="1"><strong style="color: #ededed; font-weight: 500;">Two things we have not proven yet.</strong> Whether a coding agent actually writes better code when it gets these receipts, and whether the MCP server holds up inside real agent tools. Neither has been measured.</li>
+        </ul>
+        <div style="margin-top: 28px; border: 1px solid #1e1e1e; border-radius: 10px; background: #0b0b0b; padding: 18px 20px; display: flex; flex-direction: column; gap: 16px;">
+          <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap;">
+            <div style="font-size: 12.5px; color: #ededed;">51 real-repo queries, hand-audited</div>
+            <div style="font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: #555;">Hover a query</div>
+          </div>
+          <div style="display: flex; align-items: flex-end; gap: 3px; height: 76px;">
+            <sc-for list="{{ auditBars }}" as="b" hint-placeholder-count="51">
+              <div onMouseEnter="{{ b.hover }}" onClick="{{ b.hover }}" style="{{ b.style }}"></div>
+            </sc-for>
+          </div>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px 20px; font-family: 'JetBrains Mono', monospace; font-size: 11.5px; color: #888; min-height: 20px;">
+            <span style="color: #ededed;">{{ auditRead.name }}</span>
+            <span>{{ auditRead.sites }}</span>
+            <span style="{{ auditRead.stateStyle }}">{{ auditRead.state }}</span>
+            <span>{{ auditRead.note }}</span>
+          </div>
+        </div>
+      </section>
+      <hr style="border: none; border-top: 1px solid #1c1c1c; margin: 56px 0;">
+      <section id="limitations" data-screen-label="Limitations">
+        <h2 style="font-size: clamp(17px, 3.6vw, 20px); font-weight: 500; color: #fff; margin: 0 0 20px;">Limitations</h2>
+        <div style="display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 20px;">
+          <sc-for list="{{ langChips }}" as="l" hint-placeholder-count="5">
+            <span style="{{ l.style }}">{{ l.label }}</span>
+          </sc-for>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 0; border-top: 1px solid #1c1c1c; margin-bottom: 40px;">
+          <div style="display: grid; grid-template-columns: minmax(120px, 0.8fr) minmax(0, 2fr); gap: clamp(10px, 3vw, 20px); padding: 14px 0; border-bottom: 1px solid #161616; font-size: 12.5px;">
+            <div style="color: #777;">Languages</div>
+            <div>JS/TS/JSX/TSX only, via the Yuku analyzer. Anything else is <code style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--accent);">refused</code>, not guessed.</div>
+          </div>
+          <div style="display: grid; grid-template-columns: minmax(120px, 0.8fr) minmax(0, 2fr); gap: clamp(10px, 3vw, 20px); padding: 14px 0; border-bottom: 1px solid #161616; font-size: 12.5px;">
+            <div style="color: #777;">Blind spots</div>
+            <div>Structural analysis can't see strings, comments, or runtime dynamism. Those boundaries come back <em>named</em>.</div>
+          </div>
+          <div style="display: grid; grid-template-columns: minmax(120px, 0.8fr) minmax(0, 2fr); gap: clamp(10px, 3vw, 20px); padding: 14px 0; font-size: 12.5px;">
+            <div style="color: #777;">Scope</div>
+            <div>A <code style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #ededed;">complete</code> receipt is scoped to the exact snapshot it hashes.</div>
+          </div>
+        </div>
+        <div style="display: flex; align-items: center; justify-content: space-between; border-top: 1px solid #1c1c1c; padding-top: 24px; font-size: 11px; color: #555;">
+          <span>MIT License</span>
+          <a href="https://github.com/thejackshelton/guessless" style="color: #555;">github.com/thejackshelton/guessless</a>
+        </div>
+      </section>
+    </main>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;accent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;oklch(0.72 0.19 12)&quot;,&quot;options&quot;:[&quot;oklch(0.72 0.19 12)&quot;,&quot;oklch(0.75 0.17 358)&quot;,&quot;oklch(0.7 0.2 22)&quot;,&quot;oklch(0.78 0.15 5)&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Theme&quot;},&quot;unboundedBody&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Theme&quot;}}">
+class Component extends DCLogic {
+  applyTweaks() {
+    const root = document.documentElement;
+    root.style.setProperty('--accent', this.props.accent ?? 'oklch(0.72 0.19 12)');
+    document.body.style.fontFamily = (this.props.unboundedBody ?? true) ? "'Unbounded', sans-serif" : "system-ui, -apple-system, sans-serif";
+  }
+  componentDidUpdate() { this.applyTweaks(); }
+  state = { scenario: 'complete', phase: 'idle', shown: 0, pm: 'npm', query: 'referencesOf', tool: 'grep' };
+  auditModel() {
+    if (this._audit) return this._audit;
+    let seed = 41;
+    const rnd = () => (seed = (seed * 1103515245 + 12345) % 2147483648) / 2147483648;
+    this._audit = Array.from({ length: 51 }, (_, i) => {
+      const sites = 1 + Math.floor(rnd() * 11);
+      const partial = rnd() < 0.22;
+      return {
+        i, sites,
+        state: i === 22 ? 'partial' : partial ? 'partial' : 'complete',
+        flagged: i === 22,
+      };
+    });
+    return this._audit;
+  }
+  pickQuery(id) {
+    if (id === (this.state.qPending || this.state.query)) return;
+    clearTimeout(this._q);
+    this.setState({ qPending: id, queryDim: true });
+    this._q = setTimeout(() => this.setState({ query: id, queryDim: false }), 240);
+  }
+  pickFile(name) {
+    if (name === (this.state.pending || this.state.file || 'app.jsx')) return;
+    clearTimeout(this._f);
+    this.setState({ pending: name, fileDim: true });
+    this._f = setTimeout(() => this.setState({ file: name, fileDim: false }), 240);
+  }
+  holdStart = (e) => {
+    if (e && e.preventDefault) e.preventDefault();
+    if (this.state.verifyDone) this.setState({ verifyDone: false });
+    clearInterval(this._v);
+    this._v = setInterval(() => {
+      const p = (this.state.verifyP || 0) + 4;
+      if (p >= 100) { clearInterval(this._v); this.setState({ verifyP: 100, verifyHold: false, verifyDone: true }); }
+      else this.setState({ verifyP: p, verifyHold: true });
+    }, 34);
+    this.setState({ verifyHold: true });
+  };
+  holdEnd = () => {
+    clearInterval(this._v);
+    if (!this.state.verifyDone) this.setState({ verifyP: 0, verifyHold: false });
+  };
+  scramble(seedStr, len) {
+    const hex = '0123456789abcdef';
+    let s = 0;
+    for (let i = 0; i < seedStr.length; i++) s = (s * 31 + seedStr.charCodeAt(i)) % 99991;
+    let out = '';
+    for (let i = 0; i < len; i++) { s = (s * 1103515245 + 12345) % 2147483648; out += hex[s % 16]; }
+    return out;
+  }
+  hitModel() {
+    if (this._hits) return this._hits;
+    const total = 96, wrongN = 13, unresolvedN = 4;
+    const idx = new Set(), un = new Set();
+    let seed = 7;
+    const rnd = () => (seed = (seed * 1103515245 + 12345) % 2147483648) / 2147483648;
+    while (idx.size < wrongN) idx.add(Math.floor(rnd() * total));
+    while (un.size < unresolvedN) { const v = Math.floor(rnd() * total); if (!idx.has(v)) un.add(v); }
+    this._hits = Array.from({ length: total }, (_, i) => ({
+      wrong: idx.has(i), unresolved: un.has(i),
+    }));
+    return this._hits;
+  }
+  treeData() {
+    return [
+      ['app.jsx', 'src/app.jsx', 'JSX in a .js-era config: parse fails before analysis starts.', 'complete', '18 references, all resolved',
+        'Answers where an LSP cannot start',
+        'No node_modules, no tsconfig, JSX-in-.js, webpack-era aliases: where no LSP can even start, guessless answers and prices its uncertainty.'],
+      ['utils.ts', 'src/utils.ts', 'No tsconfig, so module resolution is unconfigured.', 'complete', '6 references, all resolved',
+        'No tsconfig, still resolvable',
+        'Module resolution is unconfigured, so the server infers nothing. Guessless reads the files as written and returns six references, all resolved.'],
+      ['legacy.js', 'vendor/legacy.js', 'Webpack alias @lib/* is unknown to the server.', 'partial', '9 references, 2 aliases named',
+        'Aliases named, not guessed',
+        'Two imports arrive through a webpack alias no analyzer can follow. They come back named by their exact specifier rather than silently dropped.'],
+      ['plugin.ts', 'src/plugin.ts', 'Dynamic import of a runtime path cannot be followed.', 'partial', '4 references, 1 gap named',
+        'Runtime paths are a boundary',
+        'A dynamic import built from an environment variable cannot be followed statically. The gap is reported with its reason instead of counted as absent.'],
+      ['model.py', 'scripts/model.py', 'Out of scope for a JS/TS server.', 'refused', 'unsupported-language',
+        'Out of scope, so refused',
+        'Python is not in the supported set. Guessless refuses the query rather than returning an answer it cannot stand behind.'],
+      ['router.jsx', 'src/router.jsx', 'Aliased imports resolve to nothing without a build step.', 'complete', '11 references, all resolved',
+        'No build step required',
+        'Aliased imports resolve to nothing without bundling. Guessless resolves all eleven references from source alone.'],
+      ['store.ts', 'src/store.ts', 'Ambient types are missing, so inference stops early.', 'complete', '23 references, all resolved',
+        'Missing types, intact structure',
+        'Ambient types are absent, so inference stops early. Structure does not depend on them: twenty-three references, all resolved.'],
+      ['shim.js', 'vendor/shim.js', 'Re-exports through export * cannot be enumerated.', 'complete', '3 references, all resolved',
+        'export * hides nothing',
+        'Re-exports are followed to their source, so the three references include the specifiers a rename must touch.'],
+    ];
+  }
+  queryData() {
+    return [
+      ['referencesOf', 'referencesOf(anchor)', 'Every structural reference: uses and the import/re-export specifiers a rename must touch.', 'Receipt<Site[]>'],
+      ['writesOf', 'writesOf(anchor)', 'Proven writes. A call that may mutate is named as uncertain, never claimed or hidden.', 'Receipt<Site[]>'],
+      ['readsOf', 'readsOf(anchor)', 'Every read of the binding, with the same receipt semantics as referencesOf.', 'Receipt<Site[]>'],
+      ['definitionOf', 'definitionOf(anchor)', 'The declaration site a binding resolves to, as a semantic anchor rather than a line number.', 'Receipt<Site>'],
+      ['exportedNames', 'exportedNames(file)', 'The names a module exports. export * hides nothing; re-exports are followed to their source.', 'Receipt<Name[]>'],
+      ['capturesOf', 'capturesOf(anchor)', 'The closures that capture a binding, so a move or inline knows what travels with it.', 'Receipt<Site[]>'],
+      ['resolveBinding', 'resolveBinding(file, name, space)', 'A binding by file, name, and space: the anchor every other query takes.', 'Receipt<Anchor>'],
+      ['reachableFrom', 'reachableFrom(anchor)', 'Transitive reachability outward from an entry point, with every boundary named.', 'Receipt<Site[]>'],
+      ['reaches', 'reaches(anchor)', 'Transitive reachability inward: what can arrive at this binding, boundaries named.', 'Receipt<Site[]>'],
+    ];
+  }
+  pmData() {
+    return {
+      npm: ['npm install -D guessless', 'npm install @guessless/engine', 'npm install @guessless/mcp'],
+      pnpm: ['pnpm add -D guessless', 'pnpm add @guessless/engine', 'pnpm add @guessless/mcp'],
+      yarn: ['yarn add -D guessless', 'yarn add @guessless/engine', 'yarn add @guessless/mcp'],
+      bun: ['bun add -d guessless', 'bun add @guessless/engine', 'bun add @guessless/mcp'],
+    };
+  }
+  scenarios() {
+    return {
+      complete: {
+        label: 'complete', color: 'oklch(0.78 0.17 150)', filename: 'api.ts',
+        source: 'export const answer = 42;\nexport function ask() {\n  return answer;\n}',
+        lines: [
+          '{',
+          '  "schema": "guessless.receipt/v1",',
+          '  "state": "complete",',
+          '  "results": [',
+          '    { "name": "answer" },',
+          '    { "name": "ask" }',
+          '  ],',
+          '  "snapshot": "18d4d322…",',
+          '  "integrity": "bf56322b…"',
+          '}',
+        ],
+        hl: { 2: 'oklch(0.78 0.17 150)' },
+        caption: 'Exhaustive. This receipt licenses the word "all".',
+      },
+      partial: {
+        label: 'partial', color: 'oklch(0.83 0.15 90)', filename: 'app.ts',
+        source: 'import { load } from "./load";\nconst mod = await import(\n  process.env.PLUGIN\n);\nload(mod);',
+        lines: [
+          '{',
+          '  "schema": "guessless.receipt/v1",',
+          '  "state": "partial",',
+          '  "results": [ { "name": "load" } ],',
+          '  "unresolved": [{',
+          '    "site": "import(process.env.PLUGIN)",',
+          '    "reason": "dynamic-specifier"',
+          '  }],',
+          '  "integrity": "9c01ee47…"',
+          '}',
+        ],
+        hl: { 2: 'oklch(0.83 0.15 90)', 6: 'oklch(0.83 0.15 90)' },
+        caption: 'Every gap named, with a machine-readable reason. A qualified answer that knows what it missed.',
+      },
+      refused: {
+        label: 'refused', color: 'var(--accent)', filename: 'model.py',
+        source: 'def answer():\n    return 42',
+        lines: [
+          '{',
+          '  "schema": "guessless.receipt/v1",',
+          '  "state": "refused",',
+          '  "reason": "unsupported-language",',
+          '  "integrity": "a377d208…"',
+          '}',
+        ],
+        hl: { 2: 'var(--accent)', 3: 'var(--accent)' },
+        caption: 'Not answerable safely, so it answers nothing. That\'s the point.',
+      },
+    };
+  }
+  pick(id) {
+    if (id === (this.state.sPending || this.state.scenario)) return;
+    clearInterval(this._t);
+    clearTimeout(this._s);
+    this.setState({ sPending: id, scenDim: true, phase: 'idle', shown: 0 });
+    this._s = setTimeout(() => this.setState({ scenario: id, scenDim: false }, () => this.run()), 240);
+  }
+  run() {
+    clearInterval(this._t);
+    this.setState({ phase: 'running', shown: 0 });
+    const total = this.scenarios()[this.state.scenario].lines.length;
+    setTimeout(() => {
+      this._t = setInterval(() => {
+        const shown = this.state.shown + 1;
+        if (shown >= total) { clearInterval(this._t); this.setState({ shown, phase: 'done' }); }
+        else this.setState({ shown });
+      }, 110);
+    }, 450);
+  }
+  componentDidMount() {
+    this.applyTweaks();
+    this._rz = () => {
+      const narrow = window.innerWidth < 620;
+      if (narrow !== this.state.narrow) this.setState({ narrow });
+    };
+    this._rz();
+    window.addEventListener('resize', this._rz);
+    setTimeout(() => this.run(), 600);
+  }
+  componentWillUnmount() {
+    clearInterval(this._t); clearInterval(this._v);
+    if (this._rz) window.removeEventListener('resize', this._rz);
+  }
+  renderVals() {
+    const all = this.scenarios();
+    const cur = all[this.state.scenario];
+    const { phase, shown } = this.state;
+    const scenarios = Object.keys(all).map(id => {
+      const active = id === (this.state.sPending || this.state.scenario);
+      return {
+        label: all[id].label,
+        pick: () => this.pick(id),
+        style: `display:inline-flex;align-items:center;gap:8px;font-family:'Unbounded',sans-serif;font-size:9px;font-weight:400;letter-spacing:0.14em;text-transform:uppercase;padding:8px 14px;border-radius:6px;cursor:pointer;border:none;transition:background 0.15s,color 0.15s;background:${active ? '#1c1c1c' : 'transparent'};color:${active ? '#ededed' : '#666'};`,
+        dotStyle: `width:5px;height:5px;border-radius:50%;flex-shrink:0;transition:background 0.15s;background:${active ? all[id].color : '#333'};`,
+      };
+    });
+    const receiptLines = cur.lines.slice(0, shown).map((text, i) => ({
+      text,
+      style: `white-space:pre;color:${cur.hl[i] || '#999'};`,
+    }));
+    const pmData = this.pmData();
+    const comments = ['# CLI', '# library', '# MCP server for agent harnesses'];
+    const pmTabs = Object.keys(pmData).map(id => {
+      const active = id === this.state.pm;
+      return {
+        label: id,
+        pick: () => this.setState({ pm: id }),
+        iconStyle: `width:12px;height:12px;flex-shrink:0;background:currentColor;-webkit-mask:url(https://cdn.simpleicons.org/${id}) center/contain no-repeat;mask:url(https://cdn.simpleicons.org/${id}) center/contain no-repeat;`,
+        style: `display:inline-flex;align-items:center;gap:8px;font-family:'Unbounded',sans-serif;font-size:9px;font-weight:400;letter-spacing:0.14em;text-transform:uppercase;padding:8px 14px;border-radius:6px;cursor:pointer;border:none;transition:background 0.15s,color 0.15s;background:${active ? '#1c1c1c' : 'transparent'};color:${active ? '#ededed' : '#666'};`,
+      };
+    });
+    const installLines = pmData[this.state.pm].map((cmd, i) => {
+      const t = cmd.split(' ');
+      const flag = t[2] && t[2].startsWith('-') ? t[2] : '';
+      return { tool: t[0], verb: t[1], flag, pkg: flag ? t[3] : t[2], comment: comments[i] };
+    });
+    const tool = this.state.tool;
+    const amber = 'oklch(0.83 0.15 90)';
+    const toolTabs = [['grep', 'grep'], ['guessless', 'guessless']].map(([id, label]) => {
+      const on = id === tool;
+      return {
+        label,
+        pick: () => this.setState({ tool: id }),
+        _id: id,
+        style: `display:inline-flex;align-items:center;gap:8px;font-family:'Unbounded',sans-serif;font-size:9px;font-weight:400;letter-spacing:0.14em;text-transform:uppercase;padding:8px 14px;border-radius:6px;cursor:pointer;border:none;transition:background 0.15s,color 0.15s;background:${on ? '#1c1c1c' : 'transparent'};color:${on ? '#ededed' : '#666'};`,
+        dotStyle: `width:5px;height:5px;border-radius:50%;flex-shrink:0;background:${on ? (id === 'grep' ? 'var(--accent)' : 'oklch(0.78 0.17 150)') : '#333'};`,
+      };
+    });
+    const layer = (on) => `grid-area:1/1;margin:0;font-size:12.5px;text-wrap:pretty;transition:opacity 0.28s ease;opacity:${on ? 1 : 0};pointer-events:${on ? 'auto' : 'none'};`;
+    const grepOnly = layer(tool === 'grep');
+    const glessOnly = layer(tool !== 'grep');
+    const hitDots = this.hitModel().map(h => {
+      let bg = '#2a2a2a', title = 'real call site', ring = 'none';
+      if (tool === 'grep' && h.wrong) { bg = 'var(--accent)'; title = 'claimed, but a different same-name binding'; }
+      else if (tool === 'guessless' && h.wrong) { bg = '#141414'; title = 'correctly excluded'; }
+      else if (tool === 'guessless' && h.unresolved) { bg = 'transparent'; ring = `1.5px solid ${amber}`; title = 'named as unresolved, with a reason'; }
+      return { title, style: `display:block;aspect-ratio:1;border-radius:2px;transition:background 0.2s,border-color 0.2s;background:${bg};border:${ring};` };
+    });
+    const hitLegend = tool === 'grep'
+      ? [['#2a2a2a', '83 real sites'], ['var(--accent)', '13 wrong bindings, claimed as hits']]
+      : [['#2a2a2a', '79 sites, proven'], [amber, '4 named unresolved'], ['#141414', '13 excluded, none wrong']];
+    const green = 'oklch(0.78 0.17 150)';
+
+    const stateColor = { complete: green, partial: amber, refused: 'var(--accent)' };
+    const pill = (c) => `font-family:'JetBrains Mono',monospace;font-size:11px;white-space:nowrap;color:${c};`;
+    const td = this.treeData();
+    const activeFile = this.state.file || td[0][0];
+    const selectedFile = this.state.pending || activeFile;
+    const treeRows = td.map(([name, path]) => {
+      const on = name === selectedFile;
+      return {
+        name: path,
+        pick: () => this.pickFile(name),
+        style: `display:flex;align-items:center;gap:9px;width:100%;text-align:left;font-family:'JetBrains Mono',monospace;font-size:11.5px;padding:6px 14px;cursor:pointer;border:none;background:${on ? '#141414' : 'transparent'};color:${on ? '#ededed' : '#777'};`,
+        mark: `width:4px;height:4px;border-radius:1px;flex-shrink:0;background:${on ? 'var(--accent)' : '#333'};`,
+      };
+    });
+    const fr = td.find(r => r[0] === activeFile) || td[0];
+    const treeDetail = { lsp: fr[2], state: fr[3], result: fr[4], pillStyle: pill(stateColor[fr[3]]) };
+    const fileCopy = { sub: fr[5], body: fr[6] };
+    const fileFade = `transition:opacity 0.22s ease;opacity:${this.state.fileDim ? 0 : 1};`;
+    const treePaneStyle = `padding:14px 16px;display:flex;flex-direction:column;gap:12px;transition:opacity 0.22s ease;opacity:${this.state.fileDim ? 0 : 1};`;
+    const hookOn = this.state.hook !== 'off';
+    const hookTabs = [['off', 'no hook'], ['on', 'claim gate']].map(([id, label]) => {
+      const on = (id === 'on') === hookOn;
+      return {
+        label,
+        pick: () => this.setState({ hook: id }),
+        style: `display:inline-flex;align-items:center;gap:8px;font-family:'Unbounded',sans-serif;font-size:9px;font-weight:400;letter-spacing:0.14em;text-transform:uppercase;padding:8px 14px;border-radius:6px;cursor:pointer;border:none;transition:background 0.15s,color 0.15s;background:${on ? '#1c1c1c' : 'transparent'};color:${on ? '#ededed' : '#666'};`,
+        dotStyle: `width:5px;height:5px;border-radius:50%;flex-shrink:0;background:${on ? (id === 'on' ? green : 'var(--accent)') : '#333'};`,
+      };
+    });
+    const hookOff = layer(!hookOn);
+    const hookOnStyle = layer(hookOn);
+    const hookResult = hookOn
+      ? { verdict: 'blocked', text: 'No receipt attached. The claim is refused until a complete receipt for referencesOf(answer) is produced.', pillStyle: pill(green) }
+      : { verdict: 'accepted', text: 'The claim ships as written. Two of the twelve were a different binding, and nothing in the loop can tell.', pillStyle: pill('var(--accent)') };
+    const narrow = !!this.state.narrow;
+    const stateRows = [
+      ['complete', green, 'The result set is exhaustive', 'The word “all”'],
+      ['partial', amber, 'Results plus every unresolved site named, with one of 20 machine-readable reasons', 'A qualified answer that knows its own gaps'],
+      ['refused', 'var(--accent)', 'Not answerable safely (e.g. unsupported language)', 'Nothing, and that\u2019s the point'],
+    ].map(([name, c, meaning, licenses]) => ({
+      name, meaning, licenses,
+      dot: `width:6px;height:6px;border-radius:50%;flex-shrink:0;background:${c};`,
+    }));
+    const am = this.auditModel();
+    const ai = this.state.audit == null ? -1 : this.state.audit;
+    const auditBars = am.map((b) => {
+      const on = b.i === ai;
+      const c = b.flagged ? 'oklch(from var(--accent) 0.86 calc(c * 0.5) h)' : b.state === 'partial' ? 'oklch(from var(--accent) 0.42 calc(c * 0.45) h)' : 'var(--accent)';
+      return {
+        hover: () => this.setState({ audit: b.i }),
+        style: `flex:1;min-width:3px;height:${24 + b.sites * 4.6}px;border-radius:2px;cursor:pointer;transition:background 0.15s,opacity 0.15s;background:${c};opacity:${ai < 0 || on ? 1 : 0.42};`,
+      };
+    });
+    const ab = ai < 0 ? null : am[ai];
+    const auditRead = ab
+      ? { name: `query ${String(ab.i + 1).padStart(2, '0')}`, sites: `${ab.sites} sites`, state: ab.state, note: ab.flagged ? 'a test caught a bug, since fixed' : '0 wrong places', stateStyle: `color:${ab.flagged ? 'var(--accent-soft)' : ab.state === 'partial' ? '#888' : 'var(--accent)'};` }
+      : { name: '202 places', sites: '51 queries', state: '0 wrong places', note: '0 silent misses', stateStyle: 'color:var(--accent);' };
+    const hk = this.state.hover;
+    const cue = (accent) => `position:relative;cursor:default;color:${accent ? 'var(--accent)' : '#ededed'};box-shadow:inset 0 -1px 0 ${accent ? 'oklch(from var(--accent) l c h / 0.45)' : '#3a3a3a'};transition:box-shadow 0.15s,color 0.15s;`;
+    const cueHover = (accent) => `position:relative;cursor:default;color:${accent ? 'var(--accent-hover)' : '#fff'};box-shadow:inset 0 -1px 0 ${accent ? 'var(--accent)' : '#fff'};transition:box-shadow 0.15s,color 0.15s;`;
+    const cueFor = (key, accent) => (hk === key ? cueHover(accent) : cue(accent));
+    const card = (key) => `position:absolute;left:50%;bottom:calc(100% + 14px);transform:translateX(-50%) translateY(${hk === key ? '0' : '4px'});opacity:${hk === key ? 1 : 0};pointer-events:none;white-space:nowrap;display:flex;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.02em;color:#888;background:#111;border:1px solid #242424;border-radius:8px;padding:9px 13px;box-shadow:0 10px 28px rgba(0,0,0,0.66);transition:opacity 0.16s ease,transform 0.16s ease;z-index:5;`;
+    const hov = (key) => () => this.setState({ hover: key });
+    const qd = this.queryData();
+    const queryChips = qd.map(([id]) => {
+      const on = id === (this.state.qPending || this.state.query);
+      return {
+        label: id,
+        pick: () => this.pickQuery(id),
+        style: `font-family:'JetBrains Mono',monospace;font-size:11.5px;padding:6px 12px;border-radius:6px;cursor:pointer;transition:background 0.15s,color 0.15s,border-color 0.15s;background:${on ? '#1c1c1c' : '#111'};border:1px solid ${on ? '#3a3a3a' : '#242424'};color:${on ? '#ededed' : '#7a7a7a'};`,
+      };
+    });
+    const q = qd.find(r => r[0] === this.state.query) || qd[0];
+    return {
+      auditBars,
+      auditRead,
+      hovNone: () => this.setState({ hover: null }),
+      hovEight: hov('eight'), hovTwelve: hov('twelve'),
+      hovComplete: hov('complete'), hovPartial: hov('partial'), hovRefused: hov('refused'),
+      cueNeutral: cueFor('eight', false),
+      cueAccent: cueFor('twelve', true),
+      cueComplete: cueFor('complete', false),
+      cuePartial: cueFor('partial', false),
+      cueRefused: cueFor('refused', true),
+      cardEight: card('eight'), cardTwelve: card('twelve'),
+      cardComplete: card('complete'), cardPartial: card('partial'), cardRefused: card('refused'),
+      langChips: [['.js', 1], ['.ts', 1], ['.jsx', 1], ['.tsx', 1], ['everything else', 0]].map(([label, ok]) => ({
+        label,
+        style: `font-family:'JetBrains Mono',monospace;font-size:11.5px;padding:5px 12px;border-radius:6px;background:${ok ? '#141414' : 'transparent'};border:1px solid ${ok ? '#242424' : '#1e1e1e'};color:${ok ? '#ededed' : '#666'};`,
+      })),
+      treeRows,
+      treeDetail,
+      hookTabs,
+      hookResult,
+      hookOff,
+      hookOn: hookOnStyle,
+      fileCopy,
+      fileFade,
+      treePaneStyle,
+      toolTabs,
+      grepOnly,
+      glessOnly,
+      hitDots,
+      hitLegend: hitLegend.map(([c, text]) => ({
+        text,
+        swatch: `width:9px;height:9px;border-radius:2px;flex-shrink:0;background:${c === amber ? 'transparent' : c};border:${c === amber ? `1.5px solid ${amber}` : c === '#141414' ? '1px solid #242424' : 'none'};`,
+      })),
+      wideStates: !narrow,
+      narrowStates: narrow,
+      menuOpen: narrow && !!this.state.menu,
+      toggleMenu: () => this.setState({ menu: !this.state.menu }),
+      barTop: `display:block;height:1.5px;background:#ededed;border-radius:1px;transition:transform 0.2s ease;transform:${this.state.menu ? 'translateY(3.2px) rotate(45deg)' : 'none'};`,
+      barBottom: `display:block;height:1.5px;background:#ededed;border-radius:1px;transition:transform 0.2s ease;transform:${this.state.menu ? 'translateY(-3.2px) rotate(-45deg)' : 'none'};`,
+      menuLinks: [
+        ['#install', 'Install'],
+        ['#quickstart', '60 seconds'],
+        ['#when', 'When to use it'],
+        ['#queries', 'Query surface'],
+        ['#library', 'Library and MCP'],
+        ['#honesty', 'Evidence'],
+        ['#limitations', 'Limitations'],
+      ].map(([href, label]) => ({ href, label, go: () => this.setState({ menu: false }) })),
+      stateRows,
+      queryChips,
+      queryFade: `border:1px solid #1e1e1e;border-radius:10px;background:#0d0d0d;padding:22px 24px;min-height:128px;display:flex;flex-direction:column;gap:14px;transition:opacity 0.22s ease;opacity:${this.state.queryDim ? 0 : 1};`,
+      queryDetail: { signature: q[1], body: q[2], returns: q[3] },
+      pmTabs,
+      installLines,
+      scenarios,
+      run: () => this.run(),
+      runLabel: phase === 'running' ? 'Running' : 'Run query',
+      runStyle: `display:inline-flex;align-items:center;gap:9px;font-family:'Unbounded',sans-serif;font-size:9px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;padding:10px 18px;border-radius:6px;border:none;cursor:pointer;background:var(--accent);color:#0a0a0a;white-space:nowrap;flex-shrink:0;transition:opacity 0.15s;opacity:${phase === 'running' ? 0.55 : 1};`,
+      demoFilename: cur.filename,
+      demoSource: cur.source,
+      demoSourceStyle: `margin:0;padding:16px;font-family:'JetBrains Mono',monospace;font-size:12px;line-height:1.9;color:#d4d4d4;overflow-x:auto;flex:1;transition:opacity 0.22s ease;opacity:${this.state.scenDim ? 0 : 1};`,
+      stateCaptionStyle: `color:#888;transition:opacity 0.22s ease;opacity:${phase === 'done' ? 1 : 0};`,
+      receiptLines,
+      showCursor: phase === 'running',
+      statePillStyle: phase === 'done' ? `font-family:'JetBrains Mono',monospace;font-size:11px;color:${cur.color};` : 'display:none;',
+      statePillText: cur.label,
+      stateCaption: phase === 'done' ? cur.caption : '',
+    };
+  }
+}
+</script>
+</body>
+</html>
