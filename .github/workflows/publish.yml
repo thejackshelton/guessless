@@ -195,11 +195,70 @@ jobs:
           VERSION: ${{ inputs.version }}
         run: |
           set -euo pipefail
-          mkdir /tmp/smoke && cd /tmp/smoke
+          rm -rf /tmp/smoke
+          mkdir -p /tmp/smoke && cd /tmp/smoke
           npm init -y >/dev/null
-          for i in 1 2 3 4 5; do
-            npm install "guessless@$VERSION" && break
-            echo "registry replica not caught up, retry $i"; sleep 15
+
+          # A brand-new version takes a while to reach every registry replica,
+          # and a first-ever publish of a name is the slowest case there is —
+          # which is exactly the case this step runs in. Observed lag on the
+          # 1.0.0 publish was minutes, not seconds, so the budget is ten
+          # attempts thirty seconds apart (~5 minutes) rather than the 75
+          # seconds that produced a red run for a perfectly good release.
+          attempts=10
+          sleep_seconds=30
+          installed=""
+          for attempt in $(seq 1 "$attempts"); do
+            echo "attempt $attempt/$attempts: npm install guessless@$VERSION"
+            if npm install "guessless@$VERSION"; then
+              installed="yes"
+              break
+            fi
+            if [[ "$attempt" -lt "$attempts" ]]; then
+              echo "registry replica has not served guessless@$VERSION yet; waiting ${sleep_seconds}s"
+              sleep "$sleep_seconds"
+            fi
           done
+          # Running out of retries has to fail here. Falling through to the CLI
+          # invocation reports the propagation lag as a JSON parse error, which
+          # names nothing about the actual problem.
+          if [[ -z "$installed" ]]; then
+            echo "the registry never served guessless@$VERSION after $attempts attempts over $(( (attempts - 1) * sleep_seconds ))s of waiting" >&2
+            exit 1
+          fi
+
+          cat >assert.mjs <<'NODE'
+          let stdin = "";
+          process.stdin.setEncoding("utf8");
+          process.stdin.on("data", (chunk) => { stdin += chunk; });
+          process.stdin.on("end", () => {
+            const raw = stdin.trim();
+            if (raw === "") {
+              throw new Error("smoke failed: the published CLI printed nothing on stdout");
+            }
+            let receipt;
+            try {
+              receipt = JSON.parse(raw);
+            } catch {
+              throw new Error(`smoke failed: the published CLI printed something that is not JSON: ${raw}`);
+            }
+            const count = Array.isArray(receipt.results) ? receipt.results.length : null;
+            if (receipt.state !== "complete" || count !== 1) {
+              const got = count === null ? "no results array" : `${count} result(s)`;
+              throw new Error(
+                `smoke failed: expected state "complete" with exactly 1 result, got state ` +
+                  `${JSON.stringify(receipt.state)} with ${got}: ${raw}`,
+              );
+            }
+            console.log("published CLI answers correctly");
+          });
+          NODE
+
+          # The installed binary, not `npx guessless`. npx will happily fetch
+          # and run its own copy, which would prove nothing about the tarball
+          # that was just installed from the registry — the only artifact this
+          # step exists to test.
+          cli="./node_modules/.bin/guessless"
+          test -x "$cli"
           echo '{"inputs":[{"path":"a.ts","source":"export const x = 1;"}],"request":{"kind":"exportedNames","file":"a.ts"}}' \
-            | npx guessless query - | node -e 'let s="";process.stdin.on("data",d=>s+=d).on("end",()=>{const r=JSON.parse(s);if(r.state!=="complete"||r.results.length!==1)throw new Error("smoke failed: "+s);console.log("published CLI answers correctly")})'
+            | "$cli" query - | node assert.mjs
