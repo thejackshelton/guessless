@@ -7,9 +7,14 @@
 #
 # Two things must be true before this can authenticate, and neither is
 # something the workflow can do for itself:
-#   1. All three package names must already exist on the registry — npm
-#      configures a trusted publisher on an EXISTING package, so v1.0.0 of the
-#      brand-new names was published once from a logged-in local machine.
+#   1. All three package names must already exist on the registry, and as of
+#      this writing none of them do. npm configures a trusted publisher on an
+#      EXISTING package: there is no setting to reserve a name that has never
+#      been published, so a package that does not exist yet cannot name this
+#      workflow as its publisher and this job has nothing to authenticate
+#      against. That bootstrap is still owed — v1.0.0 of all three names has to
+#      go up once from a logged-in local machine before this workflow can
+#      publish anything.
 #   2. Each package's npm settings must name THIS repository and the file name
 #      `publish.yml` exactly as its trusted publisher.
 #
@@ -22,6 +27,18 @@
 # Provenance: the repository is public, so the publish step requests npm
 # provenance (Sigstore attestation binding the tarball to this workflow run).
 # The rehearsal keeps it off — a dry run has nothing to attest.
+#
+# Both steps below pack with pnpm and upload with `npm publish <tarball>`
+# rather than calling `pnpm publish`, because pnpm implements publish natively
+# as of v11 instead of handing the upload to npm, and its own implementation
+# does not perform the npm OIDC token exchange. That exchange is the entire
+# credential here, so the day someone bumps `packageManager` to pnpm 11 a
+# `pnpm publish` would stop authenticating for reasons that have nothing to do
+# with this file. Packing with pnpm is still correct: `pnpm pack` resolves
+# workspace:/catalog: specifiers into concrete versions exactly as
+# `pnpm publish` does, so the tarball npm uploads carries the same dependency
+# ranges pnpm would have sent. The one thing pack does not do is apply
+# publishConfig.access, which is why --access public is passed explicitly.
 name: Publish to npm
 
 on:
@@ -140,9 +157,16 @@ jobs:
           NPM_CONFIG_PROVENANCE: "false"
         run: |
           set -euo pipefail
+          rm -rf dist-pack
           for dir in engine mcp cli; do
             echo "::group::dry-run packages/$dir"
-            pnpm --filter "./packages/$dir" publish --access public --no-git-checks --dry-run
+            pnpm --filter "./packages/$dir" pack --pack-destination "dist-pack/$dir"
+            tarball="$(ls -1 "dist-pack/$dir"/*.tgz)"
+            test -f "$tarball"
+            # `./` is load-bearing. npm reads a bare `dist-pack/engine/x.tgz` as
+            # the GitHub shorthand `user/repo` and tries to clone it, so the
+            # failure names a git remote rather than anything about a tarball.
+            npm publish "./$tarball" --access public --dry-run
             echo "::endgroup::"
           done
 
@@ -153,9 +177,14 @@ jobs:
           NPM_CONFIG_PROVENANCE: "true"
         run: |
           set -euo pipefail
+          rm -rf dist-pack
           for dir in engine mcp cli; do
             echo "::group::publish packages/$dir"
-            pnpm --filter "./packages/$dir" publish --access public --no-git-checks
+            pnpm --filter "./packages/$dir" pack --pack-destination "dist-pack/$dir"
+            tarball="$(ls -1 "dist-pack/$dir"/*.tgz)"
+            test -f "$tarball"
+            # See the rehearsal: a bare relative path is a GitHub shorthand.
+            npm publish "./$tarball" --access public
             echo "::endgroup::"
           done
 
